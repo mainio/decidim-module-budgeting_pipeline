@@ -1,0 +1,19 @@
+<% if has_link_to_resource? %>
+  <div class="card__footer">
+    <% if voting? %>
+      <%= render :voting_buttons %>
+    <% else %>
+      <div class="card__support">
+        <div class="card__support__data">
+          <% if show_favorite_button? %>
+            <%== cell("decidim/favorites/favorite_button", model, hide_text: true) %>
+          <% end %>
+        </div>
+
+        <%= resource_link class: "card__button button hollow large primary" do %>
+          <%= t("view", scope: "decidim.budgets.projects.project") %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,16 @@
+<%= t(
+  ".voted_on_budgets",
+  budget_names: @budget_names.join(", ")
+) %>
+
+<p><%= t(".votes_summary") %></p>
+
+<% @orders.each do |order| %>
+  <p><strong><%= translated_attribute(order.budget.title) %></strong></p>
+  <p><%= t(".selected_projects") %></p>
+  <ul>
+  <% order.projects.each do |project| %>
+    <li><%= translated_attribute(project.title) %></li>
+  <% end %>
+  </ul>
+<% end %>

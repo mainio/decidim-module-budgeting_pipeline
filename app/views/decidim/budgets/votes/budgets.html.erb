@@ -1,0 +1,77 @@
+<%= render partial: "top" %>
+
+<div class="row columns">
+  <div class="static__content mb-3">
+    <h2><%= t(".title") %></h2>
+    <%== translated_attribute(component_settings.vote_budgets_page_content) %>
+  </div>
+
+  <% if sticky_budgets.any? %>
+    <div class="mt-5">
+      <h3><%= t(".sticky_budgets", count: sticky_budgets.count) %></h3>
+
+      <div class="detail-selector">
+        <% sticky_budgets.each do |budget| %>
+          <%= render partial: "budget_selector", locals: { budget: budget } %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="mt-5">
+    <h3><%= t(".select_budgets") %></h3>
+
+    <div class="row">
+      <div class="columns mediumlarge-6">
+        <% if suggested_budgets.any? %>
+          <%= t(".authorization_note", budget_name: suggested_budgets.map { |b| translated_attribute(b.title) }.join(", ")) %>
+          <br>
+          <%= t(".budget_select_note.suggested") %>
+        <% else %>
+          <%= t(".budget_select_note.default") %>
+        <% end %>
+      </div>
+      <div class="columns mediumlarge-6 text-right">
+        <button class="link" data-open="budget-modal-info" aria-controls="budget-modal-info" aria-haspopup="true" tabindex="0">
+          <%= icon "information", role: "img", aria_hidden: true %>
+          <%= t(".show_more_information") %>
+        </button>
+      </div>
+    </div>
+
+    <%= decidim_form_for(@form, url: start_vote_path, html: { class: "form start_vote mt-3" }) do |form| %>
+      <div class="detail-selector">
+        <% choose_budgets.each do |budget| %>
+          <%= render partial: "budget_selector", locals: { budget: budget, form: form } %>
+        <% end %>
+      </div>
+
+      <div class="row column flex-actions actions mt-5">
+        <%= link_to t("decidim.budgets.votes.general.exit_voting"), projects_path, class: "button primary hollow" %>
+        <button type="submit" class="button primary icon-after">
+          <%= t("decidim.budgets.votes.general.next") %>
+          <%= icon "chevron-right", role: "img", "aria-hidden": true %>
+        </button>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="small reveal" data-reveal id="budget-modal-info" role="dialog">
+  <div class="reveal__header">
+    <h3 class="reveal__title"><%= t(".show_more_information") %></h3>
+    <button class="close-button" data-close aria-label="<%= t("decidim.budgets.budget_information_modal.close_modal") %>" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <%== translated_attribute(component_settings.more_information_modal) %>
+
+  <div class="row">
+    <div class="columns medium-8 medium-offset-2">
+      <button class="button expanded" data-close type="button">
+        <%= t("decidim.budgets.budget_information_modal.continue") %>
+      </button>
+    </div>
+  </div>
+</div>

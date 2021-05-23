@@ -1,0 +1,34 @@
+<% winning = winning_projects(budget) %>
+<div class="budget-results mb-5">
+  <div class="text-center">
+    <h2><%= t(".title_winning", budget: translated_attribute(budget.title)) %></h2>
+    <p class="h5"><%= t(".budget", amount: budget_to_currency(budget.total_budget)) %></p>
+  </div>
+
+  <% if winning.any? %>
+    <table class="transparent">
+      <thead>
+        <tr>
+          <th></th>
+          <th><%= t(".project_name") %></th>
+          <th class="text-center"><%= t(".project_budget") %></th>
+          <th class="text-center"><%= t(".project_votes") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% winning.each_with_index do |project, index| %>
+          <tr>
+            <td><%= index + 1 %>.</td>
+            <td><%= translated_attribute(project.title) %></td>
+            <td class="text-center"><%= budget_to_currency(project.budget_amount) %></td>
+            <td class="text-center"><%= t(".amount", count: number_with_delimiter(project.votes_count)) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="text-center">
+      <p><%= t(".no_votes_yet") %></p>
+    </div>
+  <% end %>
+</div>

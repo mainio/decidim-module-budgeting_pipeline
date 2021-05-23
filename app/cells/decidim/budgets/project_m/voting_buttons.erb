@@ -1,0 +1,16 @@
+<div class="card__info">
+  <div class="card__info__item">
+    <div class="row">
+      <div class="columns small-8 small-push-2 mb-0">
+        <div class="text-center">
+          <%= render partial: "decidim/budgets/projects/project_budget_button.html", locals: { project: model } %>
+        </div>
+        <div class="text-center">
+          <%= resource_link class: "button expanded hollow primary" do %>
+            <%= t("view", scope: "decidim.budgets.projects.project") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

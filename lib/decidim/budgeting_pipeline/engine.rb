@@ -1,0 +1,134 @@
+# frozen_string_literal: true
+
+module Decidim
+  module BudgetingPipeline
+    # This is an engine that controls the budgeting pipeline functionality.
+    class Engine < ::Rails::Engine
+      isolate_namespace Decidim::BudgetingPipeline
+
+      initializer "decidim_budgeting_pipeline.component_settings" do
+        Decidim.find_component_manifest(:budgets).tap do |component|
+          component.admin_stylesheet = "decidim/budgeting_pipeline/admin/budgets"
+          component.settings(:global) do |settings|
+            # Enable editor content for the more information modal
+            more_information = settings.attributes[:more_information_modal]
+            more_information.editor = true
+
+            # Add extra attributes
+            settings.attribute :geocoding_enabled, type: :boolean
+            settings.attribute :default_map_center_coordinates, type: :string
+            settings.attribute :vote_identify_page_content, type: :text, translated: true, editor: true
+            settings.attribute :vote_identify_page_more_information, type: :text, translated: true, editor: true
+            settings.attribute :vote_budgets_page_content, type: :text, translated: true, editor: true
+            settings.attribute :vote_projects_page_content, type: :text, translated: true, editor: true
+            settings.attribute :vote_choose_page_content, type: :text, translated: true, editor: true
+            settings.attribute :vote_preview_page_content, type: :text, translated: true, editor: true
+            settings.attribute :vote_success_content, type: :text, translated: true, editor: true
+            settings.attribute :results_page_content, type: :text, translated: true, editor: true
+          end
+        end
+      end
+
+      initializer "decidim_budgeting_pipeline.mount_routes" do
+        Decidim::Budgets::Engine.routes.prepend do
+          resources :projects, only: [:index, :show]
+
+          resource :vote, only: [:show, :create] do
+            get :budgets
+            post :start
+            get :projects
+            get :choose
+            get :preview
+          end
+
+          resources :budgets, only: [] do
+            resource :order, only: [] do
+              resource :line_item, only: [] do
+                put :confirm
+                put :confirm_all
+              end
+            end
+          end
+
+          resource :results, only: [:show]
+
+          # Change the component root to the projects index
+          root to: "projects#index"
+        end
+      end
+
+      initializer "decidim_budgeting_pipeline.assets" do |app|
+        app.config.assets.precompile += %w(decidim_budgeting_pipeline_manifest.js)
+      end
+
+      initializer "decidim_budgeting_pipeline.add_cells_view_paths", before: "decidim_budgets.add_cells_view_paths" do
+        Cell::ViewModel.view_paths << File.expand_path("#{Decidim::BudgetingPipeline::Engine.root}/app/cells")
+        Cell::ViewModel.view_paths << File.expand_path("#{Decidim::BudgetingPipeline::Engine.root}/app/views") # for partials
+      end
+
+      config.to_prepare do
+        # Helper extensions
+        Decidim::Budgets::ApplicationHelper.include(
+          Decidim::BudgetingPipeline::ApplicationHelperExtensions
+        )
+        Decidim::Budgets::ProjectsHelper.include(
+          Decidim::BudgetingPipeline::ProjectsHelperExtensions
+        )
+
+        # Controller extensions
+        Decidim::Budgets::ProjectsController.include(
+          Decidim::BudgetingPipeline::ProjectsControllerExtensions
+        )
+        Decidim::Budgets::LineItemsController.include(
+          Decidim::BudgetingPipeline::LineItemsControllerExtensions
+        )
+
+        # Cell extensions
+        Decidim::Budgets::ProjectMCell.include(
+          Decidim::BudgetingPipeline::ProjectMCellExtensions
+        )
+        Decidim::Budgets::ProjectListItemCell.include(
+          Decidim::BudgetingPipeline::ProjectListItemCellExtensions
+        )
+
+        # Form extensions
+        Decidim::Budgets::Admin::BudgetForm.include(
+          Decidim::BudgetingPipeline::AdminBudgetFormExtensions
+        )
+        Decidim::Budgets::Admin::ProjectForm.include(
+          Decidim::BudgetingPipeline::AdminProjectFormExtensions
+        )
+
+        # Command extensions
+        Decidim::Budgets::Admin::CreateBudget.include(
+          Decidim::BudgetingPipeline::AdminCreateBudgetExtensions
+        )
+        Decidim::Budgets::Admin::UpdateBudget.include(
+          Decidim::BudgetingPipeline::AdminUpdateBudgetExtensions
+        )
+        Decidim::Budgets::Admin::CreateProject.include(
+          Decidim::BudgetingPipeline::AdminCreateProjectExtensions
+        )
+        Decidim::Budgets::Admin::UpdateProject.include(
+          Decidim::BudgetingPipeline::AdminUpdateProjectExtensions
+        )
+
+        # Model extensions
+        Decidim::Budgets::Project.include(
+          Decidim::BudgetingPipeline::ProjectExtensions
+        )
+        Decidim::Budgets::Order.include(
+          Decidim::BudgetingPipeline::OrderExtensions
+        )
+        Decidim::Budgets::LineItem.include(
+          Decidim::BudgetingPipeline::LineItemExtensions
+        )
+
+        # Services extensions
+        Decidim::Budgets::ProjectSearch.include(
+          Decidim::BudgetingPipeline::ProjectSearchExtensions
+        )
+      end
+    end
+  end
+end

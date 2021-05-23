@@ -1,0 +1,34 @@
+<div class="row column view-header">
+  <%= link_to projects_path(filter_link_params), class: "small hollow" do %>
+    <%= icon "chevron-left", class: "icon--small" %>
+    <%= t(".show_projects") %>
+  <% end %>
+</div>
+
+<div class="row columns">
+  <div class="text-center">
+    <h1><%= t(".title", organization_name: current_organization.name) %></h1>
+  </div>
+</div>
+
+<div class="row mb-5">
+  <div class="columns small-centered mediumlarge-10 large-8">
+    <div class="static__content text-center">
+      <%== translated_attribute component_settings.results_page_content %>
+    </div>
+  </div>
+</div>
+
+<div class="row columns">
+  <% sticky_budgets.each do |budget| %>
+    <%= render partial: "budget_results", locals: { budget: budget } %>
+  <% end %>
+
+  <% common_budgets.each do |budget| %>
+    <%= render partial: "budget_results", locals: { budget: budget } %>
+  <% end %>
+</div>
+
+<% if vote_success? %>
+  <%= render partial: "vote_finished_modal" %>
+<% end %>

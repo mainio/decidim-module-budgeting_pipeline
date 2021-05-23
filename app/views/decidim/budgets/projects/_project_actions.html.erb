@@ -1,0 +1,35 @@
+<ul class="actionbox-links">
+  <li>
+    <%= cell("decidim/favorites/favorite_button", project, button_class: "link action-link", disable_tooltip: true) %>
+  </li>
+  <li>
+    <button type="button" class="link action-link" data-open="socialShare" aria-haspopup="true">
+      <%= icon "share", role: "img", "aria-hidden": true %>
+      <span class="link-text"><%= t ".share" %></span>
+    </button>
+  </li>
+  <li>
+    <%= link_to "#comments", class: "action-link" do %>
+      <%= icon "comment-square", role: "img", "aria-hidden": true %>
+      <span class="link-text"><%= t ".show_comments" %></span>
+    <% end %>
+  </li>
+  <% if component_settings.geocoding_enabled? && project.latitude.present? && project.longitude.present? %>
+    <li>
+      <%= link_to project_map_link(project), class: "action-link", target: "_blank" do %>
+        <%= icon "map-marker", role: "img", "aria-hidden": true %>
+        <span class="link-text"><%= t ".show_on_map" %></span>
+      <% end %>
+    </li>
+  <% end %>
+  <% if false %>
+    <li>
+     <button type="button" class="link action-link">
+        <%= icon "print", role: "img", "aria-hidden": true %>
+        <span class="link-text"><%= t ".print" %></span>
+     </button>
+    </li>
+  <% end %>
+</ul>
+
+<%= render partial: "share_modal" %>

@@ -1,0 +1,72 @@
+$detail-selector-background: $light-gray !default;
+$detail-selector-color: $body-font-color !default;
+
+.inline-labels{
+  label{
+    display: inline-block;
+    margin-right: 2rem;
+    padding-top: $input-padding;
+    padding-bottom: $input-padding;
+  }
+}
+
+.voting-identity{
+  margin: 3rem 0 6rem;
+}
+
+.detail-selector{
+  .detail-selector-item{
+    background: $detail-selector-background;
+    margin-bottom: 1rem;
+    padding: 10px 20px;
+
+    input[type="checkbox"],
+    input[type="radio"]{
+      margin: 0;
+    }
+  }
+
+  .detail-selector-title{
+    font-weight: $global-weight-bold;
+    color: $detail-selector-color;
+
+    label,
+    button{
+      font-weight: $global-weight-bold;
+      color: $detail-selector-color;
+    }
+  }
+}
+
+.flex-actions{
+  display: flex;
+  flex: 1 1 0;
+  justify-content: space-between;
+  align-items: center;
+
+  > *:last-child{
+    margin-left: auto;
+  }
+
+  .button{
+    &.icon-before,
+    &.icon-after{
+      .icon{
+        position: relative;
+        top: 2px;
+      }
+    }
+
+    .icon-before .icon{
+      margin-right: 1rem;
+    }
+
+    .icon-after .icon{
+      margin-left: 1rem;
+    }
+  }
+}
+
+.orders-summary{
+  padding: 2rem;
+}

@@ -1,0 +1,19 @@
+var $orderProgress = $("#order-progress-<%= current_order.budget.id %>");
+var $orderTotal = $("#order-total-<%= current_order.budget.id %>");
+var $notifications = $("#choose-notifications-<%= current_order.budget.id %>");
+
+if ($orderProgress.length > 0) {
+  morphdom($orderProgress[0], '<%= j(render partial: "decidim/budgets/votes/order_progress", locals: { order: current_order }).strip.html_safe %>')
+}
+
+if ($orderTotal.length > 0) {
+  morphdom($orderTotal[0], '<%= j(render partial: "decidim/budgets/votes/order_total", locals: { order: current_order }).strip.html_safe %>')
+}
+
+if ($notifications.length > 0) {
+  $notifications.html('<%= j(render partial: "decidim/budgets/votes/choose_notifications", locals: { order: current_order }).strip.html_safe %>');
+}
+
+if (window.DecidimBudgetingPipeline && window.DecidimBudgetingPipeline.checkVotingAllowed) {
+  window.DecidimBudgetingPipeline.checkVotingAllowed();
+}

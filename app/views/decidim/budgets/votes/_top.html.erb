@@ -1,0 +1,33 @@
+<% content_for :top do %>
+  <div class="row columns mt-1 mb-1">
+    <%= link_to projects_path do %>
+      <%= icon "chevron-left", role: "img", "aria-hidden": true %>
+      <%= t("decidim.budgets.votes.general.exit_voting") %>
+    <% end %>
+  </div>
+  <div class="extended hero bg-primary">
+    <div class="hero__container">
+      <div class="row">
+        <div class="columns small-centered large-10">
+          <h1 class="heading2 hero-heading"><%= t(".title") %></h1>
+        </div>
+      </div>
+    </div>
+
+    <% if help_sections.any? %>
+      <div class="pb-5">
+        <div class="row pb-5">
+          <div class="columns small-centered mediumlarge-8">
+            <%= render partial: "decidim/budgets/shared/help_sections" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <%= koro("pulse") if respond_to?(:koro) %>
+  </div>
+<% end %>
+
+<div class="row columns">
+  <%= render partial: "steps" %>
+</div>

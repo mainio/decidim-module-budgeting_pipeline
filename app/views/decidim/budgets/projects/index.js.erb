@@ -1,0 +1,18 @@
+var $projects = $('#projects');
+var $map = $('#map');
+var $projectsCount = $('#projects-count');
+var $orderFilterInput = $('.order_filter');
+
+$projects.html('<%= j(render partial: "projects").strip.html_safe %>');
+$projectsCount.html('<%= j(render partial: "count").strip.html_safe %>');
+$orderFilterInput.val('<%= order %>');
+
+var $dropdownMenu = $('.dropdown.menu', $projects);
+$dropdownMenu.foundation();
+
+var mapController = $map.data("map-controller");
+if (mapController) {
+  var projectsData = JSON.parse('<%== escape_javascript projects_data_for_map(geocoded_projects).to_json %>');
+  mapController.clearMarkers();
+  mapController.addMarkers(projectsData);
+}

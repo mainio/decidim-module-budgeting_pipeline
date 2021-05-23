@@ -1,0 +1,243 @@
+fi:
+  activemodel:
+    attributes:
+      budget:
+        center_latitude: Keskipisteen leveysaste (latitude)
+        center_longitude: Keskipisteen pituusaste (longitude)
+      help_section:
+        description: Kuvaus
+        image: Kuva
+        link: Linkki
+        link_text: Linkin teksti
+        title: Otsikko
+        weight: Järjestysnumero
+      project:
+        address: Osoite
+  decidim:
+    budgeting_pipeline:
+      admin:
+        area_scopes:
+          choose_parent: Valitse ensin komponentille teema ja ota teemat käyttöön.
+      help_containers:
+        index:
+          name: Etusivu
+        pipeline:
+          name: Äänestysputki
+    budgets:
+      admin:
+        models:
+          help_section:
+            name: Ohjeosio
+        help_sections:
+          create:
+            invalid: Ohjeosion luonti epäonnistui
+            success: Ohjeosion luonti onnistui
+          destroy:
+            invalid: Ohjeosion poisto epäonnistui
+            success: Ohjeosion luonti onnistui
+          edit:
+            title: Muokkaa ohjeosiota
+            update: Päivitä ohjeosio
+          new:
+            create: Luo ohjeosio
+            title: Uusi ohjeosio
+          update:
+            invalid: Ohjeosion päivitys epäonnistui
+            success: Ohjeosion päivitys onnistui
+        helps:
+          index:
+            title: Ohjepaikat
+      models:
+        help_container:
+          fields:
+            name: Nimi
+        help_section:
+          fields:
+            title: Otsikko
+            weight: Järjestysnumero
+        project:
+          fields:
+            address: Osoite
+          statuses:
+            not_selected: Ei etene toteutukseen
+            selected: Etenee toteutukseen
+      order_summaries_mailer:
+        order_summaries:
+          selected_projects: 'Ehdotukset, jotka valitsit:'
+          subject: Äänestit alueilla %{budget_names}
+          voted_on_budgets: Äänestit alueilla %{budget_names}.
+          votes_summary: Alta löydät yhteenvedon äänestäsi.
+      projects:
+        details_table:
+          budget_amount: Budjetti
+          budget_name: Alue
+          category_name: Teema
+          vote_count: Ääniä
+        filters:
+          activity: Oma toiminta
+          activity_values:
+            all: Kaikki
+            authored: Omat ehdotukset
+            favorites: Omat suosikit
+          budget: Alue
+          budget_amount_max: Budjetti enintään
+          budget_amount_min: Budjetti vähintään
+          budget_enter_amount: Syötä numeroarvo
+          budgets_values:
+            all: Kaikki alueet
+          categories_values:
+            all: Kaikki teemat
+          reset: Tyhjennä rajaukset
+          status_values:
+            not_selected: Ei etene toteutukseen
+            selected: Etenee toteutukseen
+          title: Etsi ehdotuksista
+        index:
+          follow_voting: Seuraa äänestystilannetta
+          see_results: Näytä lopullinen äänestystilanne
+          start_voting: Aloita äänestys
+          view_project: Näytä ehdotus
+        orders:
+          alphabetical: Aakkosjärjestys
+        project:
+          view: Näytä ehdotus
+        project_actions:
+          share: Jaa ehdotus
+          show_comments: Katso ehdotuksen kommentit
+          show_on_map: Katso ehdotus kartalla
+          print: Tulosta ehdotus
+        project_budget_button:
+          add_descriptive: Lisää ehdotus %{resource_name} äänestyskoriisi
+          added_descriptive: Ehdotus %{resource_name} lisätty äänestyskoriisi
+          add_to_vote: Lisää äänestyskoriin
+          remove_from_vote: Poista äänestyskorista
+        show:
+          close: Sulje
+          start_voting: Aloita äänestys
+          view_all_projects: Näytä kaikki ehdotukset
+          voting_note_html: <p>Aloittaaksesi äänestyksen sinun on tunnistauduttava ja siirryttävä äänestystilaan. Äänestystilassa sinun tulee valita se alue, johon tämä ehdotus kuuluu ja valittava se ääneesi.</p>
+      results:
+        budget_results:
+          amount:
+            one: "%{count} kpl"
+            other: "%{count} kpl"
+          budget: "Budjetti: %{amount}"
+          no_votes_yet: Alueella ei ole vielä ääniä.
+          project_budget: Budjetti
+          project_name: Ehdotus
+          project_votes: Ääniä
+          title_winning: "%{budget} - Toteutuslista"
+        show:
+          show_projects: Näytä ehdotukset
+          title: "%{organization_name} äänestystilanne"
+        vote_finished_modal:
+          close: Sulje ikkuna
+          continue: Jatka sisäänkirjautuneena
+          sign_out: Kirjaudu ulos
+          title: Kiitos äänestäsi!
+      votes:
+        budget_selector:
+          favorites_for_budget:
+            one: "yksi suosikki alueella"
+            other: "%{count} kpl suosikkeja alueella"
+        budgets:
+          authorization_note: "Postinumerosi kuuluu alueelle: %{budget_name}"
+          budget_select_note:
+            default: Valitse, millä alueella haluat äänestää.
+            suggested: Voit vaihtaa äänestysaluetta valitsemalla jonkun toisen alueen.
+          select_budgets: Äänestysalue
+          show_more_information: Mitä kaupunginosia alueille kuuluu?
+          sticky_budgets:
+            one: Kaikki saavat äänestää tämän alueen ehdotuksia
+            other: Kaikki saavat äänestää näiden alueiden ehdotuksia
+          title: Valitse äänestysalue
+        choose:
+          choose_all_projects: Alueen kaikki ehdotukset
+          title: Äänestyskori
+          view_project: Näytä ehdotus
+        choose_notifications:
+          errors:
+            allocation_exceeded:
+              description: Voidaksesi edetä esikatseluun ja äänestyksen vahvistamiseen, sinun täytyy poistaa jokin ehdotus, jotta valitsemasi ehdotukset mahtuvat alueen budjettiin.
+              title: Alueen budjetti on ylittynyt!
+            allocation_exceeded_projects:
+              description: Voidaksesi edetä esikatseluun ja äänestyksen vahvistamiseen, sinun täytyy poistaa jokin ehdotus, jotta valitsemasi ehdotukset eivät ylitä alueelle määritettyä ehdotusten enimmäismäärää.
+              title: Liian monta ehdotusta valittu!
+            maximum_budget:
+              description: Poista valitsemiasi ehdotuksia äänestäsi ennen kuin voit jatkaa seuraavaan vaiheeseen. Käytettävissäsi on enintään %{amount}.
+              title: Alueen %{budget} budjetti on ylittynyt
+            minimum_budget:
+              description: Lisää ehdotuksia äänestäsi ennen kuin voit jatkaa seuraavaan vaiheeseen. Sinun on käytettävä vähintään %{amount} budjetista.
+              title: Alueelta %{budget} on valittava enemmän ehdotuksia
+            maximum_projects:
+              description: Poista valitsemiasi ehdotuksia äänestäsi ennen kuin voit jatkaa seuraavaan vaiheeseen.
+              title:
+                one: Voit valita enintään yhden ehdotuksen alueelta %{budget}
+                other: Olet valinnut liian monta ehdotusta alueelta %{budget}, valittava enintään %{count}
+            minimum_projects:
+              description: Huomioithan, että sinulla on mahdollisuus valita ehdotuksia äänestyskoriin edellisessä vaiheessa. Siirry takaisin edelliseen vaiheeseen ja valitse haluamasi ehdotukset äänestyskoriisi.
+              title:
+                one: Et ole vielä valinnut yhtään ehdotusta alueelta %{budget}
+                other: Et ole valinnut tarpeeksi monta ehdotusta alueelta %{budget}, valittava vähintään %{count}
+        create:
+          error: Äänen käsittely epäonnistui, yritä uudestaan.
+          success: Äänesi tallennus onnistui!
+        general:
+          already_voted: Olet jo äänestänyt.
+          exit_voting: Poistu äänestyksestä
+          next: Seuraava
+          not_authorized: Sinun täytyy tunnistautua äänestääksesi.
+          previous: Edellinen
+        order_progress:
+          allocated_budget: Budjetista varattu
+          allocated_projects: Valitut ehdotukset
+          available_budget: Alueen budjetti
+          available_projects: Valittavien ehdotusten määrä
+          unused_budget: Budjettia jäljellä
+          unused_projects: Ehdotuksia valittavana
+        orders_summary:
+          allocated_budget: Budjetista varattu
+          available_budget: Alueen budjetti
+          available_projects: Ehdotusten maksimimäärä
+          selected_projects: Ehdotuksia korissa
+          selected_projects_count: "%{count} kpl"
+        order_total:
+          order_budget_sum: Valittujen ehdotusten summa
+          order_projects_sum: Valittujen ehdotusten määrä
+        preview:
+          allocated_budget: Valittujen ehdotusten summa
+          allocated_projects: Valittujen ehdotusten määrä
+          title: Esikatselu ja äänestys
+          total_budget: Alueen budjetti
+          total_projects: Alueen valittavien ehdotusten määrä
+          vote: Äänestä
+        projects:
+          orders_summary_title: Äänestyskorin tilanne
+          orders_summary_description: Tarkemmat valinnat voi tehdä seuraavassa vaiheessa äänestyskorin puolella.
+          title: Selaa ehdotuksia
+        show:
+          title: Vahva tunnistautuminen
+        start:
+          invalid: Äänestysalueen valinta epäonnistui, yritä uudestaan.
+        steps:
+          authorization: Vahva tunnistautuminen ja äänestysalueen valinta
+          budgets: Äänestysalueen valinta
+          choose: Äänestyskori
+          preview: Esikatselu ja äänestys
+          projects: Ehdotusten selaus
+        top:
+          title: Äänestys
+    components:
+      budgets:
+        settings:
+          global:
+            geocoding_enabled: Geokoodaus käytössä
+            default_map_center_coordinates: Kartan oletuskeskipisteen koordinaatit (latitude,longitude)
+            results_page_content: Tulossivun sisältö
+            vote_budgets_page_content: Alueen valintasivun sisältö
+            vote_choose_page_content: Äänestyskorisivun sisältö
+            vote_identify_page_content: Tunnistautumissivun sisältö
+            vote_identify_page_more_information: Tunnistautumissivun lisätiedot
+            vote_preview_page_content: Esikatselusivun sisältö
+            vote_projects_page_content: Ehdotusten selaussivun sisältö
+            vote_success_content: Onnistuneen äänestyksen jälkeen näytettävä sisältö

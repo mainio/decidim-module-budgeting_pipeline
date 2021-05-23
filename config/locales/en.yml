@@ -1,0 +1,42 @@
+fi:
+  activemodel:
+    attributes:
+      help_section:
+        description: Description
+        image: Image
+        link: Link
+        link_text: Link text
+        title: Title
+        weight: Order position
+      project:
+        address: Address
+  decidim:
+    budgets:
+      admin:
+        help_sections:
+          create:
+            invalid: There was a problem creating this help section
+            success: Help section successfully created
+          destroy:
+            invalid: There was a problem deleting this help section
+            success: Help section successfully deleted
+          edit:
+            title: Edit help section
+            update: Update help section
+          index:
+            title: Help sections
+          new:
+            create: Create help section
+            title: New help section
+          update:
+            invalid: There was a problem updating this help section
+            success: Help section successfully updated
+      models:
+        project:
+          fields:
+            address: Address
+    components:
+      budgets:
+        settings:
+          global:
+            geocoding_enabled: Geocoding enabled

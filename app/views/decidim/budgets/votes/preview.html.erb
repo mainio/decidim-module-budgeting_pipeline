@@ -1,0 +1,59 @@
+<%= render partial: "top" %>
+
+<div class="row columns">
+  <div class="static__content">
+    <h2><%= t(".title") %></h2>
+    <%== translated_attribute component_settings.vote_preview_page_content %>
+  </div>
+
+  <% current_orders.each do |order| %>
+    <div class="order-wrapper mt-5 mb-5">
+      <h3><%= translated_attribute(order.budget.title) %></h3>
+
+      <% if order.projects_rule? %>
+        <p><%= t(".total_projects") %>: <%= budget_to_currency(order.available_allocation) %></p>
+      <% else %>
+        <p><%= t(".total_budget") %>: <%= budget_to_currency(order.available_allocation) %></p>
+      <% end %>
+
+      <div class="row">
+        <div class="columns mediumlarge-10 mediumlarge-push-1">
+          <table class="transparent">
+            <tbody>
+              <% order.confirmed_line_items.order_by_projects.each do |item| %>
+                <tr>
+                  <td><strong><%= translated_attribute(item.project.title) %></strong></td>
+                  <td class="text-right"><strong><%= budget_to_currency(item.project.budget_amount) %></strong></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <hr class="reset mt-0 mb-1">
+          <div class="text-right">
+            <% if order.projects_rule? %>
+              <%= t(".allocated_projects") %>:
+              &nbsp;&nbsp;
+              <strong><%= order.confirmed_total %></strong>
+            <% else %>
+              <%= t(".allocated_budget") %>:
+              &nbsp;&nbsp;
+              <strong><%= budget_to_currency(order.confirmed_total) %></strong>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div id="choose-buttons">
+    <div class="row column flex-actions actions mt-5">
+      <%= link_to choose_vote_path, class: "button primary hollow icon-before" do %>
+        <%= icon "chevron-left", role: "img", "aria-hidden": true %>
+        <%= t("decidim.budgets.votes.general.previous") %>
+      <% end %>
+      <%= button_to vote_path, class: "button primary icon-after" do %>
+        <%= t(".vote") %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<ul class="tabs tabs-stepper expanded" id="voting-tabs">
+  <% voting_steps.each_with_index do |step, index| %>
+    <li class="tabs-stepper-step<%= " is-active" if step.key == current_step %>">
+      <div class="step-selector">
+        <div class="step-selector-number">
+          <% if step.done %>
+            <%= icon "check", role: "img", aria_hidden: true %>
+            <span class="show-for-sr"><%= index + 1 %></span>
+          <% else %>
+            <%= index + 1 %>
+          <% end %>
+        </div>
+        <div class="step-selector-text"><%= t(".#{step.key}") %></div>
+      </div>
+    </li>
+  <% end %>
+</ul>
+

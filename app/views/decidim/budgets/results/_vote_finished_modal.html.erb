@@ -1,0 +1,26 @@
+<div class="reveal" id="vote-finished-modal" data-reveal>
+  <div class="reveal__header">
+    <h2 class="reveal__title"><%= t(".title") %></h2>
+    <button class="close-button" data-close aria-label="<%= t(".close") %>"
+      type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="reveal__content" id="vote-finished-modal-content" aria-live="assertive">
+    <%== translated_attribute component_settings.vote_success_content %>
+
+    <div class="text-center">
+      <%= link_to t(".sign_out"), decidim.destroy_user_session_path, method: :delete, class: "sign-out-link button primary", role: "menuitem" %>
+    </div>
+    <div class="text-center">
+      <button class="button primary hollow" data-close><%= t(".continue") %></button>
+    </div>
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  var $modal = $("#vote-finished-modal");
+  $modal.foundation("open");
+});
+</script>

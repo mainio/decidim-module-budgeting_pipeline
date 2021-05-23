@@ -1,0 +1,29 @@
+<table class="transparent">
+  <tbody>
+    <tr>
+      <th class="text-left"><%= t(".budget_name") %></th>
+      <td><%= translated_attribute(project.budget.title) %></td>
+    </tr>
+    <% if project.category %>
+      <tr>
+        <th class="text-left"><%= t(".category_name") %></th>
+        <td>
+          <% if project.category.parent %>
+            <%= translated_attribute(project.category.parent.name) %> -
+          <% end %>
+          <%= translated_attribute(project.category.name) %>
+        </td>
+      </tr>
+    <% end %>
+    <tr>
+      <th class="text-left"><%= t(".budget_amount") %></th>
+      <td><%= budget_to_currency project.budget_amount %></td>
+    </tr>
+    <% if current_settings.show_votes? %>
+      <tr>
+        <th class="text-left"><%= t(".vote_count") %></th>
+        <td><%= project.confirmed_orders_count %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

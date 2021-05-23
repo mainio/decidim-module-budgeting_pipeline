@@ -1,0 +1,91 @@
+<% content_for :top do %>
+  <div class="extended hero bg-primary mt-5">
+    <div class="hero__container">
+      <div class="row">
+        <div class="columns small-centered large-10">
+          <h1 class="heading2 hero-heading"><%= translated_attribute current_component.name %></h1>
+        </div>
+      </div>
+      <div class="row">
+        <% if help_sections.any? %>
+          <div class="columns mediumlarge-6">
+            <%= render partial: "decidim/budgets/shared/help_sections" %>
+          </div>
+        <% end %>
+        <div class="columns mediumlarge-6 <%= "mediumlarge-push-3" unless help_sections.any? %>">
+          <div class="info-section mt-5">
+            <div class="row">
+              <div class="columns mediumlarge-8 mediumlarge-push-2">
+                <div class="static__content text-center">
+                  <%== translated_attribute component_settings.landing_page_content %>
+                  <% if voting_open? && !user_voted? %>
+                    <p>
+                      <%= link_to t(".start_voting"), vote_path, class: "button expanded secondary" %>
+                    </p>
+                  <% end %>
+                  <% if current_settings.show_votes? %>
+                    <p>
+                      <%= link_to voting_finished? ? t(".see_results") : t(".follow_voting"), results_path, class: "button expanded secondary hollow" %>
+                    </p>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
+<% if component_settings.geocoding_enabled? %>
+  <%= projects_map projects_data_for_map(geocoded_projects) do %>
+    <template id="marker-popup">
+      <div class="map-info__content">
+        <h3>${title}</h3>
+        <div id="bodyContent">
+          <p>{{html body}}</p>
+          <div class="map__date-adress">
+            <div class="address card__extra">
+              <div class="address__icon">{{html icon}}</div>
+              <div class="address__details">
+                <span>${address}</span><br>
+              </div>
+            </div>
+          </div>
+          <div class="map-info__button">
+            <a href="${link}" class="button button--sc">
+              <%= t(".view_project") %>
+            </a>
+          </div>
+        </div>
+      </div>
+    </template>
+  <% end %>
+<% end %>
+
+<div class="row columns">
+  <%= render partial: "filters_small_view" %>
+  <div class="card card--secondary show-for-mediumlarge">
+    <div class="record-filters">
+      <%= render partial: "filters" %>
+    </div>
+  </div>
+</div>
+
+<div class="row columns">
+  <div class="title-action">
+    <h2 id="projects-count" class="title-action__title section-heading">
+      <%= render partial: "count" %>
+    </h2>
+  </div>
+</div>
+<div class="row">
+  <div id="projects" class="columns" aria-live="polite">
+    <%= render partial: "projects" %>
+  </div>
+</div>
+
+<%= javascript_include_tag("decidim/filters") %>
+<%= javascript_include_tag("decidim/budgeting_pipeline/projects") %>

@@ -1,0 +1,15 @@
+<div class="card__info">
+  <div class="card__info__item">
+    <%= translated_attribute(model.budget.title) %>
+  </div>
+
+  <div class="card__info__item text-right">
+    #<%= model.id %>
+  </div>
+</div>
+
+<div class="card__info">
+  <div class="card__info__item">
+    <%= budget_to_currency model.budget_amount %>
+  </div>
+</div>
