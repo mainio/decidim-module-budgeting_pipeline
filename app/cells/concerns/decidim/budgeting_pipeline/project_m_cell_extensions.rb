@@ -110,8 +110,12 @@ module Decidim
         cat = icon_category
         return unless cat
 
+        full_category = []
+        full_category << translated_attribute(cat.parent.name) if cat.parent
+        full_category << translated_attribute(cat.name)
+
         content_tag(:span, class: "card__category__icon", "aria-hidden": true) do
-          image_tag(cat.category_icon.url, alt: full_category)
+          image_tag(cat.category_icon.url, alt: full_category.join(" - "))
         end
       end
 
