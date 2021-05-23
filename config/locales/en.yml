@@ -1,42 +1,243 @@
-fi:
+en:
   activemodel:
     attributes:
+      budget:
+        center_latitude: Center latitude
+        center_longitude: Center longitude
       help_section:
         description: Description
         image: Image
         link: Link
         link_text: Link text
         title: Title
-        weight: Order position
+        weight: Order number
       project:
         address: Address
   decidim:
+    budgeting_pipeline:
+      admin:
+        area_scopes:
+          choose_parent: Select a theme first and enable themes for the component.
+      help_containers:
+        index:
+          name: Front page
+        pipeline:
+          name: Voting pipeline
     budgets:
       admin:
+        models:
+          help_section:
+            name: Help section
         help_sections:
           create:
-            invalid: There was a problem creating this help section
+            invalid: There was a problem creating the help section
             success: Help section successfully created
           destroy:
-            invalid: There was a problem deleting this help section
+            invalid: There was a problem deleting the help section
             success: Help section successfully deleted
           edit:
             title: Edit help section
             update: Update help section
-          index:
-            title: Help sections
           new:
             create: Create help section
             title: New help section
           update:
-            invalid: There was a problem updating this help section
+            invalid: There was a problem updating the help section
             success: Help section successfully updated
+        helps:
+          index:
+            title: Helping content
       models:
+        help_container:
+          fields:
+            name: Name
+        help_section:
+          fields:
+            title: Title
+            weight: Order number
         project:
           fields:
             address: Address
+          statuses:
+            not_selected: Will not proceed to implementation
+            selected: Proceeds to implementation
+      order_summaries_mailer:
+        order_summaries:
+          selected_projects: 'Selected proposals:'
+          subject: You voted in %{budget_names}
+          voted_on_budgets: You voted in %{budget_names}.
+          votes_summary: Below you will find a summary of your vote.
+      projects:
+        details_table:
+          budget_amount: Budget
+          budget_name: Area
+          category_name: Theme
+          vote_count: Votes
+        filters:
+          activity: My activity
+          activity_values:
+            all: All
+            authored: My proposals
+            favorites: My favorites
+          budget: Area
+          budget_amount_max: Maximum budget
+          budget_amount_min: Minimum budget
+          budget_enter_amount: Enter a number
+          budgets_values:
+            all: All areas
+          categories_values:
+            all: All themes
+          reset: Clear filters
+          status_values:
+            not_selected: Will not proceed to implementation
+            selected: Proceeds to implementation
+          title: Search proposals
+        index:
+          follow_voting: Follow the voting situation
+          see_results: Show final results
+          start_voting: Start voting
+          view_project: Show proposal
+        orders:
+          alphabetical: Alphabetical
+        project:
+          view: Show proposal
+        project_actions:
+          share: Share proposal
+          show_comments: Show proposal comments
+          show_on_map: Show proposal on map
+          print: Print proposal
+        project_budget_button:
+          add_descriptive: Add proposal %{resource_name} to your voting basket
+          added_descriptive: Proposal %{resource_name} added to your voting basket
+          add_to_vote: Add to voting basket
+          remove_from_vote: Remove from voting basket
+        show:
+          close: Close
+          start_voting: Start voting
+          view_all_projects: Show all proposals
+          voting_note_html: <p>To start voting, you have to identify yourself and enter the voting mode. In the voting mode, you have to select the area to which this proposal belongs and select it for your vote.</p>
+      results:
+        budget_results:
+          amount:
+            one: "%{count} pcs"
+            other: "%{count} pcs"
+          budget: "Budget: %{amount}"
+          no_votes_yet: There are no votes in this area yet.
+          project_budget: Budget
+          project_name: Proposal
+          project_votes: Votes
+          title_winning: "%{budget} - Implementation list"
+        show:
+          show_projects: Show proposals
+          title: "%{organization_name} voting situation"
+        vote_finished_modal:
+          close: Close window
+          continue: Confinue signed in
+          sign_out: Sign out
+          title: Thank you for your vote!
+      votes:
+        budget_selector:
+          favorites_for_budget:
+            one: "one favorite in the area"
+            other: "%{count} favorites in the area"
+        budgets:
+          authorization_note: "Your postal code belongs to area: %{budget_name}"
+          budget_select_note:
+            default: Choose the area in which you want to vote.
+            suggested: You can change the voting area by selecting another area.
+          select_budgets: Voting area
+          show_more_information: Which districts belong to this area?
+          sticky_budgets:
+            one: Everyone can vote for the proposals in this area
+            other: Everyone can vote for the proposals in these areas
+          title: Choose voting area
+        choose:
+          choose_all_projects: All proposals for the area
+          title: Voting basket
+          view_project: Show proposal
+        choose_notifications:
+          errors:
+            allocation_exceeded:
+              description: In order to proceed to the preview step and confirmation of the vote, you need to delete some proposal in order for the proposals you selected to fit into the budget for the area.
+              title: The budget for the area has been exceeded!
+            allocation_exceeded_projects:
+              description: In order to proceed to the preview step and confirmation of the vote, you need to delete some proposal so that the proposals you select do not exceed the maximum number of proposals specified for the area.
+              title: Too many proposals selected!
+            maximum_budget:
+              description: Please remove selected suggestions from your vote before proceeding to the next step. You have up to %{amount} available.
+              title: Budget has been exceeded for the area %{budget}
+            minimum_budget:
+              description: Add proposals to your vote before you can proceed to the next step. You must spend at least %{amount} of the budget.
+              title: You have to select more proposals from area %{budget}
+            maximum_projects:
+              description: Please remove some of the selected proposals from your vote before proceeding to the next step.
+              title:
+                one: You can select a single proposal from the area %{budget}
+                other: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
+            minimum_projects:
+              description: Please note that you can select proposals for the voting basket in the previous step. Go back to the previous step and select the proposals you want in your voting basket.
+              title:
+                one: You have not selected any proposals from the area %{budget}
+                other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
+        create:
+          error: Processing your vote failed, please try again.
+          success: Your vote has been successfully saved!
+        general:
+          already_voted: You have already voted.
+          exit_voting: Exit voting
+          next: Next
+          not_authorized: You have to identify yourself in order to vote.
+          previous: Previous
+        order_progress:
+          allocated_budget: Allocated budget
+          allocated_projects: Selected proposals
+          available_budget: Budget for the area
+          available_projects: Amount of projects to be selected
+          unused_budget: Remaining budget
+          unused_projects: Remaining projects to select
+        orders_summary:
+          allocated_budget: Allocated budget
+          available_budget: Total budget for the area
+          available_projects: Maximum amount of proposals
+          selected_projects: Proposals in the basket
+          selected_projects_count: "%{count} pcs"
+        order_total:
+          order_budget_sum: Total for the selected proposals
+          order_projects_sum: Amount of selected proposals
+        preview:
+          allocated_budget: Total budget for the selected proposals
+          allocated_projects: Amount of selected proposals
+          title: Preview and voting
+          total_budget: Budget for the area
+          total_projects: Amount of proposals to be selected in the area
+          vote: Vote
+        projects:
+          orders_summary_title: Voting basket situation
+          orders_summary_description: More detailed choices can be made in the next step at the voting basket.
+          title: Browse proposals
+        show:
+          title: Strong identification
+        start:
+          invalid: Failed to select voting area, please try again.
+        steps:
+          authorization: Strong identification and selection of the voting area
+          budgets: Selection of the voting area
+          choose: Voting basket
+          preview: Preview and voting
+          projects: Browse proposals
+        top:
+          title: Voting
     components:
       budgets:
         settings:
           global:
             geocoding_enabled: Geocoding enabled
+            default_map_center_coordinates: Default center coordinates for the map (latitude,longitude)
+            results_page_content: Results page content
+            vote_budgets_page_content: Area selection page content
+            vote_choose_page_content: Voting basket page content
+            vote_identify_page_content: Identification page content
+            vote_identify_page_more_information: Identification page details
+            vote_preview_page_content: Preview page content
+            vote_projects_page_content: Browse proposals page content
+            vote_success_content: Content displayed after successful voting
