@@ -198,6 +198,15 @@ module Decidim
         }
       end
 
+      def context_params
+        {
+          budgets: selected_budgets,
+          component: current_component,
+          organization: current_organization,
+          current_user: current_user
+        }
+      end
+
       def maximum_project_budget
         @maximum_project_budget ||= Decidim::Budgets::Project.where(budget: selected_budgets).maximum(:budget_amount)
       end

@@ -7,12 +7,22 @@ module Decidim
       extend ActiveSupport::Concern
 
       included do
+        def initialize(options = {})
+          super(Decidim::Budgets::Project.all, options)
+
+          @budgets = options[:budgets]
+        end
+
         def base_query
           raise "Missing component" unless component
 
-          @scope.joins(:budget).where(
-            decidim_budgets_budgets: { decidim_component_id: component.id }
-          )
+          if @budgets
+            @scope.where(decidim_budgets_budget_id: @budgets)
+          else
+            @scope.joins(:budget).where(
+              decidim_budgets_budgets: { decidim_component_id: component.id }
+            )
+          end
         end
 
         # These are not is not automatically called and they are required to
