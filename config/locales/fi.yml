@@ -167,7 +167,7 @@ fi:
               description: Poista valitsemiasi ehdotuksia äänestäsi ennen kuin voit jatkaa seuraavaan vaiheeseen. Käytettävissäsi on enintään %{amount}.
               title: Alueen %{budget} budjetti on ylittynyt
             minimum_budget:
-              description: Lisää ehdotuksia äänestäsi ennen kuin voit jatkaa seuraavaan vaiheeseen. Sinun on käytettävä vähintään %{amount} budjetista.
+              description: Lisää ehdotuksia ääneesi ennen kuin voit jatkaa seuraavaan vaiheeseen. Sinun on käytettävä vähintään %{amount} budjetista.
               title: Alueelta %{budget} on valittava enemmän ehdotuksia
             maximum_projects:
               description: Poista valitsemiasi ehdotuksia äänestäsi ennen kuin voit jatkaa seuraavaan vaiheeseen.
