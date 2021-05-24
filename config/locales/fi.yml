@@ -68,6 +68,10 @@ fi:
           voted_on_budgets: Äänestit alueilla %{budget_names}.
           votes_summary: Alta löydät yhteenvedon äänestäsi.
       projects:
+        count:
+          projects_count:
+            one: 1 ehdotus
+            other: "%{count} ehdotusta"
         details_table:
           budget_amount: Budjetti
           budget_name: Alue
@@ -241,3 +245,6 @@ fi:
             vote_preview_page_content: Esikatselusivun sisältö
             vote_projects_page_content: Ehdotusten selaussivun sisältö
             vote_success_content: Onnistuneen äänestyksen jälkeen näytettävä sisältö
+    statistics:
+      orders_count: Ääntä
+      projects_count: Ehdotusta

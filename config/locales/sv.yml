@@ -68,6 +68,10 @@ sv:
           voted_on_budgets: Du röstade i %{budget_names}.
           votes_summary: Nedan hittar du en sammanfattning av din röst.
       projects:
+        count:
+          projects_count:
+            one: 1 förslag
+            other: "%{count} förslag"
         details_table:
           budget_amount: Budget
           budget_name: Område
@@ -241,3 +245,6 @@ sv:
             vote_preview_page_content: Förhandsgranska sidinnehåll
             vote_projects_page_content: Bläddra bland innehållsförslag
             vote_success_content: Innehåll som visas efter lyckad omröstning
+    statistics:
+      orders_count: Röster
+      projects_count: Förslag
