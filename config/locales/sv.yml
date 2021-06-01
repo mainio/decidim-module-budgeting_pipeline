@@ -2,15 +2,15 @@ sv:
   activemodel:
     attributes:
       budget:
-        center_latitude: Mitt latitud
-        center_longitude: Center longitud
+        center_latitude: Centrumets latitud
+        center_longitude: Centrumets längd
       help_section:
         description: Beskrivning
         image: Bild
         link: Länk
         link_text: Länktext
         title: Titel
-        weight: Ordernummer
+        weight: Ordning nummer
       project:
         address: Adress
   decidim:
@@ -54,7 +54,7 @@ sv:
         help_section:
           fields:
             title: Titel
-            weight: Ordernummer
+            weight: Ordning nummer
         project:
           fields:
             address: Adress
