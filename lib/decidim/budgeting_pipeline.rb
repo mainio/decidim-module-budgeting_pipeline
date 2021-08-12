@@ -8,6 +8,7 @@ require_relative "budgeting_pipeline/admin_engine"
 module Decidim
   module BudgetingPipeline
     autoload :HelpContainer, "decidim/budgeting_pipeline/help_container"
+    autoload :SettingsManipulator, "decidim/budgeting_pipeline/settings_manipulator"
 
     include ActiveSupport::Configurable
 
@@ -32,5 +33,7 @@ module Decidim
     config_accessor :authorization_provider_name do
       ->(provider) { I18n.t("#{provider}.name", scope: "decidim.authorization_handlers") }
     end
+
+    config_accessor :pipeline_header_background_image
   end
 end

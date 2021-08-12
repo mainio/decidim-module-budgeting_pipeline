@@ -1,0 +1,21 @@
+<div class="row column view-header">
+  <%= link_to projects_path, class: "small hollow" do %>
+    <%= icon "chevron-left", class: "icon--small" %>
+    <%= t(".back") %>
+  <% end %>
+</div>
+
+<div class="row columns">
+  <div class="static__content">
+    <h2><%= t(".title") %></h2>
+    <%== t(".description_html") %>
+
+    <% if current_settings.show_votes? %>
+      <p>
+        <%= link_to voting_finished? ? t(".see_results") : t(".follow_voting"), results_path, class: "button primary" %>
+      </p>
+    <% end %>
+  </div>
+
+  <%= render partial: "orders_info" %>
+</div>

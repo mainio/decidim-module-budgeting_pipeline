@@ -1,0 +1,24 @@
+<table class="transparent">
+  <tbody>
+    <tr>
+      <th class="text-left"><%= t(".budget_title") %></th>
+      <td class="text-right"><%= translated_attribute(current_order.budget.title) %></td>
+    </tr>
+    <% unless current_order.projects_rule? %>
+      <tr>
+        <th class="text-left"><%= t(".unused_budget") %></th>
+        <td class="text-right"><%= budget_to_currency current_order.unused_allocation %></td>
+      </tr>
+    <% end %>
+    <tr>
+      <th class="text-left"><%= t(".project_title") %></th>
+      <td class="text-right"><%= translated_attribute(project.title) %></td>
+    </tr>
+    <% unless current_order.projects_rule? %>
+      <tr>
+        <th class="text-left"><%= t(".project_budget") %></th>
+        <td class="text-right"><%= budget_to_currency project.budget_amount %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

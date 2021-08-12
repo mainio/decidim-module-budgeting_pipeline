@@ -6,6 +6,8 @@ module Decidim
     module ProjectMCellExtensions
       extend ActiveSupport::Concern
 
+      include Decidim::BudgetingPipeline::ProjectItemUtilities
+
       included do
         delegate(
           :voting_finished?,
@@ -27,13 +29,6 @@ module Decidim
 
       def voting?
         options[:voting] == true
-      end
-
-      def voted_for?(project)
-        order = Decidim::Budgets::Order.find_by(user: current_user, budget: project.budget)
-        return false unless order
-
-        order.projects.include?(project)
       end
 
       def can_have_order?
@@ -141,6 +136,10 @@ module Decidim
 
       def category_class
         "card__category--#{model.category.id}" if has_category?
+      end
+
+      def description
+        project_summary_for(model)
       end
 
       def category_image_path(cat)

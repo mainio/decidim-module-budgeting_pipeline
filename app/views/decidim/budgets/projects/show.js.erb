@@ -2,7 +2,7 @@ var modalId = "project-modal-<%= project.id %>";
 var $modal = $("#" + modalId);
 if ($modal.length < 1) {
   $modal = $('<%= j(render partial: "project_modal").strip.html_safe %>');
-  $("html").append($modal);
+  $("body").append($modal);
 
   $modal.foundation();
 }

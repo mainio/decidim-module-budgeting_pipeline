@@ -6,11 +6,31 @@
   <div class="column">
     <%= render partial: "decidim/shared/results_per_page" %>
   </div>
+
+  <% if display_cart_button? %>
+    <div class="column">
+      <div class="cart-button-wrapper">
+        <%= link_to orders_path, class: "button primary button--cart", data: { remote: true } do %>
+          <%= t("decidim.budgets.votes.orders_summary.show_orders") %>
+          <%= icon "cart", role: "img", "aria-hidden": true %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
 </div>
 
+<% if projects.any? %>
+  <div class="row small-up-1 medium-up-3 card-grid">
+    <%= render projects %>
+  </div>
 
-<div class="row small-up-1 medium-up-3 card-grid">
-  <%= render projects %>
-</div>
-
-<%= decidim_paginate projects %>
+  <%= decidim_paginate projects %>
+<% else %>
+  <div class="row">
+    <div class="columns mediumlarge-8 large-9">
+      <div class="static__content">
+        <p><%= t(".empty") %></p>
+      </div>
+    </div>
+  </div>
+<% end %>

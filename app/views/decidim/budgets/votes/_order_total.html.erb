@@ -3,11 +3,11 @@
     <% if order.projects_rule? %>
       <%= t(".order_projects_sum") %>:
       &nbsp;&nbsp;
-      <strong><%= order.confirmed_total %></strong>
+      <strong><%= order.total %></strong>
     <% else %>
       <%= t(".order_budget_sum") %>:
       &nbsp;&nbsp;
-      <strong><%= budget_to_currency order.confirmed_total %></strong>
+      <strong><%= budget_to_currency order.total %></strong>
     <% end %>
   </div>
 </div>

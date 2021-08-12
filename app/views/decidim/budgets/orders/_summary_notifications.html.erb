@@ -1,10 +1,10 @@
-<% errors = order.confirmed_rule_errors %>
+<% errors = order.rule_errors %>
 
 <% if errors.include?(:allocation_exceeded) %>
   <div class="allocation-exceeded">
     <div class="callout alert">
       <p class=h5>
-        <%= icon "information", role: "img", aria_hidden: true %>
+        <%= icon "information", role: "img", "aria-hidden": true %>
         <%= order.projects_rule? ? t(".errors.allocation_exceeded_projects.title") : t(".errors.allocation_exceeded.title") %>
       </p>
       <p><%= order.projects_rule? ? t(".errors.allocation_exceeded_projects.description") : t(".errors.allocation_exceeded.description") %></p>
@@ -14,7 +14,7 @@
   <div class="minimum-projects">
     <div class="callout warning">
       <p class=h5>
-        <%= icon "information", role: "img", aria_hidden: true %>
+        <%= icon "information", role: "img", "aria-hidden": true %>
         <%= t(".errors.minimum_projects.title", count: order.minimum_projects, budget: translated_attribute(order.budget.title)) %>
       </p>
       <p><%= t(".errors.minimum_projects.description", count: order.minimum_projects) %></p>
@@ -24,7 +24,7 @@
   <div class="maximum-projects">
     <div class="callout warning">
       <p class=h5>
-        <%= icon "information", role: "img", aria_hidden: true %>
+        <%= icon "information", role: "img", "aria-hidden": true %>
         <%= t(".errors.maximum_projects.title", count: order.maximum_projects, budget: translated_attribute(order.budget.title)) %>
       </p>
       <p><%= t(".errors.maximum_projects.description", count: order.maximum_projects) %></p>
@@ -34,7 +34,7 @@
   <div class="minimum-budget">
     <div class="callout warning">
       <p class=h5>
-        <%= icon "information", role: "img", aria_hidden: true %>
+        <%= icon "information", role: "img", "aria-hidden": true %>
         <%= t(".errors.minimum_budget.title", budget: translated_attribute(order.budget.title)) %>
       </p>
       <p><%= t(".errors.minimum_budget.description", amount: budget_to_currency(order.minimum_budget)) %></p>
@@ -44,7 +44,7 @@
   <div class="maximum-budget">
     <div class="callout warning">
       <p class=h5>
-        <%= icon "information", role: "img", aria_hidden: true %>
+        <%= icon "information", role: "img", "aria-hidden": true %>
         <%= t(".errors.maximum_budget.title", budget: translated_attribute(order.budget.title)) %>
       </p>
       <p><%= t(".errors.maximum_budget.description", amount: budget_to_currency(order.maximum_budget)) %></p>

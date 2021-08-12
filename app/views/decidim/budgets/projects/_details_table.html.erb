@@ -15,10 +15,12 @@
         </td>
       </tr>
     <% end %>
-    <tr>
-      <th class="text-left"><%= t(".budget_amount") %></th>
-      <td><%= budget_to_currency project.budget_amount %></td>
-    </tr>
+    <% if project.budget_amount > 0 %>
+      <tr>
+        <th class="text-left"><%= t(".budget_amount") %></th>
+        <td><%= budget_to_currency project.budget_amount %></td>
+      </tr>
+    <% end %>
     <% if current_settings.show_votes? %>
       <tr>
         <th class="text-left"><%= t(".vote_count") %></th>

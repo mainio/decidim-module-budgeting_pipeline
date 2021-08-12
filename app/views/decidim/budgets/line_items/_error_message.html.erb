@@ -1,0 +1,13 @@
+<div class="callout alert">
+  <p class=h5>
+    <%= icon "information", role: "img", "aria-hidden": true %>
+    <%= t(".error.#{@error_reason}.title") %>
+  </p>
+  <p><%= t(".error.#{@error_reason}.description") %></p>
+  <p>
+    <%= link_to orders_path, data: { remote: true } do %>
+      <%= icon "cart", role: "img", "aria-hidden": true %>
+      <%= t("decidim.budgets.votes.orders_summary.show_orders") %>&nbsp;&raquo;
+    <% end %>
+  </p>
+</div>

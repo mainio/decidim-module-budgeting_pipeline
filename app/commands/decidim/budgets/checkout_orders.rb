@@ -19,7 +19,6 @@ module Decidim
       #
       # Returns nothing.
       def call
-        prepare_orders
         return broadcast(:invalid, orders) if orders.any?(&:invalid?)
 
         checkout_orders
@@ -31,14 +30,6 @@ module Decidim
       private
 
       attr_reader :orders, :user
-
-      def prepare_orders
-        orders.each do |order|
-          order.with_lock do
-            order.line_items.unconfirmed.destroy_all
-          end
-        end
-      end
 
       def checkout_orders
         orders.each do |order|

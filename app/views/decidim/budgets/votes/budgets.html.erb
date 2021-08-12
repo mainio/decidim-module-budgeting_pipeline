@@ -31,12 +31,14 @@
           <%= t(".budget_select_note.default") %>
         <% end %>
       </div>
-      <div class="columns mediumlarge-6 text-right">
-        <button class="link" data-open="budget-modal-info" aria-controls="budget-modal-info" aria-haspopup="true" tabindex="0">
-          <%= icon "information", role: "img", aria_hidden: true %>
-          <%= t(".show_more_information") %>
-        </button>
-      </div>
+      <% if display_more_information? %>
+        <div class="columns mediumlarge-6 text-right">
+          <button class="link" data-open="budget-modal-info" aria-controls="budget-modal-info" aria-haspopup="true" tabindex="0">
+            <%= icon "information", role: "img", "aria-hidden": true %>
+            <%= more_information_label %>
+          </button>
+        </div>
+      <% end %>
     </div>
 
     <%= decidim_form_for(@form, url: start_vote_path, html: { class: "form start_vote mt-3" }) do |form| %>
@@ -59,7 +61,7 @@
 
 <div class="small reveal" data-reveal id="budget-modal-info" role="dialog">
   <div class="reveal__header">
-    <h3 class="reveal__title"><%= t(".show_more_information") %></h3>
+    <h3 class="reveal__title"><%= more_information_label %></h3>
     <button class="close-button" data-close aria-label="<%= t("decidim.budgets.budget_information_modal.close_modal") %>" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -75,3 +77,5 @@
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag("decidim/budgeting_pipeline/budgets") %>

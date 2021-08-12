@@ -1,0 +1,101 @@
+<%
+i18n_scope = "decidim.budgets.projects.filters"
+
+type_suffix = defined?(type) ? "_#{type}" : ""
+%>
+
+<%= filter_form_for filter do |form| %>
+  <div class="row columns show-for-medium">
+    <div class="filters__section filters__section--title">
+      <div class="row">
+        <div class="columns mediumlarge-6 large-8">
+          <p class="h3"><%= t("title", scope: i18n_scope) %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="columns mediumlarge-6 large-4">
+      <div class="filters__section text_filter">
+        <fieldset>
+          <legend class="mini-title"><%= t("term", scope: i18n_scope) %></legend>
+          <%= form.search_field :search_text, label: false, placeholder: t("term", scope: i18n_scope), title: t("term", scope: i18n_scope), "aria-label": t("term", scope: i18n_scope), data: { disable_dynamic_change: true } %>
+        </fieldset>
+      </div>
+    </div>
+    <% if display_budgets_filter? %>
+      <div class="columns mediumlarge-6 large-4 end">
+        <div class="filters__section budget_id_filter">
+          <fieldset>
+            <legend class="mini-title"><%= t("budget", scope: i18n_scope) %></legend>
+            <%= form.select(:budget_id, filter_budgets_values, { label: false, include_blank: filter_budgets_label }, "aria-label": t("budget", scope: i18n_scope), data: { disable_dynamic_change: true }) %>
+          </fieldset>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row columns">
+    <div class="filters__section">
+      <button type="button" class="link" data-toggle="additional_search<%= type_suffix %> additional_search_closed<%= type_suffix %> additional_search_open<%= type_suffix %>" id="additional_search_toggle<%= type_suffix %>">
+        <span id="additional_search_closed<%= type_suffix %>" data-toggler=".is-hidden" aria-expanded="true">
+          <%= t("more_criteria.show", scope: i18n_scope) %>
+          <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>
+        </span>
+        <span id="additional_search_open<%= type_suffix %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false">
+          <%= t("more_criteria.hide", scope: i18n_scope) %>
+          <%= icon "chevron-top", role: "img", "aria-hidden": true %>
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <div id="additional_search<%= type_suffix %>" class="row is-hidden" data-toggler=".is-hidden">
+    <% if display_category_filter? %>
+      <div class="columns mediumlarge-12 large-4">
+        <div class="filters__section category_id_filter">
+          <fieldset>
+            <legend class="mini-title"><%= t("category", scope: i18n_scope) %></legend>
+            <%= form.select(:category_id, filter_categories_values, { label: false, include_blank: t("categories_values.all", scope: i18n_scope) }, "aria-label": t("category", scope: i18n_scope), data: { disable_dynamic_change: true }) %>
+          </fieldset>
+        </div>
+      </div>
+    <% end %>
+    <% if display_budget_amount_filters? %>
+      <div class="columns mediumlarge-6 large-3">
+        <div class="filters__section budget_amount_min_filter">
+          <fieldset>
+            <legend class="mini-title"><%= t("budget_amount_min", scope: i18n_scope) %></legend>
+            <div class="input-group">
+              <%= form.number_field :budget_amount_min, label: false, class: "input-group-field", placeholder: t("budget_enter_amount", scope: i18n_scope), title: t("budget_amount_min", scope: i18n_scope), "aria-label": t("budget_amount_min", scope: i18n_scope), data: { disable_dynamic_change: true } %>
+              <span class="input-group-label"><%= Decidim.currency_unit %></span>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+      <div class="columns mediumlarge-6 large-3 end">
+        <div class="filters__section budget_amount_max_filter">
+          <fieldset>
+            <legend class="mini-title"><%= t("budget_amount_max", scope: i18n_scope) %></legend>
+            <div class="input-group">
+              <%= form.number_field :budget_amount_max, label: false, class: "input-group-field", placeholder: t("budget_enter_amount", scope: i18n_scope), title: t("budget_amount_max", scope: i18n_scope), "aria-label": t("budget_amount_max", scope: i18n_scope), data: { disable_dynamic_change: true } %>
+              <span class="input-group-label"><%= Decidim.currency_unit %></span>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row columns">
+    <div class="filters__section">
+      <button type="submit" class="button primary show-for-medium" aria-label="<%= t("search", scope: i18n_scope) %>" aria-controls="projects-count projects" data-close>
+        <%= t("search", scope: i18n_scope) %>
+      </button>
+      <button type="reset" class="button clear"><%= t "reset", scope: i18n_scope %></button>
+    </div>
+  </div>
+
+  <%= hidden_field_tag :order, order, id: nil, class: "order_filter" %>
+<% end %>

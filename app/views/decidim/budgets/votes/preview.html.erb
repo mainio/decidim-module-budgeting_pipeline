@@ -20,10 +20,12 @@
         <div class="columns mediumlarge-10 mediumlarge-push-1">
           <table class="transparent">
             <tbody>
-              <% order.confirmed_line_items.order_by_projects.each do |item| %>
+              <% order.line_items.order_by_projects.each do |item| %>
                 <tr>
                   <td><strong><%= translated_attribute(item.project.title) %></strong></td>
-                  <td class="text-right"><strong><%= budget_to_currency(item.project.budget_amount) %></strong></td>
+                  <% if item.project.budget_amount > 0 %>
+                    <td class="text-right"><strong><%= budget_to_currency(item.project.budget_amount) %></strong></td>
+                  <% end %>
                 </tr>
               <% end %>
             </tbody>
@@ -33,11 +35,11 @@
             <% if order.projects_rule? %>
               <%= t(".allocated_projects") %>:
               &nbsp;&nbsp;
-              <strong><%= order.confirmed_total %></strong>
+              <strong><%= order.total %></strong>
             <% else %>
               <%= t(".allocated_budget") %>:
               &nbsp;&nbsp;
-              <strong><%= budget_to_currency(order.confirmed_total) %></strong>
+              <strong><%= budget_to_currency(order.total) %></strong>
             <% end %>
           </div>
         </div>
@@ -47,7 +49,7 @@
 
   <div id="choose-buttons">
     <div class="row column flex-actions actions mt-5">
-      <%= link_to choose_vote_path, class: "button primary hollow icon-before" do %>
+      <%= link_to projects_vote_path, class: "button primary hollow icon-before" do %>
         <%= icon "chevron-left", role: "img", "aria-hidden": true %>
         <%= t("decidim.budgets.votes.general.previous") %>
       <% end %>

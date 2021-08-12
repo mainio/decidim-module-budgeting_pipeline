@@ -1,0 +1,31 @@
+var $modal = $("#orders-overview");
+var $errorModal = $("#order-update-error");
+if ($modal.length < 1) {
+  $modal = $('<%= j(render partial: "orders_modal").strip.html_safe %>');
+
+  <%
+    # Ensures the orders modal is always below the project modals as they can
+    # open on top of the orders modal.
+  %>
+  $modal.on("open.zf.reveal", function() {
+    var $overlay = $modal.parents(".reveal-overlay");
+
+    var $firstOverlay = $(".reveal-overlay:first");
+    if ($firstOverlay.length > 0 && !$firstOverlay.is($overlay)) {
+      $firstOverlay.before($overlay);
+    }
+  });
+
+  $("body").append($modal);
+
+  $modal.foundation();
+}
+
+var $ordersSummary = $(".orders-summary", $modal);
+morphdom($ordersSummary[0], '<%= j(render partial: "orders_summary").strip.html_safe %>')
+
+$modal.foundation("open");
+
+if ($errorModal.length > 0 && $errorModal.is(":visible")) {
+  $errorModal.foundation("close");
+}

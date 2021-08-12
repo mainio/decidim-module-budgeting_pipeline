@@ -1,31 +1,43 @@
 <% content_for :top do %>
-  <div class="row columns mt-1 mb-1">
-    <%= link_to projects_path do %>
-      <%= icon "chevron-left", role: "img", "aria-hidden": true %>
-      <%= t("decidim.budgets.votes.general.exit_voting") %>
-    <% end %>
-  </div>
-  <div class="extended hero bg-primary">
-    <div class="hero__container">
-      <div class="row">
-        <div class="columns small-centered large-10">
-          <h1 class="heading2 hero-heading"><%= t(".title") %></h1>
+  <div class="voting-header">
+    <%= pipeline_header_hero do %>
+      <%= koro("pulse", flip: true) if respond_to?(:koro) %>
+      <div class="row columns">
+        <div class="exit-link">
+          <span class="exit-link__box bg-content">
+            <%= link_to projects_path do %>
+              <%= icon "chevron-left", role: "img", "aria-hidden": true %>
+              <%= t("decidim.budgets.votes.general.exit_voting") %>
+            <% end %>
+          </span>
         </div>
       </div>
-    </div>
+    <% end %>
 
-    <% if help_sections.any? %>
-      <div class="pb-5">
-        <div class="row pb-5">
-          <div class="columns small-centered mediumlarge-8">
-            <%= render partial: "decidim/budgets/shared/help_sections" %>
+    <div class="voting-header__content">
+      <div class="voting-header__title">
+        <div class="row">
+          <div class="columns small-centered large-10">
+            <div class="voting-header__title__box bg-content">
+              <h1><%= t(".title") %></h1>
+            </div>
           </div>
         </div>
       </div>
-    <% end %>
-
-    <%= koro("pulse") if respond_to?(:koro) %>
+    </div>
   </div>
+
+  <% if current_step == :authorization && help_sections.any? %>
+    <div class="extended hero">
+      <div class="pt-4">
+        <div class="row">
+          <div class="columns small-centered mediumlarge-8 large-7">
+            <%= render partial: "decidim/budgets/shared/help_sections", locals: { type: :large } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
 <% end %>
 
 <div class="row columns">

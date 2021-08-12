@@ -1,18 +1,41 @@
 <ul class="tabs tabs-stepper expanded" id="voting-tabs">
   <% voting_steps.each_with_index do |step, index| %>
-    <li class="tabs-stepper-step<%= " is-active" if step.key == current_step %>">
-      <div class="step-selector">
-        <div class="step-selector-number">
-          <% if step.done %>
-            <%= icon "check", role: "img", aria_hidden: true %>
+    <li class="tabs-stepper-step<%= " done" if step.done %><%= " is-active" if step.key == current_step %>">
+      <% if step.done %>
+        <%= link_to step.link, class: "step-selector" do %>
+          <div class="step-selector-number">
+            <%= icon "check", role: "img", "aria-hidden": true %>
             <span class="show-for-sr"><%= index + 1 %></span>
-          <% else %>
+          </div>
+          <div class="step-selector-text"><%= t(".#{step.key}") %></div>
+        <% end %>
+      <% elsif step.available %>
+        <%= link_to step.link, class: "step-selector" do %>
+          <div class="step-selector-number">
             <%= index + 1 %>
-          <% end %>
-        </div>
-        <div class="step-selector-text"><%= t(".#{step.key}") %></div>
-      </div>
+          </div>
+          <div class="step-selector-text"><%= t(".#{step.key}") %></div>
+        <% end %>
+      <% else %>
+        <%= link_to "#upcoming-step-notification", class: "step-selector", data: { open: "upcoming-step-notification" } do %>
+          <div class="step-selector-number">
+            <%= index + 1 %>
+          </div>
+          <div class="step-selector-text"><%= t(".#{step.key}") %></div>
+        <% end %>
+      <% end %>
     </li>
   <% end %>
 </ul>
 
+<div class="reveal" id="upcoming-step-notification" data-reveal>
+  <div class="reveal__header">
+    <h3 class="reveal__title"><%= t(".upcoming_notification.title") %>:</h3>
+    <button class="close-button" data-close aria-label="<%= t(".upcoming_notification.close_modal") %>" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="static__content">
+    <p><%= t(".upcoming_notification.description") %></p>
+  </div>
+</div>

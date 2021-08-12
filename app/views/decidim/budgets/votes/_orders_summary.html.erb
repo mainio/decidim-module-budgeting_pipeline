@@ -2,28 +2,13 @@
   <% orders.each do |order| %>
     <h3><%= translated_attribute(order.budget.title) %></h3>
 
-    <table class="transparent">
-      <tbody>
-        <tr>
-          <td><%= t(".selected_projects") %></td>
-          <td><strong><%= t(".selected_projects_count", count: order.total_projects) %></strong></td>
-        </tr>
-        <% if order.projects_rule? %>
-          <tr>
-            <td><%= t(".available_projects") %></td>
-            <td><strong><%= order.available_allocation %></strong></td>
-          </tr>
-        <% else %>
-          <tr>
-            <td><%= t(".allocated_budget") %></td>
-            <td><strong><%= budget_to_currency order.total %></strong></td>
-          </tr>
-          <tr>
-            <td><%= t(".available_budget") %></td>
-            <td><strong><%= budget_to_currency order.available_allocation %></strong></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <%= render partial: "decidim/budgets/votes/order_progress", locals: { order: order } %>
   <% end %>
+
+  <div class="cart-button-wrapper">
+    <%= link_to orders_path, class: "button primary hollow", data: { remote: true } do %>
+      <%= t("decidim.budgets.votes.orders_summary.show_orders") %>
+      <%= icon "cart", role: "img", "aria-hidden": true %>
+    <% end %>
+  </div>
 </div>

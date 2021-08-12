@@ -31,9 +31,37 @@ module Decidim
         Decidim::BudgetingPipeline.authorization_provider_name.call(provider)
       end
 
-      # This is for the projects view that displays the budget selector.
+      def display_more_information?
+        translated_attribute(component_settings.more_information_modal).present?
+      end
+
+      def more_information_label
+        label = translated_attribute(component_settings.more_information_modal_label)
+        return label if label.present?
+
+        t("decidim.budgets.votes.budgets.show_more_information_default")
+      end
+
+      # This is for the projects view that displays the project filters that
+      # refers the `budgets` variable.
       def budgets
         selected_budgets
+      end
+
+      def pipeline_header_hero
+        wrapper_class = %w(voting-header__hero)
+        style = nil
+
+        if Decidim::BudgetingPipeline.pipeline_header_background_image
+          bgval = "url(#{asset_path(Decidim::BudgetingPipeline.pipeline_header_background_image)})"
+          style = "background-image:#{bgval}"
+        else
+          wrapper_class << "without-bg"
+        end
+
+        content_tag :div, class: wrapper_class.join(" "), style: style do
+          yield
+        end
       end
     end
   end
