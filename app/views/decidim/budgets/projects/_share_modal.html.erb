@@ -1,6 +1,6 @@
-<div class="reveal" id="socialShare" data-reveal>
+<div class="reveal" id="socialShare" data-reveal role="dialog" aria-modal="true" aria-labelledby="socialShare-label">
   <div class="reveal__header">
-    <h3 class="reveal__title"><%= t("decidim.shared.share_modal.share") %>:</h3>
+    <h3 id="socialShare-label" class="reveal__title"><%= t("decidim.shared.share_modal.share") %>:</h3>
     <button class="close-button" data-close aria-label="<%= t("decidim.shared.share_modal.close_window") %>" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -18,9 +18,9 @@
     </a>
   </div>
 </div>
-<div class="reveal" id="urlShare" data-reveal>
+<div class="reveal" id="urlShare" data-reveal data-reveal role="dialog" aria-modal="true" aria-labelledby="urlShare-label">
   <div class="reveal__header">
-    <h3 class="reveal__title"><%= t("decidim.shared.share_modal.share_link") %>:</h3>
+    <h3 id="urlShare-label" class="reveal__title"><%= t("decidim.shared.share_modal.share_link") %>:</h3>
     <button class="close-button" data-close aria-label="<%= t("decidim.shared.share_modal.close_window") %>" type="button">
       <span aria-hidden="true">&times;</span>
     </button>

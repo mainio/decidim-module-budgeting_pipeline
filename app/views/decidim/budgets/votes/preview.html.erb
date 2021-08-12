@@ -53,7 +53,7 @@
         <%= icon "chevron-left", role: "img", "aria-hidden": true %>
         <%= t("decidim.budgets.votes.general.previous") %>
       <% end %>
-      <%= button_to vote_path, class: "button primary icon-after" do %>
+      <%= button_to vote_path, class: "button primary icon-after", role: "link" do %>
         <%= t(".vote") %>
       <% end %>
     </div>

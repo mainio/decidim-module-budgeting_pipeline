@@ -33,7 +33,7 @@
       </div>
       <% if display_more_information? %>
         <div class="columns mediumlarge-6 text-right">
-          <button class="link" data-open="budget-modal-info" aria-controls="budget-modal-info" aria-haspopup="true" tabindex="0">
+          <button class="link" data-open="budget-modal-info" aria-controls="budget-modal-info" aria-haspopup="dialog" tabindex="0">
             <%= icon "information", role: "img", "aria-hidden": true %>
             <%= more_information_label %>
           </button>
@@ -50,7 +50,7 @@
 
       <div class="row column flex-actions actions mt-5">
         <%= link_to t("decidim.budgets.votes.general.exit_voting"), projects_path, class: "button primary hollow" %>
-        <button type="submit" class="button primary icon-after">
+        <button type="submit" class="button primary icon-after" role="link">
           <%= t("decidim.budgets.votes.general.next") %>
           <%= icon "chevron-right", role: "img", "aria-hidden": true %>
         </button>
@@ -59,9 +59,9 @@
   </div>
 </div>
 
-<div class="small reveal" data-reveal id="budget-modal-info" role="dialog">
+<div class="small reveal" data-reveal id="budget-modal-info" role="dialog" aria-modal="true" aria-labelledby="budget-modal-info-label">
   <div class="reveal__header">
-    <h3 class="reveal__title"><%= more_information_label %></h3>
+    <h3 id="budget-modal-info-label" class="reveal__title" tabindex="-1"><%= more_information_label %></h3>
     <button class="close-button" data-close aria-label="<%= t("decidim.budgets.budget_information_modal.close_modal") %>" type="button">
       <span aria-hidden="true">&times;</span>
     </button>

@@ -6,7 +6,7 @@
     <%= icon "chevron-right", role: "img", "aria-hidden": true %>
   <% end %>
 <% else %>
-  <%= content_tag :span, class: "button primary icon-after disabled" do %>
+  <%= content_tag :span, class: "button primary icon-after disabled", role: "link", tabindex: 0, aria: { disabled: true } do %>
     <%= button_label %>
     <%= icon "chevron-right", role: "img", "aria-hidden": true %>
   <% end %>

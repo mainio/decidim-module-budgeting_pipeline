@@ -136,11 +136,13 @@ en:
               title:
                 one: You have not selected any proposals from the area %{budget}
                 other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
+      project_m:
+        card_label: "Proposal: %{title}"
       projects:
         count:
           projects_count:
-            one: 1 proposal
-            other: "%{count} proposals"
+            one: Found 1 proposal
+            other: Found %{count} proposals
         details_table:
           budget_amount: Budget
           budget_name: Area
@@ -162,6 +164,7 @@ en:
               other: All areas
           categories_values:
             all: All themes
+          label: Proposal search
           more_criteria:
             hide: Hide search criteria
             show: Show more search criteria
@@ -282,11 +285,6 @@ en:
           budgets: Selection of the voting area
           preview: Preview and voting
           projects: Select proposals
-          upcoming_notification:
-            close_modal: Close modal
-            close: Close notification
-            description: You cannot proceed to this step before completing the previous steps.
-            title: Please complete the previous steps first
         top:
           title: Voting
     components:

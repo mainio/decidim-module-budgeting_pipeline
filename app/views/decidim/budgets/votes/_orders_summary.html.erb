@@ -6,7 +6,7 @@
   <% end %>
 
   <div class="cart-button-wrapper">
-    <%= link_to orders_path, class: "button primary hollow", data: { remote: true } do %>
+    <%= link_to orders_path, class: "button primary hollow", aria: { haspopup: "dialog" }, data: { remote: true } do %>
       <%= t("decidim.budgets.votes.orders_summary.show_orders") %>
       <%= icon "cart", role: "img", "aria-hidden": true %>
     <% end %>

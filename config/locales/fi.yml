@@ -136,11 +136,13 @@ fi:
               title:
                 one: Et ole vielä valinnut yhtään ehdotusta alueelta %{budget}
                 other: Et ole valinnut tarpeeksi monta ehdotusta alueelta %{budget}, valittava vähintään %{count}
+      project_m:
+        card_label: "Ehdotus: %{title}"
       projects:
         count:
           projects_count:
-            one: 1 ehdotus
-            other: "%{count} ehdotusta"
+            one: Löytyi 1 ehdotus
+            other: Löytyi %{count} ehdotusta
         details_table:
           budget_amount: Budjetti
           budget_name: Alue
@@ -162,6 +164,7 @@ fi:
               other: Kaikki alueet
           categories_values:
             all: Kaikki teemat
+          label: Ehdotusten haku
           more_criteria:
             hide: Piilota hakuehdot
             show: Näytä lisää hakuehtoja
@@ -284,11 +287,6 @@ fi:
           budgets: Äänestysalueen valinta
           preview: Esikatselu ja äänestys
           projects: Ehdotusten valinta
-          upcoming_notification:
-            close_modal: Sulje ikkuna
-            close: Sulje ilmoitus
-            description: Et voi siirtyä tähän vaiheeseen ennen kuin olet suorittanut aikaisemmat vaiheet.
-            title: Suorita ensin aikaisemmat vaiheet
         top:
           title: Äänestys
     components:

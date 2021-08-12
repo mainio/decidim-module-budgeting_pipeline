@@ -4,7 +4,7 @@ i18n_scope = "decidim.budgets.projects.filters"
 type_suffix = defined?(type) ? "_#{type}" : ""
 %>
 
-<%= filter_form_for filter do |form| %>
+<%= filter_form_for filter, projects_vote_path, role: "region", "aria-label": t("label", scope: i18n_scope) do |form| %>
   <div class="row columns show-for-medium">
     <div class="filters__section filters__section--title">
       <div class="row">

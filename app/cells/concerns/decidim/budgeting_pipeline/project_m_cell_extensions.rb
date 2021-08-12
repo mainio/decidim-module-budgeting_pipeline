@@ -65,10 +65,13 @@ module Decidim
       end
 
       def resource_link(options = {})
-        data = options[:data] || {}
         if voting?
+          data = options[:data] || {}
+          aria = options[:aria] || {}
           data[:remote] = true
+          aria[:haspopup] = "dialog"
           options[:data] = data
+          options[:aria] = aria
         end
         link_to resource_path, **options do
           yield

@@ -136,11 +136,13 @@ sv:
               title:
                 one: Du har inte valt några förslag från området %{budget}
                 other: Du har inte valt tillräckligt med förslag från området %{budget}, du måste välja minst %{count} förslag
+      project_m:
+        card_label: "Förslag: %{title}"
       projects:
         count:
           projects_count:
-            one: 1 förslag
-            other: "%{count} förslag"
+            one: Hittade 1 förslag
+            other: Hittade %{count} förslag
         details_table:
           budget_amount: Budget
           budget_name: Område
@@ -162,6 +164,7 @@ sv:
               other: Alla områden
           categories_values:
             all: Alla teman
+          label: Förslagssökning
           reset: Rensa filter
           more_criteria:
             hide: Dölj sökkriterier
@@ -282,11 +285,6 @@ sv:
           budgets: Val av omröstningsområde
           preview: Förhandsgranska och rösta
           projects: Välj förslag
-          upcoming_notification:
-            close_modal: Stäng fönstret
-            close: Stäng avisering
-            description: Du kan inte fortsätta till det här steget innan du har slutfört de föregående stegen.
-            title: Fyll i föregående steg först
         top:
           title: Röstning
     components:

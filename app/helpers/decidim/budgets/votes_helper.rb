@@ -42,6 +42,15 @@ module Decidim
         t("decidim.budgets.votes.budgets.show_more_information_default")
       end
 
+      def voting_step_link(step)
+        attributes = { class: "step-selector" }
+        attributes[:aria] = { current: "step" } if step.key == current_step
+
+        link_to step.link, attributes do
+          yield
+        end
+      end
+
       # This is for the projects view that displays the project filters that
       # refers the `budgets` variable.
       def budgets

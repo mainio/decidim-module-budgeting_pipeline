@@ -10,7 +10,7 @@
   <% if display_cart_button? %>
     <div class="column">
       <div class="cart-button-wrapper">
-        <%= link_to orders_path, class: "button primary button--cart", data: { remote: true } do %>
+        <%= link_to orders_path, class: "button primary button--cart", aria: { haspopup: "dialog" }, data: { remote: true } do %>
           <%= t("decidim.budgets.votes.orders_summary.show_orders") %>
           <%= icon "cart", role: "img", "aria-hidden": true %>
         <% end %>
