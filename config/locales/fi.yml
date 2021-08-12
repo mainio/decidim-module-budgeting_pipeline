@@ -13,6 +13,8 @@ fi:
         weight: Järjestysnumero
       project:
         address: Osoite
+        main_image: Primary image
+        summary: Summary for cards
   decidim:
     budgeting_pipeline:
       admin:
@@ -47,6 +49,31 @@ fi:
         helps:
           index:
             title: Ohjepaikat
+        projects:
+          form:
+            selected_help: This is chosen after the voting if the project has been voted for implementation.
+      line_items:
+        error_details:
+          budget_title: Area name
+          project_title: Proposal title
+          project_budget: Proposal price
+          unused_budget: Remaining budget for the area
+        error_message:
+          error:
+            order_checked_out:
+              description: You have already voted in participatory budgeting. You can no longer add proposals to your voting basket.
+              title: You have already voted
+            project_exceeds_amount:
+              description: You cannot add more proposals for this area to your voting basket. First, remove other proposals in this area from your vote and add this proposal again to your vote.
+              title: You have already added the maximum amount of proposals
+            project_exceeds_budget:
+              description: The cost of this proposal exceeds the remaining budget for this area. First, remove other proposals in this area from your vote and add this proposal again to your vote.
+              title: The remaining budget on this area is not sufficient for this proposal
+            voting_not_enabled:
+              description: Voting has ended. You cannot add proposals to the voting basket when voting is inactive.
+              title: Voting is not possible at this moment
+        error_modal:
+          title: Failed adding the proposal to the voting basket
       models:
         help_container:
           fields:
@@ -67,11 +94,55 @@ fi:
           subject: Äänestit alueilla %{budget_names}
           voted_on_budgets: Äänestit alueilla %{budget_names}.
           votes_summary: Alta löydät yhteenvedon äänestäsi.
+      orders:
+        continue_button:
+          label: Preview and vote
+        index:
+          back: Show proposals
+          description_html: <p>On this page you see how you voted.</p>
+          follow_voting: Follow the voting situation
+          see_results: Show final results
+          title: Voting basket
+        orders_info:
+          allocated_budget: Total budget for the selected proposals
+          allocated_projects: Amount of selected proposals
+          title: Preview and voting
+          total_budget: Budget for the area
+          total_projects: Amount of proposals to be selected in the area
+          vote: Vote
+        orders_modal:
+          close: Back to proposal selection
+        summary_notifications:
+          errors:
+            allocation_exceeded:
+              description: In order to proceed to the preview step and confirmation of the vote, you need to delete some proposal in order for the proposals you selected to fit into the budget for the area.
+              title: The budget for the area has been exceeded!
+            allocation_exceeded_projects:
+              description: In order to proceed to the preview step and confirmation of the vote, you need to delete some proposal so that the proposals you select do not exceed the maximum number of proposals specified for the area.
+              title: Too many proposals selected!
+            maximum_budget:
+              description: Please remove selected suggestions from your vote before proceeding to the next step. You have up to %{amount} available.
+              title: Budget has been exceeded for the area %{budget}
+            minimum_budget:
+              description: Add proposals to your vote before you can proceed to the next step. You must spend at least %{amount} of the budget.
+              title: You have to select more proposals from area %{budget}
+            maximum_projects:
+              description: Please remove some of the selected proposals from your vote before proceeding to the next step.
+              title:
+                one: You can select a single proposal from the area %{budget}
+                other: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
+            minimum_projects:
+              description: Please note that you can select proposals for the voting basket from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting basket.
+              title:
+                one: You have not selected any proposals from the area %{budget}
+                other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
+      project_m:
+        card_label: "Proposal: %{title}"
       projects:
         count:
           projects_count:
-            one: 1 ehdotus
-            other: "%{count} ehdotusta"
+            one: Found 1 proposal
+            other: Found %{count} proposals
         details_table:
           budget_amount: Budjetti
           budget_name: Alue
@@ -88,21 +159,31 @@ fi:
           budget_amount_min: Budjetti vähintään
           budget_enter_amount: Syötä numeroarvo
           budgets_values:
-            all: Kaikki alueet
+            all:
+              two: Both areas
+              other: All areas
           categories_values:
             all: Kaikki teemat
+          label: Proposal search
+          more_criteria:
+            hide: Hide search criteria
+            show: Show more search criteria
           reset: Tyhjennä rajaukset
+          search: Search
           status_values:
             not_selected: Ei etene toteutukseen
             selected: Etenee toteutukseen
+          term: Keyword
           title: Etsi ehdotuksista
         index:
           follow_voting: Seuraa äänestystilannetta
           see_results: Näytä lopullinen äänestystilanne
-          start_voting: Aloita äänestys
+          see_your_vote: See my vote
+          start_voting: Go to browse the proposals and vote
           view_project: Näytä ehdotus
         orders:
           alphabetical: Aakkosjärjestys
+          label: Order proposals
         project:
           view: Näytä ehdotus
         project_actions:
@@ -119,7 +200,10 @@ fi:
           close: Sulje
           start_voting: Aloita äänestys
           view_all_projects: Näytä kaikki ehdotukset
-          voting_note_html: <p>Aloittaaksesi äänestyksen sinun on tunnistauduttava ja siirryttävä äänestystilaan. Äänestystilassa sinun tulee valita se alue, johon tämä ehdotus kuuluu ja valittava se ääneesi.</p>
+          voting_note_html: |-
+            <p>To start voting, you have to identify yourself and enter the voting mode.
+            In the voting mode, you have to select the area to which this proposal belongs and select it for your vote.
+            Add this proposal to your favourites in order to find its area more easily during the voting.</p>
       results:
         budget_results:
           amount:
@@ -131,8 +215,11 @@ fi:
           project_name: Ehdotus
           project_votes: Ääniä
           title_winning: "%{budget} - Toteutuslista"
+        icon_heart:
+          title: Heart
         show:
           show_projects: Näytä ehdotukset
+          see_your_vote: See my vote
           title: "%{organization_name} äänestystilanne"
         vote_finished_modal:
           close: Sulje ikkuna
@@ -150,39 +237,11 @@ fi:
             default: Valitse, millä alueella haluat äänestää.
             suggested: Voit vaihtaa äänestysaluetta valitsemalla jonkun toisen alueen.
           select_budgets: Äänestysalue
-          show_more_information: Mitä kaupunginosia alueille kuuluu?
+          show_more_information_default: Show additional information
           sticky_budgets:
             one: Kaikki saavat äänestää tämän alueen ehdotuksia
             other: Kaikki saavat äänestää näiden alueiden ehdotuksia
           title: Valitse äänestysalue
-        choose:
-          choose_all_projects: Alueen kaikki ehdotukset
-          title: Äänestyskori
-          view_project: Näytä ehdotus
-        choose_notifications:
-          errors:
-            allocation_exceeded:
-              description: Voidaksesi edetä esikatseluun ja äänestyksen vahvistamiseen, sinun täytyy poistaa jokin ehdotus, jotta valitsemasi ehdotukset mahtuvat alueen budjettiin.
-              title: Alueen budjetti on ylittynyt!
-            allocation_exceeded_projects:
-              description: Voidaksesi edetä esikatseluun ja äänestyksen vahvistamiseen, sinun täytyy poistaa jokin ehdotus, jotta valitsemasi ehdotukset eivät ylitä alueelle määritettyä ehdotusten enimmäismäärää.
-              title: Liian monta ehdotusta valittu!
-            maximum_budget:
-              description: Poista valitsemiasi ehdotuksia äänestäsi ennen kuin voit jatkaa seuraavaan vaiheeseen. Käytettävissäsi on enintään %{amount}.
-              title: Alueen %{budget} budjetti on ylittynyt
-            minimum_budget:
-              description: Lisää ehdotuksia ääneesi ennen kuin voit jatkaa seuraavaan vaiheeseen. Sinun on käytettävä vähintään %{amount} budjetista.
-              title: Alueelta %{budget} on valittava enemmän ehdotuksia
-            maximum_projects:
-              description: Poista valitsemiasi ehdotuksia äänestäsi ennen kuin voit jatkaa seuraavaan vaiheeseen.
-              title:
-                one: Voit valita enintään yhden ehdotuksen alueelta %{budget}
-                other: Olet valinnut liian monta ehdotusta alueelta %{budget}, valittava enintään %{count}
-            minimum_projects:
-              description: Huomioithan, että sinulla on mahdollisuus valita ehdotuksia äänestyskoriin edellisessä vaiheessa. Siirry takaisin edelliseen vaiheeseen ja valitse haluamasi ehdotukset äänestyskoriisi.
-              title:
-                one: Et ole vielä valinnut yhtään ehdotusta alueelta %{budget}
-                other: Et ole valinnut tarpeeksi monta ehdotusta alueelta %{budget}, valittava vähintään %{count}
         create:
           error: Äänen käsittely epäonnistui, yritä uudestaan.
           success: Äänesi tallennus onnistui!
@@ -197,14 +256,12 @@ fi:
           allocated_projects: Valitut ehdotukset
           available_budget: Alueen budjetti
           available_projects: Valittavien ehdotusten määrä
+          selected_projects: Proposals in the basket
+          selected_projects_count: "%{count} pcs"
           unused_budget: Budjettia jäljellä
           unused_projects: Ehdotuksia valittavana
         orders_summary:
-          allocated_budget: Budjetista varattu
-          available_budget: Alueen budjetti
-          available_projects: Ehdotusten maksimimäärä
-          selected_projects: Ehdotuksia korissa
-          selected_projects_count: "%{count} kpl"
+          show_orders: Show voting basket
         order_total:
           order_budget_sum: Valittujen ehdotusten summa
           order_projects_sum: Valittujen ehdotusten määrä
@@ -218,7 +275,7 @@ fi:
         projects:
           orders_summary_title: Äänestyskorin tilanne
           orders_summary_description: Tarkemmat valinnat voi tehdä seuraavassa vaiheessa äänestyskorin puolella.
-          title: Selaa ehdotuksia
+          title: Select proposals
         show:
           title: Vahva tunnistautuminen
         start:
@@ -226,9 +283,8 @@ fi:
         steps:
           authorization: Vahva tunnistautuminen ja äänestysalueen valinta
           budgets: Äänestysalueen valinta
-          choose: Äänestyskori
           preview: Esikatselu ja äänestys
-          projects: Ehdotusten selaus
+          projects: Select proposals
         top:
           title: Äänestys
     components:
@@ -237,11 +293,12 @@ fi:
           global:
             geocoding_enabled: Geokoodaus käytössä
             default_map_center_coordinates: Kartan oletuskeskipisteen koordinaatit (latitude,longitude)
+            more_information_modal_label: More information modal open link text
             results_page_content: Tulossivun sisältö
             vote_budgets_page_content: Alueen valintasivun sisältö
-            vote_choose_page_content: Äänestyskorisivun sisältö
             vote_identify_page_content: Tunnistautumissivun sisältö
             vote_identify_page_more_information: Tunnistautumissivun lisätiedot
+            vote_orders_page_content: Voting basket content
             vote_preview_page_content: Esikatselusivun sisältö
             vote_projects_page_content: Ehdotusten selaussivun sisältö
             vote_success_content: Onnistuneen äänestyksen jälkeen näytettävä sisältö
