@@ -196,6 +196,8 @@ fi:
           added_descriptive: Ehdotus %{resource_name} lisätty äänestyskoriisi
           add_to_vote: Lisää äänestyskoriin
           remove_from_vote: Poista äänestyskorista
+        projects:
+          empty: No proposals were found for your search criteria. Change your search criteria to find more proposals.
         show:
           close: Sulje
           start_voting: Aloita äänestys
@@ -218,8 +220,8 @@ fi:
         icon_heart:
           title: Sydän
         show:
-          show_projects: Näytä ehdotukset
           see_your_vote: Näytä oma ääneni
+          show_projects: Näytä ehdotukset
           title: "%{organization_name} äänestystilanne"
         vote_finished_modal:
           close: Sulje ikkuna
@@ -252,7 +254,7 @@ fi:
           not_authorized: Sinun täytyy tunnistautua äänestääksesi.
           previous: Edellinen
         order_progress:
-          allocated_budget: Budjetista varattu
+          allocated_budget: Budjetista käytetty
           allocated_projects: Valitut ehdotukset
           available_budget: Alueen budjetti
           available_projects: Valittavien ehdotusten määrä
