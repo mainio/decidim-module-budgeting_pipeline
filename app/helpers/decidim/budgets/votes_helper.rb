@@ -16,15 +16,27 @@ module Decidim
         Decidim::BudgetingPipeline.identity_provider_name.call(provider)
       end
 
-      def authorization_providers
+      def available_authorization_provider_keys
         providers = Decidim::BudgetingPipeline.authorization_providers
         providers = providers.call(current_organization) if providers.respond_to?(:call)
+        providers
+      end
 
+      def authorization_providers
         Verifications::Adapter.from_collection(
-          providers - Decidim::Authorization.where(user: current_user).where.not(
-            granted_at: nil
-          ).pluck(:name)
+          available_authorization_provider_keys - user_authorizations.pluck(:name)
         )
+      end
+
+      def user_authorizations(type = :all)
+        base = Decidim::Authorization.where(
+          name: available_authorization_provider_keys,
+          user: current_user
+        )
+        return base.where.not(granted_at: nil) if type == :granted
+        return base.where(granted_at: nil) if type == :pending
+
+        base
       end
 
       def authorization_provider_name(provider)
@@ -33,6 +45,14 @@ module Decidim
 
       def display_more_information?
         translated_attribute(component_settings.more_information_modal).present?
+      end
+
+      def invalid_authorization_title
+        translated_attribute(component_settings.vote_identify_invalid_authorization_title)
+      end
+
+      def invalid_authorization_content
+        translated_attribute(component_settings.vote_identify_invalid_authorization_content)
       end
 
       def more_information_label

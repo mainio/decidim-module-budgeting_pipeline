@@ -279,6 +279,11 @@ fi:
           orders_summary_description: Tarkemmat valinnat voi tehdä seuraavassa vaiheessa äänestyskorin puolella.
           title: Valitse ehdotuksia
         show:
+          granted_authorizations_info: Tunnistautumistietosi eivät vastaa äänestyksen reunaehtoja, minkä takia et voi äänestää.
+          granted_authorizations_notice: "Olet jo tunnistautunut seuraavilla tunnistautumistavoilla:"
+          granted_authorizations_other: Jos sinulla on mahdollisuus tunnistautua toisella tavalla, voit yrittää tätä alla olevasta listasta.
+          pending_authorizations_notice: "Olet jo tunnistautunut seuraavilla tunnistautumistavoilla, jotka odottavat hyväksyntää:"
+          pending_authorizations_other: Mikäli sinulla on mahdollisuus tunnistautua toisella tavalla, voit valita toisen tunnistautumistavan alla olevasta listasta.
           title: Vahva tunnistautuminen
         start:
           invalid: Äänestysalueen valinta epäonnistui, yritä uudestaan.
@@ -298,6 +303,8 @@ fi:
             more_information_modal_label: Lisätietoikkunan avauslinkin teksti
             results_page_content: Tulossivun sisältö
             vote_budgets_page_content: Alueen valintasivun sisältö
+            vote_identify_invalid_authorization_content: Virheellisten tunnistautumistietojen virheen sisältö
+            vote_identify_invalid_authorization_title: Virheellisten tunnistautumistietojen virheen otsikko
             vote_identify_page_content: Tunnistautumissivun sisältö
             vote_identify_page_more_information: Tunnistautumissivun lisätiedot
             vote_orders_page_content: Äänestyskorin sisältö

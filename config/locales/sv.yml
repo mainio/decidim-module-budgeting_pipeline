@@ -277,6 +277,11 @@ sv:
           orders_summary_description: Mer detaljerade val kan göras i nästa steg i röstkorgen.
           title: Välj förslag
         show:
+          granted_authorizations_info: Din identitetsinformation matchar inte röstningskraven, varför du inte kan rösta.
+          granted_authorizations_notice: "Du har redan identifierat dig med följande identitetsleverantörer:"
+          granted_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du prova detta från listan nedan.
+          pending_authorizations_notice: "Du har redan identifierat dig med följande leverantörer som väntar på godkännande:"
+          pending_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du välja den leverantören från listan nedan.
           title: Stark identifiering
         start:
           invalid: Det gick inte att välja omröstningsområde, försök igen.
@@ -296,6 +301,8 @@ sv:
             more_information_modal_label: Mer information modal öppen länktext
             results_page_content: Resultatsidans innehåll
             vote_budgets_page_content: Områdesval sidinnehåll
+            vote_identify_invalid_authorization_content: Ogiltigt identitetsinformation fel innehåll
+            vote_identify_invalid_authorization_title: Ogiltig identitetsinformation fel titel
             vote_identify_page_content: Identitetssidans innehåll
             vote_identify_page_more_information: Information om identifieringssidan
             vote_orders_page_content: Röstkorgens innehåll

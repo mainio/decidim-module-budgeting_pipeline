@@ -277,6 +277,11 @@ en:
           orders_summary_description: More detailed choices can be made in the next step at the voting basket.
           title: Select proposals
         show:
+          granted_authorizations_info: Your identity information do not match the voting requirements, which is why you cannot vote.
+          granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
+          granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
+          pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
+          pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
           title: Strong identification
         start:
           invalid: Failed to select voting area, please try again.
@@ -296,6 +301,8 @@ en:
             more_information_modal_label: More information modal open link text
             results_page_content: Results page content
             vote_budgets_page_content: Area selection page content
+            vote_identify_invalid_authorization_content: Invalid identity information error content
+            vote_identify_invalid_authorization_title: Invalid identity information error title
             vote_identify_page_content: Identification page content
             vote_identify_page_more_information: Identification page details
             vote_orders_page_content: Voting basket content
