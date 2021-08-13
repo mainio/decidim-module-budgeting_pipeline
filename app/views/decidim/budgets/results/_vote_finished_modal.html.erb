@@ -1,19 +1,22 @@
-<div class="reveal" id="vote-finished-modal" data-reveal>
+<div class="reveal reveal--vote-finished" id="vote-finished-modal" data-reveal role="dialog" aria-modal="true" aria-labelledby="vote-finished-modal-label" data-close-on-click="false" data-close-on-esc="false">
   <div class="reveal__header">
-    <h2 class="reveal__title"><%= t(".title") %></h2>
-    <button class="close-button" data-close aria-label="<%= t(".close") %>"
-      type="button">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <div class="icon-wrapper" aria-hidden="true">
+      <%= render "icon_heart" %>
+    </div>
+    <h2 id="vote-finished-modal-label" class="reveal__title"><%= t(".title") %></h2>
   </div>
   <div class="reveal__content" id="vote-finished-modal-content" aria-live="assertive">
-    <%== translated_attribute component_settings.vote_success_content %>
+    <%= render partial: "vote_finished_modal_content" %>
 
-    <div class="text-center">
-      <%= link_to t(".sign_out"), decidim.destroy_user_session_path, method: :delete, class: "sign-out-link button primary", role: "menuitem" %>
-    </div>
-    <div class="text-center">
-      <button class="button primary hollow" data-close><%= t(".continue") %></button>
+    <div class="row mt-3">
+      <div class="columns small-8 small-push-2">
+        <div>
+          <%= link_to t(".sign_out"), decidim.destroy_user_session_path, method: :delete, class: "sign-out-link button expanded primary", role: "button" %>
+        </div>
+        <div>
+          <button class="button primary expanded hollow" data-close><%= t(".continue") %></button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

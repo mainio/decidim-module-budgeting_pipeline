@@ -1,18 +1,29 @@
-<ul class="tabs tabs-stepper expanded" id="voting-tabs">
+<ol class="tabs tabs-stepper expanded" id="voting-tabs">
   <% voting_steps.each_with_index do |step, index| %>
-    <li class="tabs-stepper-step<%= " is-active" if step.key == current_step %>">
-      <div class="step-selector">
-        <div class="step-selector-number">
-          <% if step.done %>
-            <%= icon "check", role: "img", aria_hidden: true %>
+    <li class="tabs-stepper-step<%= " done" if step.done %><%= " is-active" if step.key == current_step %>">
+      <% if step.done %>
+        <%= voting_step_link(step) do %>
+          <div class="step-selector-number">
+            <%= icon "check", role: "img", "aria-hidden": true %>
             <span class="show-for-sr"><%= index + 1 %></span>
-          <% else %>
+          </div>
+          <div class="step-selector-text"><%= t(".#{step.key}") %></div>
+        <% end %>
+      <% elsif step.available %>
+        <%= voting_step_link(step) do %>
+          <div class="step-selector-number">
             <%= index + 1 %>
-          <% end %>
-        </div>
-        <div class="step-selector-text"><%= t(".#{step.key}") %></div>
-      </div>
+          </div>
+          <div class="step-selector-text"><%= t(".#{step.key}") %></div>
+        <% end %>
+      <% else %>
+        <span class="link step-selector disabled" role="link" aria-disabled="true" tabindex="0">
+          <div class="step-selector-number">
+            <%= index + 1 %>
+          </div>
+          <div class="step-selector-text"><%= t(".#{step.key}") %></div>
+        </span>
+      <% end %>
     </li>
   <% end %>
-</ul>
-
+</ol>

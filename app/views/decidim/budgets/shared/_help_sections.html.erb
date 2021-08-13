@@ -1,4 +1,6 @@
-<div class="card-slider single"
+<% type ||= :small %>
+
+<div class="card-slider card-slider--<%= type %> single"
   data-prev-label="<%= t("helsinki.content_blocks.records_carousel.previous") %>"
   data-next-label="<%= t("helsinki.content_blocks.records_carousel.next") %>">
 
@@ -20,10 +22,12 @@
             </div>
           </div>
         </div>
-        <% if section.link && section.link_text %>
+        <% if section.link.present? && translated_attribute(section.link_text).present? %>
           <div class="card__info">
-            <div class="card__info__item text-right">
-              <%= link_to translated_attribute(section.link_text), section.link %>
+            <div class="card__info__item">
+              <%= link_to section.link do %>
+                <%= translated_attribute(section.link_text) %>&nbsp;&raquo;
+              <% end %>
             </div>
           </div>
         <% end %>

@@ -8,13 +8,14 @@ module Decidim
       include Decidim::FilterResource
       include Decidim::Paginable
       include Decidim::Budgets::Orderable
-      include Decidim::BudgetingPipeline::OrdersController
+      include Decidim::BudgetingPipeline::OrdersUtilities
+      include Decidim::BudgetingPipeline::VoteUtilities
 
       helper_method :help_sections, :voting_steps, :current_step, :sticky_budgets, :suggested_budgets, :choose_budgets, :selected_budgets, :projects
 
       before_action :ensure_authorized!
       before_action :ensure_not_voted!
-      before_action :ensure_orders!, only: [:projects, :choose, :preview, :create]
+      before_action :ensure_orders!, only: [:projects, :preview, :create]
       before_action :ensure_orders_valid!, only: [:preview, :create]
       before_action :set_current_step
 
@@ -64,7 +65,7 @@ module Decidim
 
           on(:invalid) do
             flash.now[:alert] = I18n.t("decidim.budgets.votes.create.error")
-            redirect_to choose_vote_path
+            redirect_to projects_vote_path
           end
         end
       end
@@ -96,9 +97,9 @@ module Decidim
       end
 
       def ensure_orders_valid!
-        return if current_orders.all?(&:confirmed_valid?)
+        return if can_cast_votes?
 
-        redirect_to choose_vote_path
+        redirect_to projects_vote_path
       end
 
       # This ensures that only people eligible to vote can enter the voting
@@ -107,10 +108,6 @@ module Decidim
       # how old they are, etc.).
       def user_authorized?
         @user_authorized ||= user_signed_in? && action_authorized_to("vote").ok?
-      end
-
-      def user_voted?
-        current_workflow.voted.any?
       end
 
       def set_current_step
@@ -164,8 +161,22 @@ module Decidim
           done = true
           steps = voting_steps_keys.map do |key|
             done = false if key == current_step
+            step_link = key == :authorization ? vote_path : send("#{key}_vote_path")
+            available =
+              case key
+              when :authorization
+                true
+              when :budgets
+                user_authorized?
+              when :projects
+                current_orders.any?
+              when :preview
+                can_cast_votes?
+              else
+                false
+              end
 
-            OpenStruct.new(key: key, done: done)
+            OpenStruct.new(key: key, done: done, available: available, link: step_link)
           end
 
           steps
@@ -176,7 +187,6 @@ module Decidim
         @voting_steps_keys ||= [
           user_authorized? ? :budgets : :authorization,
           :projects,
-          :choose,
           :preview
         ]
       end

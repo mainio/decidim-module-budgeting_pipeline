@@ -7,7 +7,7 @@
     <% end %>
 
     <p class="card__text card-list__description">
-      <% if model.budget_amount > 1 %>
+      <% if model.budget_amount > 0 %>
         <span class="show-for-small hide-for-medium">
           <strong><%= budget_to_currency(model.budget_amount) %></strong>
           <br><br>
@@ -20,7 +20,7 @@
       <%= link_to resource_path, class: "card__link" do %>
         <span aria-hidden="true">
           <%= t(".more_info") %>
-          <%= icon "chevron-right", aria_hidden: true %>
+          <%= icon "chevron-right", role: "img", "aria-hidden": true %>
         </span>
         <span class="show-for-sr">
           <%= t(".more_info_with_title", title: resource_title) %>

@@ -1,0 +1,14 @@
+<%
+# This template is separated in order to allow adding conditional customized
+# content to the vote finished modal that is specific to the instance. This can
+# be used e.g. to display a specific message for users who have authorized with
+# a specific authorization method.
+#
+# By default, this displays only the default content configurable from the
+# component settings.
+#
+# In order to customize this content, copy this file into your application to
+# the following folder: app/views/decidim/budgets/results
+%>
+
+<%== translated_attribute component_settings.vote_success_content %>

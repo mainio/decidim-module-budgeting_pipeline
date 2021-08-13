@@ -8,19 +8,23 @@
       </div>
       <div class="row">
         <% if help_sections.any? %>
-          <div class="columns mediumlarge-6">
+          <div class="columns mediumlarge-5">
             <%= render partial: "decidim/budgets/shared/help_sections" %>
           </div>
         <% end %>
-        <div class="columns mediumlarge-6 <%= "mediumlarge-push-3" unless help_sections.any? %>">
+        <div class="columns mediumlarge-6 <%= help_sections.any? ? "mediumlarge-push-1" : "mediumlarge-push-3" %> end">
           <div class="info-section mt-5">
             <div class="row">
               <div class="columns mediumlarge-8 mediumlarge-push-2">
                 <div class="static__content text-center">
-                  <%== translated_attribute component_settings.landing_page_content %>
+                  <%== landing_page_content %>
                   <% if voting_open? && !user_voted? %>
                     <p>
                       <%= link_to t(".start_voting"), vote_path, class: "button expanded secondary" %>
+                    </p>
+                  <% elsif user_voted? %>
+                    <p>
+                      <%= link_to t(".see_your_vote"), orders_path, class: "button expanded secondary" %>
                     </p>
                   <% end %>
                   <% if current_settings.show_votes? %>
@@ -76,7 +80,7 @@
 
 <div class="row columns">
   <div class="title-action">
-    <h2 id="projects-count" class="title-action__title section-heading">
+    <h2 id="projects-count" class="title-action__title section-heading" aria-live="polite" aria-atomic="true">
       <%= render partial: "count" %>
     </h2>
   </div>

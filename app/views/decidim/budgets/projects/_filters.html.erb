@@ -1,24 +1,21 @@
 <%
 main_row_column_class = begin
-  if display_status_filter? && display_category_filter?
+  if display_budgets_filter? && display_status_filter? && display_category_filter?
     "columns mediumlarge-6 large-3"
   else
     "columns mediumlarge-6 large-4"
   end
 end
+
+type_suffix = defined?(type) ? "_#{type}" : ""
 %>
 
-<%= filter_form_for filter do |form| %>
-  <div class="row columns">
+<%= filter_form_for filter, projects_path, role: "region", "aria-label": t(".label") do |form| %>
+  <div class="row columns show-for-medium">
     <div class="filters__section filters__section--title">
       <div class="row">
         <div class="columns mediumlarge-6 large-8">
           <p class="h3"><%= t(".title") %></p>
-        </div>
-        <div class="columns mediumlarge-6 large-4">
-          <div class="text-right">
-            <button type="reset" class="button primary small"><%= t ".reset" %></button>
-          </div>
         </div>
       </div>
     </div>
@@ -26,75 +23,87 @@ end
 
   <div class="row">
     <div class="<%= main_row_column_class %>">
-      <div class="filters__section budget_id_filter">
+      <div class="filters__section text_filter">
         <fieldset>
-          <legend class="mini-title"><%= t(".budget") %></legend>
-          <%= form.select(:budget_id, filter_budgets_values, { label: false, include_blank: t(".budgets_values.all") }, html_options: { "aria-label": t(".budget"), "aria-controls": "projects" }) %>
+          <legend class="mini-title"><%= t(".term") %></legend>
+          <%= form.search_field :search_text, label: false, placeholder: t(".term"), title: t(".term"), "aria-label": t(".term"), data: { disable_dynamic_change: true } %>
         </fieldset>
       </div>
     </div>
+    <% if display_budgets_filter? %>
+      <div class="<%= main_row_column_class %><%= " end" if !display_status_filter? && !display_category_filter? %>">
+        <div class="filters__section budget_id_filter">
+          <fieldset>
+            <legend class="mini-title"><%= t(".budget") %></legend>
+            <%= form.select(:budget_id, filter_budgets_values, { label: false, include_blank: filter_budgets_label }, "aria-label": t(".budget"), data: { disable_dynamic_change: true }) %>
+          </fieldset>
+        </div>
+      </div>
+    <% end %>
     <% if display_status_filter? %>
-      <div class="<%= main_row_column_class %>">
+      <div class="<%= main_row_column_class %><%= " end" unless display_category_filter? %>>
         <div class="filters__section status_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".status") %></legend>
-            <%= form.select(:status, filter_status_values, { label: false, include_blank: t(".status_values.all") }, "aria-label": t(".status"), "aria-controls": "projects") %>
+            <%= form.select(:status, filter_status_values, { label: false, include_blank: t(".status_values.all") }, "aria-label": t(".status"), data: { disable_dynamic_change: true }) %>
           </fieldset>
         </div>
       </div>
     <% end %>
     <% if display_category_filter? %>
-      <div class="<%= main_row_column_class %>">
+      <div class="<%= main_row_column_class %> end">
         <div class="filters__section category_id_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".category") %></legend>
-            <%= form.select(:category_id, filter_categories_values, { label: false, include_blank: t(".categories_values.all") }, html_options: { "aria-label": t(".category"), "aria-controls": "projects" }) %>
+            <%= form.select(:category_id, filter_categories_values, { label: false, include_blank: t(".categories_values.all") }, "aria-label": t(".category"), data: { disable_dynamic_change: true }) %>
           </fieldset>
         </div>
       </div>
     <% end %>
-    <div class="<%= main_row_column_class %> end">
+  </div>
+
+  <% if display_budget_amount_filters? || current_user %>
+    <div class="row columns">
       <div class="filters__section">
-        <div class="filters__search">
+        <button type="button" class="link" data-toggle="additional_search<%= type_suffix %> additional_search_closed<%= type_suffix %> additional_search_open<%= type_suffix %>" id="additional_search_toggle<%= type_suffix %>">
+          <span id="additional_search_closed<%= type_suffix %>" data-toggler=".is-hidden" aria-expanded="true">
+            <%= t(".more_criteria.show") %>
+            <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>
+          </span>
+          <span id="additional_search_open<%= type_suffix %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false">
+            <%= t(".more_criteria.hide") %>
+            <%= icon "chevron-top", role: "img", "aria-hidden": true %>
+          </span>
+        </button>
+      </div>
+    </div>
+  <% end %>
+
+  <div id="additional_search<%= type_suffix %>" class="row is-hidden" data-toggler=".is-hidden">
+    <% if display_budget_amount_filters? %>
+      <div class="columns mediumlarge-6 large-3">
+        <div class="filters__section budget_amount_min_filter">
           <fieldset>
-            <legend class="mini-title"><%= t(".search") %></legend>
+            <legend class="mini-title"><%= t(".budget_amount_min") %></legend>
             <div class="input-group">
-              <%= form.search_field :search_text, label: false, class: "input-group-field", placeholder: t(".search"), title: t(".search"), "aria-label": t(".search") %>
-              <div class="input-group-button">
-                <button type="submit" class="button button--muted" aria-label="<%= t(".search") %>">
-                  <%= icon "magnifying-glass", aria_label: t(".search"), role: "img" %>
-                </button>
-              </div>
+              <%= form.number_field :budget_amount_min, label: false, class: "input-group-field", placeholder: t(".budget_enter_amount"), title: t(".budget_amount_min"), "aria-label": t(".budget_amount_min"), data: { disable_dynamic_change: true } %>
+              <span class="input-group-label"><%= Decidim.currency_unit %></span>
             </div>
           </fieldset>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="columns mediumlarge-3">
-      <div class="filters__section budget_amount_min_filter">
-        <fieldset>
-          <legend class="mini-title"><%= t(".budget_amount_min") %></legend>
-          <div class="input-group">
-            <%= form.number_field :budget_amount_min, label: false, class: "input-group-field", placeholder: t(".budget_enter_amount"), title: t(".budget_amount_min"), "aria-label": t(".budget_amount_min") %>
-            <span class="input-group-label"><%= Decidim.currency_unit %></span>
-          </div>
-        </fieldset>
+      <div class="columns mediumlarge-6 large-3<%= " end" unless current_user %>">
+        <div class="filters__section budget_amount_max_filter">
+          <fieldset>
+            <legend class="mini-title"><%= t(".budget_amount_max") %></legend>
+            <div class="input-group">
+              <%= form.number_field :budget_amount_max, label: false, class: "input-group-field", placeholder: t(".budget_enter_amount"), title: t(".budget_amount_max"), "aria-label": t(".budget_amount_max"), data: { disable_dynamic_change: true } %>
+              <span class="input-group-label"><%= Decidim.currency_unit %></span>
+            </div>
+          </fieldset>
+        </div>
       </div>
-    </div>
-    <div class="columns mediumlarge-3<%= " end" unless current_user %>">
-      <div class="filters__section budget_amount_max_filter">
-        <fieldset>
-          <legend class="mini-title"><%= t(".budget_amount_max") %></legend>
-          <div class="input-group">
-            <%= form.number_field :budget_amount_max, label: false, class: "input-group-field", placeholder: t(".budget_enter_amount"), title: t(".budget_amount_max"), "aria-label": t(".budget_amount_max") %>
-            <span class="input-group-label"><%= Decidim.currency_unit %></span>
-          </div>
-        </fieldset>
-      </div>
-    </div>
+    <% end %>
     <% if current_user %>
       <div class="columns mediumlarge-6 end">
         <div class="filters__section activity_collection_radio_buttons_filter">
@@ -103,7 +112,7 @@ end
             <div class="inline-labels">
               <% filter_activity_values.each do |value| %>
                 <label>
-                  <%= form.radio_button :activity, value[1], label: false %>
+                  <%= form.radio_button :activity, value[1], label: false, data: { disable_dynamic_change: true } %>
                   <%= value[0] %>
                 </label>
               <% end %>
@@ -112,6 +121,15 @@ end
         </div>
       </div>
     <% end %>
+  </div>
+
+  <div class="row columns">
+    <div class="filters__section">
+      <button type="submit" class="button primary" aria-label="<%= t(".search") %>" aria-controls="projects-count projects" data-close>
+        <%= t(".search") %>
+      </button>
+      <button type="reset" class="button clear"><%= t ".reset" %></button>
+    </div>
   </div>
 
   <%= hidden_field_tag :order, order, id: nil, class: "order_filter" %>

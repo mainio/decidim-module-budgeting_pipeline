@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Adds the extra fields to the admin categories form.
+# Adds the extra data to budgets.
 module Decidim
   module BudgetingPipeline
     module AdminUpdateBudgetExtensions

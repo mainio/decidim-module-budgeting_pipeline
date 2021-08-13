@@ -7,17 +7,17 @@
   </div>
 
   <div class="row columns">
-    <%= render partial: "decidim/budgets/projects/filters_small_view" %>
+    <%= render partial: "decidim/budgets/votes/filters_small_view" %>
     <div class="card card--secondary show-for-mediumlarge">
       <div class="record-filters">
-        <%= render partial: "decidim/budgets/projects/filters" %>
+        <%= render partial: "decidim/budgets/votes/filters" %>
       </div>
     </div>
   </div>
 
   <div class="row columns">
     <div class="title-action">
-      <h2 id="projects-count" class="title-action__title section-heading">
+      <h2 id="projects-count" class="title-action__title section-heading" aria-live="polite" aria-atomic="true">
         <%= render partial: "decidim/budgets/projects/count" %>
       </h2>
     </div>
@@ -28,17 +28,13 @@
     </div>
   </div>
 
-  <div class="orders-summary bg-light mt-5">
+  <div class="orders-summary mt-5">
     <div class="text-center">
       <h2><%= t(".orders_summary_title") %></h2>
       <p><%= t(".orders_summary_description") %></p>
     </div>
 
-    <div class="row">
-      <div class="columns mediumlarge-6 mediumlarge-push-3">
-        <%= render partial: "orders_summary", locals: { orders: current_orders } %>
-      </div>
-    </div>
+    <%= render partial: "orders_summary", locals: { orders: current_orders } %>
   </div>
 
   <div class="row column flex-actions actions mt-5">
@@ -46,10 +42,9 @@
       <%= icon "chevron-left", role: "img", "aria-hidden": true %>
       <%= t("decidim.budgets.votes.general.previous") %>
     <% end %>
-    <%= link_to choose_vote_path, class: "button primary icon-after" do %>
-      <%= t("decidim.budgets.votes.general.next") %>
-      <%= icon "chevron-right", role: "img", "aria-hidden": true %>
-    <% end %>
+    <span id="projects_continue_button">
+      <%= render partial: "projects_continue_button" %>
+    </span>
   </div>
 </div>
 

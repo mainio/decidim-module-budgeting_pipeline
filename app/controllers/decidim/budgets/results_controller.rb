@@ -4,6 +4,8 @@ module Decidim
   module Budgets
     # Controls the results view.
     class ResultsController < ApplicationController
+      include Decidim::BudgetingPipeline::VoteUtilities
+
       helper_method :budgets, :sticky_budgets, :common_budgets, :projects_with_votes, :minimum_project_budget, :vote_success?
 
       def show

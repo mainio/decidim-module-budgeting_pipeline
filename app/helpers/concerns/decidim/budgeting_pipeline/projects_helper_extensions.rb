@@ -6,6 +6,11 @@ module Decidim
     module ProjectsHelperExtensions
       extend ActiveSupport::Concern
 
+      def landing_page_content
+        translated_attribute(current_settings.landing_page_content).presence ||
+          translated_attribute(component_settings.landing_page_content)
+      end
+
       def projects_data_for_map(geocoded_projects_data)
         geocoded_projects_data.map do |data|
           {
@@ -35,6 +40,14 @@ module Decidim
         budgets.map { |b| [translated_attribute(b.title), b.id] }
       end
 
+      def filter_budgets_label
+        if budgets.count == 2
+          t("budgets_values.all.two", scope: "decidim.budgets.projects.filters")
+        else
+          t("budgets_values.all.other", scope: "decidim.budgets.projects.filters")
+        end
+      end
+
       def filter_categories_values
         organization = current_component.participatory_space.organization
 
@@ -50,9 +63,12 @@ module Decidim
       def filter_activity_values
         [
           [t("decidim.budgets.projects.filters.activity_values.all"), "all"],
-          [t("decidim.budgets.projects.filters.activity_values.favorites"), "favorites"],
-          [t("decidim.budgets.projects.filters.activity_values.authored"), "authored"]
+          [t("decidim.budgets.projects.filters.activity_values.favorites"), "favorites"]
         ]
+      end
+
+      def display_budgets_filter?
+        budgets.count > 1
       end
 
       def display_status_filter?
@@ -61,6 +77,10 @@ module Decidim
 
       def display_category_filter?
         current_component.categories.any?
+      end
+
+      def display_budget_amount_filters?
+        Decidim::Budgets::Project.where(budget: budgets).maximum(:budget_amount).positive?
       end
 
       def category_image_path(category)
@@ -101,6 +121,10 @@ module Decidim
           scope_name: :homepage,
           manifest_name: :hero
         ).try(:images_container).try(:background_image).try(:url)
+      end
+
+      def display_cart_button?
+        controller.is_a?(Decidim::Budgets::VotesController)
       end
     end
   end

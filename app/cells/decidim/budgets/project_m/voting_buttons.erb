@@ -2,13 +2,14 @@
   <div class="card__info__item">
     <div class="row">
       <div class="columns small-8 small-push-2 mb-0">
-        <div class="text-center">
-          <%= render partial: "decidim/budgets/projects/project_budget_button.html", locals: { project: model } %>
+        <div class="text-center mb-2">
+          <%= resource_link do %>
+            <%= t("view", scope: "decidim.budgets.projects.project") %>
+            <%= icon "chevron-right", role: "img", "aria-hidden": true %>
+          <% end %>
         </div>
         <div class="text-center">
-          <%= resource_link class: "button expanded hollow primary" do %>
-            <%= t("view", scope: "decidim.budgets.projects.project") %>
-          <% end %>
+          <%= render partial: "decidim/budgets/projects/project_budget_button.html", locals: { project: model } %>
         </div>
       </div>
     </div>

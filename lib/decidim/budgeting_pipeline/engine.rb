@@ -15,16 +15,30 @@ module Decidim
             more_information.editor = true
 
             # Add extra attributes
+            settings.attribute :more_information_modal_label, type: :string, translated: true
             settings.attribute :geocoding_enabled, type: :boolean
             settings.attribute :default_map_center_coordinates, type: :string
             settings.attribute :vote_identify_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_identify_page_more_information, type: :text, translated: true, editor: true
+            settings.attribute :vote_identify_invalid_authorization_title, type: :string, translated: true
+            settings.attribute :vote_identify_invalid_authorization_content, type: :text, translated: true, editor: true
             settings.attribute :vote_budgets_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_projects_page_content, type: :text, translated: true, editor: true
-            settings.attribute :vote_choose_page_content, type: :text, translated: true, editor: true
+            settings.attribute :vote_orders_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_preview_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_success_content, type: :text, translated: true, editor: true
             settings.attribute :results_page_content, type: :text, translated: true, editor: true
+
+            # Move the more information modal label before the modal content so
+            # it is in a logic position.
+            m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
+            m.move_attribute_before(:more_information_modal_label, :more_information_modal)
+          end
+
+          component.settings(:step) do |settings|
+            # Remove the more information modal from the step settings as it is
+            # not needed there.
+            settings.attributes.delete(:more_information_modal)
           end
         end
       end
@@ -37,9 +51,10 @@ module Decidim
             get :budgets
             post :start
             get :projects
-            get :choose
             get :preview
           end
+
+          resources :orders, only: [:index]
 
           resources :budgets, only: [] do
             resource :order, only: [] do
@@ -82,6 +97,9 @@ module Decidim
         Decidim::Budgets::LineItemsController.include(
           Decidim::BudgetingPipeline::LineItemsControllerExtensions
         )
+        Decidim::Budgets::OrdersController.include(
+          Decidim::BudgetingPipeline::OrdersControllerExtensions
+        )
 
         # Cell extensions
         Decidim::Budgets::ProjectMCell.include(
@@ -100,6 +118,9 @@ module Decidim
         )
 
         # Command extensions
+        Decidim::Budgets::AddLineItem.include(
+          Decidim::BudgetingPipeline::AddLineItemExtensions
+        )
         Decidim::Budgets::Admin::CreateBudget.include(
           Decidim::BudgetingPipeline::AdminCreateBudgetExtensions
         )

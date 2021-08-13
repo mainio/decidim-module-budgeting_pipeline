@@ -1,4 +1,6 @@
-<div id="project-<%= project.id %>-budget-button">
+<% style ||= :button %>
+
+<div id="project-<%= project.id %>-budget-button<%= id_suffix if defined?(id_suffix) %>">
   <% if voted_for?(project) %>
     <%= action_authorized_button_to(
           "vote",
@@ -10,10 +12,10 @@
             budget: project.budget_amount
           },
           disabled: !can_have_order?,
-          class: "link mb-2",
+          class: style == :link ? "link" : "button small expanded primary hollow",
           "aria-label": t("decidim.budgets.projects.project_budget_button.added_descriptive", resource_name: translated_attribute(project.title))
         ) do %>
-          <%= icon("trash", role: "img", aria_hidden: true) %>
+          <%= icon("trash", role: "img", "aria-hidden": true) %>
           <%= t("decidim.budgets.projects.project_budget_button.remove_from_vote") %>
         <% end %>
   <% elsif current_user.present? %>
@@ -29,7 +31,7 @@
             add: true
           },
           disabled: !can_have_order?,
-          class: "button expanded primary",
+          class: style == :link ? "link" : "button small expanded primary",
           "aria-label": t("decidim.budgets.projects.project_budget_button.add_descriptive", resource_name: translated_attribute(project.title))
         ) %>
   <% end %>

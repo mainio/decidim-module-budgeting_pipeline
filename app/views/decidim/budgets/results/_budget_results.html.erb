@@ -20,7 +20,11 @@
           <tr>
             <td><%= index + 1 %>.</td>
             <td><%= translated_attribute(project.title) %></td>
-            <td class="text-center"><%= budget_to_currency(project.budget_amount) %></td>
+            <td class="text-center">
+              <% if project.budget_amount > 0 %>
+                <%= budget_to_currency(project.budget_amount) %>
+              <% end %>
+            </td>
             <td class="text-center"><%= t(".amount", count: number_with_delimiter(project.votes_count)) %></td>
           </tr>
         <% end %>

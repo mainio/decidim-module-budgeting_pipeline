@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Adds the extra fields to the admin categories form.
+# Adds the extra data to budgets.
 module Decidim
   module BudgetingPipeline
     module AdminUpdateProjectExtensions
@@ -15,6 +15,7 @@ module Decidim
               scope: form.scope,
               category: form.category,
               title: form.title,
+              summary: form.summary,
               description: form.description,
               budget_amount: form.budget_amount,
               selected_at: selected_at,

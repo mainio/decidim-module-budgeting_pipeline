@@ -1,10 +1,25 @@
 var $projectBudgetButton = $("#project-<%= project.id %>-budget-button");
 var $ordersSummary = $("#orders-summary");
+var $detailedOrdersSummary = $("#orders-overview .orders-summary");
+var $continueButton = $("#projects_continue_button");
+var $continueButtonOrders = $("#projects_continue_button_orders");
 
 if ($projectBudgetButton.length > 0) {
-  morphdom($projectBudgetButton[0], '<%= j(render partial: "decidim/budgets/projects/project_budget_button", locals: { project: project }).strip.html_safe %>');
+  $projectBudgetButton.replaceWith('<%= j(render partial: "decidim/budgets/projects/project_budget_button", locals: { project: project }).strip.html_safe %>');
 }
 
 if ($ordersSummary.length > 0) {
   morphdom($ordersSummary[0], '<%= j(render partial: "decidim/budgets/votes/orders_summary", locals: { orders: current_orders }).strip.html_safe %>')
+}
+
+if ($detailedOrdersSummary.length > 0) {
+  morphdom($detailedOrdersSummary[0], '<%= j(render partial: "decidim/budgets/orders/orders_summary").strip.html_safe %>')
+}
+
+if ($continueButton.length > 0) {
+  $continueButton.html('<%= j(render partial: "decidim/budgets/votes/projects_continue_button").strip.html_safe %>');
+}
+
+if ($continueButtonOrders.length > 0) {
+  $continueButtonOrders.html('<%= j(render partial: "decidim/budgets/orders/continue_button").strip.html_safe %>');
 }

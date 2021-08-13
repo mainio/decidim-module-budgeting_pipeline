@@ -1,5 +1,57 @@
-$detail-selector-background: $light-gray !default;
+$detail-selector-border: 2px solid $black !default;
 $detail-selector-color: $body-font-color !default;
+$detail-selector-selected-background: $primary !default;
+$detail-selector-selected-color: $white !default;
+$detail-selector-selected-focus-outline: 2px solid $light-gray !default;
+$infobox-color: $body-font-color !default;
+$infobox-background: $light-gray !default;
+$orders-summary-background: $light-gray !default;
+$vote-success-icon-color: $secondary !default;
+
+.voting-header{
+  .bg-content{
+    background: $body-background;
+  }
+
+  .exit-link{
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .exit-link__box{
+    padding: 1rem;
+  }
+}
+
+.voting-header__hero{
+  height: 210px;
+  background-size: cover;
+  background-position: center center;
+
+  @include breakpoint(mediumlarge){
+    height: 250px;
+  }
+}
+
+.voting-header__content{
+  position: relative;
+}
+
+.voting-header__title{
+  position: relative;
+  top: -3rem;
+  height: 0;
+  text-align: center;
+
+  @include breakpoint(medium){
+    top: -5rem;
+  }
+
+  .voting-header__title__box{
+    display: inline-block;
+    padding: .5rem 2.5rem;
+  }
+}
 
 .inline-labels{
   label{
@@ -16,9 +68,31 @@ $detail-selector-color: $body-font-color !default;
 
 .detail-selector{
   .detail-selector-item{
-    background: $detail-selector-background;
+    border: $detail-selector-border;
     margin-bottom: 1rem;
     padding: 10px 20px;
+
+    &.selected{
+      background: $detail-selector-selected-background;
+      border-color: $detail-selector-selected-background;
+      color: $detail-selector-selected-color;
+
+      .detail-selector-title{
+        &,
+        label,
+        button{
+          color: $detail-selector-selected-color;
+        }
+      }
+
+      input,
+      textarea,
+      select{
+        &:focus{
+          outline: $detail-selector-selected-focus-outline;
+        }
+      }
+    }
 
     input[type="checkbox"],
     input[type="radio"]{
@@ -34,6 +108,59 @@ $detail-selector-color: $body-font-color !default;
     button{
       font-weight: $global-weight-bold;
       color: $detail-selector-color;
+    }
+  }
+}
+
+.infobox{
+  .infobox-item{
+    background: $infobox-background;
+    margin-bottom: 1rem;
+    padding: 10px 20px;
+  }
+
+  .infobox-title{
+    margin-bottom: .5rem;
+    font-size: 1.35rem;
+    font-weight: $global-weight-bold;
+    color: $infobox-color;
+  }
+
+  .infobox-content{
+    p:last-child{
+      margin-bottom: 0;
+    }
+  }
+
+  .infobox-content-grid{
+    @include breakpoint(medium){
+      display: flex;
+    }
+  }
+
+  .infobox-content-cell{
+    flex: 1 1 auto;
+  }
+
+  .infobox-actions{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    @include breakpoint(medium){
+      text-align: right;
+    }
+  }
+
+  .infobox-action{
+    margin-top: .5rem;
+
+    &:first-child{
+      margin-top: 0;
+    }
+
+    .button{
+      margin-bottom: 0;
     }
   }
 }
@@ -68,5 +195,68 @@ $detail-selector-color: $body-font-color !default;
 }
 
 .orders-summary{
+  background: $orders-summary-background;
   padding: 2rem;
+}
+
+.reveal{
+  .orders-summary{
+    background: transparent;
+    padding: 0;
+  }
+}
+
+.button{
+  .icon--cart{
+    position: relative;
+    top: 3px;
+    width: 1.2em;
+    height: 1.2em;
+    margin-left: 10px;
+  }
+}
+
+.cart-button-wrapper{
+  @include breakpoint(mediumlarge){
+    text-align: right;
+  }
+}
+
+.collection-sort-controls{
+  .cart-button-wrapper{
+    @include breakpoint(medium){
+      margin-top: -2.4rem;
+    }
+  }
+}
+
+.orders-summary{
+  .cart-button-wrapper{
+    margin-top: 2rem;
+
+    @include breakpoint(mediumlarge){
+      margin-top: 0;
+    }
+  }
+}
+
+.reveal.reveal--vote-finished{
+  .reveal__header{
+    text-align: center;
+    border-bottom: 0;
+
+    .icon-wrapper{
+      margin: 2rem 0;
+
+      svg{
+        width: 12rem;
+        height: 11rem;
+        fill: $vote-success-icon-color;
+      }
+    }
+  }
+
+  .reveal__content{
+    text-align: center;
+  }
 }

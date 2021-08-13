@@ -11,11 +11,6 @@ module Decidim
           joins(:project).order("decidim_budgets_projects.title->>'#{Arel.sql(I18n.locale.to_s)}'")
         end
       end
-
-      included do
-        scope :confirmed, -> { where(confirmed: true) }
-        scope :unconfirmed, -> { where(confirmed: false) }
-      end
     end
   end
 end

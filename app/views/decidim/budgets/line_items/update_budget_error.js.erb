@@ -1,0 +1,12 @@
+var $modal = $("#order-update-error");
+if ($modal.length < 1) {
+  $modal = $('<%= j(render partial: "error_modal").strip.html_safe %>');
+  $("body").append($modal);
+
+  $modal.foundation();
+}
+
+$(".error-message", $modal).html('<%= j(render partial: "error_message").strip.html_safe %>')
+$(".error-details", $modal).html('<%= j(render partial: "error_details").strip.html_safe %>');
+
+$modal.foundation("open");

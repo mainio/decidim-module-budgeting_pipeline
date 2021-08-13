@@ -7,6 +7,7 @@ module Decidim
       extend ActiveSupport::Concern
 
       included do
+        translatable_attribute :summary, String
         attribute :address, Decidim::Form::String
         attribute :latitude, Decidim::Form::Float
         attribute :longitude, Decidim::Form::Float
@@ -15,6 +16,9 @@ module Decidim
 
         alias_method :component, :current_component
 
+        remove_budget_amount_validation!
+
+        validates :budget_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
         validates :address, geocoding: true, if: ->(form) { form.has_address? && !form.geocoded? }
         validates :main_image, passthru: {
           to: Decidim::Budgets::Project,
@@ -48,6 +52,14 @@ module Decidim
 
         def geocoded?
           latitude.present? && longitude.present?
+        end
+      end
+
+      class_methods do
+        def remove_budget_amount_validation!
+          validators_on(:budget_amount).each do |v|
+            v.attributes.delete(:budget_amount)
+          end
         end
       end
     end

@@ -7,9 +7,10 @@ module Decidim
       extend ActiveSupport::Concern
 
       include Decidim::Paginable
+      include Decidim::BudgetingPipeline::VoteUtilities
 
       included do
-        helper_method :help_sections, :user_voted?, :geocoded_projects, :budgets, :maximum_project_budget, :statuses_available?
+        helper_method :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :statuses_available?
 
         def index; end
 
@@ -87,10 +88,6 @@ module Decidim
           component: current_component,
           key: "index"
         ).order(:weight)
-      end
-
-      def user_voted?
-        current_workflow.voted.any?
       end
 
       def geocoded_projects

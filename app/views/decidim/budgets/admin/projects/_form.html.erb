@@ -11,6 +11,10 @@
     </div>
 
     <div class="row column">
+      <%= form.translated :text_area, :summary, rows: 4 %>
+    </div>
+
+    <div class="row column">
       <%= form.translated :editor, :description %>
     </div>
 
@@ -49,6 +53,7 @@
     <% if form.object.persisted? %>
       <div class="row column">
         <%= form.check_box :selected %>
+        <p class="help-text"><%= t ".selected_help" %></p>
       </div>
     <% end %>
   </div>

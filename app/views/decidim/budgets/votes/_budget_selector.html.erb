@@ -1,9 +1,10 @@
-<div class="detail-selector-item">
+<% selected = defined?(form) ? form.object.budget_ids.include?(budget.id) : false %>
+<div class="detail-selector-item<%= " selected" if selected %>">
   <div class="detail-selector-title">
     <div class="row">
       <div class="columns small-6">
         <% if defined?(form) %>
-          <%= form.radio_button :budget_ids, budget.id, label: translated_attribute(budget.title), checked: form.object.budget_ids.include?(budget.id) %>
+          <%= form.radio_button :budget_ids, budget.id, label: translated_attribute(budget.title), checked: selected %>
         <% else %>
           <%= translated_attribute(budget.title) %>
         <% end %>

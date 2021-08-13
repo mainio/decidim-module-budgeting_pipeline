@@ -1,3 +1,31 @@
+<% content_for :top_extra do %>
+  <% if user_signed_in? && user_authorizations(:granted).any? && invalid_authorization_title.present? %>
+    <div class="row mt-2">
+      <div class="columns small-centered mediumlarge-9 large-8">
+        <div class="callout alert" role="complementary">
+          <p class=h5>
+            <%= icon "information", role: "img", "aria-hidden": true %>
+            <%== invalid_authorization_title %>
+          </p>
+          <%== invalid_authorization_content %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% if help_sections.any? %>
+    <div class="extended hero">
+      <div class="pt-4">
+        <div class="row">
+          <div class="columns small-centered mediumlarge-8 large-7">
+            <%= render partial: "decidim/budgets/shared/help_sections", locals: { type: :large } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
+
 <%= render partial: "top" %>
 
 <div class="row columns">
@@ -8,15 +36,51 @@
 
   <div class="voting-identity">
     <% if user_signed_in? %>
-      <div class="row">
-        <% authorization_providers.each do |provider| %>
-          <div class="columns small-6">
-            <%= link_to provider.root_path, class: "button expanded button--#{normalize_provider_name(provider)}" do %>
-              <%= authorization_provider_name(provider.key) %>
+      <% if user_authorizations(:pending).any? %>
+        <div class="static__content mb-2">
+          <p><%= t(".pending_authorizations_notice") %></p>
+          <ul>
+            <% user_authorizations(:pending).each do |authorization| %>
+              <li><%= authorization_provider_name(authorization.name) %></li>
             <% end %>
+          </ul>
+          <% if authorization_providers.any? %>
+            <p><%= t(".pending_authorizations_other") %></p>
+          <% end %>
+        </div>
+      <% elsif user_authorizations(:granted).any? %>
+        <div class="mb-2">
+          <div class="static__content">
+            <p><%= t(".granted_authorizations_notice") %></p>
+            <ul>
+              <% user_authorizations(:granted).each do |authorization| %>
+                <li><%= authorization_provider_name(authorization.name) %></li>
+              <% end %>
+            </ul>
           </div>
-        <% end %>
-      </div>
+          <% if authorization_providers.any? %>
+            <div class="static__content">
+              <p><%= t(".granted_authorizations_info") %></p>
+              <p><%= t(".granted_authorizations_other") %></p>
+            </div>
+          <% else %>
+            <div class="callout alert">
+              <p><%= t(".granted_authorizations_info") %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <% if authorization_providers.any? %>
+        <div class="row">
+          <% authorization_providers.each do |provider| %>
+            <div class="columns small-6">
+              <%= link_to provider.root_path, class: "button expanded button--#{normalize_provider_name(provider)}" do %>
+                <%= authorization_provider_name(provider.key) %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% else %>
       <div class="row">
         <% identity_providers.each do |provider| %>
