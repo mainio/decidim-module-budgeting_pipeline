@@ -196,8 +196,6 @@ fi:
           added_descriptive: Ehdotus %{resource_name} lisätty äänestyskoriisi
           add_to_vote: Lisää äänestyskoriin
           remove_from_vote: Poista äänestyskorista
-        projects:
-          empty: Hakuehdoillasi ei löytynyt yhtään ehdotusta. Muuta hakuehtoja löytääksesi lisää ehdotuksia.
         show:
           close: Sulje
           start_voting: Aloita äänestys
@@ -220,7 +218,6 @@ fi:
         icon_heart:
           title: Sydän
         show:
-          see_your_vote: Näytä oma ääneni
           show_projects: Näytä ehdotukset
           see_your_vote: Näytä oma ääneni
           title: "%{organization_name} äänestystilanne"
@@ -255,7 +252,7 @@ fi:
           not_authorized: Sinun täytyy tunnistautua äänestääksesi.
           previous: Edellinen
         order_progress:
-          allocated_budget: Budjetista käytetty
+          allocated_budget: Budjetista varattu
           allocated_projects: Valitut ehdotukset
           available_budget: Alueen budjetti
           available_projects: Valittavien ehdotusten määrä
@@ -302,7 +299,7 @@ fi:
             geocoding_enabled: Geokoodaus käytössä
             default_map_center_coordinates: Kartan oletuskeskipisteen koordinaatit (latitude,longitude)
             more_information_modal_label: Lisätietoikkunan avauslinkin teksti
-            projects_per_page: Ehdotukset sivua kohden
+            projects_per_page: Proposals per page
             results_page_content: Tulossivun sisältö
             vote_budgets_page_content: Alueen valintasivun sisältö
             vote_identify_invalid_authorization_content: Virheellisten tunnistautumistietojen virheen sisältö
@@ -312,7 +309,7 @@ fi:
             vote_orders_page_content: Äänestyskorin sisältö
             vote_preview_page_content: Esikatselusivun sisältö
             vote_projects_page_content: Ehdotusten selaussivun sisältö
-            vote_projects_per_page: Ehdotukset sivua kohden äänestyksen aikana
+            vote_projects_per_page: Proposals per page during voting
             vote_success_content: Onnistuneen äänestyksen jälkeen näytettävä sisältö
     statistics:
       orders_count: Ääntä
