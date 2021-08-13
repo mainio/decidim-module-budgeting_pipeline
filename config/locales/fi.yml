@@ -311,6 +311,7 @@ fi:
             vote_orders_page_content: Äänestyskorin sisältö
             vote_preview_page_content: Esikatselusivun sisältö
             vote_projects_page_content: Ehdotusten selaussivun sisältö
+            vote_projects_per_page: Ehdotukset sivua kohden äänestyksen aikana
             vote_success_content: Onnistuneen äänestyksen jälkeen näytettävä sisältö
     statistics:
       orders_count: Ääntä

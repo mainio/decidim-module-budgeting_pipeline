@@ -308,6 +308,7 @@ sv:
             vote_orders_page_content: Röstkorgens innehåll
             vote_preview_page_content: Förhandsgranska sidinnehåll
             vote_projects_page_content: Bläddra bland innehållsförslag
+            vote_projects_per_page: Förslag per sida under omröstningen
             vote_success_content: Innehåll som visas efter lyckad omröstning
     statistics:
       orders_count: Röster

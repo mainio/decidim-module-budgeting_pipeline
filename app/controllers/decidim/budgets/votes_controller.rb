@@ -51,7 +51,7 @@ module Decidim
       end
 
       def projects
-        @projects = search.results.page(params[:page]).per(current_component.settings.projects_per_page)
+        @projects = search.results.page(params[:page]).per(current_component.settings.vote_projects_per_page)
         @projects = reorder(@projects)
       end
 

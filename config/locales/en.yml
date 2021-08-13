@@ -308,6 +308,7 @@ en:
             vote_orders_page_content: Voting basket content
             vote_preview_page_content: Preview page content
             vote_projects_page_content: Browse proposals page content
+            vote_projects_per_page: Proposals per page during voting
             vote_success_content: Content displayed after successful voting
     statistics:
       orders_count: Votes
