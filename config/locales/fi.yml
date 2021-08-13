@@ -197,7 +197,7 @@ fi:
           add_to_vote: Lisää äänestyskoriin
           remove_from_vote: Poista äänestyskorista
         projects:
-          empty: No proposals were found for your search criteria. Change your search criteria to find more proposals.
+          empty: Hakuehdoillasi ei löytynyt yhtään ehdotusta. Muuta hakuehtoja löytääksesi lisää ehdotuksia.
         show:
           close: Sulje
           start_voting: Aloita äänestys
