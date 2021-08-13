@@ -220,7 +220,6 @@ sv:
         icon_heart:
           title: Hjärta
         show:
-          see_your_vote: Visa min röst
           show_projects: Visa förslag
           see_your_vote: Se min röst
           title: "%{organization_name} omröstningssituation"

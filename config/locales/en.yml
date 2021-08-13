@@ -220,7 +220,6 @@ en:
         icon_heart:
           title: Heart
         show:
-          see_your_vote: Show my vote
           show_projects: Show proposals
           see_your_vote: See my vote
           title: "%{organization_name} voting situation"

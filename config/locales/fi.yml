@@ -220,7 +220,6 @@ fi:
         icon_heart:
           title: Sydän
         show:
-          see_your_vote: Näytä oma ääneni
           show_projects: Näytä ehdotukset
           see_your_vote: Näytä oma ääneni
           title: "%{organization_name} äänestystilanne"
