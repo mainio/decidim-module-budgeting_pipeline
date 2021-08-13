@@ -299,6 +299,7 @@ en:
             geocoding_enabled: Geocoding enabled
             default_map_center_coordinates: Default center coordinates for the map (latitude,longitude)
             more_information_modal_label: More information modal open link text
+            projects_per_page: Proposals per page
             results_page_content: Results page content
             vote_budgets_page_content: Area selection page content
             vote_identify_invalid_authorization_content: Invalid identity information error content

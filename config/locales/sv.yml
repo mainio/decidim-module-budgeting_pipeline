@@ -299,6 +299,7 @@ sv:
             geocoding_enabled: Geokodning aktiverad
             default_map_center_coordinates: Standardcentrumkoordinater för kartan (latitud, longitud)
             more_information_modal_label: Mer information modal öppen länktext
+            projects_per_page: Förslag per sida
             results_page_content: Resultatsidans innehåll
             vote_budgets_page_content: Områdesval sidinnehåll
             vote_identify_invalid_authorization_content: Ogiltigt identitetsinformation fel innehåll

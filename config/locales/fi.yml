@@ -302,6 +302,7 @@ fi:
             geocoding_enabled: Geokoodaus käytössä
             default_map_center_coordinates: Kartan oletuskeskipisteen koordinaatit (latitude,longitude)
             more_information_modal_label: Lisätietoikkunan avauslinkin teksti
+            projects_per_page: Ehdotukset sivua kohden
             results_page_content: Tulossivun sisältö
             vote_budgets_page_content: Alueen valintasivun sisältö
             vote_identify_invalid_authorization_content: Virheellisten tunnistautumistietojen virheen sisältö
