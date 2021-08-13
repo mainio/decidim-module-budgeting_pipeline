@@ -277,6 +277,11 @@ fi:
           orders_summary_description: Tarkemmat valinnat voi tehdä seuraavassa vaiheessa äänestyskorin puolella.
           title: Select proposals
         show:
+          granted_authorizations_info: Your identity information do not match the voting requirements, which is why you cannot vote.
+          granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
+          granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
+          pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
+          pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
           title: Vahva tunnistautuminen
         start:
           invalid: Äänestysalueen valinta epäonnistui, yritä uudestaan.
@@ -296,6 +301,8 @@ fi:
             more_information_modal_label: More information modal open link text
             results_page_content: Tulossivun sisältö
             vote_budgets_page_content: Alueen valintasivun sisältö
+            vote_identify_invalid_authorization_content: Invalid identity information error content
+            vote_identify_invalid_authorization_title: Invalid identity information error title
             vote_identify_page_content: Tunnistautumissivun sisältö
             vote_identify_page_more_information: Tunnistautumissivun lisätiedot
             vote_orders_page_content: Voting basket content
