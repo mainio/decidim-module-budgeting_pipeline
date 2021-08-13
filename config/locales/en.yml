@@ -196,6 +196,8 @@ en:
           added_descriptive: Proposal %{resource_name} added to your voting basket
           add_to_vote: Add to voting basket
           remove_from_vote: Remove from voting basket
+        projects:
+          empty: No proposals were found for your search criteria. Change your search criteria to find more proposals.
         show:
           close: Close
           start_voting: Start voting
