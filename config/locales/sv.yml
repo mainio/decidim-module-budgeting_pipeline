@@ -197,7 +197,7 @@ sv:
           add_to_vote: Lägg till i röstkorgen
           remove_from_vote: Ta bort från röstkorgen
         projects:
-          empty: No proposals were found for your search criteria. Change your search criteria to find more proposals.
+          empty: Inga förslag hittades för dina sökkriterier. Ändra dina sökkriterier för att hitta fler förslag.
         show:
           close: Stänga
           start_voting: Börja rösta
