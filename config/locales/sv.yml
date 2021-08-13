@@ -196,6 +196,8 @@ sv:
           added_descriptive: Förslaget %{resource_name} har lagts till i din röstkorg
           add_to_vote: Lägg till i röstkorgen
           remove_from_vote: Ta bort från röstkorgen
+        projects:
+          empty: No proposals were found for your search criteria. Change your search criteria to find more proposals.
         show:
           close: Stänga
           start_voting: Börja rösta
@@ -218,8 +220,8 @@ sv:
         icon_heart:
           title: Hjärta
         show:
-          show_projects: Visa förslag
           see_your_vote: Se min röst
+          show_projects: Visa förslag
           title: "%{organization_name} omröstningssituation"
         vote_finished_modal:
           close: Stäng fönstret
