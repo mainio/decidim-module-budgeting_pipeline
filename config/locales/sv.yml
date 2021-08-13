@@ -70,7 +70,7 @@ sv:
               description: Kostnaden för detta förslag överstiger den återstående budgeten för detta område. Ta först bort andra förslag inom detta område från din omröstning och lägg till det här förslaget igen i din röst.
               title: Den återstående budgeten på detta område är inte tillräcklig för detta förslag
             voting_not_enabled:
-              description: Voting has ended. You cannot add proposals to the voting basket when voting is inactive.
+              description: Röstningen har avslutad. Du kan inte lägga till förslag i röstkorgen när omröstningen är inaktiv.
               title: Det går inte att rösta just nu
         error_modal:
           title: Det gick inte att lägga till förslaget i röstkorg
