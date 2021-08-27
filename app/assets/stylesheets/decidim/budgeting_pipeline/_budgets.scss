@@ -6,7 +6,10 @@ $detail-selector-selected-focus-outline: 2px solid $light-gray !default;
 $infobox-color: $body-font-color !default;
 $infobox-background: $light-gray !default;
 $orders-summary-background: $light-gray !default;
+$orders-summary-infobox-background: $body-background !default;
 $vote-success-icon-color: $secondary !default;
+$vote-selected-boder-color: $primary !default;
+$collapsed-table-border-color: $black !default;
 
 .voting-header{
   .exit-link{
@@ -247,6 +250,18 @@ $vote-success-icon-color: $secondary !default;
 .orders-summary{
   background: $orders-summary-background;
   padding: 2rem;
+
+  .budget-progress{
+    margin-right: 0;
+  }
+
+  .orders-summary-item{
+    margin-bottom: 4rem;
+  }
+
+  .infobox-item{
+    background: $orders-summary-infobox-background;
+  }
 }
 
 .reveal{
@@ -277,20 +292,6 @@ $vote-success-icon-color: $secondary !default;
     @include breakpoint(mediumlarge){
       margin-top: -2.4rem;
     }
-  }
-}
-
-.orders-summary{
-  .budget-progress{
-    margin-right: 0;
-  }
-
-  .orders-summary-item{
-    margin-bottom: 4rem;
-  }
-
-  .infobox-item{
-    background: $body-background;
   }
 }
 
@@ -338,12 +339,49 @@ $vote-success-icon-color: $secondary !default;
     }
 
     &.selected{
-      outline-color: $primary;
-      border-color: $primary;
+      outline-color: $vote-selected-boder-color;
+      border-color: $vote-selected-boder-color;
       box-shadow: 0 0 3px 3px rgba(0, 0, 0, .3);
 
       @media (prefers-reduced-motion){
         box-shadow: none;
+      }
+    }
+  }
+}
+
+table.mobile-collapse{
+  thead{
+    display: none;
+
+    @include breakpoint(medium){
+      display: table-header-group;
+    }
+  }
+
+  tr{
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid $collapsed-table-border-color;
+    padding: $table-padding;
+    padding-left: 0;
+    padding-right: 0;
+
+    @include breakpoint(medium){
+      display: table-row;
+      padding: 0;
+      border-top: 0;
+    }
+
+    &:first-child{
+      border-top: 0;
+    }
+
+    td{
+      padding: 0;
+
+      @include breakpoint(medium){
+        padding: $table-padding;
       }
     }
   }
