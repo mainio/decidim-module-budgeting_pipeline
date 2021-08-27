@@ -3,6 +3,8 @@
 module Decidim
   module Budgets
     module ResultsHelper
+      include Decidim::BudgetingPipeline::TextUtilities
+
       def winning_projects(budget)
         total_available = budget.total_budget
 
@@ -22,6 +24,11 @@ module Decidim
 
       def top_projects(budget, amount: 10)
         projects_with_votes(budget).limit(amount)
+      end
+
+      def display_amounts_for?(budget)
+        max = maximum_project_budget(budget)
+        max && max.positive?
       end
     end
   end
