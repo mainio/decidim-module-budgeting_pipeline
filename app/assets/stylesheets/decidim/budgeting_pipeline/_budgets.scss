@@ -9,17 +9,23 @@ $orders-summary-background: $light-gray !default;
 $vote-success-icon-color: $secondary !default;
 
 .voting-header{
-  .bg-content{
-    background: $body-background;
-  }
-
   .exit-link{
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-  }
+    margin: 1rem 0;
+    text-align: center;
 
-  .exit-link__box{
-    padding: 1rem;
+    @include breakpoint(mediumlarge){
+      text-align: left;
+    }
+
+    a{
+      position: relative;
+
+      .icon{
+        position: relative;
+        top: 2px;
+        margin-right: 5px;
+      }
+    }
   }
 }
 
@@ -39,17 +45,16 @@ $vote-success-icon-color: $secondary !default;
 
 .voting-header__title{
   position: relative;
-  top: -3rem;
-  height: 0;
   text-align: center;
 
-  @include breakpoint(medium){
-    top: -5rem;
+  h1{
+    margin-bottom: 0;
   }
+}
 
-  .voting-header__title__box{
-    display: inline-block;
-    padding: .5rem 2.5rem;
+.info-modal-opener{
+  @include breakpoint(mediumlarge){
+    text-align: right;
   }
 }
 
@@ -110,6 +115,16 @@ $vote-success-icon-color: $secondary !default;
       color: $detail-selector-color;
     }
   }
+
+  .detail-selector-content,
+  .detail-selector-toggle{
+    padding-left: 36px;
+
+    @include breakpoint(medium){
+      padding-left: 0;
+      text-align: right;
+    }
+  }
 }
 
 .infobox{
@@ -148,7 +163,9 @@ $vote-success-icon-color: $secondary !default;
     justify-content: flex-end;
 
     @include breakpoint(medium){
+      margin-left: 2rem;
       text-align: right;
+      white-space: nowrap;
     }
   }
 
@@ -170,12 +187,45 @@ $vote-success-icon-color: $secondary !default;
   flex: 1 1 0;
   justify-content: space-between;
   align-items: center;
+  flex-direction: column-reverse;
 
-  > *:last-child{
-    margin-left: auto;
+  @include breakpoint(medium){
+    flex-direction: row;
+  }
+
+  > *{
+    width: 80%;
+
+    @include breakpoint(medium){
+      width: auto;
+      margin-right: 1rem;
+    }
+
+    &:last-child{
+      @include breakpoint(medium){
+        margin-left: auto;
+      }
+    }
+  }
+
+  > span,
+  > form{
+    .button{
+      width: 100%;
+
+      @include breakpoint(medium){
+        width: auto;
+      }
+    }
   }
 
   .button{
+    &:last-child{
+      @include breakpoint(medium){
+        margin-right: 0;
+      }
+    }
+
     &.icon-before,
     &.icon-after{
       .icon{
@@ -224,19 +274,36 @@ $vote-success-icon-color: $secondary !default;
 
 .collection-sort-controls{
   .cart-button-wrapper{
-    @include breakpoint(medium){
+    @include breakpoint(mediumlarge){
       margin-top: -2.4rem;
     }
   }
 }
 
 .orders-summary{
-  .cart-button-wrapper{
-    margin-top: 2rem;
+  .budget-progress{
+    margin-right: 0;
+  }
 
-    @include breakpoint(mediumlarge){
-      margin-top: 0;
-    }
+  .orders-summary-item{
+    margin-bottom: 4rem;
+  }
+
+  .infobox-item{
+    background: $body-background;
+  }
+}
+
+.orders-summary-top{
+  display: flex;
+  flex-direction: column;
+
+  @include breakpoint(medium){
+    flex-direction: row;
+  }
+
+  .orders-summary-title{
+    flex: 1 1 0;
   }
 }
 
@@ -258,5 +325,26 @@ $vote-success-icon-color: $secondary !default;
 
   .reveal__content{
     text-align: center;
+  }
+}
+
+#projects.voting{
+  .card{
+    outline: 1px solid transparent;
+    transition: box-shadow .2s;
+
+    @media (prefers-reduced-motion){
+      transition: none;
+    }
+
+    &.selected{
+      outline-color: $primary;
+      border-color: $primary;
+      box-shadow: 0 0 3px 3px rgba(0, 0, 0, .3);
+
+      @media (prefers-reduced-motion){
+        box-shadow: none;
+      }
+    }
   }
 }
