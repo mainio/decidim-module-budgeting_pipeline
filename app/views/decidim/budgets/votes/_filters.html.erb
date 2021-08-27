@@ -4,7 +4,7 @@ i18n_scope = "decidim.budgets.projects.filters"
 type_suffix = defined?(type) ? "_#{type}" : ""
 %>
 
-<%= filter_form_for filter, projects_vote_path, role: "region", "aria-label": t("label", scope: i18n_scope) do |form| %>
+<%= filter_form_for filter, projects_vote_path, id: "filters#{type_suffix}", role: "region", "aria-label": t("label", scope: i18n_scope) do |form| %>
   <div class="row columns show-for-medium">
     <div class="filters__section filters__section--title">
       <div class="row">
@@ -36,20 +36,22 @@ type_suffix = defined?(type) ? "_#{type}" : ""
     <% end %>
   </div>
 
-  <div class="row columns">
-    <div class="filters__section">
-      <button type="button" class="link" data-toggle="additional_search<%= type_suffix %> additional_search_closed<%= type_suffix %> additional_search_open<%= type_suffix %>" id="additional_search_toggle<%= type_suffix %>">
-        <span id="additional_search_closed<%= type_suffix %>" data-toggler=".is-hidden" aria-expanded="true">
-          <%= t("more_criteria.show", scope: i18n_scope) %>
-          <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>
-        </span>
-        <span id="additional_search_open<%= type_suffix %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false">
-          <%= t("more_criteria.hide", scope: i18n_scope) %>
-          <%= icon "chevron-top", role: "img", "aria-hidden": true %>
-        </span>
-      </button>
+  <% if display_category_filter? || display_budget_amount_filters? %>
+    <div class="row columns">
+      <div class="filters__section">
+        <button type="button" class="link" data-toggle="additional_search<%= type_suffix %> additional_search_closed<%= type_suffix %> additional_search_open<%= type_suffix %>" id="additional_search_toggle<%= type_suffix %>">
+          <span id="additional_search_closed<%= type_suffix %>" data-toggler=".is-hidden" aria-expanded="true">
+            <%= t("more_criteria.show", scope: i18n_scope) %>
+            <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>
+          </span>
+          <span id="additional_search_open<%= type_suffix %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false">
+            <%= t("more_criteria.hide", scope: i18n_scope) %>
+            <%= icon "chevron-top", role: "img", "aria-hidden": true %>
+          </span>
+        </button>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <div id="additional_search<%= type_suffix %>" class="row is-hidden" data-toggler=".is-hidden">
     <% if display_category_filter? %>

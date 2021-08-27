@@ -14,7 +14,11 @@
           <tbody>
             <% order.line_items.order_by_projects.each do |item| %>
               <tr>
-                <td><strong><%= translated_attribute(item.project.title) %></strong></td>
+                <td>
+                  <%= link_to budget_project_path(item.project.budget, item.project), data: { remote: true } do %>
+                    <strong><%= translated_attribute(item.project.title) %></strong>
+                  <% end %>
+                </td>
                 <td class="text-right">
                   <% if item.project.budget_amount > 0 %>
                     <strong><%= budget_to_currency(item.project.budget_amount) %></strong>

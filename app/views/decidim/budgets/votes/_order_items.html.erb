@@ -1,0 +1,38 @@
+<div id="order-items-<%= order.budget.id %><%= id_suffix if defined?(id_suffix) %>" class="infobox">
+  <% if order.line_items.any? %>
+    <% order.line_items.order_by_projects.each do |item| %>
+      <div id="project-<%= item.project.id %>-order-summary" class="infobox-item">
+        <div class="infobox-title">
+          <%= translated_attribute(item.project.title) %>
+        </div>
+        <div class="infobox-content">
+          <div class="infobox-content-grid">
+            <div class="infobox-content-cell infobox-description">
+              <% if item.project.budget_amount > 0 %>
+                <p>
+                  <strong class="lead"><%= nonbreaking_text(budget_to_currency(item.project.budget_amount)) %></strong>
+                </p>
+              <% end %>
+              <p><%= project_summary_for(item.project) %></p>
+            </div>
+            <div class="infobox-content-cell infobox-actions">
+              <div class="infobox-action">
+                <%= link_to budget_project_path(item.project.budget, item.project), data: { remote: true }, aria: {
+                  haspopup: "dialog",
+                  label: t("decidim.budgets.projects.index.view_project_detailed", name: translated_attribute(item.project.title))
+                } do %>
+                  <%= t("decidim.budgets.projects.index.view_project") %>&nbsp;&raquo;
+                <% end %>
+              </div>
+              <div class="infobox-action">
+                <%= render partial: "decidim/budgets/projects/project_budget_button", locals: { project: item.project, style: :link, id_suffix: "-summary" } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p><%= t(".empty") %></p>
+  <% end %>
+</div>

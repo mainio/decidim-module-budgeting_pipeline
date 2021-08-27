@@ -1,11 +1,11 @@
 <div id="order-progress-<%= order.budget.id %><%= id_suffix if defined?(id_suffix) %>" class="order-progress" data-valid="<%= order.valid_for_checkout?.to_json %>">
   <div class="row">
-    <div class="columns mediumlarge-6">
+    <div class="columns large-6">
       <table class="transparent mb-0">
         <tbody>
           <tr>
             <td><%= t(".selected_projects") %></td>
-            <td class="text-right"><%= t(".selected_projects_count", count: order.total_projects) %></td>
+            <td class="text-right"><%= nonbreaking_text(t(".selected_projects_count", count: order.total_projects)) %></td>
           </tr>
           <% if order.projects_rule? %>
             <tr>
@@ -19,11 +19,11 @@
           <% else %>
             <tr>
               <td><%= t(".available_budget") %></td>
-              <td class="text-right"><%= budget_to_currency order.available_allocation %></td>
+              <td class="text-right"><%= nonbreaking_text(budget_to_currency(order.available_allocation)) %></td>
             </tr>
             <tr>
               <td><%= t(".allocated_budget") %></td>
-              <td class="text-right"><%= budget_to_currency order.total %></td>
+              <td class="text-right"><%= nonbreaking_text(budget_to_currency(order.total)) %></td>
             </tr>
           <% end %>
         </tbody>
@@ -32,7 +32,7 @@
   </div>
 
   <div class="row">
-    <div class="columns mediumlarge-6">
+    <div class="columns large-6">
       <table class="transparent">
         <tbody>
           <% if order.projects_rule? %>
@@ -43,13 +43,13 @@
           <% else %>
             <tr class="lead">
               <td><strong><%= t(".unused_budget") %></strong></td>
-              <td class="text-right"><strong><%= budget_to_currency order.unused_allocation %></strong></td>
+              <td class="text-right"><strong><%= nonbreaking_text(budget_to_currency(order.unused_allocation)) %></strong></td>
             </tr>
           <% end %>
         </tbody>
       </table>
     </div>
-    <div class="columns mediumlarge-6">
+    <div class="columns large-6">
       <div class="budget-summary__progressbox" data-current-allocation="<%= order ? order.total : 0 %>">
         <div class="progress<%= " alert" if order.allocation_exceeded? %> budget-progress"
           role="progressbar"

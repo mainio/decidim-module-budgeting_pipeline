@@ -40,6 +40,12 @@ module Decidim
 
         truncate(strip_tags(doc.at("body").inner_html), length: 100)
       end
+
+      def can_have_order_for?(project)
+        current_user.present? &&
+          voting_open? &&
+          allowed_to?(:create, :order, budget: project.budget, workflow: current_workflow)
+      end
     end
   end
 end

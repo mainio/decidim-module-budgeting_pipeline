@@ -1,9 +1,12 @@
 <%= render partial: "top" %>
 
-<div class="row columns">
+<div class="row columns voting-wrapper">
   <div class="static__content">
     <h2><%= t(".title") %></h2>
     <%== translated_attribute component_settings.vote_projects_page_content %>
+    <% if budgets.one? %>
+      <p><%= t(".budget_html", name: translated_attribute(budgets.first.title)) %></p>
+    <% end %>
   </div>
 
   <div class="row columns">
@@ -23,24 +26,33 @@
     </div>
   </div>
   <div class="row">
-    <div id="projects" class="columns" aria-live="polite">
+    <div id="projects" class="columns voting" aria-live="polite">
       <%= render partial: "decidim/budgets/projects/projects" %>
     </div>
   </div>
 
-  <div class="orders-summary mt-5">
-    <div class="text-center">
-      <h2><%= t(".orders_summary_title") %></h2>
-      <p><%= t(".orders_summary_description") %></p>
+  <div id="orders" class="orders-summary mt-5">
+    <div class="orders-summary-top">
+      <div class="orders-summary-title">
+        <h2><%= t(".orders_summary_title") %></h2>
+      </div>
+      <div class="orders-summary-button">
+        <%= link_to "#projects-count", class: "button primary hollow" do %>
+          <%= t(".back_to_projects") %>
+          <%= icon "arrow-top", role: "img", "aria-hidden": true %>
+        <% end %>
+      </div>
     </div>
 
     <%= render partial: "orders_summary", locals: { orders: current_orders } %>
   </div>
 
   <div class="row column flex-actions actions mt-5">
-    <%= link_to budgets_vote_path, class: "button primary hollow icon-before" do %>
+    <%= link_to budgets_vote_path, class: "button primary hollow icon-before", aria: {
+      label: t("decidim.budgets.votes.general.move_to_prev_step", name: t(".actions.previous"))
+    } do %>
       <%= icon "chevron-left", role: "img", "aria-hidden": true %>
-      <%= t("decidim.budgets.votes.general.previous") %>
+      <%= t(".actions.previous") %>
     <% end %>
     <span id="projects_continue_button">
       <%= render partial: "projects_continue_button" %>
