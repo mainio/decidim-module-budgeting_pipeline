@@ -104,7 +104,7 @@ fi:
           back: Näytä ehdotukset
           description_html: <p>Tältä sivulta näet, mitä äänestit.</p>
           follow_voting: Seuraa äänestystilannetta
-          not_voted: You have not yet voted.
+          not_voted: Et ole vielä äänestänyt.
           see_results: Näytä lopullinen äänestystilanne
           title: Äänestyskori
         orders_info:
@@ -193,7 +193,7 @@ fi:
       results:
         budget_results:
           budget: "Budjetti: %{amount}"
-          extra_note_for_budgeting_rule: The budget of this area is not sufficient for the proposals shown below. Therefore, they are not currently going for implementation.
+          extra_note_for_budgeting_rule: Alla esitetyt ehdotukset eivät mahdu alueen budjettiin, eli ne eivät ole tällä hetkellä menossa toteutukseen.
           no_votes_yet: Alueella ei ole vielä ääniä.
           show_less: Näytä vähemmän
           show_less_detailed: Näytä vähemmän alueelta %{name}
