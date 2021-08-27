@@ -11,7 +11,18 @@ module Decidim
       include Decidim::BudgetingPipeline::OrdersUtilities
       include Decidim::BudgetingPipeline::VoteUtilities
 
-      helper_method :help_sections, :voting_steps, :current_step, :sticky_budgets, :suggested_budgets, :choose_budgets, :selected_budgets, :projects
+      helper_method(
+        :help_sections,
+        :voting_steps,
+        :current_step,
+        :prev_step,
+        :next_step,
+        :sticky_budgets,
+        :suggested_budgets,
+        :choose_budgets,
+        :selected_budgets,
+        :projects
+      )
 
       before_action :ensure_authorized!
       before_action :ensure_not_voted!
@@ -23,7 +34,7 @@ module Decidim
       skip_before_action :ensure_not_voted!, only: [:show]
 
       def show
-        @current_step = :authorization
+        define_step(:authorization)
         return unless user_authorized?
         return ensure_not_voted! if user_voted?
 
@@ -35,7 +46,7 @@ module Decidim
       end
 
       def start
-        @current_step = :budgets
+        define_step(:budgets)
 
         @form = form(BudgetSelectForm).from_params(params)
         StartVoting.call(@form, current_user, current_workflow) do
@@ -72,7 +83,7 @@ module Decidim
 
       private
 
-      attr_accessor :current_step
+      attr_accessor :current_step, :prev_step, :next_step
 
       def layout
         "decidim/budgets/participatory_space_plain"
@@ -111,7 +122,21 @@ module Decidim
       end
 
       def set_current_step
-        @current_step = action_name.to_sym
+        define_step(action_name.to_sym)
+      end
+
+      def define_step(step_name)
+        @current_step = step_name
+
+        @voting_steps = nil # Force reset of the voting steps if already set
+        @prev_step = nil
+        @next_step = nil
+        voting_steps.each_with_index do |step, i|
+          next unless step.key == @current_step
+
+          @prev_step = voting_steps[i - 1]&.key
+          @next_step = voting_steps[i + 1]&.key
+        end
       end
 
       def help_sections

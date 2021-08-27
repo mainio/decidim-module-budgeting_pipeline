@@ -1,3 +1,5 @@
+// = require decidim/budgeting_pipeline/exit_handler
+
 ((exports) => {
   const $ = exports.$; // eslint-disable-line id-length
   const Rails = exports.Rails;
