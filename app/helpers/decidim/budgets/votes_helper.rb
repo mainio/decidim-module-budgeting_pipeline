@@ -4,6 +4,8 @@ module Decidim
   module Budgets
     module VotesHelper
       include Decidim::BudgetingPipeline::ProjectsHelperExtensions
+      include Decidim::BudgetingPipeline::ProjectItemUtilities
+      include Decidim::BudgetingPipeline::TextUtilities
 
       def identity_providers
         providers = Decidim::BudgetingPipeline.identity_providers
