@@ -104,6 +104,7 @@ fi:
           back: Näytä ehdotukset
           description_html: <p>Tältä sivulta näet, mitä äänestit.</p>
           follow_voting: Seuraa äänestystilannetta
+          not_voted: Et ole vielä äänestänyt.
           see_results: Näytä lopullinen äänestystilanne
           title: Äänestyskori
         orders_info:

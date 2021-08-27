@@ -104,6 +104,7 @@ en:
           back: Show proposals
           description_html: <p>On this page you see how you voted.</p>
           follow_voting: Follow the voting situation
+          not_voted: You have not yet voted.
           see_results: Show final results
           title: Voting basket
         orders_info:
