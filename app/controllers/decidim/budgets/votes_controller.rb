@@ -18,6 +18,7 @@ module Decidim
         :prev_step,
         :next_step,
         :sticky_budgets,
+        :highlighted_budgets,
         :suggested_budgets,
         :choose_budgets,
         :selected_budgets,
@@ -164,6 +165,10 @@ module Decidim
           else
             []
           end
+      end
+
+      def highlighted_budgets
+        @highlighted_budgets ||= current_workflow.highlighted
       end
 
       def suggested_budgets
