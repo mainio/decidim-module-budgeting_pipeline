@@ -193,7 +193,7 @@ sv:
       results:
         budget_results:
           budget: "Budget: %{amount}"
-          extra_note: Förslagen som visas nedan har fått färre röster än de förslag som visas ovan, som för närvarande kan gå till genomförande.
+          extra_note_for_budgeting_rule: Budgeten för detta område är inte tillräcklig för de förslag som visas nedan. Därför går de inte för närvarande till genomförande.
           no_votes_yet: Det finns inga röster inom detta område än.
           show_less: Visa mindre
           show_less_detailed: Visa mindre från område %{name}

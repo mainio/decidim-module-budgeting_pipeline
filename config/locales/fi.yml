@@ -193,7 +193,7 @@ fi:
       results:
         budget_results:
           budget: "Budjetti: %{amount}"
-          extra_note: Alla esitetyt ehdotukset ovat keränneet vähemmän ääniä kuin edellä esitetyt tällä hetkellä toteutukseen menossa olevat ehdotukset.
+          extra_note_for_budgeting_rule: Alla esitetyt ehdotukset eivät mahdu alueen budjettiin, eli ne eivät ole tällä hetkellä menossa toteutukseen.
           no_votes_yet: Alueella ei ole vielä ääniä.
           show_less: Näytä vähemmän
           show_less_detailed: Näytä vähemmän alueelta %{name}

@@ -39,7 +39,7 @@ end
 
       <div id="budget-extra-<%= budget.id %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false">
         <div class="text-center">
-          <p><%= t(".extra_note") %></p>
+          <p><%= t(".extra_note_for_budgeting_rule") %></p>
         </div>
         <%= render partial: "projects_table", locals: { budget: budget, projects: extra_projects, order: projects.count } %>
       </div>
