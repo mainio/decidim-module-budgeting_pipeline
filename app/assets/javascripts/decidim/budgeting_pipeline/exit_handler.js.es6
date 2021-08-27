@@ -4,6 +4,8 @@
   const allowExitFrom = ($el) => {
     if ($el.attr("target") === "_blank") {
       return true;
+    } else if ($el.attr("href").startsWith("#")) {
+      return true;
     } else if ($el.attr("id") === "exit-notification-link") {
       return true;
     } else if ($el.parents(".voting-wrapper").length > 0) {
