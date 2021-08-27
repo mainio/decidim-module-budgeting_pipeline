@@ -104,7 +104,7 @@ sv:
           back: Visa förslag
           description_html: <p>På den här sidan ser du hur du röstade.</p>
           follow_voting: Följ omröstningssituationen
-          not_voted: You have not yet voted.
+          not_voted: Du har ännu inte röstat.
           see_results: Visa slutresultat
           title: Röstkorg
         orders_info:
@@ -193,7 +193,7 @@ sv:
       results:
         budget_results:
           budget: "Budget: %{amount}"
-          extra_note_for_budgeting_rule: The budget of this area is not sufficient for the proposals shown below. Therefore, they are not currently going for implementation.
+          extra_note_for_budgeting_rule: Budgeten för detta område är inte tillräcklig för de förslag som visas nedan. Därför går de inte för närvarande till genomförande.
           no_votes_yet: Det finns inga röster inom detta område än.
           show_less: Visa mindre
           show_less_detailed: Visa mindre från område %{name}
