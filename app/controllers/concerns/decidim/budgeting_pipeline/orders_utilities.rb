@@ -22,7 +22,7 @@ module Decidim
       def can_cast_votes?
         return current_workflow.can_cast_votes? if current_workflow.respond_to?(:can_cast_votes?)
 
-        current_orders.all?(&:valid_for_checkout?)
+        current_orders.any? && current_orders.all?(&:valid_for_checkout?)
       end
     end
   end
