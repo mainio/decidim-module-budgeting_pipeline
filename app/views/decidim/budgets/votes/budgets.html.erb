@@ -1,10 +1,31 @@
 <%= render partial: "top" %>
 
-<div class="row columns">
+<div class="row columns voting-wrapper">
   <div class="static__content mb-3">
     <h2><%= t(".title") %></h2>
     <%== translated_attribute(component_settings.vote_budgets_page_content) %>
   </div>
+
+  <% if highlighted_budgets.any? %>
+    <div class="callout info text-center">
+      <p><%= t(".highlighted_budgets", count: highlighted_budgets.count) %></p>
+
+      <p><strong><%= highlighted_budgets.map { |b| translated_attribute(b.title) }.join(", ") %></strong></p>
+
+      <p><%= t(".highlighted_budgets_note", count: highlighted_budgets.count) %></p>
+
+      <%= decidim_form_for(@form, url: start_vote_path, html: { class: "form start_vote" }) do |form| %>
+        <% highlighted_budgets.each do |budget| %>
+          <%= form.hidden_field "budget_ids][", value: budget.id, id: nil %>
+        <% end %>
+
+        <button type="submit" class="button primary icon-after" role="link" aria-label="<%= t("decidim.budgets.votes.general.move_to_next_step", name: t(".actions.continue")) %>">
+          <%= t(".actions.continue") %>
+          <%= icon "chevron-right", role: "img", "aria-hidden": true %>
+        </button>
+      <% end %>
+    </div>
+  <% end %>
 
   <% if sticky_budgets.any? %>
     <div class="mt-5">
@@ -32,7 +53,7 @@
         <% end %>
       </div>
       <% if display_more_information? %>
-        <div class="columns mediumlarge-6 text-right">
+        <div class="columns mediumlarge-6 info-modal-opener">
           <button class="link" data-open="budget-modal-info" aria-controls="budget-modal-info" aria-haspopup="dialog" tabindex="0">
             <%= icon "information", role: "img", "aria-hidden": true %>
             <%= more_information_label %>
@@ -50,8 +71,8 @@
 
       <div class="row column flex-actions actions mt-5">
         <%= link_to t("decidim.budgets.votes.general.exit_voting"), projects_path, class: "button primary hollow" %>
-        <button type="submit" class="button primary icon-after" role="link">
-          <%= t("decidim.budgets.votes.general.next") %>
+        <button type="submit" class="button primary icon-after" role="link" aria-label="<%= t("decidim.budgets.votes.general.move_to_next_step", name: t(".actions.continue")) %>">
+          <%= t(".actions.continue") %>
           <%= icon "chevron-right", role: "img", "aria-hidden": true %>
         </button>
       </div>
