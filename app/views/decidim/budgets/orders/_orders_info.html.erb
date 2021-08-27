@@ -3,14 +3,14 @@
     <h3><%= translated_attribute(order.budget.title) %></h3>
 
     <% if order.projects_rule? %>
-      <p><%= t(".total_projects") %>: <%= budget_to_currency(order.available_allocation) %></p>
+      <p><%= t(".total_projects") %>: <%= order.available_allocation %></p>
     <% else %>
-      <p><%= t(".total_budget") %>: <%= budget_to_currency(order.available_allocation) %></p>
+      <p><%= t(".total_budget") %>: <%= nonbreaking_text(budget_to_currency(order.available_allocation)) %></p>
     <% end %>
 
     <div class="row">
       <div class="columns mediumlarge-10 mediumlarge-push-1">
-        <table class="transparent">
+        <table class="transparent mb-0">
           <tbody>
             <% order.line_items.order_by_projects.each do |item| %>
               <tr>
@@ -21,7 +21,7 @@
                 </td>
                 <td class="text-right">
                   <% if item.project.budget_amount > 0 %>
-                    <strong><%= budget_to_currency(item.project.budget_amount) %></strong>
+                    <strong><%= nonbreaking_text(budget_to_currency(item.project.budget_amount)) %></strong>
                   <% end %>
                 </td>
               </tr>
@@ -29,17 +29,21 @@
           </tbody>
         </table>
         <hr class="reset mt-0 mb-1">
-        <div class="text-right">
-          <% if order.projects_rule? %>
-            <%= t(".allocated_projects") %>:
-            &nbsp;&nbsp;
-            <strong><%= order.total %></strong>
-          <% else %>
-            <%= t(".allocated_budget") %>:
-            &nbsp;&nbsp;
-            <strong><%= budget_to_currency(order.total) %></strong>
-          <% end %>
-        </div>
+        <table class="transparent text-right">
+          <tbody>
+            <tr>
+              <td>
+                <% if order.projects_rule? %>
+                  <%= t(".allocated_projects") %>:
+                  &nbsp;&nbsp;<strong><%= order.total %></strong>
+                <% else %>
+                  <%= t(".allocated_budget") %>:
+                  &nbsp;&nbsp;<strong><%= nonbreaking_text(budget_to_currency(order.total)) %></strong>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
