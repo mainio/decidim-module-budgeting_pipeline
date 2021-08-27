@@ -12,7 +12,7 @@ module Decidim
           projects_with_votes(budget).each do |project|
             break if project.votes_count < 1
 
-            if (total_available -= project.budget_amount).positive?
+            if (total_available - project.budget_amount).positive?
               projects << project
               total_available -= project.budget_amount
             end
