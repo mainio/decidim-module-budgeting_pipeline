@@ -140,6 +140,9 @@ module Decidim
         )
 
         # Model extensions
+        Decidim::ActionLog.include(
+          Decidim::BudgetingPipeline::ActionLogExtensions
+        )
         Decidim::Budgets::Project.include(
           Decidim::BudgetingPipeline::ProjectExtensions
         )

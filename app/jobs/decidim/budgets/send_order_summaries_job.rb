@@ -5,11 +5,10 @@ module Decidim
     class SendOrderSummariesJob < ApplicationJob
       queue_as :default
 
-      def perform(order_ids, user)
+      def perform(vote, user)
         return if user&.email.blank?
 
-        orders = Decidim::Budgets::Order.where(id: order_ids)
-        OrderSummariesMailer.order_summaries(orders, user).deliver_now
+        OrderSummariesMailer.order_summaries(vote.orders, user).deliver_now
       end
     end
   end

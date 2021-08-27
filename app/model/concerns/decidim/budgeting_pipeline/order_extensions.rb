@@ -6,6 +6,10 @@ module Decidim
     module OrderExtensions
       extend ActiveSupport::Concern
 
+      included do
+        belongs_to :vote, class_name: "Decidim::Budgets::Vote", foreign_key: "decidim_budgets_vote_id"
+      end
+
       class_methods do
         def order_by_budgets
           joins(:budget).order("decidim_budgets_budgets.weight")
