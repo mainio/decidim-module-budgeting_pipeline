@@ -9,7 +9,7 @@ next_step = nil
       <% voting_steps.each_with_index do |step, index| %>
         <%
         if step.key == current_step
-          prev_step = voting_steps[index - 1]
+          prev_step = voting_steps[index - 1] if index > 0
           next_step = voting_steps[index + 1]
         end
         %>
