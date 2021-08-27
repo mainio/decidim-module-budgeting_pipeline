@@ -1,12 +1,17 @@
-<% button_label ||= t("decidim.budgets.votes.general.next") %>
+<% button_label ||= t("decidim.budgets.votes.projects.actions.continue") %>
 
 <% if can_cast_votes? %>
-  <%= link_to preview_vote_path, class: "button primary icon-after" do %>
+  <%= link_to preview_vote_path, class: "button primary icon-after", aria: {
+    label: t("decidim.budgets.votes.general.move_to_next_step", name: button_label)
+  } do %>
     <%= button_label %>
     <%= icon "chevron-right", role: "img", "aria-hidden": true %>
   <% end %>
 <% else %>
-  <%= content_tag :span, class: "button primary icon-after disabled", role: "link", tabindex: 0, aria: { disabled: true } do %>
+  <%= content_tag :span, class: "button primary icon-after disabled", role: "link", tabindex: 0, aria: {
+    disabled: true,
+    label: t("decidim.budgets.votes.general.move_to_next_step", name: button_label)
+  } do %>
     <%= button_label %>
     <%= icon "chevron-right", role: "img", "aria-hidden": true %>
   <% end %>

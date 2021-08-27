@@ -6,7 +6,7 @@ module Decidim
     class ResultsController < ApplicationController
       include Decidim::BudgetingPipeline::VoteUtilities
 
-      helper_method :budgets, :sticky_budgets, :common_budgets, :projects_with_votes, :minimum_project_budget, :vote_success?
+      helper_method :budgets, :sticky_budgets, :common_budgets, :projects_with_votes, :minimum_project_budget, :maximum_project_budget, :vote_success?
 
       def show
         redirect_to projects_path unless current_settings.show_votes?
@@ -42,7 +42,11 @@ module Decidim
         @projects_with_votes ||= {}
         return @projects_with_votes[budget.id] if @projects_with_votes[budget.id].present?
 
-        @projects_with_votes[budget.id] = Decidim::Budgets::Project.where(budget: budget).joins(:orders).select(
+        @projects_with_votes[budget.id] = Decidim::Budgets::Project.where(budget: budget).joins(
+          "INNER JOIN decidim_budgets_line_items ON decidim_budgets_line_items.decidim_project_id = decidim_budgets_projects.id"
+        ).joins(
+          "INNER JOIN decidim_budgets_orders ON decidim_budgets_orders.id = decidim_budgets_line_items.decidim_order_id AND decidim_budgets_orders.checked_out_at IS NOT NULL"
+        ).select(
           "decidim_budgets_projects.*, COUNT(decidim_budgets_orders.id) as votes_count"
         ).group("decidim_budgets_projects.id").order(votes_count: :desc)
       end
@@ -52,6 +56,13 @@ module Decidim
         return @minimum_project_budget[budget.id] if @minimum_project_budget[budget.id].present?
 
         @minimum_project_budget[budget.id] = Decidim::Budgets::Project.where(budget: budget).minimum(:budget_amount)
+      end
+
+      def maximum_project_budget(budget)
+        @maximum_project_budget ||= {}
+        return @maximum_project_budget[budget.id] if @maximum_project_budget[budget.id].present?
+
+        @maximum_project_budget[budget.id] = Decidim::Budgets::Project.where(budget: budget).maximum(:budget_amount)
       end
 
       def vote_success?

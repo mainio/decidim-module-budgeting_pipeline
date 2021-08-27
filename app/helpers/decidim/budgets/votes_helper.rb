@@ -4,6 +4,8 @@ module Decidim
   module Budgets
     module VotesHelper
       include Decidim::BudgetingPipeline::ProjectsHelperExtensions
+      include Decidim::BudgetingPipeline::ProjectItemUtilities
+      include Decidim::BudgetingPipeline::TextUtilities
 
       def identity_providers
         providers = Decidim::BudgetingPipeline.identity_providers
@@ -63,34 +65,25 @@ module Decidim
       end
 
       def voting_step_link(step)
-        attributes = { class: "step-selector" }
-        attributes[:aria] = { current: "step" } if step.key == current_step
-
-        link_to step.link, attributes do
+        mobile_tag = content_tag :span, class: "step-selector hide-for-mediumlarge" do
           yield
         end
+        desktop_tag = begin
+          attributes = { class: "step-selector show-for-mediumlarge" }
+          attributes[:aria] = { current: "step" } if step.key == current_step
+
+          link_to step.link, attributes do
+            yield
+          end
+        end
+
+        mobile_tag + desktop_tag
       end
 
       # This is for the projects view that displays the project filters that
       # refers the `budgets` variable.
       def budgets
         selected_budgets
-      end
-
-      def pipeline_header_hero
-        wrapper_class = %w(voting-header__hero)
-        style = nil
-
-        if Decidim::BudgetingPipeline.pipeline_header_background_image
-          bgval = "url(#{asset_path(Decidim::BudgetingPipeline.pipeline_header_background_image)})"
-          style = "background-image:#{bgval}"
-        else
-          wrapper_class << "without-bg"
-        end
-
-        content_tag :div, class: wrapper_class.join(" "), style: style do
-          yield
-        end
       end
     end
   end

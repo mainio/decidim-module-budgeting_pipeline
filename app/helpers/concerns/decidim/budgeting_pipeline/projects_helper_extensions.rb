@@ -6,6 +6,8 @@ module Decidim
     module ProjectsHelperExtensions
       extend ActiveSupport::Concern
 
+      include Decidim::BudgetingPipeline::TextUtilities
+
       def landing_page_content
         translated_attribute(current_settings.landing_page_content).presence ||
           translated_attribute(component_settings.landing_page_content)
@@ -80,7 +82,8 @@ module Decidim
       end
 
       def display_budget_amount_filters?
-        Decidim::Budgets::Project.where(budget: budgets).maximum(:budget_amount).positive?
+        max = Decidim::Budgets::Project.where(budget: budgets).maximum(:budget_amount)
+        max && max.positive?
       end
 
       def category_image_path(category)

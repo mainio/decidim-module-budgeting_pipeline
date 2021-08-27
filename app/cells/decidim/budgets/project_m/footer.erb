@@ -10,7 +10,9 @@
           <% end %>
         </div>
 
-        <%= resource_link class: "card__button button hollow large primary" do %>
+        <%= resource_link class: "card__button button hollow large primary", aria: {
+          label: t("view_detailed", scope: "decidim.budgets.projects.project", name: title)
+        } do %>
           <%= t("view", scope: "decidim.budgets.projects.project") %>
         <% end %>
       </div>

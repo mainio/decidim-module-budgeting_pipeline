@@ -52,6 +52,9 @@ en:
         projects:
           form:
             selected_help: This is chosen after the voting if the project has been voted for implementation.
+      last_activity:
+        show_vote_at: Show my vote at %{name}
+        voted_at_html: "<span>You voted at %{link}</span>"
       line_items:
         error_details:
           budget_title: Area name
@@ -101,6 +104,7 @@ en:
           back: Show proposals
           description_html: <p>On this page you see how you voted.</p>
           follow_voting: Follow the voting situation
+          not_voted: You have not yet voted.
           see_results: Show final results
           title: Voting basket
         orders_info:
@@ -112,30 +116,6 @@ en:
           vote: Vote
         orders_modal:
           close: Back to proposal selection
-        summary_notifications:
-          errors:
-            allocation_exceeded:
-              description: In order to proceed to the preview step and confirmation of the vote, you need to delete some proposal in order for the proposals you selected to fit into the budget for the area.
-              title: The budget for the area has been exceeded!
-            allocation_exceeded_projects:
-              description: In order to proceed to the preview step and confirmation of the vote, you need to delete some proposal so that the proposals you select do not exceed the maximum number of proposals specified for the area.
-              title: Too many proposals selected!
-            maximum_budget:
-              description: Please remove selected suggestions from your vote before proceeding to the next step. You have up to %{amount} available.
-              title: Budget has been exceeded for the area %{budget}
-            minimum_budget:
-              description: Add proposals to your vote before you can proceed to the next step. You must spend at least %{amount} of the budget.
-              title: You have to select more proposals from area %{budget}
-            maximum_projects:
-              description: Please remove some of the selected proposals from your vote before proceeding to the next step.
-              title:
-                one: You can select a single proposal from the area %{budget}
-                other: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
-            minimum_projects:
-              description: Please note that you can select proposals for the voting basket from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting basket.
-              title:
-                one: You have not selected any proposals from the area %{budget}
-                other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
       project_m:
         card_label: "Proposal: %{title}"
       projects:
@@ -181,11 +161,13 @@ en:
           see_your_vote: See my vote
           start_voting: Go to browse the proposals and vote
           view_project: Show proposal
+          view_project_detailed: "Show proposal: %{name}"
         orders:
           alphabetical: Alphabetical
           label: Order proposals
         project:
           view: Show proposal
+          view_detailed: "Show proposal: %{name}"
         project_actions:
           share: Share proposal
           show_comments: Show proposal comments
@@ -195,9 +177,11 @@ en:
           add_descriptive: Add proposal %{resource_name} to your voting basket
           added_descriptive: Proposal %{resource_name} added to your voting basket
           add_to_vote: Add to voting basket
+          remove_descriptive: Remove proposal %{resource_name} from voting basket
           remove_from_vote: Remove from voting basket
         projects:
           empty: No proposals were found for your search criteria. Change your search criteria to find more proposals.
+          show_orders: Show voting basket
         show:
           close: Close
           start_voting: Start voting
@@ -208,17 +192,24 @@ en:
             Add this proposal to your favourites in order to find its area more easily during the voting.</p>
       results:
         budget_results:
-          amount:
-            one: "%{count} pcs"
-            other: "%{count} pcs"
           budget: "Budget: %{amount}"
+          extra_note_for_budgeting_rule: The budget of this area is not sufficient for the proposals shown below. Therefore, they are not currently going for implementation.
           no_votes_yet: There are no votes in this area yet.
-          project_budget: Budget
-          project_name: Proposal
-          project_votes: Votes
+          show_less: Show less
+          show_less_detailed: Show less from area %{name}
+          show_more: Show more
+          show_more_detailed: Show more from area %{name}
+          title_ordered: "%{budget} - Ordered by votes"
           title_winning: "%{budget} - Implementation list"
         icon_heart:
           title: Heart
+        projects_table:
+          amount:
+            one: "%{count} pcs"
+            other: "%{count} pcs"
+          project_budget: Budget
+          project_name: Proposal
+          project_votes: Votes
         show:
           show_projects: Show proposals
           see_your_vote: See my vote
@@ -234,11 +225,19 @@ en:
             one: "one favorite in the area"
             other: "%{count} favorites in the area"
         budgets:
+          actions:
+            continue: Select proposals
           authorization_note: "Your postal code belongs to area: %{budget_name}"
           budget_select_note:
             default: Choose the area in which you want to vote.
             suggested: You can change the voting area by selecting another area.
-          select_budgets: Voting area
+          highlighted_budgets:
+            one: "Based on your identification, your area is:"
+            other: "Based on your identification, your areas are:"
+          highlighted_budgets_note:
+            one: If the area is correct, you can proceed to voting.
+            other: If the areas are correct, you can proceed to voting.
+          select_budgets: Select voting area
           show_more_information_default: Show additional information
           sticky_budgets:
             one: Everyone can vote for the proposals in this area
@@ -247,12 +246,44 @@ en:
         create:
           error: Processing your vote failed, please try again.
           success: Your vote has been successfully saved!
+        exit_modal:
+          cancel: Return to voting
+          close: Close window
+          exit: Exit voting
+          message: Your vote has not been registered because you have not yet completed the voting process. Are you sure you want to exit voting?
+          title: Exit notification
         general:
           already_voted: You have already voted.
           exit_voting: Exit voting
-          next: Next
+          move_to_next_step: "Proceed to the next step: %{name}"
+          move_to_prev_step: "Back to the previous step: %{name}"
           not_authorized: You have to identify yourself in order to vote.
-          previous: Previous
+        order_items:
+          empty: You have not selected any proposals from this area.
+        order_notifications:
+          errors:
+            allocation_exceeded:
+              description: In order to proceed to the preview step and confirmation of the vote, you need to delete some proposal in order for the proposals you selected to fit into the budget for the area.
+              title: The budget for the area has been exceeded!
+            allocation_exceeded_projects:
+              description: In order to proceed to the preview step and confirmation of the vote, you need to delete some proposal so that the proposals you select do not exceed the maximum number of proposals specified for the area.
+              title: Too many proposals selected!
+            maximum_budget:
+              description: Please remove selected suggestions from your vote before proceeding to the next step. You have up to %{amount} available.
+              title: Budget has been exceeded for the area %{budget}
+            minimum_budget:
+              description: Add proposals to your vote before you can proceed to the next step. You must spend at least %{amount} of the budget.
+              title: You have to select more proposals from area %{budget}
+            maximum_projects:
+              description: Please remove some of the selected proposals from your vote before proceeding to the next step.
+              title:
+                one: You can select a single proposal from the area %{budget}
+                other: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
+            minimum_projects:
+              description: Please note that you can select proposals for the voting basket from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting basket.
+              title:
+                one: You have not selected any proposals from the area %{budget}
+                other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
         order_progress:
           allocated_budget: Allocated budget
           allocated_projects: Selected proposals
@@ -263,20 +294,30 @@ en:
           unused_budget: Remaining budget
           unused_projects: Remaining projects to select
         orders_summary:
-          show_orders: Show voting basket
+          order_items:
+            hide: Hide area selected proposals
+            hide_detailed: Hide selected proposals on the %{name} area
+            show: Show area selected proposals
+            show_detailed: Show selected proposals on the %{name} area
         order_total:
           order_budget_sum: Total for the selected proposals
           order_projects_sum: Amount of selected proposals
         preview:
+          actions:
+            previous: Select proposals
+            vote: Vote
           allocated_budget: Total budget for the selected proposals
           allocated_projects: Amount of selected proposals
           title: Preview and voting
           total_budget: Budget for the area
           total_projects: Amount of proposals to be selected in the area
-          vote: Vote
         projects:
+          actions:
+            continue: Preview and voting
+            previous: Choose voting area
+          back_to_projects: Show proposals
+          budget_html: "Area: <strong>%{name}</strong>"
           orders_summary_title: Voting basket situation
-          orders_summary_description: More detailed choices can be made in the next step at the voting basket.
           title: Select proposals
         show:
           granted_authorizations_info: Your identity information do not match the voting requirements, which is why you cannot vote.
@@ -290,8 +331,11 @@ en:
         steps:
           authorization: Strong identification and selection of the voting area
           budgets: Selection of the voting area
+          next: "Next: %{name}"
           preview: Preview and voting
+          previous: "Previous: %{name}"
           projects: Select proposals
+          step: Step %{number}
         top:
           title: Voting
     components:
@@ -308,11 +352,13 @@ en:
             vote_identify_invalid_authorization_title: Invalid identity information error title
             vote_identify_page_content: Identification page content
             vote_identify_page_more_information: Identification page details
-            vote_orders_page_content: Voting basket content
             vote_preview_page_content: Preview page content
             vote_projects_page_content: Browse proposals page content
             vote_projects_per_page: Proposals per page during voting
             vote_success_content: Content displayed after successful voting
+      component_order_selector:
+        order:
+          vote: Vote
     statistics:
       orders_count: Votes
       projects_count: Proposals

@@ -1,6 +1,6 @@
 <%= render partial: "top" %>
 
-<div class="row columns">
+<div class="row columns voting-wrapper">
   <div class="static__content">
     <h2><%= t(".title") %></h2>
     <%== translated_attribute component_settings.vote_preview_page_content %>
@@ -11,37 +11,45 @@
       <h3><%= translated_attribute(order.budget.title) %></h3>
 
       <% if order.projects_rule? %>
-        <p><%= t(".total_projects") %>: <%= budget_to_currency(order.available_allocation) %></p>
+        <p><%= t(".total_projects") %>: <%= order.available_allocation %></p>
       <% else %>
-        <p><%= t(".total_budget") %>: <%= budget_to_currency(order.available_allocation) %></p>
+        <p><%= t(".total_budget") %>: <%= nonbreaking_text(budget_to_currency(order.available_allocation)) %></p>
       <% end %>
 
       <div class="row">
         <div class="columns mediumlarge-10 mediumlarge-push-1">
-          <table class="transparent">
+          <table class="transparent mb-0">
             <tbody>
               <% order.line_items.order_by_projects.each do |item| %>
                 <tr>
-                  <td><strong><%= translated_attribute(item.project.title) %></strong></td>
+                  <td>
+                    <%= link_to budget_project_path(item.project.budget, item.project), data: { remote: true }, aria: { haspopup: "dialog" } do %>
+                      <strong><%= translated_attribute(item.project.title) %></strong>
+                    <% end %>
+                  </td>
                   <% if item.project.budget_amount > 0 %>
-                    <td class="text-right"><strong><%= budget_to_currency(item.project.budget_amount) %></strong></td>
+                    <td class="text-right"><strong><%= nonbreaking_text(budget_to_currency(item.project.budget_amount)) %></strong></td>
                   <% end %>
                 </tr>
               <% end %>
             </tbody>
           </table>
           <hr class="reset mt-0 mb-1">
-          <div class="text-right">
-            <% if order.projects_rule? %>
-              <%= t(".allocated_projects") %>:
-              &nbsp;&nbsp;
-              <strong><%= order.total %></strong>
-            <% else %>
-              <%= t(".allocated_budget") %>:
-              &nbsp;&nbsp;
-              <strong><%= budget_to_currency(order.total) %></strong>
-            <% end %>
-          </div>
+          <table class="transparent text-right">
+            <tbody>
+              <tr>
+                <td>
+                  <% if order.projects_rule? %>
+                    <%= t(".allocated_projects") %>:
+                    &nbsp;&nbsp;<strong><%= order.total %></strong>
+                  <% else %>
+                    <%= t(".allocated_budget") %>:
+                    &nbsp;&nbsp;<strong><%= nonbreaking_text(budget_to_currency(order.total)) %></strong>
+                  <% end %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -49,13 +57,17 @@
 
   <div id="choose-buttons">
     <div class="row column flex-actions actions mt-5">
-      <%= link_to projects_vote_path, class: "button primary hollow icon-before" do %>
+      <%= link_to projects_vote_path, class: "button primary hollow icon-before", aria: {
+        label: t("decidim.budgets.votes.general.move_to_prev_step", name: t(".actions.previous"))
+      } do %>
         <%= icon "chevron-left", role: "img", "aria-hidden": true %>
-        <%= t("decidim.budgets.votes.general.previous") %>
+        <%= t(".actions.previous") %>
       <% end %>
       <%= button_to vote_path, class: "button primary icon-after", role: "link" do %>
-        <%= t(".vote") %>
+        <%= t(".actions.vote") %>
       <% end %>
     </div>
   </div>
 </div>
+
+<%= javascript_include_tag("decidim/budgeting_pipeline/preview") %>

@@ -2,24 +2,26 @@
 <div class="detail-selector-item<%= " selected" if selected %>">
   <div class="detail-selector-title">
     <div class="row">
-      <div class="columns small-6">
+      <div class="columns medium-6">
         <% if defined?(form) %>
           <%= form.radio_button :budget_ids, budget.id, label: translated_attribute(budget.title), checked: selected %>
         <% else %>
           <%= translated_attribute(budget.title) %>
         <% end %>
       </div>
-      <div class="columns small-6 text-right">
+      <div class="columns medium-6">
         <% if budget.projects.user_favorites(current_user).any? %>
-          <button type="button" data-toggle="budget_detail_<%= budget.id %> budget_detail_closed_<%= budget.id %> budget_detail_open_<%= budget.id %>">
-            <%= t(".favorites_for_budget", count: budget.projects.user_favorites(current_user).count) %>
-            <span id="budget_detail_closed_<%= budget.id %>" data-toggler=".hide" aria-expanded="true">
-              <%= icon "chevron-bottom" %>
-            </span>
-            <span id="budget_detail_open_<%= budget.id %>" class="hide" data-toggler=".hide" aria-expanded="false">
-              <%= icon "chevron-top" %>
-            </span>
-          </button>
+          <div class="detail-selector-toggle">
+            <button type="button" data-toggle="budget_detail_<%= budget.id %> budget_detail_closed_<%= budget.id %> budget_detail_open_<%= budget.id %>">
+              <%= t(".favorites_for_budget", count: budget.projects.user_favorites(current_user).count) %>
+              <span id="budget_detail_closed_<%= budget.id %>" data-toggler=".hide" aria-expanded="true">
+                <%= icon "chevron-bottom" %>
+              </span>
+              <span id="budget_detail_open_<%= budget.id %>" class="hide" data-toggler=".hide" aria-expanded="false">
+                <%= icon "chevron-top" %>
+              </span>
+            </button>
+          </div>
         <% end %>
       </div>
     </div>
@@ -27,11 +29,9 @@
 
   <% if budget.projects.user_favorites(current_user).any? %>
     <div class="detail-selector-content hide" data-toggler=".hide" id="budget_detail_<%= budget.id %>" aria-expanded="false">
-      <div class="text-right">
-        <% budget.projects.user_favorites(current_user).each do |project| %>
-          <div><%= translated_attribute(project.title) %></div>
-        <% end %>
-      </div>
+      <% budget.projects.user_favorites(current_user).each do |project| %>
+        <div><%= translated_attribute(project.title) %></div>
+      <% end %>
     </div>
   <% end %>
 </div>

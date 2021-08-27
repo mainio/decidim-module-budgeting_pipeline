@@ -17,7 +17,7 @@
     <% unless current_order.projects_rule? %>
       <tr>
         <th class="text-left"><%= t(".project_budget") %></th>
-        <td class="text-right"><%= budget_to_currency project.budget_amount %></td>
+        <td class="text-right"><%= nonbreaking_text(budget_to_currency(project.budget_amount)) %></td>
       </tr>
     <% end %>
   </tbody>

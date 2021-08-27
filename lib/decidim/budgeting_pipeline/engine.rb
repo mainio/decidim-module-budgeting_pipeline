@@ -25,7 +25,6 @@ module Decidim
             settings.attribute :vote_identify_invalid_authorization_content, type: :text, translated: true, editor: true
             settings.attribute :vote_budgets_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_projects_page_content, type: :text, translated: true, editor: true
-            settings.attribute :vote_orders_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_preview_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_success_content, type: :text, translated: true, editor: true
             settings.attribute :results_page_content, type: :text, translated: true, editor: true
@@ -141,6 +140,9 @@ module Decidim
         )
 
         # Model extensions
+        Decidim::ActionLog.include(
+          Decidim::BudgetingPipeline::ActionLogExtensions
+        )
         Decidim::Budgets::Project.include(
           Decidim::BudgetingPipeline::ProjectExtensions
         )

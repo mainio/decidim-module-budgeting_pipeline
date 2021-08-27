@@ -5,9 +5,11 @@
   </p>
   <p><%= t(".error.#{@error_reason}.description") %></p>
   <p>
-    <%= link_to orders_path, data: { remote: true } do %>
+    <%= link_to "#orders", data: { close: "order-update-error" }, aria: {
+      label: t("decidim.budgets.projects.projects.show_orders")
+    } do %>
       <%= icon "cart", role: "img", "aria-hidden": true %>
-      <%= t("decidim.budgets.votes.orders_summary.show_orders") %>&nbsp;&raquo;
+      <%= t("decidim.budgets.projects.projects.show_orders") %>&nbsp;&raquo;
     <% end %>
   </p>
 </div>

@@ -10,10 +10,8 @@ module Decidim
 
       included do
         delegate(
-          :voting_finished?,
           :statuses_available?,
           :budget_order_line_item_path,
-          :voting_open?,
           :current_workflow,
           :allowed_to?,
           :current_component,
@@ -31,12 +29,6 @@ module Decidim
         options[:voting] == true
       end
 
-      def can_have_order?
-        current_user.present? &&
-          voting_open? &&
-          allowed_to?(:create, :order, budget: model.budget, workflow: current_workflow)
-      end
-
       def show_favorite_button?
         !context[:disable_favorite].presence
       end
@@ -51,6 +43,14 @@ module Decidim
 
       def has_badge?
         state_visible?
+      end
+
+      def voting_open?
+        model.component.current_settings.votes == "enabled"
+      end
+
+      def voting_finished?
+        model.component.current_settings.votes == "finished"
       end
 
       def state_visible?
@@ -76,6 +76,14 @@ module Decidim
         link_to resource_path, **options do
           yield
         end
+      end
+
+      def card_classes
+        classes = super
+        classes = classes.join(" ") if classes.is_a?(Array)
+        return classes unless voted_for?(model)
+
+        "#{classes} selected"
       end
 
       def state_classes

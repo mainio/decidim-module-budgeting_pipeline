@@ -19,9 +19,11 @@ module Decidim
       #
       # Returns nothing.
       def call
+        return broadcast(:invalid, orders) if orders.empty?
         return broadcast(:invalid, orders) if orders.any?(&:invalid?)
 
         checkout_orders
+        create_vote
         send_summary
 
         broadcast(:ok, orders)
@@ -29,19 +31,31 @@ module Decidim
 
       private
 
-      attr_reader :orders, :user
+      attr_reader :orders, :user, :vote
 
       def checkout_orders
         orders.each do |order|
           order.with_lock do
-            order.checked_out_at = Time.current
-            order.save
+            order.update!(checked_out_at: Time.current)
           end
         end
       end
 
+      def create_vote
+        @vote = Decidim.traceability.create!(
+          Decidim::Budgets::Vote,
+          user,
+          {
+            component: orders.first.component,
+            user: user,
+            orders: orders
+          },
+          visibility: "private-only"
+        )
+      end
+
       def send_summary
-        Decidim::Budgets::SendOrderSummariesJob.perform_later(orders.map(&:id), user)
+        Decidim::Budgets::SendOrderSummariesJob.perform_later(vote, user)
       end
     end
   end
