@@ -10,40 +10,38 @@
 
     <div class="row">
       <div class="columns mediumlarge-10 mediumlarge-push-1">
-        <table class="transparent mb-0">
-          <tbody>
-            <% order.line_items.order_by_projects.each do |item| %>
-              <tr>
-                <td>
-                  <%= link_to budget_project_path(item.project.budget, item.project), data: { remote: true } do %>
-                    <strong><%= translated_attribute(item.project.title) %></strong>
-                  <% end %>
-                </td>
-                <td class="text-right">
-                  <% if item.project.budget_amount > 0 %>
-                    <strong><%= nonbreaking_text(budget_to_currency(item.project.budget_amount)) %></strong>
-                  <% end %>
-                </td>
-              </tr>
+        <% if order.line_items.any? %>
+          <table class="transparent mb-0">
+            <tbody>
+              <% order.line_items.order_by_projects.each do |item| %>
+                <tr>
+                  <td>
+                    <%= link_to budget_project_path(item.project.budget, item.project), data: { remote: true } do %>
+                      <strong><%= translated_attribute(item.project.title) %></strong>
+                    <% end %>
+                  </td>
+                  <td class="text-right">
+                    <% if item.project.budget_amount > 0 %>
+                      <strong><%= nonbreaking_text(budget_to_currency(item.project.budget_amount)) %></strong>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+          <hr class="reset mt-0 mb-1">
+          <div class="table-summary text-right">
+            <% if order.projects_rule? %>
+              <%= t(".allocated_projects") %>:
+              &nbsp;&nbsp;<strong><%= order.total %></strong>
+            <% else %>
+              <%= t(".allocated_budget") %>:
+              &nbsp;&nbsp;<strong><%= nonbreaking_text(budget_to_currency(order.total)) %></strong>
             <% end %>
-          </tbody>
-        </table>
-        <hr class="reset mt-0 mb-1">
-        <table class="transparent text-right">
-          <tbody>
-            <tr>
-              <td>
-                <% if order.projects_rule? %>
-                  <%= t(".allocated_projects") %>:
-                  &nbsp;&nbsp;<strong><%= order.total %></strong>
-                <% else %>
-                  <%= t(".allocated_budget") %>:
-                  &nbsp;&nbsp;<strong><%= nonbreaking_text(budget_to_currency(order.total)) %></strong>
-                <% end %>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+          </div>
+        <% else %>
+          <p><%= t(".empty_order", name: translated_attribute(order.budget.title)) %></p>
+        <% end %>
       </div>
     </div>
   </div>
