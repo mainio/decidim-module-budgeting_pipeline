@@ -6,16 +6,25 @@
 </div>
 
 <div class="row columns">
-  <div class="static__content">
-    <h2><%= t(".title") %></h2>
-    <%== t(".description_html") %>
-
-    <% if current_settings.show_votes? %>
-      <p>
-        <%= link_to voting_finished? ? t(".see_results") : t(".follow_voting"), results_path, class: "button primary" %>
-      </p>
-    <% end %>
+  <div class="text-center">
+    <h1><%= t(".title") %></h1>
   </div>
+</div>
 
+<div class="row mb-5">
+  <div class="columns small-centered mediumlarge-10 large-8">
+    <div class="static__content text-center">
+      <%== t(".description_html") %>
+
+      <% if current_settings.show_votes? %>
+        <p>
+          <%= link_to voting_finished? ? t(".see_results") : t(".follow_voting"), results_path, class: "button primary" %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row columns">
   <%= render partial: "orders_info" %>
 </div>

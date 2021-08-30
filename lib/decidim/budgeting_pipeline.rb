@@ -4,6 +4,7 @@ require_relative "budgeting_pipeline/version"
 require_relative "budgeting_pipeline/engine"
 require_relative "budgeting_pipeline/admin"
 require_relative "budgeting_pipeline/admin_engine"
+require_relative "budgeting_pipeline/workflows"
 
 module Decidim
   module BudgetingPipeline

@@ -7,9 +7,8 @@
 
 <%= render "layouts/decidim/application" do %>
   <%= yield :top if content_for?(:top) %>
-  <div class="wrapper">
-    <%= yield %>
-  </div>
+  <%= yield %>
+
   <% if content_for? :expanded %>
     <div class="expanded">
       <div class="wrapper wrapper--inner">

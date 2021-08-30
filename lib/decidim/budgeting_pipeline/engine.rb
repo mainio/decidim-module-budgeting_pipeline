@@ -29,14 +29,15 @@ module Decidim
             settings.attribute :vote_success_content, type: :text, translated: true, editor: true
             settings.attribute :results_page_content, type: :text, translated: true, editor: true
 
+            # Create the settings manipulator for moving the attributes
+            m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
+
             # Move the voting projects per page after the default projects per
             # page setting so it is in a logic position.
-            m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
             m.move_attribute_after(:vote_projects_per_page, :projects_per_page)
 
             # Move the more information modal label before the modal content so
             # it is in a logic position.
-            m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
             m.move_attribute_before(:more_information_modal_label, :more_information_modal)
           end
 
@@ -86,6 +87,13 @@ module Decidim
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::BudgetingPipeline::Engine.root}/app/views") # for partials
       end
 
+      initializer "decidim_budgeting_pipeline.workflow_extensions" do
+        # Customize the base workflow
+        Decidim::Budgets::Workflows::Base.include(
+          Decidim::BudgetingPipeline::Workflows::BaseExtensions
+        )
+      end
+
       config.to_prepare do
         # Helper extensions
         Decidim::Budgets::ApplicationHelper.include(
@@ -115,6 +123,9 @@ module Decidim
         )
 
         # Form extensions
+        Decidim::Budgets::Admin::ComponentForm.include(
+          Decidim::BudgetingPipeline::AdminComponentFormExtensions
+        )
         Decidim::Budgets::Admin::BudgetForm.include(
           Decidim::BudgetingPipeline::AdminBudgetFormExtensions
         )

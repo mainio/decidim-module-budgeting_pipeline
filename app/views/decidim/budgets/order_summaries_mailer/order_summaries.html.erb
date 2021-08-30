@@ -7,10 +7,14 @@
 
 <% @orders.each do |order| %>
   <p><strong><%= translated_attribute(order.budget.title) %></strong></p>
-  <p><%= t(".selected_projects") %></p>
-  <ul>
-  <% order.projects.each do |project| %>
-    <li><%= translated_attribute(project.title) %></li>
+  <% if order.projects.any? %>
+    <p><%= t(".selected_projects") %></p>
+    <ul>
+    <% order.projects.each do |project| %>
+      <li><%= translated_attribute(project.title) %></li>
+    <% end %>
+    </ul>
+  <% else %>
+    <p><%= t(".no_selected_projects") %></p>
   <% end %>
-  </ul>
 <% end %>
