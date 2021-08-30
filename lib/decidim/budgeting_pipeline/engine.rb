@@ -86,6 +86,13 @@ module Decidim
         Cell::ViewModel.view_paths << File.expand_path("#{Decidim::BudgetingPipeline::Engine.root}/app/views") # for partials
       end
 
+      initializer "decidim_budgeting_pipeline.workflow_extensions" do
+        # Customize the base workflow
+        Decidim::Budgets::Workflows::Base.include(
+          Decidim::BudgetingPipeline::Workflows::BaseExtensions
+        )
+      end
+
       config.to_prepare do
         # Helper extensions
         Decidim::Budgets::ApplicationHelper.include(
