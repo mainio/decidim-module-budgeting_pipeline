@@ -57,8 +57,8 @@
           aria-valuetext="<%= number_with_precision(order.budget_percent.to_f, precision: 1) %>%"
           aria-valuemin="0"
           aria-valuemax="100">
-          <div class="progress-meter budget-progress__meter" style="width: <%= order.budget_percent > 100 ? 100 : order.budget_percent.to_f.floor %>%">
-            <span class="progress-meter-text progress-meter-text--right"><%= number_with_precision(order.budget_percent.to_f.floor, precision: 1) %>%</span>
+          <div class="progress-meter budget-progress__meter" style="width: <%= order.budget_percent > 100 ? 100 : order.budget_percent.to_f.round %>%">
+            <span class="progress-meter-text progress-meter-text--right"><%= number_with_precision(order.budget_percent.to_f, precision: 1) %>%</span>
           </div>
         </div>
       </div>
