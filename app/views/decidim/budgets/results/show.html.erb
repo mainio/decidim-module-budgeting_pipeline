@@ -27,11 +27,15 @@
 
 <div class="row columns">
   <% sticky_budgets.each do |budget| %>
-    <%= render partial: "budget_results", locals: { budget: budget } %>
+    <% cache budget, expires_in: 15.minutes do %>
+      <%= render partial: "budget_results", locals: { budget: budget } %>
+    <% end %>
   <% end %>
 
   <% common_budgets.each do |budget| %>
-    <%= render partial: "budget_results", locals: { budget: budget } %>
+    <% cache budget, expires_in: 15.minutes do %>
+      <%= render partial: "budget_results", locals: { budget: budget } %>
+    <% end %>
   <% end %>
 </div>
 
