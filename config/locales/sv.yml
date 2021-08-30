@@ -93,7 +93,7 @@ sv:
             selected: Fortsätter till implementering
       order_summaries_mailer:
         order_summaries:
-          no_selected_projects: You did not select any proposals from this area.
+          no_selected_projects: Du valde inga förslag från detta område.
           selected_projects: 'Utvalda förslag:'
           subject: Du röstade i %{budget_names}
           voted_on_budgets: Du röstade i %{budget_names}.
@@ -107,11 +107,11 @@ sv:
           follow_voting: Följ omröstningssituationen
           not_voted: Du har ännu inte röstat.
           see_results: Visa slutresultat
-          title: My vote
+          title: Min röst
         orders_info:
           allocated_budget: Total budget för de valda förslagen
           allocated_projects: Antal utvalda förslag
-          empty_order: You did not choose any proposals from area %{name}.
+          empty_order: Du valde inga förslag från område %{name}.
           title: Förhandsgranska och rösta
           total_budget: Budget för området
           total_projects: Antal förslag som ska väljas i området
@@ -162,7 +162,7 @@ sv:
           see_results: Visa slutresultat
           see_your_vote: Se min röst
           start_voting: Gå till bläddra bland förslagen och rösta
-          title: Proposals
+          title: Förslag
           view_project: Visa förslag
           view_project_detailed: "Visa förslag: %{name}"
         orders:
@@ -210,7 +210,7 @@ sv:
           amount:
             one: "%{count} st"
             other: "%{count} st"
-          order_number: Order number
+          order_number: Ordningsnummer
           project_budget: Budget
           project_name: Förslag
           project_votes: Röster
@@ -263,12 +263,12 @@ sv:
           move_to_prev_step: "Tillbaka till föregående steg: %{name}"
           not_authorized: Du måste identifiera dig för att kunna rösta.
         identify_options:
-          granted_authorizations_info: Your identity information do not match the voting requirements, which is why you cannot vote.
-          granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
-          granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
-          pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
-          pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
-          title: Strong identification
+          granted_authorizations_info: Din identitetsinformation matchar inte röstningskraven, varför du inte kan rösta.
+          granted_authorizations_notice: "Du har redan identifierat dig med följande identitetsleverantörer:"
+          granted_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du prova detta från listan nedan.
+          pending_authorizations_notice: "Du har redan identifierat dig med följande leverantörer som väntar på godkännande:"
+          pending_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du välja den leverantören från listan nedan.
+          title: Stark identifiering
         order_items:
           empty: Du har inte valt några förslag från detta område.
         order_notifications:
@@ -292,15 +292,15 @@ sv:
                 other: Du har valt för många förslag från området %{budget}, du kan välja upp till %{count} förslag
             minimum_projects:
               description:
-                one: You have to add at least one proposal from this area to your vote in order to proceed to the next step.
-                other: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
+                one: Du måste lägga till minst ett förslag från detta område till din röst för att gå vidare till nästa steg.
+                other: Du måste lägga till minst %{count} förslag från detta område till din röst för att gå vidare till nästa steg.
               title:
                 one: Du har inte valt några förslag från området %{budget}
                 other: Du har inte valt tillräckligt med förslag från området %{budget}, du måste välja minst %{count} förslag
           warnings:
             no_projects:
-              description: Please note that you can select proposals for the voting basket from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting basket.
-              title: You have not selected any proposals from the area %{budget}
+              description: Observera att du kan välja förslag till röstkorg från flera områden. Om du också vill lägga till förslag till detta område, gå tillbaka till förslag som bläddrar och välj de förslag du vill lägga till i din röstkorg.
+              title: Du har inte valt några förslag från området %{budget}
         order_progress:
           allocated_budget: Tilldelad budget
           allocated_projects: Utvalda förslag
@@ -325,7 +325,7 @@ sv:
             vote: Rösta
           allocated_budget: Total budget för de valda förslagen
           allocated_projects: Antal utvalda förslag
-          empty_order: You did not choose any proposals from area %{name}.
+          empty_order: Du valde inga förslag från område %{name}.
           title: Förhandsgranska och rösta
           total_budget: Budget för området
           total_projects: Antal förslag som ska väljas i området
@@ -342,7 +342,7 @@ sv:
         steps:
           authorization: Stark identifiering och val av omröstningsområde
           budgets: Val av omröstningsområde
-          login: Sign in and selection of the voting area
+          login: Inloggning och val av omröstningsområde
           next: "Nästa: %{name}"
           preview: Förhandsgranska och rösta
           previous: "Tidigare: %{name}"
