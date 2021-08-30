@@ -1,10 +1,14 @@
 ((exports) => {
   const $ = exports.$; // eslint-disable-line id-length
+  const location = exports.location;
 
   const allowExitFrom = ($el) => {
     if ($el.attr("target") === "_blank") {
       return true;
-    } else if ($el.attr("href").startsWith("#")) {
+    } else if ($el.attr("href").startsWith("#") ||
+      $el.attr("href").startsWith(`${location.pathname}#`) ||
+      $el.attr("href").startsWith(`${location.href}#`)
+    ) {
       return true;
     } else if ($el.attr("id") === "exit-notification-link") {
       return true;
