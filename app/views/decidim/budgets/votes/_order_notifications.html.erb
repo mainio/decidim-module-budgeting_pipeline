@@ -51,5 +51,15 @@
         <p><%= t(".errors.maximum_budget.description", amount: budget_to_currency(order.maximum_budget)) %></p>
       </div>
     </div>
+  <% elsif order.total_projects < 1 %>
+    <div class="no-projects">
+      <div class="callout warning">
+        <p class=h5>
+          <%= icon "information", role: "img", "aria-hidden": true %>
+          <%= t(".warnings.no_projects.title", budget: translated_attribute(order.budget.title)) %>
+        </p>
+        <p><%= t(".warnings.no_projects.description") %></p>
+      </div>
+    </div>
   <% end %>
 </div>
