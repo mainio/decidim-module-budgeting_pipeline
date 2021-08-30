@@ -93,7 +93,7 @@ fi:
             selected: Etenee toteutukseen
       order_summaries_mailer:
         order_summaries:
-          no_selected_projects: You did not select any proposals from this area.
+          no_selected_projects: Et valinnut yhtään ehdotusta tältä alueelta.
           selected_projects: 'Ehdotukset, jotka valitsit:'
           subject: Äänestit alueilla %{budget_names}
           voted_on_budgets: Äänestit alueilla %{budget_names}.
@@ -107,11 +107,11 @@ fi:
           follow_voting: Seuraa äänestystilannetta
           not_voted: Et ole vielä äänestänyt.
           see_results: Näytä lopullinen äänestystilanne
-          title: My vote
+          title: Oma ääneni
         orders_info:
           allocated_budget: Valittujen ehdotusten summa
           allocated_projects: Valittujen ehdotusten määrä
-          empty_order: You did not choose any proposals from area %{name}.
+          empty_order: Et valinnut yhtään ehdotusta alueelta %{name}.
           title: Esikatselu ja äänestys
           total_budget: Alueen budjetti
           total_projects: Alueen valittavien ehdotusten määrä
@@ -162,7 +162,7 @@ fi:
           see_results: Näytä lopullinen äänestystilanne
           see_your_vote: Näytä oma ääneni
           start_voting: Siirry selaamaan ja äänestämään ehdotuksia
-          title: Proposals
+          title: Ehdotukset
           view_project: Näytä ehdotus
           view_project_detailed: "Näytä ehdotus: %{name}"
         orders:
@@ -210,7 +210,7 @@ fi:
           amount:
             one: "%{count} kpl"
             other: "%{count} kpl"
-          order_number: Order number
+          order_number: Järjestysnumero
           project_budget: Budjetti
           project_name: Ehdotus
           project_votes: Ääniä
@@ -263,12 +263,12 @@ fi:
           move_to_prev_step: "Siirry edelliseen vaiheeseen: %{name}"
           not_authorized: Sinun täytyy tunnistautua äänestääksesi.
         identify_options:
-          granted_authorizations_info: Your identity information do not match the voting requirements, which is why you cannot vote.
-          granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
-          granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
-          pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
-          pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
-          title: Strong identification
+          granted_authorizations_info: Tunnistautumistietosi eivät vastaa äänestyksen reunaehtoja, minkä takia et voi äänestää.
+          granted_authorizations_notice: "Olet jo tunnistautunut seuraavilla tunnistautumistavoilla:"
+          granted_authorizations_other: Jos sinulla on mahdollisuus tunnistautua toisella tavalla, voit yrittää tätä alla olevasta listasta.
+          pending_authorizations_notice: "Olet jo tunnistautunut seuraavilla tunnistautumistavoilla, jotka odottavat hyväksyntää:"
+          pending_authorizations_other: Mikäli sinulla on mahdollisuus tunnistautua toisella tavalla, voit valita toisen tunnistautumistavan alla olevasta listasta.
+          title: Vahva tunnistautuminen
         order_items:
           empty: Et ole valinnut yhtään ehdotusta tältä alueelta.
         order_notifications:
@@ -292,15 +292,15 @@ fi:
                 other: Olet valinnut liian monta ehdotusta alueelta %{budget}, valittava enintään %{count}
             minimum_projects:
               description:
-                one: You have to add at least one proposal from this area to your vote in order to proceed to the next step.
-                other: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
+                one: Sinun on lisättävä vähintään yksi ehdotus ääneesi tältä alueelta jatkaaksesi seuraavaan vaiheeseen.
+                other: Sinun on lisättävä vähintään %{count} ehdotusta ääneesi tältä alueelta jatkaaksesi seuraavaan vaiheeseen.
               title:
                 one: Et ole vielä valinnut yhtään ehdotusta alueelta %{budget}
                 other: Et ole valinnut tarpeeksi monta ehdotusta alueelta %{budget}, valittava vähintään %{count}
           warnings:
             no_projects:
-              description: Please note that you can select proposals for the voting basket from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting basket.
-              title: You have not selected any proposals from the area %{budget}
+              description: Huomioithan, että sinulla on mahdollisuus valita ehdotuksia äänestyskoriin usealta alueelta. Mikäli haluat valita ehdotuksia myös tälle alueelle, siirry takaisin ehdotusten selaukseen ja valitse haluamasi ehdotukset äänestyskoriisi.
+              title: Et ole vielä valinnut yhtään ehdotusta alueelta %{budget}
         order_progress:
           allocated_budget: Budjetista käytetty
           allocated_projects: Valitut ehdotukset
@@ -325,7 +325,7 @@ fi:
             vote: Äänestä
           allocated_budget: Valittujen ehdotusten summa
           allocated_projects: Valittujen ehdotusten määrä
-          empty_order: You did not choose any proposals from area %{name}.
+          empty_order: Et valinnut yhtään ehdotusta alueelta %{name}.
           title: Esikatselu ja äänestys
           total_budget: Alueen budjetti
           total_projects: Alueen valittavien ehdotusten määrä
@@ -342,7 +342,7 @@ fi:
         steps:
           authorization: Vahva tunnistautuminen ja äänestysalueen valinta
           budgets: Äänestysalueen valinta
-          login: Sign in and selection of the voting area
+          login: Kirjautuminen ja äänestysalueen valinta
           next: "Seuraava: %{name}"
           preview: Esikatselu ja äänestys
           previous: "Edellinen: %{name}"
