@@ -12,6 +12,7 @@ module Decidim
       include Decidim::BudgetingPipeline::VoteUtilities
 
       helper_method(
+        :authorization_required?,
         :help_sections,
         :voting_steps,
         :current_step,
@@ -35,7 +36,7 @@ module Decidim
       skip_before_action :ensure_not_voted!, only: [:show]
 
       def show
-        define_step(:authorization)
+        define_step(authorization_required? ? :authorization : :login)
         return unless user_authorized?
         return ensure_not_voted! if user_voted?
 
@@ -70,7 +71,11 @@ module Decidim
       def create
         CheckoutOrders.call(current_orders, current_user) do
           on(:ok) do
-            flash[:notice] = I18n.t("decidim.budgets.votes.create.success")
+            # Do not display a flash message with a successful vote because it
+            # would force the focus within the flash message instead of the
+            # popup which is displayed after a successful vote. This is
+            # important for screen reader users who need to hear the modal
+            # content when it is displayed.
             session["decidim-budgets.voted"] = true
             redirect_to results_path
           end
@@ -120,6 +125,20 @@ module Decidim
       # how old they are, etc.).
       def user_authorized?
         @user_authorized ||= user_signed_in? && action_authorized_to("vote").ok?
+      end
+
+      def authorization_required?
+        @authorization_required ||= begin
+          permission = current_component.permissions&.fetch("vote", nil)
+          handlers = permission&.fetch("authorization_handlers", nil)&.keys
+          if handlers && handlers.any?
+            providers = Decidim::BudgetingPipeline.authorization_providers
+            providers = providers.call(current_organization) if providers.respond_to?(:call)
+            (handlers & providers).any?
+          else
+            false
+          end
+        end
       end
 
       def set_current_step
@@ -191,10 +210,10 @@ module Decidim
           done = true
           steps = voting_steps_keys.map do |key|
             done = false if key == current_step
-            step_link = key == :authorization ? vote_path : send("#{key}_vote_path")
+            step_link = [:authorization, :login].include?(key) ? vote_path : send("#{key}_vote_path")
             available =
               case key
-              when :authorization
+              when :authorization, :login
                 true
               when :budgets
                 user_authorized?
@@ -214,11 +233,22 @@ module Decidim
       end
 
       def voting_steps_keys
-        @voting_steps_keys ||= [
-          user_authorized? ? :budgets : :authorization,
-          :projects,
-          :preview
-        ]
+        @voting_steps_keys ||= begin
+          first_step_key =
+            if user_authorized?
+              :budgets
+            elsif authorization_required?
+              :authorization
+            else
+              :login
+            end
+
+          [
+            first_step_key,
+            :projects,
+            :preview
+          ]
+        end
       end
 
       # For the projects page
