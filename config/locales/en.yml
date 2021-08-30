@@ -93,6 +93,7 @@ en:
             selected: Proceeds to implementation
       order_summaries_mailer:
         order_summaries:
+          no_selected_projects: You did not select any proposals from this area.
           selected_projects: 'Selected proposals:'
           subject: You voted in %{budget_names}
           voted_on_budgets: You voted in %{budget_names}.
@@ -106,10 +107,11 @@ en:
           follow_voting: Follow the voting situation
           not_voted: You have not yet voted.
           see_results: Show final results
-          title: Voting basket
+          title: My vote
         orders_info:
           allocated_budget: Total budget for the selected proposals
           allocated_projects: Amount of selected proposals
+          empty_order: You did not choose any proposals from area %{name}.
           title: Preview and voting
           total_budget: Budget for the area
           total_projects: Amount of proposals to be selected in the area
@@ -160,6 +162,7 @@ en:
           see_results: Show final results
           see_your_vote: See my vote
           start_voting: Go to browse the proposals and vote
+          title: Proposals
           view_project: Show proposal
           view_project_detailed: "Show proposal: %{name}"
         orders:
@@ -207,6 +210,7 @@ en:
           amount:
             one: "%{count} pcs"
             other: "%{count} pcs"
+          order_number: Order number
           project_budget: Budget
           project_name: Proposal
           project_votes: Votes
@@ -258,6 +262,13 @@ en:
           move_to_next_step: "Proceed to the next step: %{name}"
           move_to_prev_step: "Back to the previous step: %{name}"
           not_authorized: You have to identify yourself in order to vote.
+        identify_options:
+          granted_authorizations_info: Your identity information do not match the voting requirements, which is why you cannot vote.
+          granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
+          granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
+          pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
+          pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
+          title: Strong identification
         order_items:
           empty: You have not selected any proposals from this area.
         order_notifications:
@@ -280,10 +291,16 @@ en:
                 one: You can select a single proposal from the area %{budget}
                 other: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
             minimum_projects:
-              description: Please note that you can select proposals for the voting basket from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting basket.
+              description:
+                one: You have to add at least one proposal from this area to your vote in order to proceed to the next step.
+                other: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
               title:
                 one: You have not selected any proposals from the area %{budget}
                 other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
+          warnings:
+            no_projects:
+              description: Please note that you can select proposals for the voting basket from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting basket.
+              title: You have not selected any proposals from the area %{budget}
         order_progress:
           allocated_budget: Allocated budget
           allocated_projects: Selected proposals
@@ -308,6 +325,7 @@ en:
             vote: Vote
           allocated_budget: Total budget for the selected proposals
           allocated_projects: Amount of selected proposals
+          empty_order: You did not choose any proposals from area %{name}.
           title: Preview and voting
           total_budget: Budget for the area
           total_projects: Amount of proposals to be selected in the area
@@ -319,18 +337,12 @@ en:
           budget_html: "Area: <strong>%{name}</strong>"
           orders_summary_title: Voting basket situation
           title: Select proposals
-        show:
-          granted_authorizations_info: Your identity information do not match the voting requirements, which is why you cannot vote.
-          granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
-          granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
-          pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
-          pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
-          title: Strong identification
         start:
           invalid: Failed to select voting area, please try again.
         steps:
           authorization: Strong identification and selection of the voting area
           budgets: Selection of the voting area
+          login: Sign in and selection of the voting area
           next: "Next: %{name}"
           preview: Preview and voting
           previous: "Previous: %{name}"
