@@ -123,6 +123,9 @@ module Decidim
         )
 
         # Form extensions
+        Decidim::Budgets::Admin::ComponentForm.include(
+          Decidim::BudgetingPipeline::AdminComponentFormExtensions
+        )
         Decidim::Budgets::Admin::BudgetForm.include(
           Decidim::BudgetingPipeline::AdminBudgetFormExtensions
         )
