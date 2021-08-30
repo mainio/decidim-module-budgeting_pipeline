@@ -29,14 +29,15 @@ module Decidim
             settings.attribute :vote_success_content, type: :text, translated: true, editor: true
             settings.attribute :results_page_content, type: :text, translated: true, editor: true
 
+            # Create the settings manipulator for moving the attributes
+            m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
+
             # Move the voting projects per page after the default projects per
             # page setting so it is in a logic position.
-            m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
             m.move_attribute_after(:vote_projects_per_page, :projects_per_page)
 
             # Move the more information modal label before the modal content so
             # it is in a logic position.
-            m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
             m.move_attribute_before(:more_information_modal_label, :more_information_modal)
           end
 
