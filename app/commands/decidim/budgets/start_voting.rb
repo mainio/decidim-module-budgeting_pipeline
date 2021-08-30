@@ -27,7 +27,7 @@ module Decidim
       attr_reader :form, :user, :workflow, :orders
 
       def destroy_previous_orders!
-        Decidim::Budgets::Order.where(budget: budgets).where.not(
+        Decidim::Budgets::Order.where(budget: budgets, user: user).where.not(
           budget: selected_budgets
         ).destroy_all
       end
