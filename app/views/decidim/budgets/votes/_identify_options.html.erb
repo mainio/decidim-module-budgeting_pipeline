@@ -1,0 +1,70 @@
+<div class="row columns">
+  <div class="static__content">
+    <h2><%= t(".title") %></h2>
+    <%== translated_attribute component_settings.vote_identify_page_content %>
+  </div>
+
+  <div class="voting-identity">
+    <% if user_signed_in? %>
+      <% if user_authorizations(:pending).any? %>
+        <div class="static__content mb-2">
+          <p><%= t(".pending_authorizations_notice") %></p>
+          <ul>
+            <% user_authorizations(:pending).each do |authorization| %>
+              <li><%= authorization_provider_name(authorization.name) %></li>
+            <% end %>
+          </ul>
+          <% if authorization_providers.any? %>
+            <p><%= t(".pending_authorizations_other") %></p>
+          <% end %>
+        </div>
+      <% elsif user_authorizations(:granted).any? %>
+        <div class="mb-2">
+          <div class="static__content">
+            <p><%= t(".granted_authorizations_notice") %></p>
+            <ul>
+              <% user_authorizations(:granted).each do |authorization| %>
+                <li><%= authorization_provider_name(authorization.name) %></li>
+              <% end %>
+            </ul>
+          </div>
+          <% if authorization_providers.any? %>
+            <div class="static__content">
+              <p><%= t(".granted_authorizations_info") %></p>
+              <p><%= t(".granted_authorizations_other") %></p>
+            </div>
+          <% else %>
+            <div class="callout alert">
+              <p><%= t(".granted_authorizations_info") %></p>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+      <% if authorization_providers.any? %>
+        <div class="row">
+          <% authorization_providers.each do |provider| %>
+            <div class="columns small-6">
+              <%= link_to provider.root_path, class: "button expanded button--#{normalize_provider_name(provider)}" do %>
+                <%= authorization_provider_name(provider.key) %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="row">
+        <% identity_providers.each do |provider| %>
+          <div class="columns small-6">
+            <%= link_to decidim.send("user_#{provider}_omniauth_authorize_path"), class: "button expanded button--#{normalize_provider_name(provider)}", method: :post do %>
+              <%= identity_provider_name(provider) %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="static__content mt-10">
+    <%== translated_attribute component_settings.vote_identify_page_more_information %>
+  </div>
+</div>
