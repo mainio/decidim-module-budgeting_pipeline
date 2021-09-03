@@ -64,19 +64,19 @@ en:
         error_message:
           error:
             order_checked_out:
-              description: You have already voted in participatory budgeting. You can no longer add proposals to your voting basket.
+              description: You have already voted in participatory budgeting. You can no longer add proposals to your voting cart.
               title: You have already voted
             project_exceeds_amount:
-              description: You cannot add more proposals for this area to your voting basket. First, remove other proposals in this area from your vote and add this proposal again to your vote.
+              description: You cannot add more proposals for this area to your voting cart. First, remove other proposals in this area from your vote and add this proposal again to your vote.
               title: You have already added the maximum amount of proposals
             project_exceeds_budget:
               description: The cost of this proposal exceeds the remaining budget for this area. First, remove other proposals in this area from your vote and add this proposal again to your vote.
               title: The remaining budget on this area is not sufficient for this proposal
             voting_not_enabled:
-              description: Voting has ended. You cannot add proposals to the voting basket when voting is inactive.
+              description: Voting has ended. You cannot add proposals to the voting cart when voting is inactive.
               title: Voting is not possible at this moment
         error_modal:
-          title: Failed adding the proposal to the voting basket
+          title: Failed adding the proposal to the voting cart
       models:
         help_container:
           fields:
@@ -177,14 +177,14 @@ en:
           show_on_map: Show proposal on map
           print: Print proposal
         project_budget_button:
-          add_descriptive: Add proposal %{resource_name} to your voting basket
-          added_descriptive: Proposal %{resource_name} added to your voting basket
-          add_to_vote: Add to voting basket
-          remove_descriptive: Remove proposal %{resource_name} from voting basket
-          remove_from_vote: Remove from voting basket
+          add_descriptive: Add proposal %{resource_name} to your voting cart
+          added_descriptive: Proposal %{resource_name} added to your voting cart
+          add_to_vote: Add to voting cart
+          remove_descriptive: Remove proposal %{resource_name} from voting cart
+          remove_from_vote: Remove from voting cart
         projects:
           empty: No proposals were found for your search criteria. Change your search criteria to find more proposals.
-          show_orders: Show voting basket
+          show_orders: Show voting cart
         show:
           close: Close
           start_voting: Start voting
@@ -217,7 +217,7 @@ en:
         show:
           show_projects: Show proposals
           see_your_vote: See my vote
-          title: "%{organization_name} voting situation"
+          title: Current voting results
         vote_finished_modal:
           close: Close window
           continue: Confinue signed in
@@ -268,7 +268,7 @@ en:
           granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
           pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
           pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
-          title: Strong identification
+          title: Strong authentication
         order_items:
           empty: You have not selected any proposals from this area.
         order_notifications:
@@ -299,14 +299,14 @@ en:
                 other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
           warnings:
             no_projects:
-              description: Please note that you can select proposals for the voting basket from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting basket.
+              description: Please note that you can select proposals for the voting cart from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting cart.
               title: You have not selected any proposals from the area %{budget}
         order_progress:
-          allocated_budget: Allocated budget
+          allocated_budget: Budget spent
           allocated_projects: Selected proposals
           available_budget: Budget for the area
           available_projects: Amount of projects to be selected
-          selected_projects: Proposals in the basket
+          selected_projects: Proposals in the cart
           selected_projects_count: "%{count} pcs"
           unused_budget: Remaining budget
           unused_projects: Remaining projects to select
@@ -335,12 +335,12 @@ en:
             previous: Choose voting area
           back_to_projects: Show proposals
           budget_html: "Area: <strong>%{name}</strong>"
-          orders_summary_title: Voting basket situation
+          orders_summary_title: Voting cart status
           title: Select proposals
         start:
           invalid: Failed to select voting area, please try again.
         steps:
-          authorization: Strong identification and selection of the voting area
+          authorization: Strong authentication and selection of the voting area
           budgets: Selection of the voting area
           login: Sign in and selection of the voting area
           next: "Next: %{name}"

@@ -3,7 +3,7 @@
 <table class="transparent mobile-collapse">
   <thead>
     <tr>
-      <th aria-label="<%= t(".order_number") %>"></th>
+      <th><span class="show-for-sr"><%= t(".order_number") %></span></th>
       <th><%= t(".project_name") %></th>
       <% if display_amounts_for?(budget) %>
         <th class="medium-text-center"><%= t(".project_budget") %></th>
