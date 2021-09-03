@@ -64,19 +64,19 @@ sv:
         error_message:
           error:
             order_checked_out:
-              description: You have already voted in participatory budgeting. You can no longer add proposals to your voting cart.
+              description: Du har redan röstat i deltagande budget. Du kan inte längre lägga till förslag i din röstkorg.
               title: Du har redan röstat
             project_exceeds_amount:
-              description: You cannot add more proposals for this area to your voting cart. First, remove other proposals in this area from your vote and add this proposal again to your vote.
+              description: Du kan inte lägga till fler förslag för detta område i din röstkorg. Ta först bort andra förslag inom detta område från din omröstning och lägg till det här förslaget igen i din röst.
               title: Du har redan lagt till det maximala antalet förslag
             project_exceeds_budget:
               description: Kostnaden för detta förslag överstiger den återstående budgeten för detta område. Ta först bort andra förslag inom detta område från din omröstning och lägg till det här förslaget igen i din röst.
               title: Den återstående budgeten på detta område är inte tillräcklig för detta förslag
             voting_not_enabled:
-              description: Voting has ended. You cannot add proposals to the voting cart when voting is inactive.
+              description: Röstningen har avslutad. Du kan inte lägga till förslag i röstkorgen när omröstningen är inaktiv.
               title: Det går inte att rösta just nu
         error_modal:
-          title: Failed adding the proposal to the voting cart
+          title: Det gick inte att lägga till förslaget i röstkorg
       models:
         help_container:
           fields:
@@ -100,7 +100,7 @@ sv:
           votes_summary: Nedan hittar du en sammanfattning av din röst.
       orders:
         continue_button:
-          label: Förhandsgranska och rösta
+          label: Förhandsvisning och omröstning
         index:
           back: Visa förslag
           description_html: <p>På den här sidan ser du hur du röstade.</p>
@@ -112,7 +112,7 @@ sv:
           allocated_budget: Total budget för de valda förslagen
           allocated_projects: Antal utvalda förslag
           empty_order: Du valde inga förslag från område %{name}.
-          title: Förhandsgranska och rösta
+          title: Förhandsvisning och omröstning
           total_budget: Budget för området
           total_projects: Antal förslag som ska väljas i området
           vote: Rösta
@@ -177,14 +177,14 @@ sv:
           show_on_map: Visa förslag på karta
           print: Skriv ut förslag
         project_budget_button:
-          add_descriptive: Add proposal %{resource_name} to your voting cart
-          added_descriptive: Proposal %{resource_name} added to your voting cart
-          add_to_vote: Add to voting cart
-          remove_descriptive: Remove proposal %{resource_name} from voting cart
-          remove_from_vote: Remove from voting cart
+          add_descriptive: Lägg till förslag %{resource_name} i din röstkorg
+          added_descriptive: Förslaget %{resource_name} har lagts till i din röstkorg
+          add_to_vote: Lägg till i röstkorgen
+          remove_descriptive: Ta bort förslag %{resource_name} från röstkorgen
+          remove_from_vote: Ta bort från röstkorgen
         projects:
           empty: Inga förslag hittades för dina sökkriterier. Ändra dina sökkriterier för att hitta fler förslag.
-          show_orders: Show voting cart
+          show_orders: Visa röstkorg
         show:
           close: Stänga
           start_voting: Börja rösta
@@ -217,7 +217,7 @@ sv:
         show:
           show_projects: Visa förslag
           see_your_vote: Se min röst
-          title: Current voting results
+          title: Valsituationen
         vote_finished_modal:
           close: Stäng fönstret
           continue: Fortsätt inloggad
@@ -268,7 +268,7 @@ sv:
           granted_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du prova detta från listan nedan.
           pending_authorizations_notice: "Du har redan identifierat dig med följande leverantörer som väntar på godkännande:"
           pending_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du välja den leverantören från listan nedan.
-          title: Strong authentication
+          title: Stark autentisering
         order_items:
           empty: Du har inte valt några förslag från detta område.
         order_notifications:
@@ -299,14 +299,14 @@ sv:
                 other: Du har inte valt tillräckligt med förslag från området %{budget}, du måste välja minst %{count} förslag
           warnings:
             no_projects:
-              description: Please note that you can select proposals for the voting cart from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting cart.
+              description: Observera att du kan välja förslag till röstkorg från flera områden. Om du också vill lägga till förslag till detta område, gå tillbaka till förslag som bläddrar och välj de förslag du vill lägga till i din röstkorg.
               title: Du har inte valt några förslag från området %{budget}
         order_progress:
-          allocated_budget: Budget spent
+          allocated_budget: Använt av budgeten
           allocated_projects: Utvalda förslag
           available_budget: Budget för området
           available_projects: Antal projekt som ska väljas
-          selected_projects: Proposals in the cart
+          selected_projects: Förslag i korgen
           selected_projects_count: "%{count} st"
           unused_budget: Återstående budget
           unused_projects: Återstående projekt att välja
@@ -326,25 +326,25 @@ sv:
           allocated_budget: Total budget för de valda förslagen
           allocated_projects: Antal utvalda förslag
           empty_order: Du valde inga förslag från område %{name}.
-          title: Förhandsgranska och rösta
+          title: Förhandsvisning och omröstning
           total_budget: Budget för området
           total_projects: Antal förslag som ska väljas i området
         projects:
           actions:
-            continue: Förhandsgranska och rösta
+            continue: Förhandsvisning och omröstning
             previous: Välj omröstningsområde
           back_to_projects: Visa förslag
           budget_html: "Område: <strong>%{name}</strong>"
-          orders_summary_title: Voting cart status
+          orders_summary_title: Röstkorgens situation
           title: Välj förslag
         start:
           invalid: Det gick inte att välja omröstningsområde, försök igen.
         steps:
-          authorization: Strong authentication and selection of the voting area
+          authorization: Stark autentisering och val av omröstningsområde
           budgets: Val av omröstningsområde
           login: Inloggning och val av omröstningsområde
           next: "Nästa: %{name}"
-          preview: Förhandsgranska och rösta
+          preview: Förhandsvisning och omröstning
           previous: "Tidigare: %{name}"
           projects: Välj förslag
           step: Steg %{number}
@@ -364,7 +364,7 @@ sv:
             vote_identify_invalid_authorization_title: Ogiltig identitetsinformation fel titel
             vote_identify_page_content: Identitetssidans innehåll
             vote_identify_page_more_information: Information om identifieringssidan
-            vote_preview_page_content: Förhandsgranska sidinnehåll
+            vote_preview_page_content: Förhandsvisning sidinnehåll
             vote_projects_page_content: Bläddra bland innehållsförslag
             vote_projects_per_page: Förslag per sida under omröstningen
             vote_success_content: Innehåll som visas efter lyckad omröstning
