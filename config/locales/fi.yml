@@ -217,7 +217,7 @@ fi:
         show:
           show_projects: Näytä ehdotukset
           see_your_vote: Näytä oma ääneni
-          title: "%{organization_name} äänestystilanne"
+          title: Äänestystilanne
         vote_finished_modal:
           close: Sulje ikkuna
           continue: Jatka sisäänkirjautuneena

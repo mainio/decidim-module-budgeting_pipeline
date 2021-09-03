@@ -100,7 +100,7 @@ sv:
           votes_summary: Nedan hittar du en sammanfattning av din röst.
       orders:
         continue_button:
-          label: Förhandsgranska och rösta
+          label: Förhandsvisning och omröstning
         index:
           back: Visa förslag
           description_html: <p>På den här sidan ser du hur du röstade.</p>
@@ -112,7 +112,7 @@ sv:
           allocated_budget: Total budget för de valda förslagen
           allocated_projects: Antal utvalda förslag
           empty_order: Du valde inga förslag från område %{name}.
-          title: Förhandsgranska och rösta
+          title: Förhandsvisning och omröstning
           total_budget: Budget för området
           total_projects: Antal förslag som ska väljas i området
           vote: Rösta
@@ -217,7 +217,7 @@ sv:
         show:
           show_projects: Visa förslag
           see_your_vote: Se min röst
-          title: "%{organization_name} omröstningssituation"
+          title: Valsituationen
         vote_finished_modal:
           close: Stäng fönstret
           continue: Fortsätt inloggad
@@ -268,7 +268,7 @@ sv:
           granted_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du prova detta från listan nedan.
           pending_authorizations_notice: "Du har redan identifierat dig med följande leverantörer som väntar på godkännande:"
           pending_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du välja den leverantören från listan nedan.
-          title: Stark identifiering
+          title: Stark autentisering
         order_items:
           empty: Du har inte valt några förslag från detta område.
         order_notifications:
@@ -302,7 +302,7 @@ sv:
               description: Observera att du kan välja förslag till röstkorg från flera områden. Om du också vill lägga till förslag till detta område, gå tillbaka till förslag som bläddrar och välj de förslag du vill lägga till i din röstkorg.
               title: Du har inte valt några förslag från området %{budget}
         order_progress:
-          allocated_budget: Tilldelad budget
+          allocated_budget: Använt av budgeten
           allocated_projects: Utvalda förslag
           available_budget: Budget för området
           available_projects: Antal projekt som ska väljas
@@ -326,25 +326,25 @@ sv:
           allocated_budget: Total budget för de valda förslagen
           allocated_projects: Antal utvalda förslag
           empty_order: Du valde inga förslag från område %{name}.
-          title: Förhandsgranska och rösta
+          title: Förhandsvisning och omröstning
           total_budget: Budget för området
           total_projects: Antal förslag som ska väljas i området
         projects:
           actions:
-            continue: Förhandsgranska och rösta
+            continue: Förhandsvisning och omröstning
             previous: Välj omröstningsområde
           back_to_projects: Visa förslag
           budget_html: "Område: <strong>%{name}</strong>"
-          orders_summary_title: Röstkorgssituation
+          orders_summary_title: Röstkorgens situation
           title: Välj förslag
         start:
           invalid: Det gick inte att välja omröstningsområde, försök igen.
         steps:
-          authorization: Stark identifiering och val av omröstningsområde
+          authorization: Stark autentisering och val av omröstningsområde
           budgets: Val av omröstningsområde
           login: Inloggning och val av omröstningsområde
           next: "Nästa: %{name}"
-          preview: Förhandsgranska och rösta
+          preview: Förhandsvisning och omröstning
           previous: "Tidigare: %{name}"
           projects: Välj förslag
           step: Steg %{number}
@@ -364,7 +364,7 @@ sv:
             vote_identify_invalid_authorization_title: Ogiltig identitetsinformation fel titel
             vote_identify_page_content: Identitetssidans innehåll
             vote_identify_page_more_information: Information om identifieringssidan
-            vote_preview_page_content: Förhandsgranska sidinnehåll
+            vote_preview_page_content: Förhandsvisning sidinnehåll
             vote_projects_page_content: Bläddra bland innehållsförslag
             vote_projects_per_page: Förslag per sida under omröstningen
             vote_success_content: Innehåll som visas efter lyckad omröstning
