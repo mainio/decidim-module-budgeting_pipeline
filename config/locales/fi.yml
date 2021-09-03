@@ -64,19 +64,19 @@ fi:
         error_message:
           error:
             order_checked_out:
-              description: You have already voted in participatory budgeting. You can no longer add proposals to your voting cart.
+              description: Olet jo äänestänyt osallistuvassa budjetoinnissa, minkä takia et voi lisätä ehdotusta äänestyskoriisi.
               title: Olet jo äänestänyt
             project_exceeds_amount:
-              description: You cannot add more proposals for this area to your voting cart. First, remove other proposals in this area from your vote and add this proposal again to your vote.
+              description: Et voi lisätä enempää kyseisen alueen ehdotuksia äänestyskoriisi. Poista ensin jokin muu kyseisen alueen ehdotus äänestäsi ja lisää tämä ehdotus uudestaan ääneesi.
               title: Olet jo lisännyt maksimimäärän ehdotuksia
             project_exceeds_budget:
               description: Tämän ehdotuksen hinta ylittää alueen jäljellä olevan budjetin. Poista ensin muita kyseisen alueen ehdotuksia äänestäsi ja lisää tämä ehdotus uudestaan ääneesi.
               title: Alueen budjetti ei riitä tämän ehdotuksen lisäämiseen
             voting_not_enabled:
-              description: Voting has ended. You cannot add proposals to the voting cart when voting is inactive.
+              description: Äänestys on päättynyt. Et voi enää lisätä ehdotuksia äänestyskoriisi, kun äänestys ei ole käynnissä.
               title: Äänestys ei ole mahdollista tällä hetkellä
         error_modal:
-          title: Failed adding the proposal to the voting cart
+          title: Ehdotuksen lisääminen äänestyskoriin epäonnistui
       models:
         help_container:
           fields:
@@ -177,14 +177,14 @@ fi:
           show_on_map: Katso ehdotus kartalla
           print: Tulosta ehdotus
         project_budget_button:
-          add_descriptive: Add proposal %{resource_name} to your voting cart
-          added_descriptive: Proposal %{resource_name} added to your voting cart
-          add_to_vote: Add to voting cart
-          remove_descriptive: Remove proposal %{resource_name} from voting cart
-          remove_from_vote: Remove from voting cart
+          add_descriptive: Lisää ehdotus %{resource_name} äänestyskoriisi
+          added_descriptive: Ehdotus %{resource_name} lisätty äänestyskoriisi
+          add_to_vote: Lisää äänestyskoriin
+          remove_descriptive: Poista ehdotus %{resource_name} äänestyskorista
+          remove_from_vote: Poista äänestyskorista
         projects:
           empty: Hakuehdoillasi ei löytynyt yhtään ehdotusta. Muuta hakuehtoja löytääksesi lisää ehdotuksia.
-          show_orders: Show voting cart
+          show_orders: Näytä äänestyskori
         show:
           close: Sulje
           start_voting: Aloita äänestys
@@ -217,7 +217,7 @@ fi:
         show:
           show_projects: Näytä ehdotukset
           see_your_vote: Näytä oma ääneni
-          title: Current voting results
+          title: Äänestystilanne
         vote_finished_modal:
           close: Sulje ikkuna
           continue: Jatka sisäänkirjautuneena
@@ -268,7 +268,7 @@ fi:
           granted_authorizations_other: Jos sinulla on mahdollisuus tunnistautua toisella tavalla, voit yrittää tätä alla olevasta listasta.
           pending_authorizations_notice: "Olet jo tunnistautunut seuraavilla tunnistautumistavoilla, jotka odottavat hyväksyntää:"
           pending_authorizations_other: Mikäli sinulla on mahdollisuus tunnistautua toisella tavalla, voit valita toisen tunnistautumistavan alla olevasta listasta.
-          title: Strong authentication
+          title: Vahva tunnistautuminen
         order_items:
           empty: Et ole valinnut yhtään ehdotusta tältä alueelta.
         order_notifications:
@@ -299,14 +299,14 @@ fi:
                 other: Et ole valinnut tarpeeksi monta ehdotusta alueelta %{budget}, valittava vähintään %{count}
           warnings:
             no_projects:
-              description: Please note that you can select proposals for the voting cart from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting cart.
+              description: Huomioithan, että sinulla on mahdollisuus valita ehdotuksia äänestyskoriin usealta alueelta. Mikäli haluat valita ehdotuksia myös tälle alueelle, siirry takaisin ehdotusten selaukseen ja valitse haluamasi ehdotukset äänestyskoriisi.
               title: Et ole vielä valinnut yhtään ehdotusta alueelta %{budget}
         order_progress:
-          allocated_budget: Budget spent
+          allocated_budget: Budjetista käytetty
           allocated_projects: Valitut ehdotukset
           available_budget: Alueen budjetti
           available_projects: Valittavien ehdotusten määrä
-          selected_projects: Proposals in the cart
+          selected_projects: Ehdotuksia korissa
           selected_projects_count: "%{count} kpl"
           unused_budget: Budjettia jäljellä
           unused_projects: Ehdotuksia valittavana
@@ -335,12 +335,12 @@ fi:
             previous: Äänestysalueen valinta
           back_to_projects: Näytä ehdotukset
           budget_html: "Alue: <strong>%{name}</strong>"
-          orders_summary_title: Voting cart status
+          orders_summary_title: Äänestyskorin tilanne
           title: Valitse ehdotuksia
         start:
           invalid: Äänestysalueen valinta epäonnistui, yritä uudestaan.
         steps:
-          authorization: Strong authentication and selection of the voting area
+          authorization: Vahva tunnistautuminen ja äänestysalueen valinta
           budgets: Äänestysalueen valinta
           login: Kirjautuminen ja äänestysalueen valinta
           next: "Seuraava: %{name}"
