@@ -14,7 +14,7 @@
         <%= link_to "#orders", id: "cart-button", class: "button primary button--cart" do %>
           <%= t(".show_orders") %>
           <span class="amount" aria-label="<%= t(".order_items_amount", count: cart_amount) %>">(<%= cart_amount %>)</span>
-          <%= icon "cart", role: "img", "aria-hidden": true %>
+          <%= icon "arrow-bottom", role: "img", "aria-hidden": true %>
         <% end %>
       </div>
     </div>
