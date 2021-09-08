@@ -338,7 +338,7 @@ fi:
             vote_empty: Äänestä tyhjää
           allocated_budget: Valittujen ehdotusten summa
           allocated_projects: Valittujen ehdotusten määrä
-          empty_order: Et valinnut yhtään ehdotusta alueelta %{name}.
+          empty_order: Et valinnut yhtään äänestettävää ehdotusta alueelta %{name}.
           empty_vote:
             description: Halutessasi voit kuitenkin antaa tyhjän äänen.
             title: Et ole valinnut yhtään äänestettäviä ehdotuksia!
