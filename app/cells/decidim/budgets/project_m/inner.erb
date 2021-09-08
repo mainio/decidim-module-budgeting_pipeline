@@ -2,7 +2,7 @@
   <%= render :top if render_top? %>
   <%= render :state if state_visible? %>
   <%= render :image %>
-  <%= render :category %>
+  <%= render :category if has_category? %>
   <%= render :details %>
   <div class="card__content">
     <%= render :header %>
