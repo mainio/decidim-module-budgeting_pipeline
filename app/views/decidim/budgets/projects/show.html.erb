@@ -12,29 +12,31 @@ edit_link(
 )
 %>
 
-<% content_for :top do %>
-  <div class="extended hero bg-primary mt-5">
-    <div class="hero__container">
-      <div class="row">
-        <div class="columns small-centered large-10">
-          <h1 class="heading2 hero-heading"><%= translated_attribute project.title %></h1>
+<% if voting_open? %>
+  <% content_for :top do %>
+    <div class="extended hero bg-primary mt-5">
+      <div class="hero__container">
+        <div class="row">
+          <div class="columns small-centered large-10">
+            <h1 class="heading2 hero-heading"><%= translated_attribute project.title %></h1>
+          </div>
         </div>
-      </div>
-      <div class="row">
-        <div class="columns mediumlarge-6 mediumlarge-push-3">
-          <div class="static__content text-left">
-            <%= render partial: "details_table" %>
+        <div class="row">
+          <div class="columns mediumlarge-6 mediumlarge-push-3">
+            <div class="static__content text-left">
+              <%= render partial: "details_table" %>
 
-            <p><%= t(".voting_note_html") %></p>
+              <p><%= t(".voting_note_html") %></p>
 
-            <p class="text-center">
-              <%= link_to t(".start_voting"), vote_path, class: "button secondary large" %>
-            </p>
+              <p class="text-center">
+                <%= link_to t(".start_voting"), vote_path, class: "button secondary large" %>
+              </p>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 <% end %>
 
 <div class="row column view-header">
