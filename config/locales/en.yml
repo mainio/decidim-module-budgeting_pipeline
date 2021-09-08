@@ -277,7 +277,7 @@ en:
           granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
           pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
           pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
-          title: Strong authentication
+          title: Strong identification
         order_items:
           empty: You have not selected any proposals from this area.
         order_notifications:
@@ -356,7 +356,7 @@ en:
         start:
           invalid: Failed to select voting area, please try again.
         steps:
-          authorization: Strong authentication and voting area selection
+          authorization: Strong identification and voting area selection
           budgets: Voting area selection
           login: Sign in and select voting area
           next: "Next: %{name}"
