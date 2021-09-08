@@ -15,13 +15,21 @@ module Decidim
 
       def projects_data_for_map(geocoded_projects_data)
         geocoded_projects_data.map do |data|
+          body = data[2]
+          if body.blank?
+            doc = Nokogiri::HTML(data[3])
+            doc.css("h1, h2, h3, h4, h5, h6").remove
+
+            body = truncate(strip_tags(doc.at("body").inner_html), length: 100)
+          end
+
           {
             id: data[0],
             title: data[1],
-            body: truncate(data[2], length: 100),
-            address: data[3],
-            latitude: data[4],
-            longitude: data[5],
+            body: body,
+            address: data[4],
+            latitude: data[5],
+            longitude: data[6],
             link: project_path(data[0])
           }
         end

@@ -8,10 +8,12 @@
   </div>
 
   <% if display_cart_button? %>
+    <% cart_amount = current_orders.map { |o| o.line_items.count }.inject(0, :+) %>
     <div class="column">
       <div class="cart-button-wrapper">
-        <%= link_to "#orders", class: "button primary button--cart" do %>
+        <%= link_to "#orders", id: "cart-button", class: "button primary button--cart" do %>
           <%= t(".show_orders") %>
+          <span class="amount" aria-label="<%= t(".order_items_amount", count: cart_amount) %>">(<%= cart_amount %>)</span>
           <%= icon "cart", role: "img", "aria-hidden": true %>
         <% end %>
       </div>

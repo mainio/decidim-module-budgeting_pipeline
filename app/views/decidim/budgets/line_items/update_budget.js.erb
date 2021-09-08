@@ -1,8 +1,13 @@
+<% amount = current_orders.map { |o| o.line_items.count }.inject(0, :+) %>
+
 var $projectCard = $("#project_<%= project.id %> .card");
 var $projectBudgetButton = $("#project-<%= project.id %>-budget-button");
 var $continueButton = $("#projects_continue_button");
 var $continueButtonOrders = $("#projects_continue_button_orders");
-var voted = <%= voted_for?(project).to_json %>
+var $cartButton = $("#cart-button");
+var voted = <%= voted_for?(project).to_json %>;
+var amount = <%= amount %>;
+var amountText = "<%= j(t("decidim.budgets.projects.projects.order_items_amount", count: amount)) %>";
 
 if (voted) {
   $projectCard.addClass("selected");
@@ -20,6 +25,11 @@ if ($continueButton.length > 0) {
 
 if ($continueButtonOrders.length > 0) {
   $continueButtonOrders.html('<%= j(render partial: "decidim/budgets/orders/continue_button").strip.html_safe %>');
+}
+
+if ($cartButton.length > 0) {
+  $(".amount", $cartButton).text("(" + amount + ")");
+  $(".amount", $cartButton).attr("aria-label", amountText);
 }
 
 var $orderProgress;

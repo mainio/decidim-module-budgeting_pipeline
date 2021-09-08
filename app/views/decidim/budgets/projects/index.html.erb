@@ -9,11 +9,13 @@
       <div class="row">
         <% if help_sections.any? %>
           <div class="columns mediumlarge-5">
-            <%= render partial: "decidim/budgets/shared/help_sections" %>
+            <div class="mt-3">
+              <%= render partial: "decidim/budgets/shared/help_sections" %>
+            </div>
           </div>
         <% end %>
         <div class="columns mediumlarge-6 <%= help_sections.any? ? "mediumlarge-push-1" : "mediumlarge-push-3" %> end">
-          <div class="info-section mt-5">
+          <div class="info-section mt-3">
             <div class="row">
               <div class="columns large-8 large-push-2">
                 <div class="static__content text-center">
@@ -96,3 +98,7 @@
 
 <%= javascript_include_tag("decidim/filters") %>
 <%= javascript_include_tag("decidim/budgeting_pipeline/projects") %>
+
+<% if vote_success? %>
+  <%= render partial: "decidim/budgets/results/vote_finished_modal" %>
+<% end %>

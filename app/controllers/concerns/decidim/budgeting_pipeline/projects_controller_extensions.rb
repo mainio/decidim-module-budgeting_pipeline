@@ -10,7 +10,7 @@ module Decidim
       include Decidim::BudgetingPipeline::VoteUtilities
 
       included do
-        helper_method :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :statuses_available?
+        helper_method :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :statuses_available?, :vote_success?
 
         def index; end
 
@@ -107,6 +107,10 @@ module Decidim
 
       def statuses_available?
         @statuses_available ||= Decidim::Budgets::Project.where(budget: budgets).where.not(selected_at: nil).any?
+      end
+
+      def vote_success?
+        @vote_success ||= session.delete("decidim-budgets.voted") == true
       end
     end
   end

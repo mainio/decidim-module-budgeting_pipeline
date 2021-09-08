@@ -15,6 +15,11 @@ sv:
         address: Adress
         main_image: Primär bild
         summary: Sammanfattning för kort
+  activerecord:
+    models:
+      decidim/budgets/project:
+        one: Röstbart förslag
+        other: Röstbara förslag
   decidim:
     budgeting_pipeline:
       admin:
@@ -184,6 +189,9 @@ sv:
           remove_from_vote: Ta bort från röstkorgen
         projects:
           empty: Inga förslag hittades för dina sökkriterier. Ändra dina sökkriterier för att hitta fler förslag.
+          order_items_amount:
+            one: Det finns %{count} förslag i din röstkorg
+            other: Det finns %{count} förslag i din röstkorg
           show_orders: Visa röstkorg
         show:
           close: Stänga
@@ -197,6 +205,7 @@ sv:
         budget_results:
           budget: "Budget: %{amount}"
           extra_note_for_budgeting_rule: Budgeten för detta område är inte tillräcklig för de förslag som visas nedan. Därför går de inte för närvarande till genomförande.
+          extra_note_for_budgeting_rule_selected: Förslagen som visas nedan valdes inte ut för genomförande.
           no_votes_yet: Det finns inga röster inom detta område än.
           show_less: Visa mindre
           show_less_detailed: Visa mindre från område %{name}
@@ -301,15 +310,18 @@ sv:
             no_projects:
               description: Observera att du kan välja förslag till röstkorg från flera områden. Om du också vill lägga till förslag till detta område, gå tillbaka till förslag som bläddrar och välj de förslag du vill lägga till i din röstkorg.
               title: Du har inte valt några förslag från området %{budget}
+            no_projects_single:
+              description: Om du också vill lägga till förslag till din röst, gå tillbaka till förslag som bläddrar och välj de förslag du vill lägga till i din röstkorg.
+              title: Du har inte valt några förslag från området %{budget}
         order_progress:
           allocated_budget: Använt av budgeten
-          allocated_projects: Utvalda förslag
+          allocated_projects: Mängden utvalda förslag
           available_budget: Budget för området
-          available_projects: Antal projekt som ska väljas
+          available_projects: Maximalt antal projekt som ska väljas
           selected_projects: Förslag i korgen
           selected_projects_count: "%{count} st"
           unused_budget: Återstående budget
-          unused_projects: Återstående projekt att välja
+          unused_projects: Återstående förslag att välja
         orders_summary:
           order_items:
             hide: Dölj områdes utvalda förslag
@@ -323,12 +335,16 @@ sv:
           actions:
             previous: Välj förslag
             vote: Rösta
+            vote_empty: Lägg en tom röst
           allocated_budget: Total budget för de valda förslagen
           allocated_projects: Antal utvalda förslag
           empty_order: Du valde inga förslag från område %{name}.
+          empty_vote:
+            description: Du kan dock lämna en tom röst om du vill.
+            title: Du har inte valt några förslag att rösta om!
           title: Förhandsvisning och omröstning
           total_budget: Budget för området
-          total_projects: Antal förslag som ska väljas i området
+          total_projects: Maximalt antal förslag som ska väljas i området
         projects:
           actions:
             continue: Förhandsvisning och omröstning

@@ -21,11 +21,5 @@
         <td><%= nonbreaking_text(budget_to_currency(project.budget_amount)) %></td>
       </tr>
     <% end %>
-    <% if current_settings.show_votes? %>
-      <tr>
-        <th class="text-left"><%= t(".vote_count") %></th>
-        <td><%= project.confirmed_orders_count %></td>
-      </tr>
-    <% end %>
   </tbody>
 </table>

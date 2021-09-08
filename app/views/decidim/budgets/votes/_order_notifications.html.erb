@@ -52,14 +52,26 @@
       </div>
     </div>
   <% elsif order.total_projects < 1 %>
-    <div class="no-projects">
-      <div class="callout warning">
-        <p class=h5>
-          <%= icon "information", role: "img", "aria-hidden": true %>
-          <%= t(".warnings.no_projects.title", budget: translated_attribute(order.budget.title)) %>
-        </p>
-        <p><%= t(".warnings.no_projects.description") %></p>
+    <% if current_orders.count == 1 %>
+      <div class="no-projects">
+        <div class="callout warning">
+          <p class=h5>
+            <%= icon "information", role: "img", "aria-hidden": true %>
+            <%= t(".warnings.no_projects_single.title", budget: translated_attribute(order.budget.title)) %>
+          </p>
+          <p><%= t(".warnings.no_projects_single.description") %></p>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <div class="no-projects">
+        <div class="callout warning">
+          <p class=h5>
+            <%= icon "information", role: "img", "aria-hidden": true %>
+            <%= t(".warnings.no_projects.title", budget: translated_attribute(order.budget.title)) %>
+          </p>
+          <p><%= t(".warnings.no_projects.description") %></p>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

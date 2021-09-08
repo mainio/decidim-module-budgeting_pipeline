@@ -1,12 +1,12 @@
 <div class="reveal reveal--vote-finished" id="vote-finished-modal" data-reveal role="dialog" aria-modal="true" aria-labelledby="vote-finished-modal-label" data-close-on-click="false" data-close-on-esc="false">
   <div class="reveal__header">
     <div class="icon-wrapper" aria-hidden="true">
-      <%= render "icon_heart" %>
+      <%= render partial: "decidim/budgets/results/icon_heart" %>
     </div>
     <h2 id="vote-finished-modal-label" class="reveal__title"><%= t(".title") %></h2>
   </div>
   <div class="reveal__content" id="vote-finished-modal-content" aria-live="assertive">
-    <%= render partial: "vote_finished_modal_content" %>
+    <%= render partial: "decidim/budgets/results/vote_finished_modal_content" %>
 
     <div class="row mt-3">
       <div class="columns medium-8 medium-push-2">

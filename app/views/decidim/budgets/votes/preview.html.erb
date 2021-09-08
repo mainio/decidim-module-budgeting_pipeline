@@ -1,3 +1,5 @@
+<% empty_vote = current_orders.all? { |o| o.line_items.empty? } %>
+
 <%= render partial: "top" %>
 
 <div class="wrapper">
@@ -6,6 +8,18 @@
       <h2><%= t(".title") %></h2>
       <%== translated_attribute component_settings.vote_preview_page_content %>
     </div>
+
+    <% if empty_vote %>
+      <div class="maximum-budget">
+        <div class="callout alert">
+          <p class=h5>
+            <%= icon "information", role: "img", "aria-hidden": true %>
+            <%= t(".empty_vote.title") %>
+          </p>
+          <p><%= t(".empty_vote.description") %></p>
+        </div>
+      </div>
+    <% end %>
 
     <% current_orders.each do |order| %>
       <div class="order-wrapper mt-5 mb-5">
@@ -63,7 +77,11 @@
           <%= t(".actions.previous") %>
         <% end %>
         <%= button_to vote_path, class: "button primary icon-after", role: "link" do %>
-          <%= t(".actions.vote") %>
+          <% if empty_vote %>
+            <%= t(".actions.vote_empty") %>
+          <% else %>
+            <%= t(".actions.vote") %>
+          <% end %>
         <% end %>
       </div>
     </div>

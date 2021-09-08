@@ -77,7 +77,11 @@ module Decidim
             # important for screen reader users who need to hear the modal
             # content when it is displayed.
             session["decidim-budgets.voted"] = true
-            redirect_to results_path
+            if current_settings.show_votes?
+              redirect_to results_path
+            else
+              redirect_to projects_path
+            end
           end
 
           on(:invalid) do

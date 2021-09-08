@@ -15,6 +15,11 @@ en:
         address: Address
         main_image: Primary image
         summary: Summary for cards
+  activerecord:
+    models:
+      decidim/budgets/project:
+        one: Votable proposal
+        other: Votable proposals
   decidim:
     budgeting_pipeline:
       admin:
@@ -184,6 +189,9 @@ en:
           remove_from_vote: Remove from voting cart
         projects:
           empty: No proposals were found for your search criteria. Change your search criteria to find more proposals.
+          order_items_amount:
+            one: There is %{count} proposal in your cart
+            other: There are %{count} proposals in your cart
           show_orders: Show voting cart
         show:
           close: Close
@@ -197,6 +205,7 @@ en:
         budget_results:
           budget: "Budget: %{amount}"
           extra_note_for_budgeting_rule: The budget of this area is not sufficient for the proposals shown below. Therefore, they are not currently going for implementation.
+          extra_note_for_budgeting_rule_selected: The proposals shown below were not selected for implementation.
           no_votes_yet: There are no votes in this area yet.
           show_less: Show less
           show_less_detailed: Show less from area %{name}
@@ -301,15 +310,18 @@ en:
             no_projects:
               description: Please note that you can select proposals for the voting cart from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting cart.
               title: You have not selected any proposals from the area %{budget}
+            no_projects_single:
+              description: If you want to add proposals also to your vote, go back to proposals browsing and select the proposals you want to add to your voting cart.
+              title: You have not selected any proposals from the area %{budget}
         order_progress:
           allocated_budget: Budget spent
-          allocated_projects: Selected proposals
+          allocated_projects: Amount of selected proposals
           available_budget: Budget for the area
-          available_projects: Amount of projects to be selected
+          available_projects: Maximum amount of projects to be selected
           selected_projects: Proposals in the cart
           selected_projects_count: "%{count} pcs"
           unused_budget: Remaining budget
-          unused_projects: Remaining projects to select
+          unused_projects: Remaining proposals to select
         orders_summary:
           order_items:
             hide: Hide area selected proposals
@@ -323,12 +335,16 @@ en:
           actions:
             previous: Select proposals
             vote: Vote
+            vote_empty: Cast an empty vote
           allocated_budget: Total budget for the selected proposals
           allocated_projects: Amount of selected proposals
           empty_order: You did not choose any proposals from area %{name}.
+          empty_vote:
+            description: However, you can leave an empty vote if you wish.
+            title: You have not selected any proposals to vote on!
           title: Preview and voting
           total_budget: Budget for the area
-          total_projects: Amount of proposals to be selected in the area
+          total_projects: Maximum amount of proposals to be selected in the area
         projects:
           actions:
             continue: Preview and voting

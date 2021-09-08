@@ -26,6 +26,7 @@ module Decidim
           joins(:budget).pluck(
             :id,
             "decidim_budgets_projects.title->>#{locale}",
+            "decidim_budgets_projects.summary->>#{locale}",
             "decidim_budgets_projects.description->>#{locale}",
             Arel.sql(
               <<~SQLCASE
