@@ -18,8 +18,8 @@ fi:
   activerecord:
     models:
       decidim/budgets/project:
-        one: Votable proposal
-        other: Votable proposals
+        one: Äänestettävä ehdotus
+        other: Äänestettävät ehdotukset
   decidim:
     budgeting_pipeline:
       admin:
@@ -190,8 +190,8 @@ fi:
         projects:
           empty: Hakuehdoillasi ei löytynyt yhtään ehdotusta. Muuta hakuehtoja löytääksesi lisää ehdotuksia.
           order_items_amount:
-            one: There is %{count} proposal in your cart
-            other: There are %{count} proposals in your cart
+            one: Äänestyskorissasi on %{count} ehdotus
+            other: Äänestyskorissasi on %{count} ehdotusta
           show_orders: Näytä äänestyskori
         show:
           close: Sulje
@@ -205,7 +205,7 @@ fi:
         budget_results:
           budget: "Budjetti: %{amount}"
           extra_note_for_budgeting_rule: Alla esitetyt ehdotukset eivät mahdu alueen budjettiin, eli ne eivät ole tällä hetkellä menossa toteutukseen.
-          extra_note_for_budgeting_rule_selected: The proposals shown below were not selected for implementation.
+          extra_note_for_budgeting_rule_selected: Alla esitettyjä ehdotuksia ei valittu toteutukseen.
           no_votes_yet: Alueella ei ole vielä ääniä.
           show_less: Näytä vähemmän
           show_less_detailed: Näytä vähemmän alueelta %{name}
@@ -311,17 +311,17 @@ fi:
               description: Huomioithan, että sinulla on mahdollisuus valita ehdotuksia äänestyskoriin usealta alueelta. Mikäli haluat valita ehdotuksia myös tälle alueelle, siirry takaisin ehdotusten selaukseen ja valitse haluamasi ehdotukset äänestyskoriisi.
               title: Et ole vielä valinnut yhtään ehdotusta alueelta %{budget}
             no_projects_single:
-              description: If you want to add proposals also to your vote, go back to proposals browsing and select the proposals you want to add to your voting cart.
-              title: You have not selected any proposals from the area %{budget}
+              description: Mikäli haluat valita ehdotuksia ääneesi, siirry takaisin ehdotusten selaukseen ja valitse haluamasi ehdotukset äänestyskoriisi.
+              title: Et ole vielä valinnut yhtään ehdotusta alueelta %{budget}
         order_progress:
           allocated_budget: Budjetista käytetty
-          allocated_projects: Amount of selected proposals
+          allocated_projects: Valittujen ehdotusten määrä
           available_budget: Alueen budjetti
-          available_projects: Maximum amount of projects to be selected
+          available_projects: Valittavien ehdotusten enimmäismäärä
           selected_projects: Ehdotuksia korissa
           selected_projects_count: "%{count} kpl"
           unused_budget: Budjettia jäljellä
-          unused_projects: Remaining proposals to select
+          unused_projects: Ehdotusvalintoja jäljellä
         orders_summary:
           order_items:
             hide: Piilota alueen valitut ehdotukset
@@ -335,16 +335,16 @@ fi:
           actions:
             previous: Ehdotusten valinta
             vote: Äänestä
-            vote_empty: Cast an empty vote
+            vote_empty: Äänestä tyhjää
           allocated_budget: Valittujen ehdotusten summa
           allocated_projects: Valittujen ehdotusten määrä
           empty_order: Et valinnut yhtään ehdotusta alueelta %{name}.
           empty_vote:
-            description: However, you can leave an empty vote if you wish.
-            title: You have not selected any proposals to vote on!
+            description: Halutessasi voit kuitenkin antaa tyhjän äänen.
+            title: Et ole valinnut yhtään äänestettäviä ehdotuksia!
           title: Esikatselu ja äänestys
           total_budget: Alueen budjetti
-          total_projects: Maximum amount of proposals to be selected in the area
+          total_projects: Alueen valittavien ehdotusten enimmäismäärä
         projects:
           actions:
             continue: Esikatselu ja äänestys
