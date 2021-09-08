@@ -321,7 +321,7 @@ sv:
           selected_projects: Förslag i korgen
           selected_projects_count: "%{count} st"
           unused_budget: Återstående budget
-          unused_projects: Återstående budget
+          unused_projects: Återstående förslag att välja
         orders_summary:
           order_items:
             hide: Dölj områdes utvalda förslag
