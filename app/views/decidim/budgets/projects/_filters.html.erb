@@ -31,7 +31,7 @@ type_suffix = defined?(type) ? "_#{type}" : ""
       </div>
     </div>
     <% if display_budgets_filter? %>
-      <div class="<%= main_row_column_class %><%= " end" if !display_status_filter? && !display_category_filter? %>">
+      <div class="<%= main_row_column_class %><%= " end" if !display_category_filter? && !display_status_filter? %>">
         <div class="filters__section budget_id_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".budget") %></legend>
@@ -40,22 +40,22 @@ type_suffix = defined?(type) ? "_#{type}" : ""
         </div>
       </div>
     <% end %>
-    <% if display_status_filter? %>
-      <div class="<%= main_row_column_class %><%= " end" unless display_category_filter? %>>
-        <div class="filters__section status_filter">
-          <fieldset>
-            <legend class="mini-title"><%= t(".status") %></legend>
-            <%= form.select(:status, filter_status_values, { label: false, include_blank: t(".status_values.all") }, "aria-label": t(".status"), data: { disable_dynamic_change: true }) %>
-          </fieldset>
-        </div>
-      </div>
-    <% end %>
     <% if display_category_filter? %>
-      <div class="<%= main_row_column_class %> end">
+      <div class="<%= main_row_column_class %><%= " end" unless display_status_filter? %>">
         <div class="filters__section category_id_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".category") %></legend>
             <%= form.select(:category_id, filter_categories_values, { label: false, include_blank: t(".categories_values.all") }, "aria-label": t(".category"), data: { disable_dynamic_change: true }) %>
+          </fieldset>
+        </div>
+      </div>
+    <% end %>
+    <% if display_status_filter? %>
+      <div class="<%= main_row_column_class %> end">
+        <div class="filters__section status_filter">
+          <fieldset>
+            <legend class="mini-title"><%= t(".status") %></legend>
+            <%= form.select(:status, filter_status_values, { label: false, include_blank: t(".status_values.all") }, "aria-label": t(".status"), data: { disable_dynamic_change: true }) %>
           </fieldset>
         </div>
       </div>
