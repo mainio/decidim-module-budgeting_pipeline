@@ -115,11 +115,11 @@ sv:
           title: Min röst
         orders_info:
           allocated_budget: Total budget för de valda förslagen
-          allocated_projects: Antal utvalda förslag
+          allocated_projects: Number of selected proposals
           empty_order: Du valde inga förslag från område %{name}.
           title: Förhandsvisning och omröstning
           total_budget: Budget för området
-          total_projects: Antal förslag som ska väljas i området
+          total_projects: Number of proposals available in the area
           vote: Rösta
         orders_modal:
           close: Tillbaka till val av förslag
@@ -172,7 +172,7 @@ sv:
           view_project_detailed: "Visa förslag: %{name}"
         orders:
           alphabetical: Alfabetisk
-          label: Ordna förslag
+          label: Proposal order
         project:
           view: Visa förslag
           view_detailed: "Visa förslag: %{name}"
@@ -188,7 +188,7 @@ sv:
           remove_descriptive: Ta bort förslag %{resource_name} från röstkorgen
           remove_from_vote: Ta bort från röstkorgen
         projects:
-          empty: Inga förslag hittades för dina sökkriterier. Ändra dina sökkriterier för att hitta fler förslag.
+          empty: No proposals matching your search criteria. Please change your search criteria and try again.
           order_items_amount:
             one: Det finns %{count} förslag i din röstkorg
             other: Det finns %{count} förslag i din röstkorg
@@ -255,7 +255,7 @@ sv:
           sticky_budgets:
             one: Alla kan rösta för förslagen inom detta område
             other: Alla kan rösta för förslagen inom dessa områden
-          title: Välj omröstningsområde
+          title: Select voting area
         create:
           error: Det gick inte att behandla din röst, försök igen.
           success: Din röst har sparats!
@@ -272,7 +272,7 @@ sv:
           move_to_prev_step: "Tillbaka till föregående steg: %{name}"
           not_authorized: Du måste identifiera dig för att kunna rösta.
         identify_options:
-          granted_authorizations_info: Din identitetsinformation matchar inte röstningskraven, varför du inte kan rösta.
+          granted_authorizations_info: Your identity information does not match the voting requirements and therefore you cannot vote.
           granted_authorizations_notice: "Du har redan identifierat dig med följande identitetsleverantörer:"
           granted_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du prova detta från listan nedan.
           pending_authorizations_notice: "Du har redan identifierat dig med följande leverantörer som väntar på godkännande:"
@@ -283,19 +283,19 @@ sv:
         order_notifications:
           errors:
             allocation_exceeded:
-              description: För att kunna gå vidare till förhandsgranskningssteget och bekräfta omröstningen måste du ta bort något förslag för att de förslag du valt ska passa in i budgeten för området.
+              description: You must delete one or more proposals that exceed the total budget for your selected area to preview and confirm your vote.
               title: Budgeten för området har överskridits!
             allocation_exceeded_projects:
-              description: För att gå vidare till förhandsgranskningssteget och bekräftelse av omröstningen måste du ta bort något förslag så att de förslag du väljer inte överstiger det maximala antalet förslag som anges för området.
+              description: You must delete one or more proposals that exceed the total number of proposals for your selected area to preview and confirm your vote.
               title: För många förslag valda!
             maximum_budget:
-              description: Ta bort utvalda förslag från din röst innan du fortsätter till nästa steg. Du har upp till %{amount} tillgängligt.
-              title: Budgeten har överskridits för området %{budget}
+              description: Please remove one or more proposals from your vote before proceeding to the next step. You have up to %{amount} available.
+              title: You have exceeded the budget for the area %{budget}
             minimum_budget:
               description: Lägg till förslag till din röst innan du kan gå vidare till nästa steg. Du måste spendera minst %{amount} av budgeten.
               title: Du måste välja fler förslag från område %{budget}
             maximum_projects:
-              description: Ta bort några av de valda förslagen från din röst innan du går vidare till nästa steg.
+              description: Please remove one or more proposals from your vote before proceeding to the next step.
               title:
                 one: Du kan välja ett enda förslag från området %{budget}
                 other: Du har valt för många förslag från området %{budget}, du kan välja upp till %{count} förslag
@@ -308,14 +308,14 @@ sv:
                 other: Du har inte valt tillräckligt med förslag från området %{budget}, du måste välja minst %{count} förslag
           warnings:
             no_projects:
-              description: Observera att du kan välja förslag till röstkorg från flera områden. Om du också vill lägga till förslag till detta område, gå tillbaka till förslag som bläddrar och välj de förslag du vill lägga till i din röstkorg.
+              description: Please note that you can select proposals for the voting cart from multiple areas. If you want to add proposals to this area, go back to view the proposals and select the ones you want to add to your vote.
               title: Du har inte valt några förslag från området %{budget}
             no_projects_single:
               description: Om du också vill lägga till förslag till din röst, gå tillbaka till förslag som bläddrar och välj de förslag du vill lägga till i din röstkorg.
               title: Du har inte valt några förslag från området %{budget}
         order_progress:
           allocated_budget: Använt av budgeten
-          allocated_projects: Mängden utvalda förslag
+          allocated_projects: Number of selected proposals
           available_budget: Budget för området
           available_projects: Maximalt antal projekt som ska väljas
           selected_projects: Förslag i korgen
@@ -324,31 +324,31 @@ sv:
           unused_projects: Återstående förslag att välja
         orders_summary:
           order_items:
-            hide: Dölj områdes utvalda förslag
+            hide: Hide selected proposals for this area
             hide_detailed: Dölj utvalda förslag på %{name} området
-            show: Visa områdes utvalda förslag
+            show: Show selected proposals for this area
             show_detailed: Visa utvalda förslag på %{name} området
         order_total:
           order_budget_sum: Totalt för de valda förslagen
-          order_projects_sum: Antal utvalda förslag
+          order_projects_sum: Number of selected proposals
         preview:
           actions:
             previous: Välj förslag
             vote: Rösta
             vote_empty: Lägg en tom röst
           allocated_budget: Total budget för de valda förslagen
-          allocated_projects: Antal utvalda förslag
+          allocated_projects: Number of selected proposals
           empty_order: Du valde inga förslag från område %{name}.
           empty_vote:
             description: Du kan dock lämna en tom röst om du vill.
             title: Du har inte valt några förslag att rösta om!
-          title: Förhandsvisning och omröstning
+          title: Preview and vote
           total_budget: Budget för området
           total_projects: Maximalt antal förslag som ska väljas i området
         projects:
           actions:
-            continue: Förhandsvisning och omröstning
-            previous: Välj omröstningsområde
+            continue: Preview and vote
+            previous: Select voting area
           back_to_projects: Visa förslag
           budget_html: "Område: <strong>%{name}</strong>"
           orders_summary_title: Röstkorgens situation
@@ -356,11 +356,11 @@ sv:
         start:
           invalid: Det gick inte att välja omröstningsområde, försök igen.
         steps:
-          authorization: Stark autentisering och val av omröstningsområde
-          budgets: Val av omröstningsområde
-          login: Inloggning och val av omröstningsområde
+          authorization: Strong authentication and voting area selection
+          budgets: Voting area selection
+          login: Sign in and select voting area
           next: "Nästa: %{name}"
-          preview: Förhandsvisning och omröstning
+          preview: Preview and vote
           previous: "Tidigare: %{name}"
           projects: Välj förslag
           step: Steg %{number}
