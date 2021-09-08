@@ -28,6 +28,11 @@ $ bundle exec rails decidim_budgeting_pipeline:install:migrations
 $ bundle exec rails db:migrate
 ```
 
+Note that when you will run these migrations in a production environment with
+lots of votes, the migration can take a while because the vote records and their
+(private) action log entries are created during the migration process. Please be
+patient when running the migrations in such environment.
+
 ## Usage
 
 Add this to your `decidim.scss` file:
