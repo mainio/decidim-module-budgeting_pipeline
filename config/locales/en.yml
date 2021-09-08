@@ -348,7 +348,7 @@ en:
         projects:
           actions:
             continue: Preview and vote
-            previous: Select voting area
+            previous: Voting area selection
           back_to_projects: Show proposals
           budget_html: "Area: <strong>%{name}</strong>"
           orders_summary_title: Voting cart status
