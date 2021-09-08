@@ -283,7 +283,7 @@ sv:
         order_notifications:
           errors:
             allocation_exceeded:
-              description: För att kunna gå vidare till förhandsgranskningssteget och bekräfta omröstningen måste du ta bort något förslag för att de förslag du valt ska passa in i budgeten för området.
+              description: För att gå vidare till förhandsgranskningssteget och bekräftelse av omröstningen måste du ta bort något förslag så att de förslag du väljer inte överstiger det maximala antalet förslag som anges för området.
               title: Budgeten för området har överskridits!
             allocation_exceeded_projects:
               description: För att gå vidare till förhandsgranskningssteget och bekräftelse av omröstningen måste du ta bort något förslag så att de förslag du väljer inte överstiger det maximala antalet förslag som anges för området.
@@ -315,7 +315,7 @@ sv:
               title: Du har inte valt några förslag från området %{budget}
         order_progress:
           allocated_budget: Använt av budgeten
-          allocated_projects: Mängden utvalda förslag
+          allocated_projects: Antal utvalda förslag
           available_budget: Budget för området
           available_projects: Maximalt antal projekt som ska väljas
           selected_projects: Förslag i korgen
