@@ -271,8 +271,8 @@ sv:
           move_to_next_step: "Fortsätt till nästa steg: %{name}"
           move_to_prev_step: "Tillbaka till föregående steg: %{name}"
           not_authorized: Du måste identifiera dig för att kunna rösta.
-          voting_blocked: Du kan inte rösta just nu.
-          voting_over: Röstningen är avslutad.
+          voting_blocked: You cannot vote at this moment.
+          voting_over: Voting has ended.
         identify_options:
           granted_authorizations_info: Din identitetsinformation matchar inte röstningskraven, varför du inte kan rösta.
           granted_authorizations_notice: "Du har redan identifierat dig med följande identitetsleverantörer:"
