@@ -115,11 +115,11 @@ en:
           title: My vote
         orders_info:
           allocated_budget: Total budget for the selected proposals
-          allocated_projects: Amount of selected proposals
+          allocated_projects: Number of selected proposals
           empty_order: You did not choose any proposals from area %{name}.
           title: Preview and voting
           total_budget: Budget for the area
-          total_projects: Amount of proposals to be selected in the area
+          total_projects: Number of proposals available in the area
           vote: Vote
         orders_modal:
           close: Back to proposal selection
@@ -172,7 +172,7 @@ en:
           view_project_detailed: "Show proposal: %{name}"
         orders:
           alphabetical: Alphabetical
-          label: Order proposals
+          label: Proposal order
         project:
           view: Show proposal
           view_detailed: "Show proposal: %{name}"
@@ -188,7 +188,7 @@ en:
           remove_descriptive: Remove proposal %{resource_name} from voting cart
           remove_from_vote: Remove from voting cart
         projects:
-          empty: No proposals were found for your search criteria. Change your search criteria to find more proposals.
+          empty: No proposals matching your search criteria. Please change your search criteria and try again.
           order_items_amount:
             one: There is %{count} proposal in your cart
             other: There are %{count} proposals in your cart
@@ -255,7 +255,7 @@ en:
           sticky_budgets:
             one: Everyone can vote for the proposals in this area
             other: Everyone can vote for the proposals in these areas
-          title: Choose voting area
+          title: Select voting area
         create:
           error: Processing your vote failed, please try again.
           success: Your vote has been successfully saved!
@@ -272,7 +272,7 @@ en:
           move_to_prev_step: "Back to the previous step: %{name}"
           not_authorized: You have to identify yourself in order to vote.
         identify_options:
-          granted_authorizations_info: Your identity information do not match the voting requirements, which is why you cannot vote.
+          granted_authorizations_info: Your identity information does not match the voting requirements and therefore you cannot vote.
           granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
           granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
           pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
@@ -283,19 +283,19 @@ en:
         order_notifications:
           errors:
             allocation_exceeded:
-              description: In order to proceed to the preview step and confirmation of the vote, you need to delete some proposal in order for the proposals you selected to fit into the budget for the area.
+              description: You must delete one or more proposals that exceed the total budget for your selected area to preview and confirm your vote.
               title: The budget for the area has been exceeded!
             allocation_exceeded_projects:
-              description: In order to proceed to the preview step and confirmation of the vote, you need to delete some proposal so that the proposals you select do not exceed the maximum number of proposals specified for the area.
+              description: You must delete one or more proposals that exceed the total number of proposals for your selected area to preview and confirm your vote.
               title: Too many proposals selected!
             maximum_budget:
-              description: Please remove selected suggestions from your vote before proceeding to the next step. You have up to %{amount} available.
-              title: Budget has been exceeded for the area %{budget}
+              description: Please remove one or more proposals from your vote before proceeding to the next step. You have up to %{amount} available.
+              title: You have exceeded the budget for the area %{budget}
             minimum_budget:
               description: Add proposals to your vote before you can proceed to the next step. You must spend at least %{amount} of the budget.
               title: You have to select more proposals from area %{budget}
             maximum_projects:
-              description: Please remove some of the selected proposals from your vote before proceeding to the next step.
+              description: Please remove one or more proposals from your vote before proceeding to the next step.
               title:
                 one: You can select a single proposal from the area %{budget}
                 other: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
@@ -308,14 +308,14 @@ en:
                 other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
           warnings:
             no_projects:
-              description: Please note that you can select proposals for the voting cart from multiple areas. If you want to add proposals also to this area, go back to proposals browsing and select the proposals you want to add to your voting cart.
+              description: Please note that you can select proposals for the voting cart from multiple areas. If you want to add proposals to this area, go back to view the proposals and select the ones you want to add to your vote.
               title: You have not selected any proposals from the area %{budget}
             no_projects_single:
               description: If you want to add proposals also to your vote, go back to proposals browsing and select the proposals you want to add to your voting cart.
               title: You have not selected any proposals from the area %{budget}
         order_progress:
           allocated_budget: Budget spent
-          allocated_projects: Amount of selected proposals
+          allocated_projects: Number of selected proposals
           available_budget: Budget for the area
           available_projects: Maximum amount of projects to be selected
           selected_projects: Proposals in the cart
@@ -324,31 +324,31 @@ en:
           unused_projects: Remaining proposals to select
         orders_summary:
           order_items:
-            hide: Hide area selected proposals
+            hide: Hide selected proposals for this area
             hide_detailed: Hide selected proposals on the %{name} area
-            show: Show area selected proposals
+            show: Show selected proposals for this area
             show_detailed: Show selected proposals on the %{name} area
         order_total:
           order_budget_sum: Total for the selected proposals
-          order_projects_sum: Amount of selected proposals
+          order_projects_sum: Number of selected proposals
         preview:
           actions:
             previous: Select proposals
             vote: Vote
             vote_empty: Cast an empty vote
           allocated_budget: Total budget for the selected proposals
-          allocated_projects: Amount of selected proposals
+          allocated_projects: Number of selected proposals
           empty_order: You did not choose any proposals from area %{name}.
           empty_vote:
             description: However, you can leave an empty vote if you wish.
             title: You have not selected any proposals to vote on!
-          title: Preview and voting
+          title: Preview and vote
           total_budget: Budget for the area
           total_projects: Maximum amount of proposals to be selected in the area
         projects:
           actions:
-            continue: Preview and voting
-            previous: Choose voting area
+            continue: Preview and vote
+            previous: Select voting area
           back_to_projects: Show proposals
           budget_html: "Area: <strong>%{name}</strong>"
           orders_summary_title: Voting cart status
@@ -356,11 +356,11 @@ en:
         start:
           invalid: Failed to select voting area, please try again.
         steps:
-          authorization: Strong authentication and selection of the voting area
-          budgets: Selection of the voting area
-          login: Sign in and selection of the voting area
+          authorization: Strong authentication and voting area selection
+          budgets: Voting area selection
+          login: Sign in and select voting area
           next: "Next: %{name}"
-          preview: Preview and voting
+          preview: Preview and vote
           previous: "Previous: %{name}"
           projects: Select proposals
           step: Step %{number}
