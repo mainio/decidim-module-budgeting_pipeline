@@ -2,7 +2,13 @@
 projects = projects_with_votes(budget)
 extra_projects = []
 
-unless budget.settings.vote_rule_selected_projects_enabled
+if budget.settings.vote_rule_selected_projects_enabled && budget.total_budget.zero?
+  winning = winning_projects(budget) if voting_finished?
+  if winning && winning.any? && winning.first.selected?
+    extra_projects = projects.where.not(id: winning.map(&:id))
+    projects = winning
+  end
+else
   winning = winning_projects(budget)
   extra_projects = projects.where.not(id: winning.map(&:id))
   projects = winning
@@ -39,7 +45,9 @@ end
 
       <div id="budget-extra-<%= budget.id %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false">
         <div class="text-center">
-          <% if projects.first.selected? %>
+          <% if budget.settings.vote_rule_selected_projects_enabled %>
+            <p><%= t(".extra_note_for_projects_rule") %></p>
+          <% elsif projects.first.selected? %>
             <p><%= t(".extra_note_for_budgeting_rule_selected") %></p>
           <% else %>
             <p><%= t(".extra_note_for_budgeting_rule") %></p>

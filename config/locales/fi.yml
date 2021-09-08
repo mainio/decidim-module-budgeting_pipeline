@@ -206,6 +206,7 @@ fi:
           budget: "Budjetti: %{amount}"
           extra_note_for_budgeting_rule: Alla esitetyt ehdotukset eivät mahdu alueen budjettiin, eli ne eivät ole tällä hetkellä menossa toteutukseen.
           extra_note_for_budgeting_rule_selected: Alla esitettyjä ehdotuksia ei valittu toteutukseen.
+          extra_note_for_projects_rule: Alla esitettyjä ehdotuksia ei valittu toteutukseen.
           no_votes_yet: Alueella ei ole vielä ääniä.
           show_less: Näytä vähemmän
           show_less_detailed: Näytä vähemmän alueelta %{name}

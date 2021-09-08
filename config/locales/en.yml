@@ -206,6 +206,7 @@ en:
           budget: "Budget: %{amount}"
           extra_note_for_budgeting_rule: The budget of this area is not sufficient for the proposals shown below. Therefore, they are not currently going for implementation.
           extra_note_for_budgeting_rule_selected: The proposals shown below were not selected for implementation.
+          extra_note_for_projects_rule: The proposals shown below were not selected for implementation.
           no_votes_yet: There are no votes in this area yet.
           show_less: Show less
           show_less_detailed: Show less from area %{name}
