@@ -271,6 +271,8 @@ fi:
           move_to_next_step: "Siirry seuraavaan vaiheeseen: %{name}"
           move_to_prev_step: "Siirry edelliseen vaiheeseen: %{name}"
           not_authorized: Sinun täytyy tunnistautua äänestääksesi.
+          voting_blocked: Tällä hetkellä et voi äänestää.
+          voting_over: Äänestys on päättynyt.
         identify_options:
           granted_authorizations_info: Tunnistautumistietosi eivät vastaa äänestyksen reunaehtoja, minkä takia et voi äänestää.
           granted_authorizations_notice: "Olet jo tunnistautunut seuraavilla tunnistautumistavoilla:"

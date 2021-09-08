@@ -271,6 +271,8 @@ en:
           move_to_next_step: "Proceed to the next step: %{name}"
           move_to_prev_step: "Back to the previous step: %{name}"
           not_authorized: You have to identify yourself in order to vote.
+          voting_blocked: You cannot vote at this moment.
+          voting_over: Voting has ended.
         identify_options:
           granted_authorizations_info: Your identity information does not match the voting requirements and therefore you cannot vote.
           granted_authorizations_notice: "You have already identified yourself with the following identity providers:"

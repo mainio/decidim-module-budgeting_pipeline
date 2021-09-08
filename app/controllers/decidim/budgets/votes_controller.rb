@@ -26,6 +26,7 @@ module Decidim
         :projects
       )
 
+      before_action :ensure_voting_open!
       before_action :ensure_authorized!
       before_action :ensure_not_voted!
       before_action :ensure_orders!, only: [:projects, :preview, :create]
@@ -97,6 +98,23 @@ module Decidim
 
       def layout
         "decidim/budgets/participatory_space_plain"
+      end
+
+      def ensure_voting_open!
+        return if voting_open?
+
+        flash[:warning] =
+          if voting_finished?
+            I18n.t("decidim.budgets.votes.general.voting_over")
+          else
+            I18n.t("decidim.budgets.votes.general.voting_blocked")
+          end
+
+        if current_settings.show_votes?
+          redirect_to results_path
+        else
+          redirect_to projects_path
+        end
       end
 
       def ensure_authorized!
