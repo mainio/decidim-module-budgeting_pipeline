@@ -277,7 +277,7 @@ sv:
           granted_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du prova detta från listan nedan.
           pending_authorizations_notice: "Du har redan identifierat dig med följande leverantörer som väntar på godkännande:"
           pending_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du välja den leverantören från listan nedan.
-          title: Stark autentisering
+          title: Strong identification
         order_items:
           empty: Du har inte valt några förslag från detta område.
         order_notifications:
@@ -348,7 +348,7 @@ sv:
         projects:
           actions:
             continue: Förhandsvisning och omröstning
-            previous: Välj omröstningsområde
+            previous: Voting area selection
           back_to_projects: Visa förslag
           budget_html: "Område: <strong>%{name}</strong>"
           orders_summary_title: Röstkorgens situation
@@ -356,7 +356,7 @@ sv:
         start:
           invalid: Det gick inte att välja omröstningsområde, försök igen.
         steps:
-          authorization: Stark autentisering och val av omröstningsområde
+          authorization: Strong identification and voting area selection
           budgets: Val av omröstningsområde
           login: Inloggning och val av omröstningsområde
           next: "Nästa: %{name}"
