@@ -76,14 +76,29 @@ module Decidim
         validates_upload :main_image
         mount_uploader :main_image, Decidim::Budgets::ProjectImageUploader
 
-        scope :order_by_most_voted, lambda {
+        scope :order_by_most_voted, lambda { |only_voted: false|
+          join_type = only_voted ? "INNER" : "LEFT"
           joins(
-            "LEFT JOIN decidim_budgets_line_items ON decidim_budgets_line_items.decidim_project_id = decidim_budgets_projects.id"
+            <<~SQLJOIN.squish
+              #{Arel.sql(join_type)} JOIN decidim_budgets_line_items
+                ON decidim_budgets_line_items.decidim_project_id = decidim_budgets_projects.id
+            SQLJOIN
           ).joins(
-            "LEFT JOIN decidim_budgets_orders ON decidim_budgets_orders.id = decidim_budgets_line_items.decidim_order_id AND decidim_budgets_orders.checked_out_at IS NOT NULL"
+            <<~SQLJOIN.squish
+              #{Arel.sql(join_type)} JOIN decidim_budgets_orders
+                ON decidim_budgets_orders.id = decidim_budgets_line_items.decidim_order_id
+                AND decidim_budgets_orders.checked_out_at IS NOT NULL
+            SQLJOIN
           ).select(
-            "decidim_budgets_projects.*, COUNT(decidim_budgets_orders.id) as votes_count"
-          ).group("decidim_budgets_projects.id").order(votes_count: :desc)
+            [
+              "decidim_budgets_projects.*",
+              "COUNT(decidim_budgets_orders.id) AS votes_count",
+              "CASE #{locale_case("decidim_budgets_projects.title")} END AS localized_title"
+            ].join(", ")
+          ).group("decidim_budgets_projects.id").order(
+            votes_count: :desc,
+            localized_title: :asc
+          )
         }
       end
     end

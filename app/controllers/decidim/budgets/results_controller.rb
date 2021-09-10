@@ -42,13 +42,7 @@ module Decidim
         @projects_with_votes ||= {}
         return @projects_with_votes[budget.id] if @projects_with_votes[budget.id].present?
 
-        @projects_with_votes[budget.id] = Decidim::Budgets::Project.where(budget: budget).joins(
-          "INNER JOIN decidim_budgets_line_items ON decidim_budgets_line_items.decidim_project_id = decidim_budgets_projects.id"
-        ).joins(
-          "INNER JOIN decidim_budgets_orders ON decidim_budgets_orders.id = decidim_budgets_line_items.decidim_order_id AND decidim_budgets_orders.checked_out_at IS NOT NULL"
-        ).select(
-          "decidim_budgets_projects.*, COUNT(decidim_budgets_orders.id) as votes_count"
-        ).group("decidim_budgets_projects.id").order(votes_count: :desc)
+        @projects_with_votes[budget.id] = Decidim::Budgets::Project.where(budget: budget).order_by_most_voted(only_voted: true)
       end
 
       def minimum_project_budget(budget)
