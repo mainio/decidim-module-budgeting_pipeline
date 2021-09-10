@@ -75,6 +75,16 @@ module Decidim
 
         validates_upload :main_image
         mount_uploader :main_image, Decidim::Budgets::ProjectImageUploader
+
+        scope :order_by_most_voted, lambda {
+          joins(
+            "LEFT JOIN decidim_budgets_line_items ON decidim_budgets_line_items.decidim_project_id = decidim_budgets_projects.id"
+          ).joins(
+            "LEFT JOIN decidim_budgets_orders ON decidim_budgets_orders.id = decidim_budgets_line_items.decidim_order_id AND decidim_budgets_orders.checked_out_at IS NOT NULL"
+          ).select(
+            "decidim_budgets_projects.*, COUNT(decidim_budgets_orders.id) as votes_count"
+          ).group("decidim_budgets_projects.id").order(votes_count: :desc)
+        }
       end
     end
   end

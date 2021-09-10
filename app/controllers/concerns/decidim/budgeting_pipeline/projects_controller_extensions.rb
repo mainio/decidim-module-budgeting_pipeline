@@ -66,8 +66,7 @@ module Decidim
             projects.order(budget_amount: :asc)
           when "most_voted"
             if votes_are_visible?
-              ids = projects.sort_by(&:confirmed_orders_count).map(&:id).reverse
-              projects.ordered_ids(ids)
+              projects.order_by_most_voted
             else
               projects
             end
