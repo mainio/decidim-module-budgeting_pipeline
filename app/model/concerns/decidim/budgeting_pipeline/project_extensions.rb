@@ -27,7 +27,7 @@ module Decidim
             "CASE #{locale_case("decidim_budgets_projects.summary")} END AS geosummary",
             "CASE #{locale_case("decidim_budgets_projects.description")} END AS geodescription",
             Arel.sql(
-              <<~SQLCASE
+              <<~SQLCASE.squish
                 CASE
                   WHEN CHAR_LENGTH(decidim_budgets_projects.address::text) > 0 THEN decidim_budgets_projects.address
                   #{locale_case("decidim_budgets_budgets.title")}
@@ -35,7 +35,7 @@ module Decidim
               SQLCASE
             ),
             Arel.sql(
-              <<~SQLCASE
+              <<~SQLCASE.squish
                 CASE
                   WHEN decidim_budgets_projects.latitude IS NOT NULL THEN decidim_budgets_projects.latitude
                   WHEN decidim_budgets_budgets.center_latitude IS NOT NULL THEN decidim_budgets_budgets.center_latitude
@@ -44,7 +44,7 @@ module Decidim
               SQLCASE
             ),
             Arel.sql(
-              <<~SQLCASE
+              <<~SQLCASE.squish
                 CASE
                   WHEN decidim_budgets_projects.longitude IS NOT NULL THEN decidim_budgets_projects.longitude
                   WHEN decidim_budgets_budgets.center_longitude IS NOT NULL THEN decidim_budgets_budgets.center_longitude
@@ -63,7 +63,7 @@ module Decidim
 
           return "WHEN true THEN #{column}->>#{locale}" if locale == default_locale
 
-          <<~SQLCASE
+          <<~SQLCASE.squish
             WHEN CHAR_LENGTH((#{column}->>#{locale})::text) > 0 THEN #{column}->>#{locale}
             ELSE #{column}->>#{default_locale}
           SQLCASE
