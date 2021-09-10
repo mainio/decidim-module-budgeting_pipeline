@@ -20,7 +20,7 @@ module Decidim
             doc = Nokogiri::HTML(data[3])
             doc.css("h1, h2, h3, h4, h5, h6").remove
 
-            body = truncate(strip_tags(doc.at("body").inner_html), length: 100)
+            body = truncate(strip_tags(doc.at("body")&.inner_html), length: 100)
           end
 
           {

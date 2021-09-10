@@ -38,7 +38,7 @@ module Decidim
         doc = Nokogiri::HTML(text)
         doc.css("h1, h2, h3, h4, h5, h6").remove
 
-        truncate(strip_tags(doc.at("body").inner_html), length: 100)
+        truncate(strip_tags(doc.at("body")&.inner_html), length: 100)
       end
 
       def can_have_order_for?(project)
