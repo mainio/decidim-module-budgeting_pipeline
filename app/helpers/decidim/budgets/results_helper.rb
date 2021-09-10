@@ -7,15 +7,7 @@ module Decidim
 
       def winning_projects(budget)
         selected = selected_projects(budget)
-        if selected.any?
-          return selected.joins(
-            "LEFT JOIN decidim_budgets_line_items ON decidim_budgets_line_items.decidim_project_id = decidim_budgets_projects.id"
-          ).joins(
-            "LEFT JOIN decidim_budgets_orders ON decidim_budgets_orders.id = decidim_budgets_line_items.decidim_order_id AND decidim_budgets_orders.checked_out_at IS NOT NULL"
-          ).select(
-            "decidim_budgets_projects.*, COUNT(decidim_budgets_orders.id) as votes_count"
-          ).group("decidim_budgets_projects.id").order(votes_count: :desc).to_a
-        end
+        return selected.order_by_most_voted.to_a if selected.any?
 
         total_available = budget.total_budget
 
