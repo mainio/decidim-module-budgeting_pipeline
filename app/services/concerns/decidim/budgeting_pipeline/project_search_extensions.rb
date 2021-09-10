@@ -57,6 +57,7 @@ module Decidim
 
       def search_status
         return query if status.blank?
+        return query if status == "all"
 
         if status == "selected"
           query.where.not(selected_at: nil)
