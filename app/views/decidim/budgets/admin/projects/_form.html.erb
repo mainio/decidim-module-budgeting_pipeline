@@ -48,6 +48,18 @@
       </div>
     <% end %>
 
+    <% if defined?(Decidim::Ideas::Idea) %>
+      <div class="row column">
+        <%= cell("decidim/ideas/ideas_picker_field", form) %>
+      </div>
+    <% end %>
+
+    <% if defined?(Decidim::Plans::Plan) %>
+      <div class="row column">
+        <%= cell("decidim/plans/plans_picker_field", form) %>
+      </div>
+    <% end %>
+
     <%= render partial: "decidim/admin/shared/gallery", locals: { form: form } %>
 
     <% if form.object.persisted? %>

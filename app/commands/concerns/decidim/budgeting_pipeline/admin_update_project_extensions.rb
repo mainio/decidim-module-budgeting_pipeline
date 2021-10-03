@@ -24,6 +24,9 @@ module Decidim
               longitude: form.longitude
             }.merge(uploader_attributes)
           )
+
+          link_ideas
+          link_plans
         end
       end
 
@@ -35,6 +38,22 @@ module Decidim
           main_image: form.main_image,
           remove_main_image: form.remove_main_image
         }.delete_if { |_k, val| val.is_a?(Decidim::ApplicationUploader) }
+      end
+
+      def ideas
+        @ideas ||= project.sibling_scope(:ideas).where(id: form.idea_ids)
+      end
+
+      def link_ideas
+        project.link_resources(ideas, "included_ideas")
+      end
+
+      def plans
+        @plans ||= project.sibling_scope(:plans).where(id: form.plan_ids)
+      end
+
+      def link_plans
+        project.link_resources(plans, "included_plans")
       end
     end
   end

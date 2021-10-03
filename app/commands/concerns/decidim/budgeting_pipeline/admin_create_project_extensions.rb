@@ -30,7 +30,28 @@ module Decidim
             visibility: "all"
           )
           @attached_to = @project
+
+          link_ideas
+          link_plans
         end
+      end
+
+      private
+
+      def ideas
+        @ideas ||= project.sibling_scope(:ideas).where(id: form.idea_ids)
+      end
+
+      def link_ideas
+        project.link_resources(ideas, "included_ideas")
+      end
+
+      def plans
+        @plans ||= project.sibling_scope(:plans).where(id: form.plan_ids)
+      end
+
+      def link_plans
+        project.link_resources(plans, "included_plans")
       end
     end
   end
