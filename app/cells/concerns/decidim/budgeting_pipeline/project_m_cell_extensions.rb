@@ -38,7 +38,7 @@ module Decidim
       end
 
       def has_image?
-        model.main_image.present?
+        model.main_image && model.main_image.url.present?
       end
 
       def has_badge?
