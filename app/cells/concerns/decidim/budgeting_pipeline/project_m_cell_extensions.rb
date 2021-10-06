@@ -7,6 +7,7 @@ module Decidim
       extend ActiveSupport::Concern
 
       include Decidim::BudgetingPipeline::ProjectItemUtilities
+      include Decidim::BudgetingPipeline::LinkUtilities
 
       included do
         delegate(
@@ -17,6 +18,10 @@ module Decidim
           :current_component,
           to: :controller
         )
+
+        def resource_path
+          resource_locator([model.budget, model]).path + request_params_query(resource_utm_params)
+        end
       end
 
       private
@@ -62,6 +67,14 @@ module Decidim
           end
 
         voting_done && model.selected_at.present?
+      end
+
+      def resource_utm_params
+        return {} unless context[:utm_params]
+
+        context[:utm_params].map do |key, value|
+          ["utm_#{key}", value]
+        end.to_h
       end
 
       def resource_link(options = {})
