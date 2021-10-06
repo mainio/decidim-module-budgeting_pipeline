@@ -8,6 +8,7 @@ module Decidim
 
       include Decidim::Paginable
       include Decidim::BudgetingPipeline::VoteUtilities
+      include Decidim::BudgetingPipeline::Orderable
 
       included do
         helper_method :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :statuses_available?, :vote_success?
@@ -37,46 +38,6 @@ module Decidim
             organization: current_organization,
             current_user: current_user
           }
-        end
-
-        # Available orders based on enabled settings
-        def available_orders
-          @available_orders ||= begin
-            available_orders = []
-            if votes_are_visible?
-              available_orders +=
-                if voting_open?
-                  %w(random most_voted)
-                else
-                  %w(most_voted random)
-                end
-            else
-              available_orders << "random"
-            end
-            available_orders += %w(alphabetical highest_cost lowest_cost)
-            available_orders
-          end
-        end
-
-        def reorder(projects)
-          case order
-          when "highest_cost"
-            projects.order(budget_amount: :desc)
-          when "lowest_cost"
-            projects.order(budget_amount: :asc)
-          when "most_voted"
-            if votes_are_visible?
-              projects.order_by_most_voted
-            else
-              projects
-            end
-          when "alphabetical"
-            projects.order("title->>'#{Arel.sql(current_locale)}'")
-          when "random"
-            projects.order_randomly(random_seed)
-          else
-            projects
-          end
         end
       end
 

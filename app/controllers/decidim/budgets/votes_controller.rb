@@ -8,6 +8,7 @@ module Decidim
       include Decidim::FilterResource
       include Decidim::Paginable
       include Decidim::Budgets::Orderable
+      include Decidim::BudgetingPipeline::Orderable
       include Decidim::BudgetingPipeline::OrdersUtilities
       include Decidim::BudgetingPipeline::VoteUtilities
 
