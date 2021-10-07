@@ -105,7 +105,7 @@ module Decidim
           # These are the resources that are linked from the related object to the
           # idea.
           if Decidim::BudgetingPipeline.possible_project_linked_resources.any?
-            field :linkingResources, types[Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
+            field :linkedResources, types[Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
               description "The linked resources for this project."
               resolve lambda { |object, _args, _ctx|
                 resources = object.resource_links_from.map(&:to).reject do |resource|
