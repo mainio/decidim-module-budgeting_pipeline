@@ -94,6 +94,35 @@ module Decidim
         )
       end
 
+      initializer "decidim_budgeting_pipeline.api_extensions" do
+        # TODO: Update to 0.24+
+        Decidim::Budgets::BudgetType.define do
+          interfaces [-> { Decidim::Stats::StatsInterface }]
+        end
+        Decidim::Budgets::ProjectType.define do
+          interfaces [-> { Decidim::Stats::StatsInterface }]
+
+          # These are the resources that are linked from the related object to the
+          # idea.
+          if Decidim::BudgetingPipeline.possible_project_linked_resources.any?
+            field :linkingResources, types[Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
+              description "The linked resources for this project."
+              resolve lambda { |object, _args, _ctx|
+                resources = object.resource_links_from.map(&:to).reject do |resource|
+                  resource.nil? ||
+                    (resource.respond_to?(:published?) && !resource.published?) ||
+                    (resource.respond_to?(:hidden?) && resource.hidden?) ||
+                    (resource.respond_to?(:withdrawn?) && resource.withdrawn?)
+                end
+                return nil unless resources.any?
+
+                resources
+              }
+            end
+          end
+        end
+      end
+
       config.to_prepare do
         # Helper extensions
         Decidim::Budgets::ApplicationHelper.include(
@@ -153,6 +182,9 @@ module Decidim
         # Model extensions
         Decidim::ActionLog.include(
           Decidim::BudgetingPipeline::ActionLogExtensions
+        )
+        Decidim::Budgets::Budget.include(
+          Decidim::Stats::Measurable
         )
         Decidim::Budgets::Project.include(
           Decidim::BudgetingPipeline::ProjectExtensions

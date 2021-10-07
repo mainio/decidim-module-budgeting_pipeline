@@ -8,6 +8,7 @@ module Decidim
 
       include Decidim::HasUploadValidations
       include Decidim::Favorites::Favoritable
+      include Decidim::Stats::Measurable
 
       class_methods do
         def geocoded_data_for(component)

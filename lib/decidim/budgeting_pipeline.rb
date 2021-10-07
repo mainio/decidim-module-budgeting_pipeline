@@ -36,5 +36,13 @@ module Decidim
     end
 
     config_accessor :pipeline_header_background_image
+
+    def self.possible_project_linked_resources
+      @possible_project_linked_resources ||= [].tap do |resources|
+        resources << Decidim::Proposals::ProposalType if Decidim.const_defined?("Proposals")
+        resources << Decidim::Ideas::IdeaType if Decidim.const_defined?("Ideas")
+        resources << Decidim::Plans::PlanType if Decidim.const_defined?("Plans")
+      end
+    end
   end
 end
