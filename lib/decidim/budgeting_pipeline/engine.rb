@@ -100,7 +100,11 @@ module Decidim
           interfaces [-> { Decidim::Stats::StatsInterface }]
         end
         Decidim::Budgets::ProjectType.define do
-          interfaces [-> { Decidim::Stats::StatsInterface }]
+          interfaces [
+            -> { Decidim::Core::CategorizableInterface },
+            -> { Decidim::Core::ScopableInterface },
+            -> { Decidim::Stats::StatsInterface }
+          ]
 
           # These are the resources that are linked from the related object to the
           # idea.
