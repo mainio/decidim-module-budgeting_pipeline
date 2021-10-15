@@ -7,7 +7,7 @@ module Decidim
       extend ActiveSupport::Concern
 
       included do
-        belongs_to :vote, class_name: "Decidim::Budgets::Vote", foreign_key: "decidim_budgets_vote_id"
+        belongs_to :vote, class_name: "Decidim::Budgets::Vote", foreign_key: "decidim_budgets_vote_id", optional: true
       end
 
       class_methods do
