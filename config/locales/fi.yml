@@ -230,7 +230,7 @@ fi:
           title: Äänestystilanne
         vote_finished_modal:
           close: Sulje ikkuna
-          continue: Jatka sisäänkirjautuneena
+          continue: Continue signed in
           sign_out: Kirjaudu ulos
           title: Kiitos äänestäsi!
       votes:
