@@ -230,7 +230,7 @@ en:
           title: Current voting results
         vote_finished_modal:
           close: Close window
-          continue: Confinue signed in
+          continue: Continue signed in
           sign_out: Sign out
           title: Thank you for your vote!
       votes:
