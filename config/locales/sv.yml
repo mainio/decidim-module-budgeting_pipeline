@@ -230,7 +230,7 @@ sv:
           title: Valsituationen
         vote_finished_modal:
           close: Stäng fönstret
-          continue: Fortsätt inloggad
+          continue: Continue signed in
           sign_out: Logga ut
           title: Tack för din röst!
       votes:
