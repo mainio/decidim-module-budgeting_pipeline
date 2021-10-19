@@ -23,7 +23,7 @@ module Decidim
           @orders = orders
           @budget_names = @orders.map { |order| translated_attribute(order.budget.title) }
 
-          @component = orders.first.budget.component
+          @component = @orders.first.budget.component
           @space = @component.participatory_space
           @organization = @space.organization
 
