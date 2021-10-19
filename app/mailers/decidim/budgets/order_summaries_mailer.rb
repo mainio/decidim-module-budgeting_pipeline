@@ -12,6 +12,12 @@ module Decidim
       #
       # order - the order that was just created
       def order_summaries(orders, user)
+        # In case the vote is casted exactly at the same time on multiple
+        # machines, the latest order will always have the orders mapped to it.
+        # This shouldn't be possible under normal conditions but in case this
+        # happens anyways, this prevents the mailer from erroring out.
+        return if orders.count < 1
+
         with_user(user) do
           @user = user
           @orders = orders
