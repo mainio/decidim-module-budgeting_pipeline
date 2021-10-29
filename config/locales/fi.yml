@@ -126,8 +126,8 @@ fi:
       project_m:
         card_label: "Ehdotus: %{title}"
         votes_amount:
-          one: "%{count} vote"
-          other: "%{count} votes"
+          one: "%{count} ääni"
+          other: "%{count} ääntä"
       projects:
         count:
           projects_count:
@@ -201,8 +201,8 @@ fi:
           start_voting: Aloita äänestys
           view_all_projects: Näytä kaikki ehdotukset
           votes_amount:
-            one: "%{count} vote"
-            other: "%{count} votes"
+            one: "%{count} ääni"
+            other: "%{count} ääntä"
           voting_note_html: |-
             <p>Aloittaaksesi äänestyksen sinun on tunnistauduttava ja siirryttävä äänestystilaan.
             Äänestystilassa sinun tulee valita se alue, johon tämä ehdotus kuuluu ja valittava se ääneesi.
