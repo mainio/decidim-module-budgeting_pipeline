@@ -126,8 +126,8 @@ sv:
       project_m:
         card_label: "Förslag: %{title}"
         votes_amount:
-          one: "%{count} vote"
-          other: "%{count} votes"
+          one: "%{count} röst"
+          other: "%{count} röster"
       projects:
         count:
           projects_count:
@@ -201,8 +201,8 @@ sv:
           start_voting: Börja rösta
           view_all_projects: Visa alla förslag
           votes_amount:
-            one: "%{count} vote"
-            other: "%{count} votes"
+            one: "%{count} röst"
+            other: "%{count} röster"
           voting_note_html: |-
             <p>För att börja rösta måste du identifiera dig och gå in i omröstningsläget.
             I omröstningsläget måste du välja det område som detta förslag tillhör och välja det för din röst.
