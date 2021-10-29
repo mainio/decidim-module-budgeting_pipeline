@@ -125,6 +125,9 @@ en:
           close: Back to proposal selection
       project_m:
         card_label: "Proposal: %{title}"
+        votes_amount:
+          one: "%{count} vote"
+          other: "%{count} votes"
       projects:
         count:
           projects_count:
@@ -197,6 +200,9 @@ en:
           close: Close
           start_voting: Start voting
           view_all_projects: Show all proposals
+          votes_amount:
+            one: "%{count} vote"
+            other: "%{count} votes"
           voting_note_html: |-
             <p>To start voting, you have to identify yourself and enter the voting mode.
             In the voting mode, you have to select the area to which this proposal belongs and select it for your vote.

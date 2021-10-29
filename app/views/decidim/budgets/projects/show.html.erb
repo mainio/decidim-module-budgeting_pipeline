@@ -104,6 +104,10 @@ edit_link(
   <div class="row">
     <div class="columns mediumlarge-7">
       <h3 class="heading3"><%= decidim_sanitize(translated_attribute(project.title)) %></h3>
+
+    <% if voting_finished? && current_settings.show_votes? %>
+      <p><strong><%= t(".votes_amount", count: project.confirmed_orders_count) %></strong></p>
+    <% end %>
     </div>
   </div>
 </div>

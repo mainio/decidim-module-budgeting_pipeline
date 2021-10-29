@@ -1,0 +1,7 @@
+<% if votes_visible? %>
+  <div class="card__info">
+    <div class="card__info__item">
+      <%= t(".votes_amount", count: votes_count) %>
+    </div>
+  </div>
+<% end %>

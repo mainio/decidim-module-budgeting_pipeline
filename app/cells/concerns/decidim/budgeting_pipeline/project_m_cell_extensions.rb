@@ -69,6 +69,14 @@ module Decidim
         voting_done && model.selected_at.present?
       end
 
+      def votes_visible?
+        voting_finished? && model.component.current_settings.show_votes?
+      end
+
+      def votes_count
+        model.confirmed_orders_count
+      end
+
       def resource_utm_params
         return {} unless context[:utm_params]
 
