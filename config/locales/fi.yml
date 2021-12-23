@@ -1,6 +1,9 @@
 fi:
   activemodel:
     attributes:
+      accountability_export:
+        export_all_selected_projects: Export all votable proposals marked as selected
+        target_component_id: Target component
       budget:
         center_latitude: Keskipisteen leveysaste (latitude)
         center_longitude: Keskipisteen pituusaste (longitude)
@@ -32,6 +35,8 @@ fi:
           name: Äänestysputki
     budgets:
       admin:
+        actions:
+          export_results: Exports proposals to results
         models:
           help_section:
             name: Ohjeosio
@@ -57,6 +62,13 @@ fi:
         projects:
           form:
             selected_help: Tämä valitaan äänestyksen päätyttyä, jos hanke on äänestetty toteutettavaksi.
+        results_exports:
+          create:
+            invalid: There was a problem exporting the proposals to results
+            success: Proposals successfully exported to results
+          new:
+            create: Export to results
+            select_component: Select the target component
       last_activity:
         show_vote_at: Näytä ääneni osallistumistilassa %{name}
         voted_at_html: "<span>Äänestit osoitteessa %{link}</span>"
@@ -218,8 +230,8 @@ fi:
           show_less_detailed: Näytä vähemmän alueelta %{name}
           show_more: Näytä enemmän
           show_more_detailed: Näytä enemmän alueelta %{name}
-          title_ordered: "%{budget} - Äänestysjärjestys"
-          title_winning: "%{budget} - Toteutuslista"
+          title_ordered: "%{budget}"
+          title_winning: "%{budget}"
         icon_heart:
           title: Sydän
         projects_table:
