@@ -230,8 +230,8 @@ en:
           show_less_detailed: Show less from area %{name}
           show_more: Show more
           show_more_detailed: Show more from area %{name}
-          title_ordered: "%{budget} - Ordered by votes"
-          title_winning: "%{budget} - Implementation list"
+          title_ordered: "%{budget}"
+          title_winning: "%{budget}"
         icon_heart:
           title: Heart
         projects_table:

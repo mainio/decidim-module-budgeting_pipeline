@@ -230,8 +230,8 @@ fi:
           show_less_detailed: Näytä vähemmän alueelta %{name}
           show_more: Näytä enemmän
           show_more_detailed: Näytä enemmän alueelta %{name}
-          title_ordered: "%{budget} - Äänestysjärjestys"
-          title_winning: "%{budget} - Toteutuslista"
+          title_ordered: "%{budget}"
+          title_winning: "%{budget}"
         icon_heart:
           title: Sydän
         projects_table:

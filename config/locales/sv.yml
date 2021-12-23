@@ -230,8 +230,8 @@ sv:
           show_less_detailed: Visa mindre från område %{name}
           show_more: Visa mer
           show_more_detailed: Visa mer från område %{name}
-          title_ordered: "%{budget} - Ordnade efter röster"
-          title_winning: "%{budget} - Implementeringslista"
+          title_ordered: "%{budget}"
+          title_winning: "%{budget}"
         icon_heart:
           title: Hjärta
         projects_table:
