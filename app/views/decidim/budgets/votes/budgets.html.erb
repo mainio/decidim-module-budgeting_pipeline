@@ -34,7 +34,7 @@
 
         <div class="detail-selector">
           <% sticky_budgets.each do |budget| %>
-            <%= render partial: "budget_selector", locals: { budget: budget } %>
+            <%= render partial: "budget_selector", locals: { budget: budget, selected: true } %>
           <% end %>
         </div>
       </div>

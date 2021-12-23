@@ -1,4 +1,12 @@
-<% selected = defined?(form) ? form.object.budget_ids.include?(budget.id) : false %>
+<%
+unless defined?(selected)
+  if defined?(form)
+    selected = form.object.budget_ids.include?(budget.id)
+  else
+    selected = false
+  end
+end
+%>
 <div class="detail-selector-item<%= " selected" if selected %>">
   <div class="detail-selector-title">
     <div class="row">
