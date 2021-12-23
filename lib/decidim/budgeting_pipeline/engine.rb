@@ -157,6 +157,9 @@ module Decidim
         Decidim::Budgets::OrdersController.include(
           Decidim::BudgetingPipeline::OrdersControllerExtensions
         )
+        Decidim::Budgets::Admin::BudgetsController.include(
+          Decidim::BudgetingPipeline::Admin::BudgetsControllerExtensions
+        )
 
         # Cell extensions
         Decidim::Budgets::ProjectMCell.include(
