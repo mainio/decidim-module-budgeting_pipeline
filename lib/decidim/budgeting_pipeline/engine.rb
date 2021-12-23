@@ -109,18 +109,29 @@ module Decidim
           # These are the resources that are linked from the related object to the
           # idea.
           if Decidim::BudgetingPipeline.possible_project_linked_resources.any?
+            visible_resources = lambda { |resources|
+              resources = resources.reject do |resource|
+                resource.nil? ||
+                  (resource.respond_to?(:published?) && !resource.published?) ||
+                  (resource.respond_to?(:hidden?) && resource.hidden?) ||
+                  (resource.respond_to?(:withdrawn?) && resource.withdrawn?)
+              end
+              return nil unless resources.any?
+
+              resources
+            }
+
             field :linkedResources, types[Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
               description "The linked resources for this project."
               resolve lambda { |object, _args, _ctx|
-                resources = object.resource_links_from.map(&:to).reject do |resource|
-                  resource.nil? ||
-                    (resource.respond_to?(:published?) && !resource.published?) ||
-                    (resource.respond_to?(:hidden?) && resource.hidden?) ||
-                    (resource.respond_to?(:withdrawn?) && resource.withdrawn?)
-                end
-                return nil unless resources.any?
+                visible_resources.call(object.resource_links_from.map(&:to))
+              }
+            end
 
-                resources
+            field :linkingResources, types[Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
+              description "The linking resources for this project."
+              resolve lambda { |object, _args, _ctx|
+                visible_resources.call(object.resource_links_to.map(&:from))
               }
             end
           end
