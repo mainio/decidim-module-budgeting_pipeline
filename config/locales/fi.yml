@@ -1,6 +1,9 @@
 fi:
   activemodel:
     attributes:
+      accountability_export:
+        export_all_selected_projects: Vie kaikki valituksi merkityt äänestettävät ehdotukset
+        target_component_id: Kohdekomponentti
       budget:
         center_latitude: Keskipisteen leveysaste (latitude)
         center_longitude: Keskipisteen pituusaste (longitude)
@@ -32,6 +35,8 @@ fi:
           name: Äänestysputki
     budgets:
       admin:
+        actions:
+          export_results: Vie ehdotuksia tuloksiksi
         models:
           help_section:
             name: Ohjeosio
@@ -57,6 +62,13 @@ fi:
         projects:
           form:
             selected_help: Tämä valitaan äänestyksen päätyttyä, jos hanke on äänestetty toteutettavaksi.
+        results_exports:
+          create:
+            invalid: Äänestettävien ehdotusten vienti tuloksiksi epäonnistui
+            success: Äänestettävien ehdotusten vienti tuloksiksi onnistui
+          new:
+            create: Vie tuloksiksi
+            select_component: Valitse kohdekomponentti
       last_activity:
         show_vote_at: Näytä ääneni osallistumistilassa %{name}
         voted_at_html: "<span>Äänestit osoitteessa %{link}</span>"

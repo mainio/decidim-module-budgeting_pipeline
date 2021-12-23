@@ -1,0 +1,25 @@
+<%= decidim_form_for(@form, url: results_export_path, method: :post, html: { class: "form export_projects_to_accountability" }) do |f| %>
+  <% if @form.target_components.any? %>
+    <div class="card">
+      <div class="card-divider">
+        <h2 class="card-title"><%= title %></h2>
+      </div>
+
+      <div class="card-section">
+        <div class="row column">
+          <%= f.select :target_component_id, @form.target_components_collection, prompt: t(".select_component") %>
+        </div>
+
+        <div class="row column">
+          <%= f.check_box :export_all_selected_projects %>
+        </div>
+      </div>
+    </div>
+
+    <div class="button--double form-general-submit">
+      <%= f.submit t(".create") %>
+    </div>
+  <% else %>
+      <p><%= t(".no_components") %></p>
+  <% end %>
+<% end %>

@@ -15,6 +15,11 @@ module Decidim
             when :update, :delete
               toggle_allow(section)
             end
+          when :budgets
+            case permission_action.action
+            when :export_results
+              allow!
+            end
           end
 
           permission_action

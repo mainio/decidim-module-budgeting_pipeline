@@ -1,6 +1,9 @@
 sv:
   activemodel:
     attributes:
+      accountability_export:
+        export_all_selected_projects: Exportera alla röstbara förslag markerade som valda
+        target_component_id: Målkomponent
       budget:
         center_latitude: Centrumets latitud
         center_longitude: Centrumets längd
@@ -32,6 +35,8 @@ sv:
           name: Röstledning
     budgets:
       admin:
+        actions:
+          export_results: Exporterar förslag till resultat
         models:
           help_section:
             name: Hjälpavsnitt
@@ -57,6 +62,13 @@ sv:
         projects:
           form:
             selected_help: Detta väljs efter omröstningen om projektet har röstats för genomförande.
+        results_exports:
+          create:
+            invalid: Det gick inte att exportera förslagen till resultat
+            success: Förslagen har exporterats till resultat
+          new:
+            create: Exportera till resultat
+            select_component: Välj målkomponenten
       last_activity:
         show_vote_at: Visa min röst på %{name}
         voted_at_html: "<span>Du röstade på %{link}</span>"

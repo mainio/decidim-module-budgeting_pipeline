@@ -15,6 +15,12 @@ module Decidim
           resources :helps, param: :key, only: [:index] do
             resources :sections, controller: :help_sections, exclude: [:show]
           end
+
+          resources :projects, only: [] do
+            collection do
+              resource :results_export, only: [:new, :create]
+            end
+          end
         end
       end
 

@@ -1,6 +1,9 @@
 en:
   activemodel:
     attributes:
+      accountability_export:
+        export_all_selected_projects: Export all votable proposals marked as selected
+        target_component_id: Target component
       budget:
         center_latitude: Center latitude
         center_longitude: Center longitude
@@ -32,6 +35,8 @@ en:
           name: Voting pipeline
     budgets:
       admin:
+        actions:
+          export_results: Exports proposals to results
         models:
           help_section:
             name: Help section
@@ -57,6 +62,13 @@ en:
         projects:
           form:
             selected_help: This is chosen after the voting if the project has been voted for implementation.
+        results_exports:
+          create:
+            invalid: There was a problem exporting the proposals to results
+            success: Proposals successfully exported to results
+          new:
+            create: Export to results
+            select_component: Select the target component
       last_activity:
         show_vote_at: Show my vote at %{name}
         voted_at_html: "<span>You voted at %{link}</span>"

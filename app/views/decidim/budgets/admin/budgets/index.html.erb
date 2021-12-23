@@ -11,6 +11,9 @@
         <div id="js-other-actions-wrapper">
           <%= link_to t("actions.new", scope: "decidim.budgets", name: t("models.budget.name", scope: "decidim.budgets.admin")), new_budget_path, class: "button tiny button--title" if allowed_to? :create, :budget %>
           <%= link_to t("decidim.budgets.admin.helps.index.title"), helps_path, class: "button tiny button--title" %>
+          <% if allowed_to? :export_results, :budgets %>
+            <%= link_to t("actions.export_results", scope: "decidim.budgets.admin"), new_results_export_path, class: "button tiny button--title" %>
+          <% end %>
         </div>
       </div>
     </h2>
