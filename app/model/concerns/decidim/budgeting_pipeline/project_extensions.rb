@@ -93,7 +93,7 @@ module Decidim
           ).select(
             [
               "decidim_budgets_projects.*",
-              "COUNT(decidim_budgets_orders.id) AS votes_count",
+              "COUNT(decidim_budgets_orders.id) + decidim_budgets_projects.paper_orders_count AS votes_count",
               "CASE #{locale_case("decidim_budgets_projects.title")} END AS localized_title"
             ].join(", ")
           ).group("decidim_budgets_projects.id").order(
@@ -101,6 +101,11 @@ module Decidim
             localized_title: :asc
           )
         }
+
+        # Public: Returns the number of times an specific project have been checked out.
+        def confirmed_orders_count
+          orders.finished.count + paper_orders_count
+        end
       end
     end
   end
