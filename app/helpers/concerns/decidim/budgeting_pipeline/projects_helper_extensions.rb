@@ -7,6 +7,7 @@ module Decidim
       extend ActiveSupport::Concern
 
       include Decidim::BudgetingPipeline::TextUtilities
+      include Decidim::MapHelper
 
       def landing_page_content
         translated_attribute(current_settings.landing_page_content).presence ||
