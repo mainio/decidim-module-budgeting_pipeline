@@ -135,6 +135,9 @@ en:
           vote: Vote
         orders_modal:
           close: Back to proposal selection
+      project_list_item:
+        more_info: Read more about this proposal
+        more_info_with_title: Read more about %{title}
       project_m:
         card_label: "Proposal: %{title}"
         votes_amount:
@@ -338,7 +341,7 @@ en:
           allocated_budget: Budget spent
           allocated_projects: Number of selected proposals
           available_budget: Budget for the area
-          available_projects: Maximum amount of projects to be selected
+          available_projects: Maximum amount of proposals to be selected
           selected_projects: Proposals in the cart
           selected_projects_count: "%{count} pcs"
           unused_budget: Remaining budget
