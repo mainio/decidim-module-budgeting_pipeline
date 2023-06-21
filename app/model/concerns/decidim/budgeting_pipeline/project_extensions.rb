@@ -24,9 +24,9 @@ module Decidim
 
           joins(:budget).pluck(
             :id,
-            "CASE #{locale_case("decidim_budgets_projects.title")} END AS geotitle",
-            "CASE #{locale_case("decidim_budgets_projects.summary")} END AS geosummary",
-            "CASE #{locale_case("decidim_budgets_projects.description")} END AS geodescription",
+            Arel.sql("CASE #{locale_case("decidim_budgets_projects.title")} END AS geotitle"),
+            Arel.sql("CASE #{locale_case("decidim_budgets_projects.summary")} END AS geosummary"),
+            Arel.sql("CASE #{locale_case("decidim_budgets_projects.description")} END AS geodescription"),
             Arel.sql(
               <<~SQLCASE.squish
                 CASE
@@ -56,8 +56,6 @@ module Decidim
           )
         end
 
-        private
-
         def locale_case(column)
           locale = Arel::Nodes.build_quoted(I18n.locale.to_s).to_sql
           default_locale = Arel::Nodes.build_quoted(I18n.default_locale.to_s).to_sql
@@ -78,15 +76,14 @@ module Decidim
         mount_uploader :main_image, Decidim::Budgets::ProjectImageUploader
 
         scope :order_by_most_voted, lambda { |only_voted: false|
-          join_type = only_voted ? "INNER" : "LEFT"
-          joins(
+          scope = joins(
             <<~SQLJOIN.squish
-              #{Arel.sql(join_type)} JOIN decidim_budgets_line_items
+              LEFT JOIN decidim_budgets_line_items
                 ON decidim_budgets_line_items.decidim_project_id = decidim_budgets_projects.id
             SQLJOIN
           ).joins(
             <<~SQLJOIN.squish
-              #{Arel.sql(join_type)} JOIN decidim_budgets_orders
+              LEFT JOIN decidim_budgets_orders
                 ON decidim_budgets_orders.id = decidim_budgets_line_items.decidim_order_id
                 AND decidim_budgets_orders.checked_out_at IS NOT NULL
             SQLJOIN
@@ -94,9 +91,18 @@ module Decidim
             [
               "decidim_budgets_projects.*",
               "COUNT(decidim_budgets_orders.id) + decidim_budgets_projects.paper_orders_count AS votes_count",
-              "CASE #{locale_case("decidim_budgets_projects.title")} END AS localized_title"
+              "CASE #{Arel.sql locale_case("decidim_budgets_projects.title")} END AS localized_title"
             ].join(", ")
-          ).group("decidim_budgets_projects.id").order(
+          ).group("decidim_budgets_projects.id")
+
+          if only_voted
+            voted_ids = joins(
+              Arel.sql("LEFT JOIN (#{scope.to_sql}) AS with_votes ON with_votes.id = decidim_budgets_projects.id")
+            ).where("with_votes.votes_count > 0").pluck(:id)
+            scope = scope.where(id: voted_ids)
+          end
+
+          scope.order(
             votes_count: :desc,
             localized_title: :asc
           )

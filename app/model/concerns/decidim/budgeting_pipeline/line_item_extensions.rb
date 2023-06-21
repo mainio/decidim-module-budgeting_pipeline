@@ -8,7 +8,7 @@ module Decidim
 
       class_methods do
         def order_by_projects
-          joins(:project).order("decidim_budgets_projects.title->>'#{Arel.sql(I18n.locale.to_s)}'")
+          joins(:project).order(Arel.sql("decidim_budgets_projects.title->>'#{I18n.locale}'"))
         end
       end
     end
