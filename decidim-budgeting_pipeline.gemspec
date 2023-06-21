@@ -30,5 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "decidim-favorites", Decidim::BudgetingPipeline::DECIDIM_VERSION
   spec.add_dependency "decidim-stats", Decidim::BudgetingPipeline::DECIDIM_VERSION
 
+  spec.add_development_dependency "decidim-accountability", Decidim::BudgetingPipeline::DECIDIM_VERSION
   spec.add_development_dependency "decidim-dev", Decidim::BudgetingPipeline::DECIDIM_VERSION
+  spec.add_development_dependency "decidim-proposals", Decidim::BudgetingPipeline::DECIDIM_VERSION
 end

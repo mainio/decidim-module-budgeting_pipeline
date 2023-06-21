@@ -8,6 +8,16 @@ module Decidim
 
       included do
         belongs_to :vote, class_name: "Decidim::Budgets::Vote", foreign_key: "decidim_budgets_vote_id", optional: true
+
+        # Backwards compatibility
+        unless method_defined?(:projects_rule?)
+          # Public: Returns true if the project voting rule is enabled
+          def projects_rule?
+            return unless budget
+
+            false
+          end
+        end
       end
 
       class_methods do
