@@ -139,6 +139,8 @@ module Decidim
       end
 
       config.to_prepare do
+        next unless Decidim::BudgetingPipeline.apply_extensions?
+
         # Helper extensions
         Decidim::Budgets::ApplicationHelper.include(
           Decidim::BudgetingPipeline::ApplicationHelperExtensions
