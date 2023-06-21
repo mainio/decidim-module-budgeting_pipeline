@@ -2,7 +2,7 @@
 projects = projects_with_votes(budget)
 extra_projects = []
 
-if budget.settings.vote_rule_selected_projects_enabled && budget.total_budget.zero?
+if budget.settings.respond_to?(:vote_rule_selected_projects_enabled) && budget.settings.vote_rule_selected_projects_enabled && budget.total_budget.zero?
   winning = winning_projects(budget) if voting_finished?
   if winning && winning.any? && winning.first.selected?
     extra_projects = projects.where.not(id: winning.map(&:id))
@@ -16,7 +16,7 @@ end
 %>
 <div class="budget-results mb-5">
   <div class="text-center">
-    <% if budget.settings.vote_rule_selected_projects_enabled %>
+    <% if budget.settings.respond_to?(:vote_rule_selected_projects_enabled) && budget.settings.vote_rule_selected_projects_enabled %>
       <h2><%= t(".title_ordered", budget: translated_attribute(budget.title)) %></h2>
     <% else %>
       <h2><%= t(".title_winning", budget: translated_attribute(budget.title)) %></h2>
@@ -45,7 +45,7 @@ end
 
       <div id="budget-extra-<%= budget.id %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false">
         <div class="text-center">
-          <% if budget.settings.vote_rule_selected_projects_enabled %>
+          <% if budget.settings.respond_to?(:vote_rule_selected_projects_enabled) && budget.settings.vote_rule_selected_projects_enabled %>
             <p><%= t(".extra_note_for_projects_rule") %></p>
           <% elsif projects.first.selected? %>
             <p><%= t(".extra_note_for_budgeting_rule_selected") %></p>
