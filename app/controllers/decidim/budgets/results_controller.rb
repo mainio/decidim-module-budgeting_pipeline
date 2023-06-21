@@ -9,7 +9,7 @@ module Decidim
       helper_method :budgets, :sticky_budgets, :common_budgets, :projects_with_votes, :minimum_project_budget, :maximum_project_budget, :vote_success?
 
       def show
-        redirect_to projects_path unless current_settings.show_votes?
+        redirect_to EngineRouter.main_proxy(current_component).projects_path unless current_settings.show_votes?
       end
 
       private

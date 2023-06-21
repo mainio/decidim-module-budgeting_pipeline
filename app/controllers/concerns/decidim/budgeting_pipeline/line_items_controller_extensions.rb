@@ -19,12 +19,12 @@ module Decidim
               on(:ok) do |order|
                 self.current_order = order
                 reset_current_orders
-                format.html { redirect_back(fallback_location: budget_path(budget)) }
+                format.html { redirect_back(fallback_location: Decidim::ResourceLocatorPresenter.new(budget).path) }
                 format.js { render "update_budget" }
               end
 
               on(:invalid) do |reason|
-                format.html { render nothing: true, status: :unprocessable_entity }
+                format.html { render plain: "", status: :unprocessable_entity }
                 format.js { create_error(reason) }
               end
             end

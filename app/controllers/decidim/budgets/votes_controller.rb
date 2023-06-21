@@ -42,7 +42,7 @@ module Decidim
         return unless user_authorized?
         return ensure_not_voted! if user_voted?
 
-        redirect_to budgets_vote_path
+        redirect_to routes_proxy.budgets_vote_path
       end
 
       def budgets
@@ -55,7 +55,7 @@ module Decidim
         @form = form(BudgetSelectForm).from_params(params)
         StartVoting.call(@form, current_user, current_workflow) do
           on(:ok) do
-            redirect_to projects_vote_path
+            redirect_to routes_proxy.projects_vote_path
           end
 
           on(:invalid) do
@@ -80,9 +80,9 @@ module Decidim
             # content when it is displayed.
             session["decidim-budgets.voted"] = true
             if current_settings.show_votes?
-              redirect_to results_path
+              redirect_to routes_proxy.results_path
             else
-              redirect_to projects_path
+              redirect_to routes_proxy.projects_path
             end
           end
 
@@ -112,9 +112,9 @@ module Decidim
           end
 
         if current_settings.show_votes?
-          redirect_to results_path
+          redirect_to routes_proxy.results_path
         else
-          redirect_to projects_path
+          redirect_to routes_proxy.projects_path
         end
       end
 
@@ -122,24 +122,24 @@ module Decidim
         return if user_authorized?
 
         flash[:warning] = I18n.t("decidim.budgets.votes.general.not_authorized")
-        redirect_to vote_path
+        redirect_to routes_proxy.vote_path
       end
 
       def ensure_not_voted!
         return unless user_voted?
 
         flash[:warning] = I18n.t("decidim.budgets.votes.general.already_voted")
-        redirect_to projects_path
+        redirect_to routes_proxy.projects_path
       end
 
       def ensure_orders!
-        redirect_to budgets_vote_path unless current_orders.any?
+        redirect_to routes_proxy.budgets_vote_path unless current_orders.any?
       end
 
       def ensure_orders_valid!
         return if can_cast_votes?
 
-        redirect_to projects_vote_path
+        redirect_to routes_proxy.projects_vote_path
       end
 
       # This ensures that only people eligible to vote can enter the voting
@@ -233,7 +233,7 @@ module Decidim
           done = true
           steps = voting_steps_keys.map do |key|
             done = false if key == current_step
-            step_link = [:authorization, :login].include?(key) ? vote_path : send("#{key}_vote_path")
+            step_link = [:authorization, :login].include?(key) ? routes_proxy.vote_path : routes_proxy.public_send("#{key}_vote_path")
             available =
               case key
               when :authorization, :login
@@ -302,6 +302,10 @@ module Decidim
 
       def maximum_project_budget
         @maximum_project_budget ||= Decidim::Budgets::Project.where(budget: selected_budgets).maximum(:budget_amount)
+      end
+
+      def routes_proxy
+        @routes_proxy ||= EngineRouter.main_proxy(current_component)
       end
     end
   end

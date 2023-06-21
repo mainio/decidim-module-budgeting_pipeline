@@ -20,7 +20,7 @@ module Decidim
         return if current_orders.any? && current_orders.all?(&:checked_out?)
 
         flash[:warning] = I18n.t("decidim.budgets.orders.index.not_voted")
-        redirect_to projects_path
+        redirect_to EngineRouter.main_proxy(current_component).projects_path
       end
     end
   end
