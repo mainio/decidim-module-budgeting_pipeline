@@ -44,5 +44,14 @@ module Decidim
         resources << Decidim::Plans::PlanType if Decidim.const_defined?("Plans")
       end
     end
+
+    # Fixes the migration during application initialization
+    def self.apply_extensions?
+      return true unless defined?(Rake)
+      return true unless Rake.respond_to?(:application)
+      return false if ["db:migrate", "db:seed"].any? { |task| Rake.application.top_level_tasks.include?(task) }
+
+      true
+    end
   end
 end

@@ -138,6 +138,13 @@ module Decidim
         end
       end
 
+      # Fixes a problem with the autoprefixer during mailer tests.
+      config.assets.configure do |app|
+        next unless Rails.env.test?
+
+        AutoprefixerRails.uninstall(app)
+      end
+
       config.to_prepare do
         next unless Decidim::BudgetingPipeline.apply_extensions?
 
