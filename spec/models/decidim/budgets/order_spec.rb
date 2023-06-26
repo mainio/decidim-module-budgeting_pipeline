@@ -3,23 +3,21 @@
 require "spec_helper"
 
 describe Decidim::Budgets::Order do
-  let(:component) { create(:budgeting_pipeline_component) }
+  let(:component) { create(:budgeting_pipeline_component, vote_rule_settings: vote_rule_settings) }
+  let(:vote_rule_settings) do
+    {
+      vote_rule_threshold_percent_enabled: true,
+      vote_threshold_percent: 70,
+      vote_rule_minimum_budget_projects_enabled: false,
+      vote_minimum_budget_projects_number: 0,
+      vote_rule_selected_projects_enabled: false,
+      vote_selected_projects_minimum: 0,
+      vote_selected_projects_maximum: 1
+    }
+  end
   let(:budget) { create(:budgeting_pipeline_budget, component: component, total_budget: 40_000) }
   let(:project1) { create(:budgeting_pipeline_project, budget: budget, budget_amount: 20_000) }
   let(:project2) { create(:budgeting_pipeline_project, budget: budget, budget_amount: 30_000) }
-
-  # TODO: Remove after upgrade
-  # Backwards compatibility for the projects rule
-  shared_context "with projects rule compatibility" do
-    let(:total_projects) { 0 }
-
-    before do
-      # For backwards compatibility, these methods need to be defined.
-      allow(order).to receive(:projects_rule?).and_return(true)
-      allow(order).to receive(:maximum_projects).and_return(1)
-      allow(order).to receive(:total_projects).and_return(total_projects)
-    end
-  end
 
   shared_context "with first project selected" do
     before { order.projects << project1 }
@@ -52,7 +50,7 @@ describe Decidim::Budgets::Order do
         orders.each do |order|
           order.projects << project
           order.checked_out_at = Time.current
-          order.save!
+          order.save!(validate: false)
         end
       end
     end
@@ -91,15 +89,23 @@ describe Decidim::Budgets::Order do
     end
 
     context "with projects rule" do
-      include_context "with projects rule compatibility"
+      let(:vote_rule_settings) do
+        {
+          vote_rule_threshold_percent_enabled: false,
+          vote_threshold_percent: 70,
+          vote_rule_minimum_budget_projects_enabled: false,
+          vote_minimum_budget_projects_number: 0,
+          vote_rule_selected_projects_enabled: true,
+          vote_selected_projects_minimum: 0,
+          vote_selected_projects_maximum: 1
+        }
+      end
 
       context "when there are selections left" do
         it { is_expected.to be(true) }
       end
 
       context "when there are no selections left" do
-        let(:total_projects) { 1 }
-
         include_context "with first project selected"
 
         it { is_expected.to be(false) }
@@ -123,15 +129,23 @@ describe Decidim::Budgets::Order do
     end
 
     context "with projects rule" do
-      include_context "with projects rule compatibility"
+      let(:vote_rule_settings) do
+        {
+          vote_rule_threshold_percent_enabled: false,
+          vote_threshold_percent: 70,
+          vote_rule_minimum_budget_projects_enabled: false,
+          vote_minimum_budget_projects_number: 0,
+          vote_rule_selected_projects_enabled: true,
+          vote_selected_projects_minimum: 0,
+          vote_selected_projects_maximum: 1
+        }
+      end
 
       context "when no projects are selected" do
         it { is_expected.to eq(1) }
       end
 
       context "when there are no selections left" do
-        let(:total_projects) { 1 }
-
         include_context "with first project selected"
 
         it { is_expected.to eq(0) }
@@ -156,15 +170,23 @@ describe Decidim::Budgets::Order do
     end
 
     context "with projects rule" do
-      include_context "with projects rule compatibility"
+      let(:vote_rule_settings) do
+        {
+          vote_rule_threshold_percent_enabled: false,
+          vote_threshold_percent: 70,
+          vote_rule_minimum_budget_projects_enabled: false,
+          vote_minimum_budget_projects_number: 0,
+          vote_rule_selected_projects_enabled: true,
+          vote_selected_projects_minimum: 0,
+          vote_selected_projects_maximum: 1
+        }
+      end
 
       context "when no projects are selected" do
         it { is_expected.to be(false) }
       end
 
       context "when too many projects are selected" do
-        let(:total_projects) { 2 }
-
         include_context "with first project selected"
         include_context "with second project selected"
 
@@ -177,17 +199,19 @@ describe Decidim::Budgets::Order do
     subject { order.valid_for_checkout? }
 
     let!(:order) { create(:budgeting_pipeline_order, budget: budget) }
-    let(:total_projects) { 0 }
-
-    before do
-      allow(order).to receive(:total_projects).and_return(total_projects)
-    end
 
     context "with the minimum projects rule" do
       let(:minimum_projects) { 0 }
-
-      before do
-        allow(order).to receive(:minimum_projects).and_return(minimum_projects)
+      let(:vote_rule_settings) do
+        {
+          vote_rule_threshold_percent_enabled: false,
+          vote_threshold_percent: 70,
+          vote_rule_minimum_budget_projects_enabled: true,
+          vote_minimum_budget_projects_number: minimum_projects,
+          vote_rule_selected_projects_enabled: false,
+          vote_selected_projects_minimum: 0,
+          vote_selected_projects_maximum: 1
+        }
       end
 
       context "when no projects are selected" do
@@ -202,21 +226,30 @@ describe Decidim::Budgets::Order do
     end
 
     context "with the projects rule" do
-      include_context "with projects rule compatibility"
+      let(:minimum_projects) { 0 }
+      let(:vote_rule_settings) do
+        {
+          vote_rule_threshold_percent_enabled: false,
+          vote_threshold_percent: 70,
+          vote_rule_minimum_budget_projects_enabled: false,
+          vote_minimum_budget_projects_number: 0,
+          vote_rule_selected_projects_enabled: true,
+          vote_selected_projects_minimum: minimum_projects,
+          vote_selected_projects_maximum: 1
+        }
+      end
 
       context "when no projects are selected" do
         it { is_expected.to be(true) }
       end
 
       context "when not enough projects are selected" do
-        before { allow(order).to receive(:minimum_projects).and_return(1) }
+        let(:minimum_projects) { 1 }
 
         it { is_expected.to be(false) }
       end
 
       context "when maximum projects are exceeded" do
-        let(:total_projects) { 2 }
-
         include_context "with first project selected"
         include_context "with second project selected"
 
@@ -225,19 +258,27 @@ describe Decidim::Budgets::Order do
     end
 
     context "with the budget amount rule" do
-      let(:minimum_budget) { 0 }
-
-      before do
-        allow(order).to receive(:minimum_projects_rule?).and_return(false)
-        allow(order).to receive(:minimum_budget).and_return(minimum_budget)
+      let(:threshold_percentage) { 50 }
+      let(:vote_rule_settings) do
+        {
+          vote_rule_threshold_percent_enabled: true,
+          vote_threshold_percent: threshold_percentage,
+          vote_rule_minimum_budget_projects_enabled: false,
+          vote_minimum_budget_projects_number: 0,
+          vote_rule_selected_projects_enabled: false,
+          vote_selected_projects_minimum: 0,
+          vote_selected_projects_maximum: 1
+        }
       end
 
       context "when no projects are selected" do
-        it { is_expected.to be(true) }
+        it { is_expected.to be(false) }
       end
 
       context "when not enough projects are selected" do
-        let(:minimum_budget) { 10_000 }
+        let(:threshold_percentage) { 70 }
+
+        include_context "with first project selected"
 
         it { is_expected.to be(false) }
       end

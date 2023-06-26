@@ -159,18 +159,18 @@ describe "Admin manages help sections", type: :system do
   end
 
   def expect_details_for(section)
-    expect(section.title).to eq(
+    expect(section.title.reject { |k| k == "machine_translations" }).to eq(
       "en" => "My new title",
       "es" => "Mi nuevo título",
       "ca" => "El meu nou títol"
     )
     expect(section.weight).to eq(123)
-    expect(section.description).to eq(
+    expect(section.description.reject { |k| k == "machine_translations" }).to eq(
       "en" => "<p>A longer description</p>",
       "es" => "<p>Descripción más larga</p>",
       "ca" => "<p>Descripció més llarga</p>"
     )
-    expect(section.link_text).to eq(
+    expect(section.link_text.reject { |k| k == "machine_translations" }).to eq(
       "en" => "New link text",
       "es" => "Nuevo texto para enlace",
       "ca" => "Nou text per a l'enllaç"

@@ -90,6 +90,8 @@ module Decidim
 
         def sanitize_localized(hash)
           hash.each do |locale, value|
+            next if value.is_a?(Hash)
+
             hash[locale] = sanitize(value, tags: [])
           end
         end

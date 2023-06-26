@@ -4,11 +4,6 @@ require "spec_helper"
 
 describe "Voting", type: :system do
   include_context "with budgeting setup"
-  include_context "with backwards compatibility" do
-    let(:order_total) { current_order_total }
-  end
-
-  let(:current_order_total) { 0 }
 
   describe "show" do
     context "when the user is not logged in" do
@@ -94,8 +89,6 @@ describe "Voting", type: :system do
 
   describe "projects" do
     let(:budget) { budget1 }
-    let(:current_order_total) { 0 }
-    let(:projects_rule_total_projects) { 0 }
 
     before do
       login_as user, scope: :user
@@ -123,29 +116,32 @@ describe "Voting", type: :system do
     end
 
     context "when project is selected" do
-      let(:current_order_total) { 1 }
-      let(:projects_rule_total_projects) { 1 }
-
       it "does not allow exceeding the budget" do
         page.scroll_to find("#projects-count")
 
-        within all(".card form.button_to")[0] do
-          click_button "Add to voting cart"
+        all(".card form.button_to")[0..4].each do |button|
+          within button do
+            click_button "Add to voting cart"
+          end
         end
 
-        within "#order-update-error" do
-          expect(page).to have_content("Failed adding the proposal to the voting cart")
+        within all(".card")[5] do
+          expect(page).to have_css("button[disabled]")
         end
       end
 
       it "shows progress correctly" do
+        within all(".card form.button_to")[0] do
+          click_button "Add to voting cart"
+        end
+
         page.scroll_to find("#orders")
 
         within "#orders" do
           expect(page).to have_content("Proposals in the cart 1 pcs")
-          expect(page).to have_content("Maximum amount of proposals to be selected 1")
+          expect(page).to have_content("Maximum amount of proposals to be selected 5")
           expect(page).to have_content("Number of selected proposals 1")
-          expect(page).to have_content("Remaining proposals to select 0")
+          expect(page).to have_content("Remaining proposals to select 4")
         end
       end
     end
@@ -153,9 +149,6 @@ describe "Voting", type: :system do
 
   describe "preview" do
     let(:budget) { budget1 }
-    let(:current_order_total) { 1 }
-    let(:projects_rule_total_projects) { 1 }
-
     let!(:order) { create(:order, budget: budget1, user: user) }
 
     before do
@@ -170,16 +163,13 @@ describe "Voting", type: :system do
     end
 
     it "shows the vote preview page" do
-      expect(page).to have_content("Maximum amount of proposals to be selected in the area: 1")
-      expect(page).to have_content(translated(budget1_projects.first))
+      expect(page).to have_content("Maximum amount of proposals to be selected in the area: 5")
+      expect(page).to have_content(translated(budget1_projects.first.title))
     end
   end
 
   describe "create" do
     let(:budget) { budget1 }
-    let(:current_order_total) { 1 }
-    let(:projects_rule_total_projects) { 1 }
-
     let!(:order) { create(:order, budget: budget1, user: user) }
 
     before do

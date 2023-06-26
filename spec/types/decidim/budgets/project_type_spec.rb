@@ -4,8 +4,7 @@ require "spec_helper"
 require "decidim/api/test/type_context"
 
 describe Decidim::Budgets::ProjectType do
-  # include_context "with a graphql class type"
-  include_context "with a graphql type"
+  include_context "with a graphql class type"
 
   let(:model) { create(:budgeting_pipeline_project, component: component) }
   let(:participatory_space) { create(:participatory_process) }

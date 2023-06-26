@@ -122,15 +122,16 @@ describe Decidim::Budgets::VotesController, type: :controller do
       let(:step_settings) { { votes: :enabled } }
       let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
-      include_context "with backwards compatibility" do
-        let(:projects_rule_total_projects) { 2 }
-      end
       include_context "with existing orders"
 
       before do
         order1.projects << create(:project, budget_amount: 10, budget: budget1)
         order1.projects << create(:project, budget_amount: 20, budget: budget1)
-        order1.save!
+        order1.projects << create(:project, budget_amount: 5, budget: budget1)
+        order1.projects << create(:project, budget_amount: 15, budget: budget1)
+        order1.projects << create(:project, budget_amount: 30, budget: budget1)
+        order1.projects << create(:project, budget_amount: 25, budget: budget1)
+        order1.save!(validate: false)
       end
 
       it "redirects to projects selection" do
@@ -203,7 +204,6 @@ describe Decidim::Budgets::VotesController, type: :controller do
       let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
       context "when there are orders available" do
-        include_context "with backwards compatibility"
         include_context "with existing orders"
 
         it "renders" do
@@ -225,7 +225,6 @@ describe Decidim::Budgets::VotesController, type: :controller do
       let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
       context "when there are orders available" do
-        include_context "with backwards compatibility"
         include_context "with existing orders"
 
         it "renders" do
@@ -246,7 +245,6 @@ describe Decidim::Budgets::VotesController, type: :controller do
       let(:step_settings) { { votes: :enabled } }
       let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
-      include_context "with backwards compatibility"
       include_context "with existing orders"
 
       it "redirects to projects" do

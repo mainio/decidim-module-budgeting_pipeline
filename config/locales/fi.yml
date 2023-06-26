@@ -69,6 +69,7 @@ fi:
           new:
             create: Vie tuloksiksi
             select_component: Valitse kohdekomponentti
+            title: Vie ehdotuksia tuloksiksi
       last_activity:
         show_vote_at: Näytä ääneni osallistumistilassa %{name}
         voted_at_html: "<span>Äänestit osoitteessa %{link}</span>"

@@ -7,7 +7,7 @@ require "decidim/budgeting_pipeline/version"
 Gem::Specification.new do |spec|
   spec.name = "decidim-budgeting_pipeline"
   spec.version = Decidim::BudgetingPipeline::VERSION
-  spec.required_ruby_version = ">= 2.6"
+  spec.required_ruby_version = ">= 2.7"
   spec.authors = ["Antti Hukkanen"]
   spec.email = ["antti.hukkanen@mainiotech.fi"]
 

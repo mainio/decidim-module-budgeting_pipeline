@@ -8,9 +8,12 @@ FactoryBot.define do
       vote_rule_settings do
         {
           vote_rule_threshold_percent_enabled: false,
-          vote_rule_minimum_budget_projects_enabled: true,
-          vote_rule_selected_projects_enabled: false,
-          vote_minimum_budget_projects_number: 0
+          vote_threshold_percent: 70,
+          vote_rule_minimum_budget_projects_enabled: false,
+          vote_minimum_budget_projects_number: 0,
+          vote_rule_selected_projects_enabled: true,
+          vote_selected_projects_minimum: 0,
+          vote_selected_projects_maximum: 5
         }
       end
 

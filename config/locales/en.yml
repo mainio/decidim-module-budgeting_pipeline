@@ -69,6 +69,7 @@ en:
           new:
             create: Export to results
             select_component: Select the target component
+            title: Exports proposals to results
       last_activity:
         show_vote_at: Show my vote at %{name}
         voted_at_html: "<span>You voted at %{link}</span>"

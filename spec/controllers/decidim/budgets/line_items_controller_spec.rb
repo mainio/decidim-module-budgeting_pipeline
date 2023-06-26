@@ -69,7 +69,12 @@ describe Decidim::Budgets::LineItemsController, type: :controller do
 
       before do
         order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.save!
+        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
+        order.save!(validate: false)
       end
 
       include_examples "creation error"

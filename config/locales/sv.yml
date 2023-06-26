@@ -69,6 +69,7 @@ sv:
           new:
             create: Exportera till resultat
             select_component: Välj målkomponenten
+            title: Exporterar förslag till resultat
       last_activity:
         show_vote_at: Visa min röst på %{name}
         voted_at_html: "<span>Du röstade på %{link}</span>"
