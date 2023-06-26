@@ -23,8 +23,8 @@ describe Decidim::Budgets::Project do
     end
 
     let(:component_coordinates) { component.settings.default_map_center_coordinates.split(",") }
-    let(:default_latitude) { component_coordinates[0].to_f }
-    let(:default_longitude) { component_coordinates[1].to_f }
+    let(:default_latitude) { component_coordinates[0].to_f.round(12) }
+    let(:default_longitude) { component_coordinates[1].to_f.round(12) }
 
     it "returns the correct amount of projects" do
       expect(subject.count).to eq(15)
