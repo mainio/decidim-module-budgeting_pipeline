@@ -82,7 +82,7 @@ module Decidim
 
         context[:utm_params].transform_keys do |key|
           "utm_#{key}"
-        end.to_h
+        end
       end
 
       def resource_link(options = {})
