@@ -16,7 +16,7 @@ gem "decidim", DECIDIM_VERSION
 gem "decidim-budgeting_pipeline", path: "."
 
 gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.23-stable"
-gem "decidim-stats", github: "mainio/decidim-module-stats", branch: "main"
+gem "decidim-stats", github: "mainio/decidim-module-stats", branch: "release/0.23-stable"
 
 gem "bootsnap", "~> 1.4"
 gem "puma", ">= 4.3"
