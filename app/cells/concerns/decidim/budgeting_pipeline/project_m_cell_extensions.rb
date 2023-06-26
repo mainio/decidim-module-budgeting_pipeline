@@ -80,8 +80,8 @@ module Decidim
       def resource_utm_params
         return {} unless context[:utm_params]
 
-        context[:utm_params].map do |key, value|
-          ["utm_#{key}", value]
+        context[:utm_params].transform_keys do |key|
+          "utm_#{key}"
         end.to_h
       end
 

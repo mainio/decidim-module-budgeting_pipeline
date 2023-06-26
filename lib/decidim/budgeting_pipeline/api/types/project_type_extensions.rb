@@ -9,14 +9,14 @@ module Decidim
           type.implements Decidim::Core::ScopableInterface
           type.implements Decidim::Stats::StatsInterface
 
-          if Decidim::BudgetingPipeline.possible_project_linked_resources.any?
-            type.field :linked_resources, [Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
-              description "The linked resources for this project."
-            end
+          return unless Decidim::BudgetingPipeline.possible_project_linked_resources.any?
 
-            type.field :linking_resources, [Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
-              description "The linking resources for this project."
-            end
+          type.field :linked_resources, [Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
+            description "The linked resources for this project."
+          end
+
+          type.field :linking_resources, [Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
+            description "The linking resources for this project."
           end
         end
 
