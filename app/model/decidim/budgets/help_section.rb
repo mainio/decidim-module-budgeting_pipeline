@@ -12,8 +12,8 @@ module Decidim
 
       translatable_fields :title, :description, :link_text
 
-      validates_upload :image
-      mount_uploader :image, Decidim::Budgets::HelpSectionImageUploader
+      validates_upload :image, uploader: Decidim::Budgets::HelpSectionImageUploader
+      has_one_attached :image
     end
   end
 end

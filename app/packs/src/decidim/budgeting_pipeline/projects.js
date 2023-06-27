@@ -1,9 +1,9 @@
-// = require decidim/budgeting_pipeline/exit_handler
+import { unregisterCallback } from "src/decidim/history";
+import "src/decidim/budgeting_pipeline/exit_handler";
 
 ((exports) => {
   const $ = exports.$; // eslint-disable-line id-length
   const Rails = exports.Rails;
-  const History = exports.Decidim.History;
 
   $(() => {
     const $form = $("form.new_filter");
@@ -22,7 +22,7 @@
     // disabled for all filter inputs.
     $form.each((_i, el) => {
       const $currentForm = $(el);
-      History.unregisterCallback(`filters-${$currentForm.attr("id")}`);
+      unregisterCallback(`filters-${$currentForm.attr("id")}`);
     });
   });
 })(window);

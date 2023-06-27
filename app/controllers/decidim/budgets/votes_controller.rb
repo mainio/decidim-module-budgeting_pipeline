@@ -282,7 +282,8 @@ module Decidim
       def default_filter_params
         {
           search_text: "",
-          status: "all",
+          status: %w(all),
+          scope_id: default_filter_scope_params,
           category_id: "all",
           budget_id: "all",
           budget_amount_min: 0,

@@ -43,7 +43,7 @@ module Decidim
       end
 
       def has_image?
-        model.main_image && model.main_image.url.present?
+        model.main_image && model.main_image.attached?
       end
 
       def has_badge?
@@ -154,7 +154,7 @@ module Decidim
       end
 
       def resource_image_path
-        return model.main_image.thumbnail.url if has_image?
+        return model.attached_uploader(:main_image).path(variant: :thumbnail) if has_image?
 
         path = category_image_path(model.category)
         return path if path
@@ -178,9 +178,9 @@ module Decidim
         return unless has_category?
         return unless cat.respond_to?(:category_image)
         return unless cat.category_image
-        return cat.category_image.url unless cat.category_image.respond_to?(:card)
+        return unless cat.category_image.attached?
 
-        cat.category_image.card.url
+        cat.attached_uploader(:category_image).path(variant: :card)
       end
 
       def icon_category(cat = nil)

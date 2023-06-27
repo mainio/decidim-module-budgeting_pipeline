@@ -7,8 +7,8 @@
   <% help_sections.each do |section| %>
     <div class="card-slide-content">
       <div class="card card--help_section">
-        <% if section.image && section.image.url  %>
-          <%= image_tag section.image.small.url, alt: translated_attribute(section.title), class: "card__image" %>
+        <% if section.image && section.image.attached?  %>
+          <%= image_tag section.attached_uploader(:image).path(variant: :small), alt: translated_attribute(section.title), class: "card__image" %>
         <% end %>
         <div class="card__content">
           <div class="card__header">

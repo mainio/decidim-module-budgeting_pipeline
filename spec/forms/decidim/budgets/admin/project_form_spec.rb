@@ -5,7 +5,7 @@ require "spec_helper"
 describe Decidim::Budgets::Admin::ProjectForm do
   subject(:form) { described_class.from_params(attributes).with_context(context) }
 
-  let(:organization) { create(:organization, available_locales: [:en]) }
+  let(:organization) { create(:organization, tos_version: Time.current, available_locales: [:en]) }
   let(:context) do
     {
       current_organization: organization,

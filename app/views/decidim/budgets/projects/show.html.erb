@@ -50,12 +50,12 @@ edit_link(
   <div class="row" data-equalizer>
     <div class="columns mediumlarge-7">
       <div class="resource-image" data-equalizer-watch>
-        <% if project.main_image && project.main_image.url %>
-          <%= image_tag project.main_image.main.url, class:"project-image", alt: strip_tags(translated_attribute(project.title)) %>
+        <% if project.main_image && project.main_image.attached? %>
+          <%= image_tag project.attached_uploader(:main_image).path(variant: :main), class:"project-image", alt: strip_tags(translated_attribute(project.title)) %>
         <% elsif category_image_path(project.category) %>
           <%= image_tag category_image_path(project.category), class:"project-image", alt: strip_tags(translated_attribute(project.title)) %>
         <% else %>
-          <%= image_tag "decidim/budgets/project-default.jpg", class:"project-image", alt: strip_tags(translated_attribute(project.title)) %>
+          <%= image_tag asset_pack_path("media/images/budgets-project-default.jpg"), class:"project-image", alt: strip_tags(translated_attribute(project.title)) %>
         <% end %>
       </div>
     </div>

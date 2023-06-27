@@ -2,7 +2,7 @@
 
 shared_context "with budgeting setup" do
   let(:organization) { build(:organization, available_authorizations: ["dummy_authorization_handler"], tos_version: Time.current) }
-  let(:component) { create(:budgeting_pipeline_component, permissions: component_permissions, organization: organization) }
+  let(:component) { create(:budgeting_pipeline_component, permissions: component_permissions, participatory_space: create(:participatory_process, :with_steps, organization: organization)) }
   let(:step_settings) { { votes: voting_mode, show_votes: show_votes } }
   let(:voting_mode) { :enabled }
   let(:show_votes) { true }

@@ -6,7 +6,7 @@ describe Decidim::Budgets::OrderSummariesMailer, type: :mailer do
   describe "#order_summaries" do
     let(:mail) { described_class.order_summaries([order1, order2], user) }
 
-    let(:organization) { create(:organization) }
+    let(:organization) { create(:organization, tos_version: Time.current) }
     let(:component) { create(:budgeting_pipeline_component, organization: organization) }
     let(:user) { create(:user, :confirmed, organization: organization) }
     let(:budget1) { create(:budgeting_pipeline_budget, component: component) }

@@ -4,34 +4,17 @@ module Decidim
   module Budgets
     # This class deals with uploading images to projects.
     class ProjectImageUploader < Decidim::RecordImageUploader
-      process :orientate
-
-      version :thumbnail do
-        process resize_to_fill: [860, 340]
-      end
-
-      version :big do
-        process resize_to_limit: [nil, 1000]
-      end
-
-      version :main do
-        process resize_to_fill: [1480, 740]
+      set_variants do
+        {
+          default: { auto_orient: true },
+          thumbnail: { resize_to_fill: [860, 340], auto_orient: true },
+          big: { resize_to_limit: [nil, 1000], auto_orient: true },
+          main: { resize_to_fill: [1480, 740], auto_orient: true }
+        }
       end
 
       def max_image_height_or_width
         8000
-      end
-
-      protected
-
-      # Flips the image to be in correct orientation based on its Exif
-      # orientation metadata.
-      def orientate
-        manipulate! do |img|
-          img.tap(&:auto_orient)
-          img = yield(img) if block_given?
-          img
-        end
       end
     end
   end

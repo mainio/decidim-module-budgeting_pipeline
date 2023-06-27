@@ -72,8 +72,8 @@ module Decidim
       included do
         geocoded_by :address
 
-        validates_upload :main_image
-        mount_uploader :main_image, Decidim::Budgets::ProjectImageUploader
+        validates_upload :main_image, uploader: Decidim::Budgets::ProjectImageUploader
+        has_one_attached :main_image
 
         scope :order_by_most_voted, lambda { |only_voted: false|
           scope = joins(

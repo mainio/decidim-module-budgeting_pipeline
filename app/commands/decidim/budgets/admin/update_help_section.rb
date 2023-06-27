@@ -5,6 +5,8 @@ module Decidim
     module Admin
       # This command is executed when the user updates a budgeting help section.
       class UpdateHelpSection < Rectify::Command
+        include Decidim::AttachmentAttributesMethods
+
         def initialize(form, section)
           @form = form
           @section = section
@@ -32,7 +34,7 @@ module Decidim
             description: form.description,
             link: form.link,
             link_text: form.link_text
-          }.merge(uploader_attributes)
+          }.merge(attachment_attributes(:image))
 
           Decidim.traceability.update!(
             section,
@@ -40,14 +42,6 @@ module Decidim
             attributes,
             visibility: "all"
           )
-        end
-
-        # Prevent the existing image to be re-processed.
-        def uploader_attributes
-          {
-            image: form.image,
-            remove_image: form.remove_image
-          }.delete_if { |_k, val| val.is_a?(Decidim::ApplicationUploader) }
         end
       end
     end

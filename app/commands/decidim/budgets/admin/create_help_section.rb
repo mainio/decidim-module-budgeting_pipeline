@@ -5,6 +5,8 @@ module Decidim
     module Admin
       # This command is executed when the user creates a budgeting help section.
       class CreateHelpSection < Rectify::Command
+        include Decidim::AttachmentAttributesMethods
+
         def initialize(form, container)
           @form = form
           @container = container
@@ -33,9 +35,8 @@ module Decidim
             title: form.title,
             description: form.description,
             link: form.link,
-            link_text: form.link_text,
-            image: form.image
-          }
+            link_text: form.link_text
+          }.merge(attachment_attributes(:image))
 
           @section = Decidim.traceability.create!(
             Decidim::Budgets::HelpSection,

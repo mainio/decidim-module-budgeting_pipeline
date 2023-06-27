@@ -6,6 +6,8 @@ module Decidim
     module AdminUpdateProjectExtensions
       extend ActiveSupport::Concern
 
+      include Decidim::AttachmentAttributesMethods
+
       included do
         def update_project
           Decidim.traceability.update!(
@@ -22,23 +24,24 @@ module Decidim
               address: form.address,
               latitude: form.latitude,
               longitude: form.longitude
-            }.merge(uploader_attributes)
+            }
           )
 
           link_ideas
           link_plans
         end
+
+        # The attached image gets cleared out for some reason during the record
+        # reload, so we update the attachment attributes after the photo
+        # cleanup instead of updating them directly during the record update.
+        def photo_cleanup!
+          super
+
+          project.update!(attachment_attributes(:main_image))
+        end
       end
 
       private
-
-      # Prevent the existing image to be re-processed.
-      def uploader_attributes
-        {
-          main_image: form.main_image,
-          remove_main_image: form.remove_main_image
-        }.delete_if { |_k, val| val.is_a?(Decidim::ApplicationUploader) }
-      end
 
       def ideas
         @ideas ||= project.sibling_scope(:ideas).where(id: form.idea_ids)

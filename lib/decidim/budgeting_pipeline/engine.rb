@@ -6,6 +6,10 @@ module Decidim
     class Engine < ::Rails::Engine
       isolate_namespace Decidim::BudgetingPipeline
 
+      initializer "decidim_budgeting_pipeline.webpacker.assets_path" do
+        Decidim.register_assets_path File.expand_path("app/packs", root)
+      end
+
       initializer "decidim_budgeting_pipeline.component_settings" do
         Decidim.find_component_manifest(:budgets).tap do |component|
           component.admin_stylesheet = "decidim/budgeting_pipeline/admin/budgets"
@@ -74,12 +78,8 @@ module Decidim
           resource :results, only: [:show]
 
           # Change the component root to the projects index
-          root to: "projects#index"
+          root to: "projects#index", as: :pipeline_root
         end
-      end
-
-      initializer "decidim_budgeting_pipeline.assets" do |app|
-        app.config.assets.precompile += %w(decidim_budgeting_pipeline_manifest.js)
       end
 
       initializer "decidim_budgeting_pipeline.add_cells_view_paths", before: "decidim_budgets.add_cells_view_paths" do
@@ -103,88 +103,93 @@ module Decidim
         )
       end
 
-      config.to_prepare do
-        next unless Decidim::BudgetingPipeline.apply_extensions?
+      initializer "decidim_budgeting_pipeline.overrides", after: "decidim.action_controller" do |app|
+        app.config.to_prepare do
+          next unless Decidim::BudgetingPipeline.apply_extensions?
 
-        # Helper extensions
-        Decidim::Budgets::ApplicationHelper.include(
-          Decidim::BudgetingPipeline::ApplicationHelperExtensions
-        )
-        Decidim::Budgets::ProjectsHelper.include(
-          Decidim::BudgetingPipeline::ProjectsHelperExtensions
-        )
+          # Helper extensions
+          Decidim::Budgets::ApplicationHelper.include(
+            Decidim::BudgetingPipeline::ApplicationHelperExtensions
+          )
+          Decidim::Budgets::ProjectsHelper.include(
+            Decidim::BudgetingPipeline::ProjectsHelperExtensions
+          )
 
-        # Controller extensions
-        Decidim::Budgets::ProjectsController.include(
-          Decidim::BudgetingPipeline::ProjectsControllerExtensions
-        )
-        Decidim::Budgets::LineItemsController.include(
-          Decidim::BudgetingPipeline::LineItemsControllerExtensions
-        )
-        Decidim::Budgets::OrdersController.include(
-          Decidim::BudgetingPipeline::OrdersControllerExtensions
-        )
-        Decidim::Budgets::Admin::BudgetsController.include(
-          Decidim::BudgetingPipeline::Admin::BudgetsControllerExtensions
-        )
+          # Controller extensions
+          Decidim::Budgets::ProjectsController.include(
+            Decidim::BudgetingPipeline::ProjectsControllerExtensions
+          )
+          Decidim::Budgets::LineItemsController.include(
+            Decidim::BudgetingPipeline::LineItemsControllerExtensions
+          )
+          Decidim::Budgets::OrdersController.include(
+            Decidim::BudgetingPipeline::OrdersControllerExtensions
+          )
+          Decidim::Budgets::Admin::BudgetsController.include(
+            Decidim::BudgetingPipeline::Admin::BudgetsControllerExtensions
+          )
+          Decidim::Budgets::Admin::ProjectsController.include(
+            Decidim::BudgetingPipeline::Admin::ProjectsControllerExtensions
+          )
 
-        # Cell extensions
-        Decidim::Budgets::ProjectMCell.include(
-          Decidim::BudgetingPipeline::ProjectMCellExtensions
-        )
-        Decidim::Budgets::ProjectListItemCell.include(
-          Decidim::BudgetingPipeline::ProjectListItemCellExtensions
-        )
+          # Cell extensions
+          Decidim::Budgets::ProjectMCell.include(
+            Decidim::BudgetingPipeline::ProjectMCellExtensions
+          )
+          Decidim::Budgets::ProjectListItemCell.include(
+            Decidim::BudgetingPipeline::ProjectListItemCellExtensions
+          )
 
-        # Form extensions
-        Decidim::Budgets::Admin::ComponentForm.include(
-          Decidim::BudgetingPipeline::AdminComponentFormExtensions
-        )
-        Decidim::Budgets::Admin::BudgetForm.include(
-          Decidim::BudgetingPipeline::AdminBudgetFormExtensions
-        )
-        Decidim::Budgets::Admin::ProjectForm.include(
-          Decidim::BudgetingPipeline::AdminProjectFormExtensions
-        )
+          # Form extensions
+          Decidim::Budgets::Admin::ComponentForm.include(
+            Decidim::BudgetingPipeline::AdminComponentFormExtensions
+          )
+          Decidim::Budgets::Admin::BudgetForm.include(
+            Decidim::BudgetingPipeline::AdminBudgetFormExtensions
+          )
+          Decidim::Budgets::Admin::ProjectForm.include(
+            Decidim::BudgetingPipeline::AdminProjectFormExtensions
+          )
 
-        # Command extensions
-        Decidim::Budgets::AddLineItem.include(
-          Decidim::BudgetingPipeline::AddLineItemExtensions
-        )
-        Decidim::Budgets::Admin::CreateBudget.include(
-          Decidim::BudgetingPipeline::AdminCreateBudgetExtensions
-        )
-        Decidim::Budgets::Admin::UpdateBudget.include(
-          Decidim::BudgetingPipeline::AdminUpdateBudgetExtensions
-        )
-        Decidim::Budgets::Admin::CreateProject.include(
-          Decidim::BudgetingPipeline::AdminCreateProjectExtensions
-        )
-        Decidim::Budgets::Admin::UpdateProject.include(
-          Decidim::BudgetingPipeline::AdminUpdateProjectExtensions
-        )
+          # Command extensions
+          Decidim::Budgets::AddLineItem.include(
+            Decidim::BudgetingPipeline::AddLineItemExtensions
+          )
+          Decidim::Budgets::Admin::CreateBudget.include(
+            Decidim::BudgetingPipeline::AdminCreateBudgetExtensions
+          )
+          Decidim::Budgets::Admin::UpdateBudget.include(
+            Decidim::BudgetingPipeline::AdminUpdateBudgetExtensions
+          )
+          Decidim::Budgets::Admin::CreateProject.include(
+            Decidim::BudgetingPipeline::AdminCreateProjectExtensions
+          )
+          Decidim::Budgets::Admin::UpdateProject.include(
+            Decidim::BudgetingPipeline::AdminUpdateProjectExtensions
+          )
 
-        # Model extensions
-        Decidim::ActionLog.include(
-          Decidim::BudgetingPipeline::ActionLogExtensions
-        )
-        Decidim::Budgets::Budget.include(
-          Decidim::Stats::Measurable
-        )
-        Decidim::Budgets::Project.include(
-          Decidim::BudgetingPipeline::ProjectExtensions
-        )
-        Decidim::Budgets::Order.include(
-          Decidim::BudgetingPipeline::OrderExtensions
-        )
-        Decidim::Budgets::LineItem.include(
-          Decidim::BudgetingPipeline::LineItemExtensions
-        )
+          # Model extensions
+          Decidim::ActionLog.include(
+            Decidim::BudgetingPipeline::ActionLogExtensions
+          )
+          Decidim::Budgets::Budget.include(
+            Decidim::Stats::Measurable
+          )
+          Decidim::Budgets::Project.include(
+            Decidim::BudgetingPipeline::ProjectExtensions
+          )
+          Decidim::Budgets::Order.include(
+            Decidim::BudgetingPipeline::OrderExtensions
+          )
+          Decidim::Budgets::LineItem.include(
+            Decidim::BudgetingPipeline::LineItemExtensions
+          )
 
-        # Services extensions
-        Decidim::Budgets::ProjectSearch.include(
-          Decidim::BudgetingPipeline::ProjectSearchExtensions
-        )
+          # Services extensions
+          Decidim::Budgets::ProjectSearch.include(
+            Decidim::BudgetingPipeline::ProjectSearchExtensions
+          )
+        end
       end
     end
   end

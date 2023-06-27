@@ -6,6 +6,8 @@ module Decidim
     module AdminProjectFormExtensions
       extend ActiveSupport::Concern
 
+      include Decidim::HasUploadValidations
+
       class_methods do
         def remove_budget_amount_validation!
           validators_on(:budget_amount).each do |v|
@@ -22,7 +24,7 @@ module Decidim
         attribute :latitude, Decidim::Form::Float
         attribute :longitude, Decidim::Form::Float
         attribute :main_image
-        attribute :remove_main_image
+        attribute :remove_main_image, Decidim::Form::Boolean, default: false
         attribute :idea_ids, Array[Integer]
         attribute :plan_ids, Array[Integer]
 
@@ -34,7 +36,10 @@ module Decidim
         validates :address, geocoding: true, if: ->(form) { form.has_address? && !form.geocoded? }
         validates :main_image, passthru: {
           to: Decidim::Budgets::Project,
-          with: { component: ->(form) { form.current_component } }
+          with: {
+            budget: ->(form) { form.budget },
+            component: ->(form) { form.current_component }
+          }
         }
 
         def map_model(model)

@@ -5,7 +5,7 @@ require "spec_helper"
 describe Decidim::Budgets::SendOrderSummariesJob do
   subject { described_class.perform_now(vote, user) }
 
-  let!(:organization) { create(:organization) }
+  let!(:organization) { create(:organization, tos_version: Time.current) }
   let(:user) { create(:user, :confirmed, organization: organization) }
   let(:component) { create(:budgeting_pipeline_component, organization: organization) }
   let(:vote) { create(:budgeting_pipeline_vote, order_count: 2, user: user, component: component) }

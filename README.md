@@ -24,6 +24,8 @@ And then execute:
 
 ```bash
 $ bundle
+$ bundle exec rails decidim_favorites:install:migrations
+$ bundle exec rails decidim_stats:install:migrations
 $ bundle exec rails decidim_budgeting_pipeline:install:migrations
 $ bundle exec rails db:migrate
 ```
@@ -35,16 +37,17 @@ patient when running the migrations in such environment.
 
 ## Usage
 
-Add this to your `decidim.scss` file:
+This modifies the budgets component by adding a voting pipeline feature to it.
+It focuses the user's attention to the voting action in order to simplify the
+voting process for them.
 
-```scss
-// AFTER THE LINE THAT SAYS:
-// @import "decidim/application";
-// ADD THIS:
-@import "decidim/budgeting_pipeline/budgets";
+In order to display the links to enter the voting booth or see the results, you
+need to add the following snippet to your layout template to display the top
+section at the budgets pages:
+
+```erb
+<%= yield :top if content_for?(:top) %>
 ```
-
-After that, start using the budgets component in the front-end.
 
 ## Contributing
 
@@ -103,7 +106,6 @@ $ bundle exec rubocop
 To ease up following the style guide, you should install the plugin to your
 favorite editor, such as:
 
-- Atom - [linter-rubocop](https://atom.io/packages/linter-rubocop)
 - Sublime Text - [Sublime RuboCop](https://github.com/pderichs/sublime_rubocop)
 - Visual Studio Code - [Rubocop for Visual Studio Code](https://github.com/misogi/vscode-ruby-rubocop)
 

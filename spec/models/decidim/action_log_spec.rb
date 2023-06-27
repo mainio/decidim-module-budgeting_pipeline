@@ -21,7 +21,7 @@ describe Decidim::ActionLog do
     )
   end
 
-  let(:organization) { create(:organization) }
+  let(:organization) { create(:organization, tos_version: Time.current) }
   let(:user) { create(:user, organization: organization) }
   let(:action) { :create }
   let(:participatory_space) { create(:participatory_process, organization: organization) }

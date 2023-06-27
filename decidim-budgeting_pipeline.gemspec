@@ -6,7 +6,7 @@ require "decidim/budgeting_pipeline/version"
 
 Gem::Specification.new do |spec|
   spec.name = "decidim-budgeting_pipeline"
-  spec.version = Decidim::BudgetingPipeline::VERSION
+  spec.version = Decidim::BudgetingPipeline.version
   spec.required_ruby_version = ">= 2.7"
   spec.authors = ["Antti Hukkanen"]
   spec.email = ["antti.hukkanen@mainiotech.fi"]
@@ -25,12 +25,12 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "decidim-budgets", Decidim::BudgetingPipeline::DECIDIM_VERSION
-  spec.add_dependency "decidim-core", Decidim::BudgetingPipeline::DECIDIM_VERSION
-  spec.add_dependency "decidim-favorites", Decidim::BudgetingPipeline::DECIDIM_VERSION
-  spec.add_dependency "decidim-stats", Decidim::BudgetingPipeline::DECIDIM_VERSION
+  spec.add_dependency "decidim-budgets", Decidim::BudgetingPipeline.decidim_version
+  spec.add_dependency "decidim-core", Decidim::BudgetingPipeline.decidim_version
+  spec.add_dependency "decidim-favorites", Decidim::BudgetingPipeline.decidim_version
+  spec.add_dependency "decidim-stats", Decidim::BudgetingPipeline.decidim_version
 
-  spec.add_development_dependency "decidim-accountability", Decidim::BudgetingPipeline::DECIDIM_VERSION
-  spec.add_development_dependency "decidim-dev", Decidim::BudgetingPipeline::DECIDIM_VERSION
-  spec.add_development_dependency "decidim-proposals", Decidim::BudgetingPipeline::DECIDIM_VERSION
+  spec.add_development_dependency "decidim-accountability", Decidim::BudgetingPipeline.decidim_version
+  spec.add_development_dependency "decidim-dev", Decidim::BudgetingPipeline.decidim_version
+  spec.add_development_dependency "decidim-proposals", Decidim::BudgetingPipeline.decidim_version
 end

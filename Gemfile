@@ -10,17 +10,16 @@ base_path = ""
 base_path = "../" if File.basename(__dir__) == "development_app"
 require_relative "#{base_path}lib/decidim/budgeting_pipeline/version"
 
-DECIDIM_VERSION = Decidim::BudgetingPipeline::DECIDIM_VERSION
+DECIDIM_VERSION = Decidim::BudgetingPipeline.decidim_version
 
 gem "decidim", DECIDIM_VERSION
 gem "decidim-budgeting_pipeline", path: "."
 
-gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.24-stable"
-gem "decidim-stats", github: "mainio/decidim-module-stats", branch: "release/0.24-stable"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.25-stable"
+gem "decidim-stats", github: "mainio/decidim-module-stats", branch: "release/0.25-stable"
 
-gem "bootsnap", "~> 1.4.9"
-gem "puma", ">= 5.3.1"
-gem "uglifier", "~> 4.1"
+gem "bootsnap", "~> 1.4"
+gem "puma", ">= 5.5.1"
 
 gem "faker", "~> 2.14"
 
@@ -35,7 +34,7 @@ group :development do
   gem "rubocop-faker"
   gem "spring", "~> 2.0"
   gem "spring-watcher-listen", "~> 2.0"
-  gem "web-console", "~> 3.5"
+  gem "web-console", "~> 4.0.4"
 end
 
 group :test do

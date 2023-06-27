@@ -6,6 +6,8 @@ module Decidim
     module AdminCreateProjectExtensions
       extend ActiveSupport::Concern
 
+      include Decidim::AttachmentAttributesMethods
+
       included do
         def create_project!
           attributes = {
@@ -18,10 +20,8 @@ module Decidim
             budget_amount: form.budget_amount,
             address: form.address,
             latitude: form.latitude,
-            longitude: form.longitude,
-            main_image: form.main_image,
-            remove_main_image: form.remove_main_image
-          }
+            longitude: form.longitude
+          }.merge(attachment_attributes(:main_image))
 
           @project = Decidim.traceability.create!(
             Decidim::Budgets::Project,

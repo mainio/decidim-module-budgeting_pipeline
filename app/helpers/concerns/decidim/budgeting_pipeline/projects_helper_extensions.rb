@@ -99,10 +99,10 @@ module Decidim
         return unless category
         return unless category.respond_to?(:category_image)
 
-        if category.category_image.blank? || category.category_image.url.blank?
-          category_image_path(category.parent) if category.parent
+        if cat.category_image && cat.category_image.attached?
+          category.attached_uploader(:category_image).path
         else
-          category.category_image.url
+          category_image_path(category.parent) if category.parent
         end
       end
 
@@ -120,11 +120,13 @@ module Decidim
       end
 
       def share_image_url
-        project_image&.url || organization_share_image_url
+        return project.attached_uploader(:main_image).path if has_project_image?
+
+        organization_share_image_url
       end
 
-      def project_image
-        project.main_image
+      def has_project_image?
+        project.main_image && project.main_image.attached?
       end
 
       def organization_share_image_url

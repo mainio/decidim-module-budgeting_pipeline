@@ -16,12 +16,15 @@ module Decidim
         attribute :weight, Integer
         attribute :link, String
         attribute :image
-        attribute :remove_image
+        attribute :remove_image, Boolean, default: false
 
         validates :title, translatable_presence: true
         validates :description, translatable_presence: true
 
-        validates :image, passthru: { to: Decidim::Budgets::HelpSection }
+        validates :image, passthru: {
+          to: Decidim::Budgets::HelpSection,
+          with: { component: ->(form) { form.current_component } }
+        }
       end
     end
   end
