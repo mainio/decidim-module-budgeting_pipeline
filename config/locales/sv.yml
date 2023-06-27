@@ -415,3 +415,8 @@ sv:
     statistics:
       orders_count: Röster
       projects_count: Förslag
+  helsinki:
+    content_blocks:
+      records_carousel:
+        next: Nästa
+        previous: Tidigare

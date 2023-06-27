@@ -415,3 +415,8 @@ fi:
     statistics:
       orders_count: Ääntä
       projects_count: Ehdotusta
+  helsinki:
+    content_blocks:
+      records_carousel:
+        next: Seuraava
+        previous: Edellinen
