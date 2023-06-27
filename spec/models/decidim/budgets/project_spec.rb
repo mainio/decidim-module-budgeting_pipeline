@@ -43,8 +43,8 @@ describe Decidim::Budgets::Project do
 
       context "when the locale is not the default locale" do
         let(:returned_data) do
-          data_mapping_translated.each_with_object({}) do |key, hash|
-            hash[key] = data_for_key(subject, key)
+          data_mapping_translated.index_with do |key|
+            data_for_key(subject, key)
           end
         end
 

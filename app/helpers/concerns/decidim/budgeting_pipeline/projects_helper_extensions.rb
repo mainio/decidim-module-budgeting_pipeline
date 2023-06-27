@@ -101,8 +101,8 @@ module Decidim
 
         if cat.category_image && cat.category_image.attached?
           category.attached_uploader(:category_image).path
-        else
-          category_image_path(category.parent) if category.parent
+        elsif category.parent
+          category_image_path(category.parent)
         end
       end
 
