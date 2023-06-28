@@ -11,11 +11,11 @@ module Decidim
 
           return unless Decidim::BudgetingPipeline.possible_project_linked_resources.any?
 
-          type.field :linked_resources, [Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
+          type.field :linked_resources, [Decidim::BudgetingPipeline::ProjectLinkedResourceType], null: true do
             description "The linked resources for this project."
           end
 
-          type.field :linking_resources, [Decidim::BudgetingPipeline::ProjectLinkedResourceType] do
+          type.field :linking_resources, [Decidim::BudgetingPipeline::ProjectLinkedResourceType], null: true do
             description "The linking resources for this project."
           end
         end

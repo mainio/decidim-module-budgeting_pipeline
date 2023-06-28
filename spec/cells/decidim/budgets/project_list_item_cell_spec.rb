@@ -13,7 +13,7 @@ describe Decidim::Budgets::ProjectListItemCell, type: :cell do
 
   before do
     allow(controller).to receive(:current_component).and_return(component)
-    allow(my_cell).to receive(:budget_order_line_item_path).and_return("/line_item")
+    allow_any_instance_of(Decidim::Budgets::ProjectVoteButtonCell).to receive(:budget_order_line_item_path).and_return("/line_item") # rubocop:disable RSpec/AnyInstance
   end
 
   context "when rendering a user idea" do
