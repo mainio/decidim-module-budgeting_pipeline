@@ -21,25 +21,24 @@ module Decidim
 
         def default_filter_params
           {
-            search_text: "",
-            status: %w(all),
-            scope_id: default_filter_scope_params,
-            category_id: "all",
-            budget_id: "all",
-            budget_amount_min: 0,
-            budget_amount_max: maximum_project_budget,
+            search_text_cont: "",
+            with_any_status: %w(all),
+            with_any_scope: default_filter_scope_params,
+            with_any_category: "all",
+            decidim_budgets_budget_id_eq: nil,
+            budget_amount_gteq: 0,
+            budget_amount_lteq: maximum_project_budget,
             activity: "all"
           }
         end
 
-        def context_params
-          {
-            budget: budget,
-            component: current_component,
-            organization: current_organization,
-            current_user: current_user
-          }
+        def search_collection
+          Decidim::Budgets::Project.joins(:budget).where(
+            decidim_budgets_budgets: { decidim_component_id: current_component.id }
+          ).includes([:scope, :component, :category])
         end
+
+        private :search_collection, :default_filter_params
       end
 
       private
@@ -53,7 +52,7 @@ module Decidim
 
       def geocoded_projects
         @geocoded_projects ||= begin
-          base_query = search.results.includes(:category, :component, :scope)
+          base_query = search.result
           base_query.geocoded_data_for(current_component)
         end
       end

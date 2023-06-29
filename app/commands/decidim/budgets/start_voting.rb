@@ -3,7 +3,7 @@
 module Decidim
   module Budgets
     # This command is executed when the user starts the voting process.
-    class StartVoting < Rectify::Command
+    class StartVoting < Decidim::Command
       def initialize(form, user, workflow)
         @form = form
         @user = user

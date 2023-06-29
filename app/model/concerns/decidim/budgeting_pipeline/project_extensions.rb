@@ -112,6 +112,10 @@ module Decidim
         def confirmed_orders_count
           orders.finished.count + paper_orders_count
         end
+
+        def self.ransack(params = {}, options = {})
+          ProjectSearch.new(self, params, options)
+        end
       end
     end
   end

@@ -4,7 +4,7 @@ module Decidim
   module Budgets
     module Admin
       # This command is executed when the user updates a budgeting help section.
-      class UpdateHelpSection < Rectify::Command
+      class UpdateHelpSection < Decidim::Command
         include Decidim::AttachmentAttributesMethods
 
         def initialize(form, section)

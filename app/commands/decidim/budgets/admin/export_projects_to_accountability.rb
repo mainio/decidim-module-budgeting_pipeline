@@ -5,7 +5,7 @@ module Decidim
     module Admin
       # A command with all the business logic when an admin exports projects to
       # a single accountability component.
-      class ExportProjectsToAccountability < Rectify::Command
+      class ExportProjectsToAccountability < Decidim::Command
         include ActionView::Helpers::TextHelper
 
         # Public: Initializes the command.

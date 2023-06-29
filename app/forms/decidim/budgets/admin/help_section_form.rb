@@ -15,8 +15,8 @@ module Decidim
 
         attribute :weight, Integer
         attribute :link, String
-        attribute :image
-        attribute :remove_image, Boolean, default: false
+        attribute :image, Decidim::Attributes::Blob
+        attribute :remove_image, Decidim::AttributeObject::Model::Boolean, default: false
 
         validates :title, translatable_presence: true
         validates :description, translatable_presence: true

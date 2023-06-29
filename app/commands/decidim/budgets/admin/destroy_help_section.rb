@@ -5,7 +5,7 @@ module Decidim
     module Admin
       # This command is executed when the user destroys a HelpSection
       # from the admin panel.
-      class DestroyHelpSection < Rectify::Command
+      class DestroyHelpSection < Decidim::Command
         def initialize(section, current_user)
           @section = section
           @current_user = current_user

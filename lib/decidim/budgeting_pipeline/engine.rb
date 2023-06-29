@@ -128,9 +128,6 @@ module Decidim
           Decidim::Budgets::Admin::BudgetsController.include(
             Decidim::BudgetingPipeline::Admin::BudgetsControllerExtensions
           )
-          Decidim::Budgets::Admin::ProjectsController.include(
-            Decidim::BudgetingPipeline::Admin::ProjectsControllerExtensions
-          )
 
           # Cell extensions
           Decidim::Budgets::ProjectMCell.include(
@@ -183,11 +180,6 @@ module Decidim
           )
           Decidim::Budgets::LineItem.include(
             Decidim::BudgetingPipeline::LineItemExtensions
-          )
-
-          # Services extensions
-          Decidim::Budgets::ProjectSearch.include(
-            Decidim::BudgetingPipeline::ProjectSearchExtensions
           )
         end
       end

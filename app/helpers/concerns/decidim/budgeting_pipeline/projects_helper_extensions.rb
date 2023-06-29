@@ -9,31 +9,33 @@ module Decidim
       include Decidim::BudgetingPipeline::TextUtilities
       include Decidim::MapHelper
 
+      included do
+        def projects_data_for_map(geocoded_projects_data)
+          geocoded_projects_data.map do |data|
+            body = data[2]
+            if body.blank?
+              doc = Nokogiri::HTML(data[3])
+              doc.css("h1, h2, h3, h4, h5, h6").remove
+
+              body = truncate(strip_tags(doc.at("body")&.inner_html), length: 100)
+            end
+
+            {
+              id: data[0],
+              title: data[1],
+              body: body,
+              address: data[4],
+              latitude: data[5],
+              longitude: data[6],
+              link: project_path(data[0])
+            }
+          end
+        end
+      end
+
       def landing_page_content
         translated_attribute(current_settings.landing_page_content).presence ||
           translated_attribute(component_settings.landing_page_content)
-      end
-
-      def projects_data_for_map(geocoded_projects_data)
-        geocoded_projects_data.map do |data|
-          body = data[2]
-          if body.blank?
-            doc = Nokogiri::HTML(data[3])
-            doc.css("h1, h2, h3, h4, h5, h6").remove
-
-            body = truncate(strip_tags(doc.at("body")&.inner_html), length: 100)
-          end
-
-          {
-            id: data[0],
-            title: data[1],
-            body: body,
-            address: data[4],
-            latitude: data[5],
-            longitude: data[6],
-            link: project_path(data[0])
-          }
-        end
       end
 
       def projects_map(geocoded_projects)

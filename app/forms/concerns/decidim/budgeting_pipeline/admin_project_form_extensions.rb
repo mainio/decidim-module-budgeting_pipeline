@@ -20,11 +20,11 @@ module Decidim
         alias_method :map_model_orig_budgeting_pipeline, :map_model unless method_defined?(:map_model_orig_budgeting_pipeline)
 
         translatable_attribute :summary, String
-        attribute :address, Decidim::Form::String
-        attribute :latitude, Decidim::Form::Float
-        attribute :longitude, Decidim::Form::Float
-        attribute :main_image
-        attribute :remove_main_image, Decidim::Form::Boolean, default: false
+        attribute :address, String
+        attribute :latitude, Float
+        attribute :longitude, Float
+        attribute :main_image, Decidim::Attributes::Blob
+        attribute :remove_main_image, Decidim::AttributeObject::Model::Boolean, default: false
         attribute :idea_ids, Array[Integer]
         attribute :plan_ids, Array[Integer]
 
@@ -47,21 +47,6 @@ module Decidim
 
           self.idea_ids = model.linked_resources(:ideas, "included_ideas").pluck(:id)
           self.plan_ids = model.linked_resources(:plans, "included_plans").pluck(:id)
-        end
-
-        # Temporary fix to fix the gallery attachment methods
-        def photos
-          return @photos_records if @photos_records
-
-          return @photos unless @photos.is_a?(Array)
-
-          @photos_records = @photos.map do |attachment|
-            if attachment.is_a?(String) || attachment.is_a?(Integer)
-              Decidim::Attachment.find_by(id: attachment)
-            else
-              attachment
-            end
-          end.compact
         end
 
         def geocoding_enabled?

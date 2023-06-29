@@ -7,8 +7,8 @@ module Decidim
       extend ActiveSupport::Concern
 
       included do
-        attribute :center_latitude, Decidim::Form::Float
-        attribute :center_longitude, Decidim::Form::Float
+        attribute :center_latitude, Float
+        attribute :center_longitude, Float
 
         def geocoded?
           center_latitude.present? && center_longitude.present?

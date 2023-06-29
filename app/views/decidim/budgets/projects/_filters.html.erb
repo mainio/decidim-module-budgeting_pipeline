@@ -26,36 +26,36 @@ type_suffix = defined?(type) ? "_#{type}" : ""
       <div class="filters__section text_filter">
         <fieldset>
           <legend class="mini-title"><%= t(".term") %></legend>
-          <%= form.search_field :search_text, label: false, placeholder: t(".term"), title: t(".term"), "aria-label": t(".term"), data: { disable_dynamic_change: true } %>
+          <%= form.search_field :search_text_cont, label: false, placeholder: t(".term"), title: t(".term"), "aria-label": t(".term"), data: { disable_dynamic_change: true } %>
         </fieldset>
       </div>
     </div>
     <% if display_budgets_filter? %>
       <div class="<%= main_row_column_class %><%= " end" if !display_category_filter? && !display_status_filter? %>">
-        <div class="filters__section budget_id_filter">
+        <div class="filters__section decidim_budgets_budget_id_eq_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".budget") %></legend>
-            <%= form.select(:budget_id, filter_budgets_values, { label: false, include_blank: filter_budgets_label }, "aria-label": t(".budget"), data: { disable_dynamic_change: true }) %>
+            <%= form.select(:decidim_budgets_budget_id_eq, filter_budgets_values, { label: false, include_blank: filter_budgets_label }, "aria-label": t(".budget"), data: { disable_dynamic_change: true }) %>
           </fieldset>
         </div>
       </div>
     <% end %>
     <% if display_category_filter? %>
       <div class="<%= main_row_column_class %><%= " end" unless display_status_filter? %>">
-        <div class="filters__section category_id_filter">
+        <div class="filters__section with_any_category_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".category") %></legend>
-            <%= form.select(:category_id, filter_categories_values, { label: false, include_blank: t(".categories_values.all") }, "aria-label": t(".category"), data: { disable_dynamic_change: true }) %>
+            <%= form.select(:with_any_category, filter_categories_values, { label: false, include_blank: t(".categories_values.all") }, "aria-label": t(".category"), data: { disable_dynamic_change: true }) %>
           </fieldset>
         </div>
       </div>
     <% end %>
     <% if display_status_filter? %>
       <div class="<%= main_row_column_class %> end">
-        <div class="filters__section status_filter">
+        <div class="filters__section with_any_status_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".status") %></legend>
-            <%= form.select(:status, filter_status_values, { label: false, include_blank: t(".status_values.all") }, "aria-label": t(".status"), data: { disable_dynamic_change: true }) %>
+            <%= form.select(:with_any_status, filter_status_values, { label: false, include_blank: t(".status_values.all") }, "aria-label": t(".status"), data: { disable_dynamic_change: true }) %>
           </fieldset>
         </div>
       </div>
@@ -82,22 +82,22 @@ type_suffix = defined?(type) ? "_#{type}" : ""
   <div id="additional_search<%= type_suffix %>" class="row is-hidden" data-toggler=".is-hidden">
     <% if display_budget_amount_filters? %>
       <div class="columns mediumlarge-6 large-3">
-        <div class="filters__section budget_amount_min_filter">
+        <div class="filters__section budget_amount_gteq_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".budget_amount_min") %></legend>
             <div class="input-group">
-              <%= form.number_field :budget_amount_min, label: false, class: "input-group-field", placeholder: t(".budget_enter_amount"), title: t(".budget_amount_min"), "aria-label": t(".budget_amount_min"), data: { disable_dynamic_change: true } %>
+              <%= form.number_field :budget_amount_gteq, label: false, class: "input-group-field", placeholder: t(".budget_enter_amount"), title: t(".budget_amount_min"), "aria-label": t(".budget_amount_min"), data: { disable_dynamic_change: true } %>
               <span class="input-group-label"><%= Decidim.currency_unit %></span>
             </div>
           </fieldset>
         </div>
       </div>
       <div class="columns mediumlarge-6 large-3<%= " end" unless current_user %>">
-        <div class="filters__section budget_amount_max_filter">
+        <div class="filters__section budget_amount_lteq_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".budget_amount_max") %></legend>
             <div class="input-group">
-              <%= form.number_field :budget_amount_max, label: false, class: "input-group-field", placeholder: t(".budget_enter_amount"), title: t(".budget_amount_max"), "aria-label": t(".budget_amount_max"), data: { disable_dynamic_change: true } %>
+              <%= form.number_field :budget_amount_lteq, label: false, class: "input-group-field", placeholder: t(".budget_enter_amount"), title: t(".budget_amount_max"), "aria-label": t(".budget_amount_max"), data: { disable_dynamic_change: true } %>
               <span class="input-group-label"><%= Decidim.currency_unit %></span>
             </div>
           </fieldset>

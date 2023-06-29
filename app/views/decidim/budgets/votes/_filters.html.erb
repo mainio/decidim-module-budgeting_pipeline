@@ -20,16 +20,16 @@ type_suffix = defined?(type) ? "_#{type}" : ""
       <div class="filters__section text_filter">
         <fieldset>
           <legend class="mini-title"><%= t("term", scope: i18n_scope) %></legend>
-          <%= form.search_field :search_text, label: false, placeholder: t("term", scope: i18n_scope), title: t("term", scope: i18n_scope), "aria-label": t("term", scope: i18n_scope), data: { disable_dynamic_change: true } %>
+          <%= form.search_field :search_text_cont, label: false, placeholder: t("term", scope: i18n_scope), title: t("term", scope: i18n_scope), "aria-label": t("term", scope: i18n_scope), data: { disable_dynamic_change: true } %>
         </fieldset>
       </div>
     </div>
     <% if display_budgets_filter? %>
       <div class="columns mediumlarge-6 large-4 end">
-        <div class="filters__section budget_id_filter">
+        <div class="filters__section decidim_budgets_budget_id_eq_filter">
           <fieldset>
             <legend class="mini-title"><%= t("budget", scope: i18n_scope) %></legend>
-            <%= form.select(:budget_id, filter_budgets_values, { label: false, include_blank: filter_budgets_label }, "aria-label": t("budget", scope: i18n_scope), data: { disable_dynamic_change: true }) %>
+            <%= form.select(:decidim_budgets_budget_id_eq, filter_budgets_values, { label: false, include_blank: filter_budgets_label }, "aria-label": t("budget", scope: i18n_scope), data: { disable_dynamic_change: true }) %>
           </fieldset>
         </div>
       </div>
@@ -56,32 +56,32 @@ type_suffix = defined?(type) ? "_#{type}" : ""
   <div id="additional_search<%= type_suffix %>" class="row is-hidden" data-toggler=".is-hidden">
     <% if display_category_filter? %>
       <div class="columns mediumlarge-12 large-4">
-        <div class="filters__section category_id_filter">
+        <div class="filters__section with_any_category_filter">
           <fieldset>
             <legend class="mini-title"><%= t("category", scope: i18n_scope) %></legend>
-            <%= form.select(:category_id, filter_categories_values, { label: false, include_blank: t("categories_values.all", scope: i18n_scope) }, "aria-label": t("category", scope: i18n_scope), data: { disable_dynamic_change: true }) %>
+            <%= form.select(:with_any_category, filter_categories_values, { label: false, include_blank: t("categories_values.all", scope: i18n_scope) }, "aria-label": t("category", scope: i18n_scope), data: { disable_dynamic_change: true }) %>
           </fieldset>
         </div>
       </div>
     <% end %>
     <% if display_budget_amount_filters? %>
       <div class="columns mediumlarge-6 large-3">
-        <div class="filters__section budget_amount_min_filter">
+        <div class="filters__section budget_amount_gteq_filter">
           <fieldset>
             <legend class="mini-title"><%= t("budget_amount_min", scope: i18n_scope) %></legend>
             <div class="input-group">
-              <%= form.number_field :budget_amount_min, label: false, class: "input-group-field", placeholder: t("budget_enter_amount", scope: i18n_scope), title: t("budget_amount_min", scope: i18n_scope), "aria-label": t("budget_amount_min", scope: i18n_scope), data: { disable_dynamic_change: true } %>
+              <%= form.number_field :budget_amount_gteq, label: false, class: "input-group-field", placeholder: t("budget_enter_amount", scope: i18n_scope), title: t("budget_amount_min", scope: i18n_scope), "aria-label": t("budget_amount_min", scope: i18n_scope), data: { disable_dynamic_change: true } %>
               <span class="input-group-label"><%= Decidim.currency_unit %></span>
             </div>
           </fieldset>
         </div>
       </div>
       <div class="columns mediumlarge-6 large-3 end">
-        <div class="filters__section budget_amount_max_filter">
+        <div class="filters__section budget_amount_lteq_filter">
           <fieldset>
             <legend class="mini-title"><%= t("budget_amount_max", scope: i18n_scope) %></legend>
             <div class="input-group">
-              <%= form.number_field :budget_amount_max, label: false, class: "input-group-field", placeholder: t("budget_enter_amount", scope: i18n_scope), title: t("budget_amount_max", scope: i18n_scope), "aria-label": t("budget_amount_max", scope: i18n_scope), data: { disable_dynamic_change: true } %>
+              <%= form.number_field :budget_amount_lteq, label: false, class: "input-group-field", placeholder: t("budget_enter_amount", scope: i18n_scope), title: t("budget_amount_max", scope: i18n_scope), "aria-label": t("budget_amount_max", scope: i18n_scope), data: { disable_dynamic_change: true } %>
               <span class="input-group-label"><%= Decidim.currency_unit %></span>
             </div>
           </fieldset>
