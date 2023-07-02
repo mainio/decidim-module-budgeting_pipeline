@@ -8,21 +8,21 @@ module Decidim
 
       included do
         def call
-          transaction do
-            invalid_reason =
-              if voting_not_enabled?
-                :voting_not_enabled
-              elsif order.checked_out?
-                :order_checked_out
-              elsif !order.allocation_available_for?(project)
-                if order.projects_rule?
-                  :project_exceeds_amount
-                else
-                  :project_exceeds_budget
-                end
+          invalid_reason =
+            if voting_not_enabled?
+              :voting_not_enabled
+            elsif order.checked_out?
+              :order_checked_out
+            elsif !order.allocation_available_for?(project)
+              if order.projects_rule?
+                :project_exceeds_amount
+              else
+                :project_exceeds_budget
               end
-            return broadcast(:invalid, invalid_reason) if invalid_reason
+            end
+          return broadcast(:invalid, invalid_reason) if invalid_reason
 
+          transaction do
             add_line_item
             broadcast(:ok, order)
           end

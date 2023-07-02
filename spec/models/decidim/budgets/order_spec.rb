@@ -58,8 +58,8 @@ describe Decidim::Budgets::Order do
     it "orders the results by the budget weights" do
       indexes = {}
       indexes[budget2.id] = order_amounts[budget2.id] * budget2_projects.count
-      indexes[budget3.id] = indexes[budget2.id] + order_amounts[budget3.id] * budget3_projects.count
-      indexes[budget1.id] = indexes[budget3.id] + order_amounts[budget1.id] * budget1_projects.count
+      indexes[budget3.id] = indexes[budget2.id] + (order_amounts[budget3.id] * budget3_projects.count)
+      indexes[budget1.id] = indexes[budget3.id] + (order_amounts[budget1.id] * budget1_projects.count)
       subject.each_with_index do |order, idx|
         msg = "Expected budget ##{order.budget.id} at index #{idx}"
         if idx < indexes[budget2.id]

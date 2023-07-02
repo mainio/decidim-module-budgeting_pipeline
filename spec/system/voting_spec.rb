@@ -66,7 +66,7 @@ describe "Voting", type: :system do
 
       within "form#new_budget_select_" do
         budgets.each do |budget|
-          expect(find("label", text: translated(budget.title))).not_to be(nil)
+          expect(find("label", text: translated(budget.title))).not_to be_nil
         end
       end
     end
@@ -83,7 +83,7 @@ describe "Voting", type: :system do
       find("label", text: translated(budget1.title)).click
       click_button "Select proposals"
 
-      expect(find("h2", text: "Select proposals")).not_to be(nil)
+      expect(find("h2", text: "Select proposals")).not_to be_nil
     end
   end
 

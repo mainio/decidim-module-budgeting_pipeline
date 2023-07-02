@@ -41,7 +41,7 @@ describe "Admin exports projects to accountability", type: :system do
       expect(result.title).to eq(project.title)
       expect(result.description).to eq(project.description)
       expect(result.progress).to eq(0)
-      expect(result.status).to be(nil)
+      expect(result.status).to be_nil
       expect(result.weight).to eq(0)
     end
 

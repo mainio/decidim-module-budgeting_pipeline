@@ -41,7 +41,7 @@ describe Decidim::Budgets::OrderSummariesMailer, type: :mailer do
       let(:mail) { described_class.order_summaries([], user) }
 
       it "does not send the email" do
-        expect(mail.to).to be(nil)
+        expect(mail.to).to be_nil
       end
     end
   end

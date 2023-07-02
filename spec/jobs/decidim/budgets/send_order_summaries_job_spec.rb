@@ -24,7 +24,7 @@ describe Decidim::Budgets::SendOrderSummariesJob do
     let(:user) { create(:user, :confirmed, email: "", managed: true, organization: organization) }
 
     it "does not send email" do
-      expect(last_email).to be(nil)
+      expect(last_email).to be_nil
     end
   end
 
@@ -32,7 +32,7 @@ describe Decidim::Budgets::SendOrderSummariesJob do
     subject { described_class.perform_now(vote, nil) }
 
     it "does not send email" do
-      expect(last_email).to be(nil)
+      expect(last_email).to be_nil
     end
   end
 end
