@@ -5,9 +5,7 @@ module Decidim
     module Api
       module ProjectTypeExtensions
         def self.included(type)
-          type.implements Decidim::Core::CategorizableInterface
-          type.implements Decidim::Core::ScopableInterface
-          type.implements Decidim::Stats::StatsInterface
+          type.include Decidim::Stats::StatsTypeExtension
 
           return unless Decidim::BudgetingPipeline.possible_project_linked_resources.any?
 
