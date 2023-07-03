@@ -234,8 +234,8 @@ sv:
           show_less_detailed: Visa mindre från område %{name}
           show_more: Visa mer
           show_more_detailed: Visa mer från område %{name}
-          title_ordered: "%{budget} - Ordnade efter röster"
-          title_winning: "%{budget} - Implementeringslista"
+          title_ordered: "%{budget}"
+          title_winning: "%{budget}"
         icon_heart:
           title: Hjärta
         projects_table:
@@ -342,7 +342,7 @@ sv:
           allocated_budget: Använt av budgeten
           allocated_projects: Antal utvalda förslag
           available_budget: Budget för området
-          available_projects: Maximalt antal projekt som ska väljas
+          available_projects: Maximalt antal förslag som ska väljas
           selected_projects: Förslag i korgen
           selected_projects_count: "%{count} st"
           unused_budget: Återstående budget
