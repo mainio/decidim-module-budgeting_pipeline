@@ -5,7 +5,7 @@ module Decidim
     module Api
       module BudgetTypeExtensions
         def self.included(type)
-          type.implements Decidim::Stats::StatsInterface
+          type.include Decidim::Stats::StatsTypeExtension
         end
       end
     end
