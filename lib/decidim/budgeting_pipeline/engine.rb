@@ -103,6 +103,20 @@ module Decidim
         )
       end
 
+      # Needed for the 0.25 active storage migration
+      initializer "decidim_budgeting_pipeline.activestorage_migration" do
+        next unless Decidim.const_defined?("CarrierWaveMigratorService")
+
+        Decidim::CarrierWaveMigratorService.send(:remove_const, :MIGRATION_ATTRIBUTES).tap do |attributes|
+          additional_attributes = [
+            [Decidim::Budgets::Project, "main_image", Decidim::Cw::Budgets::ProjectImageUploader, "main_image"],
+            [Decidim::Budgets::HelpSection, "image", Decidim::Cw::Budgets::HelpSectionImageUploader, "image"]
+          ]
+
+          Decidim::CarrierWaveMigratorService.const_set(:MIGRATION_ATTRIBUTES, (attributes + additional_attributes).freeze)
+        end
+      end
+
       initializer "decidim_budgeting_pipeline.overrides", after: "decidim.action_controller" do |app|
         app.config.to_prepare do
           next unless Decidim::BudgetingPipeline.apply_extensions?
