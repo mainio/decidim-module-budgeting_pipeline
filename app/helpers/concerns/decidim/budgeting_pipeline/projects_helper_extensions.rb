@@ -99,7 +99,7 @@ module Decidim
         return unless category
         return unless category.respond_to?(:category_image)
 
-        if cat.category_image && cat.category_image.attached?
+        if category.category_image && category.category_image.attached?
           category.attached_uploader(:category_image).path
         elsif category.parent
           category_image_path(category.parent)
