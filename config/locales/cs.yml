@@ -1,0 +1,448 @@
+cs:
+  activemodel:
+    attributes:
+      accountability_export:
+        export_all_selected_projects: Export all votable proposals marked as selected
+        target_component_id: Target component
+      budget:
+        center_latitude: Center latitude
+        center_longitude: Center longitude
+      help_section:
+        description: Description
+        image: Image
+        link: Link
+        link_text: Link text
+        title: Title
+        weight: Order number
+      project:
+        address: Address
+        main_image: Primary image
+        summary: Summary for cards
+  activerecord:
+    models:
+      decidim/budgets/project:
+        one: Votable proposal
+        few: Votable proposals
+        many: Votable proposals
+        other: Votable proposals
+  decidim:
+    budgeting_pipeline:
+      admin:
+        area_scopes:
+          choose_parent: Select a theme first and enable themes for the component.
+      help_containers:
+        index:
+          name: Front page
+        pipeline:
+          name: Voting pipeline
+    budgets:
+      admin:
+        actions:
+          export_results: Exports proposals to results
+        models:
+          help_section:
+            name: Help section
+        help_sections:
+          create:
+            invalid: There was a problem creating the help section
+            success: Help section successfully created
+          destroy:
+            invalid: There was a problem deleting the help section
+            success: Help section successfully deleted
+          edit:
+            title: Edit help section
+            update: Update help section
+          new:
+            create: Create help section
+            title: New help section
+          update:
+            invalid: There was a problem updating the help section
+            success: Help section successfully updated
+        helps:
+          index:
+            title: Helping content
+        projects:
+          form:
+            selected_help: This is chosen after the voting if the project has been voted for implementation.
+        results_exports:
+          create:
+            invalid: There was a problem exporting the proposals to results
+            success: Proposals successfully exported to results
+          new:
+            create: Export to results
+            select_component: Select the target component
+            title: Exports proposals to results
+      last_activity:
+        show_vote_at: Show my vote at %{name}
+        voted_at_html: "<span>You voted at %{link}</span>"
+      line_items:
+        error_details:
+          budget_title: Area name
+          project_title: Proposal title
+          project_budget: Proposal price
+          unused_budget: Remaining budget for the area
+        error_message:
+          error:
+            order_checked_out:
+              description: You have already voted in participatory budgeting. You can no longer add proposals to your voting cart.
+              title: You have already voted
+            project_exceeds_amount:
+              description: You cannot add more proposals for this area to your voting cart. First, remove other proposals in this area from your vote and add this proposal again to your vote.
+              title: You have already added the maximum amount of proposals
+            project_exceeds_budget:
+              description: The cost of this proposal exceeds the remaining budget for this area. First, remove other proposals in this area from your vote and add this proposal again to your vote.
+              title: The remaining budget on this area is not sufficient for this proposal
+            voting_not_enabled:
+              description: Voting has ended. You cannot add proposals to the voting cart when voting is inactive.
+              title: Voting is not possible at this moment
+        error_modal:
+          title: Failed adding the proposal to the voting cart
+      models:
+        help_container:
+          fields:
+            name: Name
+        help_section:
+          fields:
+            title: Title
+            weight: Order number
+        project:
+          fields:
+            address: Address
+          statuses:
+            not_selected: Will not proceed to implementation
+            selected: Proceeds to implementation
+      order_summaries_mailer:
+        order_summaries:
+          no_selected_projects: You did not select any proposals from this area.
+          selected_projects: 'Selected proposals:'
+          subject: You voted in %{budget_names}
+          voted_on_budgets: You voted in %{budget_names}.
+          votes_summary: Below you will find a summary of your vote.
+      orders:
+        continue_button:
+          label: Preview and vote
+        index:
+          back: Show proposals
+          description_html: <p>On this page you see how you voted.</p>
+          follow_voting: Follow the voting situation
+          not_voted: You have not yet voted.
+          see_results: Show final results
+          title: My vote
+        orders_info:
+          allocated_budget: Total budget for the selected proposals
+          allocated_projects: Number of selected proposals
+          empty_order: You did not choose any proposals from area %{name}.
+          title: Preview and voting
+          total_budget: Budget for the area
+          total_projects: Number of proposals available in the area
+          vote: Vote
+        orders_modal:
+          close: Back to proposal selection
+      project_list_item:
+        more_info: Read more about this proposal
+        more_info_with_title: Read more about %{title}
+      project_m:
+        card_label: "Proposal: %{title}"
+        votes_amount:
+          one: "%{count} vote"
+          few: "%{count} votes"
+          many: "%{count} votes"
+          other: "%{count} votes"
+      projects:
+        count:
+          projects_count:
+            one: Found 1 proposal
+            few: Found %{count} proposals
+            many: Found %{count} proposals
+            other: Found %{count} proposals
+        details_table:
+          budget_amount: Budget
+          budget_name: Area
+          category_name: Theme
+          vote_count: Votes
+        filters:
+          activity: My activity
+          activity_values:
+            all: All
+            authored: My proposals
+            favorites: My favorites
+          budget: Area
+          budget_amount_max: Maximum budget
+          budget_amount_min: Minimum budget
+          budget_enter_amount: Enter a number
+          budgets_values:
+            all:
+              two: Both areas
+              other: All areas
+          categories_values:
+            all: All themes
+          label: Proposal search
+          more_criteria:
+            hide: Hide search criteria
+            show: Show more search criteria
+          reset: Clear filters
+          search: Search
+          status_values:
+            not_selected: Will not proceed to implementation
+            selected: Proceeds to implementation
+          term: Keyword
+          title: Search proposals
+        index:
+          follow_voting: Follow the voting situation
+          see_results: Show final results
+          see_your_vote: See my vote
+          start_voting: Go to browse the proposals and vote
+          title: Proposals
+          view_project: Show proposal
+          view_project_detailed: "Show proposal: %{name}"
+        orders:
+          alphabetical: Alphabetical
+          label: Proposal order
+        project:
+          view: Show proposal
+          view_detailed: "Show proposal: %{name}"
+        project_actions:
+          share: Share proposal
+          show_comments: Show proposal comments
+          show_on_map: Show proposal on map
+          print: Print proposal
+        project_budget_button:
+          add_descriptive: Add proposal %{resource_name} to your voting cart
+          added_descriptive: Proposal %{resource_name} added to your voting cart
+          add_to_vote: Add to voting cart
+          remove_descriptive: Remove proposal %{resource_name} from voting cart
+          remove_from_vote: Remove from voting cart
+        projects:
+          empty: No proposals matching your search criteria. Please change your search criteria and try again.
+          order_items_amount:
+            one: There is %{count} proposal in your cart
+            few: There are %{count} proposals in your cart
+            many: There are %{count} proposals in your cart
+            other: There are %{count} proposals in your cart
+          show_orders: Show voting cart
+        show:
+          close: Close
+          start_voting: Start voting
+          view_all_projects: Show all proposals
+          votes_amount:
+            one: "%{count} vote"
+            few: "%{count} votes"
+            many: "%{count} votes"
+            other: "%{count} votes"
+          voting_note_html: |-
+            <p>To start voting, you have to identify yourself and enter the voting mode.
+            In the voting mode, you have to select the area to which this proposal belongs and select it for your vote.
+            Add this proposal to your favourites in order to find its area more easily during the voting.</p>
+      results:
+        budget_results:
+          budget: "Budget: %{amount}"
+          extra_note_for_budgeting_rule: The budget of this area is not sufficient for the proposals shown below. Therefore, they are not currently going for implementation.
+          extra_note_for_budgeting_rule_selected: The proposals shown below were not selected for implementation.
+          extra_note_for_projects_rule: The proposals shown below were not selected for implementation.
+          no_votes_yet: There are no votes in this area yet.
+          show_less: Show less
+          show_less_detailed: Show less from area %{name}
+          show_more: Show more
+          show_more_detailed: Show more from area %{name}
+          title_ordered: "%{budget}"
+          title_winning: "%{budget}"
+        icon_heart:
+          title: Heart
+        projects_table:
+          amount:
+            one: "%{count} pcs"
+            few: "%{count} pcs"
+            many: "%{count} pcs"
+            other: "%{count} pcs"
+          order_number: Order number
+          project_budget: Budget
+          project_name: Proposal
+          project_votes: Votes
+        show:
+          show_projects: Show proposals
+          see_your_vote: See my vote
+          title: Current voting results
+        vote_finished_modal:
+          close: Close window
+          continue: Continue signed in
+          sign_out: Sign out
+          title: Thank you for your vote!
+      votes:
+        budget_selector:
+          favorites_for_budget:
+            one: "one favorite in the area"
+            few: "%{count} favorites in the area"
+            many: "%{count} favorites in the area"
+            other: "%{count} favorites in the area"
+        budgets:
+          actions:
+            continue: Select proposals
+          authorization_note: "Your postal code belongs to area: %{budget_name}"
+          budget_select_note:
+            default: Choose the area in which you want to vote.
+            suggested: You can change the voting area by selecting another area.
+          highlighted_budgets:
+            one: "Based on your identification, your area is:"
+            few: "Based on your identification, your areas are:"
+            many: "Based on your identification, your areas are:"
+            other: "Based on your identification, your areas are:"
+          highlighted_budgets_note:
+            one: If the area is correct, you can proceed to voting.
+            few: If the areas are correct, you can proceed to voting.
+            many: If the areas are correct, you can proceed to voting.
+            other: If the areas are correct, you can proceed to voting.
+          select_budgets: Select voting area
+          show_more_information_default: Show additional information
+          sticky_budgets:
+            one: Everyone can vote for the proposals in this area
+            few: Everyone can vote for the proposals in these areas
+            many: Everyone can vote for the proposals in these areas
+            other: Everyone can vote for the proposals in these areas
+          title: Select voting area
+        create:
+          error: Processing your vote failed, please try again.
+          success: Your vote has been successfully saved!
+        exit_modal:
+          cancel: Return to voting
+          close: Close window
+          exit: Exit voting
+          message: Your vote has not been registered because you have not yet completed the voting process. Are you sure you want to exit voting?
+          title: Exit notification
+        general:
+          already_voted: You have already voted.
+          exit_voting: Exit voting
+          move_to_next_step: "Proceed to the next step: %{name}"
+          move_to_prev_step: "Back to the previous step: %{name}"
+          not_authorized: You have to identify yourself in order to vote.
+          voting_blocked: You cannot vote at this moment.
+          voting_over: Voting has ended.
+        identify_options:
+          granted_authorizations_info: Your identity information does not match the voting requirements and therefore you cannot vote.
+          granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
+          granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
+          pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
+          pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
+          title: Strong identification
+        order_items:
+          empty: You have not selected any proposals from this area.
+        order_notifications:
+          errors:
+            allocation_exceeded:
+              description: You must delete one or more proposals that exceed the total budget for your selected area to preview and confirm your vote.
+              title: The budget for the area has been exceeded!
+            allocation_exceeded_projects:
+              description: You must delete one or more proposals that exceed the total number of proposals for your selected area to preview and confirm your vote.
+              title: Too many proposals selected!
+            maximum_budget:
+              description: Please remove one or more proposals from your vote before proceeding to the next step. You have up to %{amount} available.
+              title: You have exceeded the budget for the area %{budget}
+            minimum_budget:
+              description: Add proposals to your vote before you can proceed to the next step. You must spend at least %{amount} of the budget.
+              title: You have to select more proposals from area %{budget}
+            maximum_projects:
+              description: Please remove one or more proposals from your vote before proceeding to the next step.
+              title:
+                one: You can select a single proposal from the area %{budget}
+                few: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
+                many: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
+                other: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
+            minimum_projects:
+              description:
+                one: You have to add at least one proposal from this area to your vote in order to proceed to the next step.
+                few: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
+                many: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
+                other: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
+              title:
+                one: You have not selected any proposals from the area %{budget}
+                few: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
+                many: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
+                other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
+          warnings:
+            no_projects:
+              description: Please note that you can select proposals for the voting cart from multiple areas. If you want to add proposals to this area, go back to view the proposals and select the ones you want to add to your vote.
+              title: You have not selected any proposals from the area %{budget}
+            no_projects_single:
+              description: If you want to add proposals also to your vote, go back to proposals browsing and select the proposals you want to add to your voting cart.
+              title: You have not selected any proposals from the area %{budget}
+        order_progress:
+          allocated_budget: Budget spent
+          allocated_projects: Number of selected proposals
+          available_budget: Budget for the area
+          available_projects: Maximum amount of proposals to be selected
+          selected_projects: Proposals in the cart
+          selected_projects_count: "%{count} pcs"
+          unused_budget: Remaining budget
+          unused_projects: Remaining proposals to select
+        orders_summary:
+          order_items:
+            hide: Hide selected proposals for this area
+            hide_detailed: Hide selected proposals on the %{name} area
+            show: Show selected proposals for this area
+            show_detailed: Show selected proposals on the %{name} area
+        order_total:
+          order_budget_sum: Total for the selected proposals
+          order_projects_sum: Number of selected proposals
+        preview:
+          actions:
+            previous: Select proposals
+            vote: Vote
+            vote_empty: Cast an empty vote
+          allocated_budget: Total budget for the selected proposals
+          allocated_projects: Number of selected proposals
+          empty_order: You did not choose any proposals from area %{name}.
+          empty_vote:
+            description: However, you can leave an empty vote if you wish.
+            title: You have not selected any proposals to vote on!
+          title: Preview and vote
+          total_budget: Budget for the area
+          total_projects: Maximum amount of proposals to be selected in the area
+        projects:
+          actions:
+            continue: Preview and vote
+            previous: Voting area selection
+          back_to_projects: Show proposals
+          budget_html: "Area: <strong>%{name}</strong>"
+          orders_summary_title: Voting cart status
+          title: Select proposals
+        start:
+          invalid: Failed to select voting area, please try again.
+        steps:
+          authorization: Strong identification and voting area selection
+          budgets: Voting area selection
+          login: Sign in and select voting area
+          next: "Next: %{name}"
+          preview: Preview and vote
+          previous: "Previous: %{name}"
+          projects: Select proposals
+          step: Step %{number}
+        top:
+          title: Voting
+    components:
+      budgets:
+        settings:
+          global:
+            geocoding_enabled: Geocoding enabled
+            default_map_center_coordinates: Default center coordinates for the map (latitude,longitude)
+            more_information_modal_label: More information modal open link text
+            projects_per_page: Proposals per page
+            results_page_content: Results page content
+            vote_budgets_page_content: Area selection page content
+            vote_identify_invalid_authorization_content: Invalid identity information error content
+            vote_identify_invalid_authorization_title: Invalid identity information error title
+            vote_identify_page_content: Identification page content
+            vote_identify_page_more_information: Identification page details
+            vote_preview_page_content: Preview page content
+            vote_projects_page_content: Browse proposals page content
+            vote_projects_per_page: Proposals per page during voting
+            vote_success_content: Content displayed after successful voting
+      component_order_selector:
+        order:
+          vote: Vote
+    statistics:
+      orders_count: Votes
+      projects_count: Proposals
+  helsinki:
+    content_blocks:
+      records_carousel:
+        next: Next
+        previous: Previous
