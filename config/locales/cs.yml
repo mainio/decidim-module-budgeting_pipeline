@@ -6,45 +6,45 @@ cs:
         target_component_id: Cílová komponenta
       budget:
         center_latitude: Zeměpisná šířka středu
-        center_longitude: Center longitude
+        center_longitude: Zeměpisná délka středu
       help_section:
-        description: Description
-        image: Image
-        link: Link
-        link_text: Link text
-        title: Title
-        weight: Order number
+        description: Popis
+        image: Obrázek
+        link: Odkaz
+        link_text: Text odkazu
+        title: Název
+        weight: Pořadové číslo
       project:
-        address: Address
-        main_image: Primary image
-        summary: Summary for cards
+        address: Adresa
+        main_image: Hlavní obrázek
+        summary: Souhrn karet
   activerecord:
     models:
       decidim/budgets/project:
-        one: Votable proposal
-        few: Votable proposals
+        one: Návrh hlasování
+        few: Návrhy hlasování
         many: Votable proposals
         other: Votable proposals
   decidim:
     budgeting_pipeline:
       admin:
         area_scopes:
-          choose_parent: Select a theme first and enable themes for the component.
+          choose_parent: Nejprve vyberte motiv a povolte motivy pro komponentu.
       help_containers:
         index:
-          name: Front page
+          name: Přední strana
         pipeline:
-          name: Voting pipeline
+          name: Hlasovací proces
     budgets:
       admin:
         actions:
-          export_results: Exports proposals to results
+          export_results: Exportuje návrhy k výsledkům
         models:
           help_section:
-            name: Help section
+            name: Sekce nápovědy
         help_sections:
           create:
-            invalid: There was a problem creating the help section
+            invalid: Při vytváření nápovědy došlo k chybě
             success: Help section successfully created
           destroy:
             invalid: There was a problem deleting the help section
