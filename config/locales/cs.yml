@@ -2,10 +2,10 @@ cs:
   activemodel:
     attributes:
       accountability_export:
-        export_all_selected_projects: Export all votable proposals marked as selected
-        target_component_id: Target component
+        export_all_selected_projects: Exportovat všechny hlasované návrhy označené jako vybrané
+        target_component_id: Cílová komponenta
       budget:
-        center_latitude: Center latitude
+        center_latitude: Zeměpisná šířka středu
         center_longitude: Center longitude
       help_section:
         description: Description
