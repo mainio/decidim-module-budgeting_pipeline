@@ -96,7 +96,7 @@ cs:
               description: Hlasování skončilo. Nemůžete přidat návrhy do košíku hlasování, když je hlasování neaktivní.
               title: Hlasování není v tuto chvíli možné
         error_modal:
-          title: Failed adding the proposal to the voting cart
+          title: Přidání návrhu do hlasovacího košíku se nezdařilo
       models:
         help_container:
           fields:
@@ -109,13 +109,13 @@ cs:
           fields:
             address: Adresa
           statuses:
-            not_selected: Will not proceed to implementation
+            not_selected: Nebude pokračovat k implementaci
             selected: Proceeds to implementation
       order_summaries_mailer:
         order_summaries:
-          no_selected_projects: You did not select any proposals from this area.
+          no_selected_projects: Nevybrali jste žádné návrhy z této oblasti.
           selected_projects: 'Vybrané návrhy:'
-          subject: You voted in %{budget_names}
+          subject: Hlasovali jste v %{budget_names}
           voted_on_budgets: You voted in %{budget_names}.
           votes_summary: Below you will find a summary of your vote.
       orders:
@@ -133,7 +133,7 @@ cs:
           allocated_projects: Number of selected proposals
           empty_order: You did not choose any proposals from area %{name}.
           title: Preview and voting
-          total_budget: Budget for the area
+          total_budget: Rozpočet pro oblast
           total_projects: Number of proposals available in the area
           vote: Hlasovat
         orders_modal:
@@ -151,32 +151,32 @@ cs:
       projects:
         count:
           projects_count:
-            one: Found 1 proposal
+            one: Nalezen 1 návrh
             few: Found %{count} proposals
             many: Found %{count} proposals
             other: Found %{count} proposals
         details_table:
-          budget_amount: Budget
-          budget_name: Area
-          category_name: Theme
-          vote_count: Votes
+          budget_amount: Rozpočet
+          budget_name: Oblast
+          category_name: Téma
+          vote_count: Hlasy
         filters:
-          activity: My activity
+          activity: Moje aktivita
           activity_values:
-            all: All
-            authored: My proposals
-            favorites: My favorites
-          budget: Area
-          budget_amount_max: Maximum budget
-          budget_amount_min: Minimum budget
-          budget_enter_amount: Enter a number
+            all: Vše
+            authored: Moje návrhy
+            favorites: Moje oblíbené
+          budget: Oblast
+          budget_amount_max: Maximální rozpočet
+          budget_amount_min: Minimální rozpočet
+          budget_enter_amount: Zadejte číslo
           budgets_values:
             all:
-              two: Both areas
-              other: All areas
+              two: Obě oblasti
+              other: Všechny oblasti
           categories_values:
-            all: All themes
-          label: Proposal search
+            all: Všecha témata
+          label: Hledání návrhů
           more_criteria:
             hide: Hide search criteria
             show: Show more search criteria
@@ -334,7 +334,7 @@ cs:
               description: You must delete one or more proposals that exceed the total number of proposals for your selected area to preview and confirm your vote.
               title: Vybráno příliš mnoho návrhů!
             maximum_budget:
-              description: Please remove one or more proposals from your vote before proceeding to the next step. You have up to %{amount} available.
+              description: Prosím, odstraňte jeden nebo více návrhů z vašeho hlasování, než přejdete k dalšímu kroku. Máte až %{amount} k dispozici.
               title: You have exceeded the budget for the area %{budget}
             minimum_budget:
               description: Add proposals to your vote before you can proceed to the next step. You must spend at least %{amount} of the budget.
