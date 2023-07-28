@@ -186,26 +186,26 @@ cs:
             not_selected: Will not proceed to implementation
             selected: Proceeds to implementation
           term: Klíčové slovo
-          title: Search proposals
+          title: Hledat návrhy
         index:
           follow_voting: Sledujte hlasovací situaci
           see_results: Zobrazit konečné výsledky
           see_your_vote: See my vote
-          start_voting: Go to browse the proposals and vote
-          title: Proposals
-          view_project: Show proposal
-          view_project_detailed: "Show proposal: %{name}"
+          start_voting: Přejděte na procházení návrhů a hlasujte
+          title: Návrhy
+          view_project: Zobrazit návrh
+          view_project_detailed: "Zobrazit návrh: %{name}"
         orders:
-          alphabetical: Alphabetical
-          label: Proposal order
+          alphabetical: Abecedně
+          label: Řazení návrhů
         project:
-          view: Show proposal
-          view_detailed: "Show proposal: %{name}"
+          view: Zobrazit návrh
+          view_detailed: "Zobrazit návrh: %{name}"
         project_actions:
-          share: Share proposal
+          share: Sdílet návrh
           show_comments: Show proposal comments
           show_on_map: Show proposal on map
-          print: Print proposal
+          print: Tisk návrhu
         project_budget_button:
           add_descriptive: Add proposal %{resource_name} to your voting cart
           added_descriptive: Proposal %{resource_name} added to your voting cart
@@ -221,7 +221,7 @@ cs:
             other: There are %{count} proposals in your cart
           show_orders: Show voting cart
         show:
-          close: Close
+          close: Zavřít
           start_voting: Start voting
           view_all_projects: Show all proposals
           votes_amount:
