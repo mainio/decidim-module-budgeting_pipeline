@@ -179,17 +179,17 @@ cs:
           label: Hledání návrhů
           more_criteria:
             hide: Hide search criteria
-            show: Show more search criteria
-          reset: Clear filters
-          search: Search
+            show: Zobrazit více vyhledávacích kritérií
+          reset: Vymazat filtry
+          search: Hledat
           status_values:
             not_selected: Will not proceed to implementation
             selected: Proceeds to implementation
-          term: Keyword
+          term: Klíčové slovo
           title: Search proposals
         index:
-          follow_voting: Follow the voting situation
-          see_results: Show final results
+          follow_voting: Sledujte hlasovací situaci
+          see_results: Zobrazit konečné výsledky
           see_your_vote: See my vote
           start_voting: Go to browse the proposals and vote
           title: Proposals
