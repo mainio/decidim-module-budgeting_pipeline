@@ -45,19 +45,19 @@ cs:
         help_sections:
           create:
             invalid: Při vytváření nápovědy došlo k chybě
-            success: Help section successfully created
+            success: Sekce nápověda byla úspěšně vytvořena
           destroy:
-            invalid: There was a problem deleting the help section
-            success: Help section successfully deleted
+            invalid: Při odstraňování sekce nápovědy došlo k potížím
+            success: Sekce nápověda byla úspěšně odstraněna
           edit:
-            title: Edit help section
-            update: Update help section
+            title: Upravit nápovědu
+            update: Aktualizovat sekci nápovědy
           new:
-            create: Create help section
-            title: New help section
+            create: Vytvořit nápovědu
+            title: Nová sekce nápovědy
           update:
-            invalid: There was a problem updating the help section
-            success: Help section successfully updated
+            invalid: Při aktualizaci sekce nápovědy došlo k chybě
+            success: Sekce nápověda byla úspěšně aktualizována
         helps:
           index:
             title: Helping content
