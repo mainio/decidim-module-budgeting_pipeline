@@ -60,74 +60,74 @@ cs:
             success: Sekce nápověda byla úspěšně aktualizována
         helps:
           index:
-            title: Helping content
+            title: Nápomocný obsah
         projects:
           form:
-            selected_help: This is chosen after the voting if the project has been voted for implementation.
+            selected_help: Tato volba je zvolena po hlasování, pokud byl projekt odhlasován pro realizaci.
         results_exports:
           create:
-            invalid: There was a problem exporting the proposals to results
-            success: Proposals successfully exported to results
+            invalid: Při exportu návrhů do výsledků došlo k potížím
+            success: Návrhy úspěšně exportovány do výsledků
           new:
-            create: Export to results
-            select_component: Select the target component
-            title: Exports proposals to results
+            create: Exportovat do výsledků
+            select_component: Vyberte cílovou komponentu
+            title: Exportuje návrhy do výsledků
       last_activity:
-        show_vote_at: Show my vote at %{name}
-        voted_at_html: "<span>You voted at %{link}</span>"
+        show_vote_at: Zobrazit můj hlas v %{name}
+        voted_at_html: "<span>Hlasovali jste v %{link}</span>"
       line_items:
         error_details:
-          budget_title: Area name
-          project_title: Proposal title
-          project_budget: Proposal price
-          unused_budget: Remaining budget for the area
+          budget_title: Název oblasti
+          project_title: Název návrhu
+          project_budget: Navrhovaná cena
+          unused_budget: Zbývající rozpočet pro tuto oblast
         error_message:
           error:
             order_checked_out:
-              description: You have already voted in participatory budgeting. You can no longer add proposals to your voting cart.
-              title: You have already voted
+              description: Již jste hlasovali pro participativní rozpočet. Již nemůžete přidávat návrhy do košíku s hlasováním.
+              title: Již jste hlasoval
             project_exceeds_amount:
-              description: You cannot add more proposals for this area to your voting cart. First, remove other proposals in this area from your vote and add this proposal again to your vote.
-              title: You have already added the maximum amount of proposals
+              description: Nemůžete přidat další návrhy pro tuto oblast do košíku s hlasováním. Nejprve ze svého hlasování vyškrtněte další návrhy v této oblasti a připojte tento návrh k vašemu hlasování.
+              title: Již jste přidali maximální množství návrhů
             project_exceeds_budget:
-              description: The cost of this proposal exceeds the remaining budget for this area. First, remove other proposals in this area from your vote and add this proposal again to your vote.
-              title: The remaining budget on this area is not sufficient for this proposal
+              description: Náklady na tento návrh přesahují zbývající rozpočet pro tuto oblast. Nejprve ze svého hlasování vyškrtněte další návrhy v této oblasti a připojte tento návrh k vašemu hlasování.
+              title: Zbývající rozpočet v této oblasti není pro tento návrh dostačující
             voting_not_enabled:
-              description: Voting has ended. You cannot add proposals to the voting cart when voting is inactive.
-              title: Voting is not possible at this moment
+              description: Hlasování skončilo. Nemůžete přidat návrhy do košíku hlasování, když je hlasování neaktivní.
+              title: Hlasování není v tuto chvíli možné
         error_modal:
           title: Failed adding the proposal to the voting cart
       models:
         help_container:
           fields:
-            name: Name
+            name: Název
         help_section:
           fields:
-            title: Title
-            weight: Order number
+            title: Titulek
+            weight: Pořadové číslo
         project:
           fields:
-            address: Address
+            address: Adresa
           statuses:
             not_selected: Will not proceed to implementation
             selected: Proceeds to implementation
       order_summaries_mailer:
         order_summaries:
           no_selected_projects: You did not select any proposals from this area.
-          selected_projects: 'Selected proposals:'
+          selected_projects: 'Vybrané návrhy:'
           subject: You voted in %{budget_names}
           voted_on_budgets: You voted in %{budget_names}.
           votes_summary: Below you will find a summary of your vote.
       orders:
         continue_button:
-          label: Preview and vote
+          label: Náhled a hlas
         index:
-          back: Show proposals
+          back: Zobrazit návrhy
           description_html: <p>On this page you see how you voted.</p>
           follow_voting: Follow the voting situation
-          not_voted: You have not yet voted.
-          see_results: Show final results
-          title: My vote
+          not_voted: Zatím jste nehlasovali.
+          see_results: Zobrazit konečné výsledky
+          title: Můj hlas
         orders_info:
           allocated_budget: Total budget for the selected proposals
           allocated_projects: Number of selected proposals
@@ -135,9 +135,9 @@ cs:
           title: Preview and voting
           total_budget: Budget for the area
           total_projects: Number of proposals available in the area
-          vote: Vote
+          vote: Hlasovat
         orders_modal:
-          close: Back to proposal selection
+          close: Zpět na výběr návrhu
       project_list_item:
         more_info: Read more about this proposal
         more_info_with_title: Read more about %{title}
@@ -247,16 +247,16 @@ cs:
           title_ordered: "%{budget}"
           title_winning: "%{budget}"
         icon_heart:
-          title: Heart
+          title: Srdíčko
         projects_table:
           amount:
             one: "%{count} pcs"
             few: "%{count} pcs"
             many: "%{count} pcs"
             other: "%{count} pcs"
-          order_number: Order number
-          project_budget: Budget
-          project_name: Proposal
+          order_number: Pořadové číslo
+          project_budget: Rozpočet
+          project_name: Návrh
           project_votes: Votes
         show:
           show_projects: Show proposals
@@ -265,8 +265,8 @@ cs:
         vote_finished_modal:
           close: Close window
           continue: Continue signed in
-          sign_out: Sign out
-          title: Thank you for your vote!
+          sign_out: Odhlásit se
+          title: Děkujeme za vaše hlasování!
       votes:
         budget_selector:
           favorites_for_budget:
@@ -276,10 +276,10 @@ cs:
             other: "%{count} favorites in the area"
         budgets:
           actions:
-            continue: Select proposals
-          authorization_note: "Your postal code belongs to area: %{budget_name}"
+            continue: Vybrat návrhy
+          authorization_note: "Vaše poštovní směrovací číslo patří do oblasti: %{budget_name}"
           budget_select_note:
-            default: Choose the area in which you want to vote.
+            default: Vyberte oblast, ve které chcete hlasovat.
             suggested: You can change the voting area by selecting another area.
           highlighted_budgets:
             one: "Based on your identification, your area is:"
@@ -332,7 +332,7 @@ cs:
               title: The budget for the area has been exceeded!
             allocation_exceeded_projects:
               description: You must delete one or more proposals that exceed the total number of proposals for your selected area to preview and confirm your vote.
-              title: Too many proposals selected!
+              title: Vybráno příliš mnoho návrhů!
             maximum_budget:
               description: Please remove one or more proposals from your vote before proceeding to the next step. You have up to %{amount} available.
               title: You have exceeded the budget for the area %{budget}
@@ -348,7 +348,7 @@ cs:
                 other: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
             minimum_projects:
               description:
-                one: You have to add at least one proposal from this area to your vote in order to proceed to the next step.
+                one: Musíte k hlasování přidat alespoň jeden návrh z této oblasti, abyste mohli přistoupit k dalšímu kroku.
                 few: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
                 many: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
                 other: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
