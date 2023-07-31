@@ -116,7 +116,7 @@ cs:
           no_selected_projects: Nevybrali jste žádné návrhy z této oblasti.
           selected_projects: 'Vybrané návrhy:'
           subject: Hlasovali jste v %{budget_names}
-          voted_on_budgets: You voted in %{budget_names}.
+          voted_on_budgets: Hlasovali jste v %{budget_names}.
           votes_summary: Below you will find a summary of your vote.
       orders:
         continue_button:
