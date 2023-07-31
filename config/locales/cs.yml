@@ -117,7 +117,7 @@ cs:
           selected_projects: 'Vybrané návrhy:'
           subject: Hlasovali jste v %{budget_names}
           voted_on_budgets: Hlasovali jste v %{budget_names}.
-          votes_summary: Below you will find a summary of your vote.
+          votes_summary: Níže naleznete shrnutí vašeho hlasování.
       orders:
         continue_button:
           label: Náhled a hlas
