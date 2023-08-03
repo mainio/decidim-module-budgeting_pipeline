@@ -424,12 +424,12 @@ cs:
             geocoding_enabled: Geokódování povoleno
             default_map_center_coordinates: Default center coordinates for the map (latitude,longitude)
             more_information_modal_label: More information modal open link text
-            projects_per_page: Proposals per page
-            results_page_content: Results page content
-            vote_budgets_page_content: Area selection page content
-            vote_identify_invalid_authorization_content: Invalid identity information error content
+            projects_per_page: Návrhů na stránku
+            results_page_content: Obsah stránky výsledků
+            vote_budgets_page_content: Obsah stránky výběru oblasti
+            vote_identify_invalid_authorization_content: Neplatný obsah informací o identitě
             vote_identify_invalid_authorization_title: Invalid identity information error title
-            vote_identify_page_content: Identification page content
+            vote_identify_page_content: Obsah identifikační stránky
             vote_identify_page_more_information: Identification page details
             vote_preview_page_content: Preview page content
             vote_projects_page_content: Browse proposals page content
