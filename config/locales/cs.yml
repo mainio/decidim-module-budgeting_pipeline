@@ -140,9 +140,9 @@ cs:
           close: Zpět na výběr návrhu
       project_list_item:
         more_info: Read more about this proposal
-        more_info_with_title: Read more about %{title}
+        more_info_with_title: Přečtěte si více o %{title}
       project_m:
-        card_label: "Proposal: %{title}"
+        card_label: "Návrh: %{title}"
         votes_amount:
           one: "%{count} vote"
           few: "%{count} votes"
@@ -178,12 +178,12 @@ cs:
             all: Všecha témata
           label: Hledání návrhů
           more_criteria:
-            hide: Hide search criteria
+            hide: Skrýt kritéria vyhledávání
             show: Zobrazit více vyhledávacích kritérií
           reset: Vymazat filtry
           search: Hledat
           status_values:
-            not_selected: Will not proceed to implementation
+            not_selected: Nebude pokračovat k implementaci
             selected: Proceeds to implementation
           term: Klíčové slovo
           title: Hledat návrhy
@@ -203,8 +203,8 @@ cs:
           view_detailed: "Zobrazit návrh: %{name}"
         project_actions:
           share: Sdílet návrh
-          show_comments: Show proposal comments
-          show_on_map: Show proposal on map
+          show_comments: Zobrazit komentáře k návrhu
+          show_on_map: Zobrazit návrh na mapě
           print: Tisk návrhu
         project_budget_button:
           add_descriptive: Add proposal %{resource_name} to your voting cart
@@ -235,14 +235,14 @@ cs:
             Add this proposal to your favourites in order to find its area more easily during the voting.</p>
       results:
         budget_results:
-          budget: "Budget: %{amount}"
-          extra_note_for_budgeting_rule: The budget of this area is not sufficient for the proposals shown below. Therefore, they are not currently going for implementation.
+          budget: "Rozpočet: %{amount}"
+          extra_note_for_budgeting_rule: Rozpočet této oblasti není dostatečný pro níže uvedené návrhy, a proto v současné době nesměřují k jejich plnění.
           extra_note_for_budgeting_rule_selected: The proposals shown below were not selected for implementation.
           extra_note_for_projects_rule: The proposals shown below were not selected for implementation.
-          no_votes_yet: There are no votes in this area yet.
-          show_less: Show less
+          no_votes_yet: V této oblasti zatím nejsou žádné hlasy.
+          show_less: Zobrazit méně
           show_less_detailed: Show less from area %{name}
-          show_more: Show more
+          show_more: Zobrazit více
           show_more_detailed: Show more from area %{name}
           title_ordered: "%{budget}"
           title_winning: "%{budget}"
@@ -257,9 +257,9 @@ cs:
           order_number: Pořadové číslo
           project_budget: Rozpočet
           project_name: Návrh
-          project_votes: Votes
+          project_votes: Hlasy
         show:
-          show_projects: Show proposals
+          show_projects: Zobrazit návrhy
           see_your_vote: See my vote
           title: Current voting results
         vote_finished_modal:
