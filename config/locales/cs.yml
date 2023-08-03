@@ -261,16 +261,16 @@ cs:
         show:
           show_projects: Zobrazit návrhy
           see_your_vote: See my vote
-          title: Current voting results
+          title: Aktuální výsledky hlasování
         vote_finished_modal:
-          close: Close window
-          continue: Continue signed in
+          close: Zavřít okno
+          continue: Pokračovat v přihlášení
           sign_out: Odhlásit se
           title: Děkujeme za vaše hlasování!
       votes:
         budget_selector:
           favorites_for_budget:
-            one: "one favorite in the area"
+            one: "jeden oblíbený v oblasti"
             few: "%{count} favorites in the area"
             many: "%{count} favorites in the area"
             other: "%{count} favorites in the area"
@@ -280,9 +280,9 @@ cs:
           authorization_note: "Vaše poštovní směrovací číslo patří do oblasti: %{budget_name}"
           budget_select_note:
             default: Vyberte oblast, ve které chcete hlasovat.
-            suggested: You can change the voting area by selecting another area.
+            suggested: Hlasovací oblast můžete změnit výběrem jiné oblasti.
           highlighted_budgets:
-            one: "Based on your identification, your area is:"
+            one: "Na základě vaší identifikace, vaše oblast je:"
             few: "Based on your identification, your areas are:"
             many: "Based on your identification, your areas are:"
             other: "Based on your identification, your areas are:"
@@ -291,7 +291,7 @@ cs:
             few: If the areas are correct, you can proceed to voting.
             many: If the areas are correct, you can proceed to voting.
             other: If the areas are correct, you can proceed to voting.
-          select_budgets: Select voting area
+          select_budgets: Vyberte hlasovací oblast
           show_more_information_default: Show additional information
           sticky_budgets:
             one: Everyone can vote for the proposals in this area
@@ -320,7 +320,7 @@ cs:
           granted_authorizations_info: Your identity information does not match the voting requirements and therefore you cannot vote.
           granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
           granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
-          pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
+          pending_authorizations_notice: "Již jste se identifikovali s následujícími poskytovateli, kteří čekají na schválení:"
           pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
           title: Strong identification
         order_items:
