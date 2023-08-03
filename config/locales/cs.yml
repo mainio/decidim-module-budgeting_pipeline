@@ -210,8 +210,8 @@ cs:
           add_descriptive: Přidat návrh %{resource_name} do košíku s hlasováním
           added_descriptive: Návrh %{resource_name} byl přidán do košíku s hlasováním
           add_to_vote: Přidat do hlasovacího košíku
-          remove_descriptive: Remove proposal %{resource_name} from voting cart
-          remove_from_vote: Remove from voting cart
+          remove_descriptive: Odebrat návrh %{resource_name} z košíku hlasování
+          remove_from_vote: Odebrat z hlasovacího košíku
         projects:
           empty: No proposals matching your search criteria. Please change your search criteria and try again.
           order_items_amount:
@@ -410,18 +410,18 @@ cs:
           authorization: Strong identification and voting area selection
           budgets: Voting area selection
           login: Sign in and select voting area
-          next: "Next: %{name}"
+          next: "Další: %{name}"
           preview: Preview and vote
-          previous: "Previous: %{name}"
-          projects: Select proposals
-          step: Step %{number}
+          previous: "Předchozí: %{name}"
+          projects: Vybrat návrhy
+          step: Krok %{number}
         top:
-          title: Voting
+          title: Hlasování
     components:
       budgets:
         settings:
           global:
-            geocoding_enabled: Geocoding enabled
+            geocoding_enabled: Geokódování povoleno
             default_map_center_coordinates: Default center coordinates for the map (latitude,longitude)
             more_information_modal_label: More information modal open link text
             projects_per_page: Proposals per page
