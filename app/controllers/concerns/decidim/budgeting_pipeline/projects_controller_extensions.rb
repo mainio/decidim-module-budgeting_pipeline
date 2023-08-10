@@ -38,7 +38,11 @@ module Decidim
           ).includes([:scope, :component, :category])
         end
 
-        private :search_collection, :default_filter_params
+        def project
+          @project ||= Decidim::Budgets::Project.find_by(id: params[:id], budget: budgets)
+        end
+
+        private :search_collection, :default_filter_params, :project
       end
 
       private
