@@ -223,12 +223,12 @@ cs:
         show:
           close: Zavřít
           start_voting: Zahájit hlasování
-          view_all_projects: Show all proposals
+          view_all_projects: Zobrazit všechny návrhy
           votes_amount:
-            one: "%{count} vote"
-            few: "%{count} votes"
-            many: "%{count} votes"
-            other: "%{count} votes"
+            one: "%{count} hlas"
+            few: "%{count} hlasy"
+            many: "%{count} hlasů"
+            other: "%{count} hlasů"
           voting_note_html: |-
             <p>To start voting, you have to identify yourself and enter the voting mode.
             In the voting mode, you have to select the area to which this proposal belongs and select it for your vote.
@@ -260,7 +260,7 @@ cs:
           project_votes: Hlasy
         show:
           show_projects: Zobrazit návrhy
-          see_your_vote: See my vote
+          see_your_vote: Zobrazit můj hlas
           title: Aktuální výsledky hlasování
         vote_finished_modal:
           close: Zavřít okno
@@ -292,7 +292,7 @@ cs:
             many: If the areas are correct, you can proceed to voting.
             other: If the areas are correct, you can proceed to voting.
           select_budgets: Vyberte hlasovací oblast
-          show_more_information_default: Show additional information
+          show_more_information_default: Zobrazit další informace
           sticky_budgets:
             one: Everyone can vote for the proposals in this area
             few: Everyone can vote for the proposals in these areas
@@ -365,7 +365,7 @@ cs:
               description: Pokud chcete přidat návrhy také ke svému hlasování, přejděte zpět k procházení návrhů a vyberte návrhy, které chcete přidat do košíku s hlasováním.
               title: Nevybrali jste žádné návrhy z oblasti %{budget}
         order_progress:
-          allocated_budget: Budget spent
+          allocated_budget: Vynaložený rozpočet
           allocated_projects: Počet vybraných návrhů
           available_budget: Rozpočet pro oblast
           available_projects: Maximální počet návrhů, které mají být vybrány
@@ -380,8 +380,8 @@ cs:
             show: Zobrazit vybrané návrhy pro tuto oblast
             show_detailed: Show selected proposals on the %{name} area
         order_total:
-          order_budget_sum: Total for the selected proposals
-          order_projects_sum: Number of selected proposals
+          order_budget_sum: Celkem pro vybrané návrhy
+          order_projects_sum: Počet vybraných návrhů
         preview:
           actions:
             previous: Vybrat návrhy
@@ -389,9 +389,9 @@ cs:
             vote_empty: Cast an empty vote
           allocated_budget: Total budget for the selected proposals
           allocated_projects: Počet vybraných návrhů
-          empty_order: You did not choose any proposals from area %{name}.
+          empty_order: Nevybrali jste žádné návrhy z oblasti %{name}.
           empty_vote:
-            description: However, you can leave an empty vote if you wish.
+            description: Pokud si však přejete, můžete nechat prázdné hlasování.
             title: You have not selected any proposals to vote on!
           title: Preview and vote
           total_budget: Rozpočet pro oblast
