@@ -129,17 +129,17 @@ cs:
           see_results: Zobrazit konečné výsledky
           title: Můj hlas
         orders_info:
-          allocated_budget: Total budget for the selected proposals
-          allocated_projects: Number of selected proposals
-          empty_order: You did not choose any proposals from area %{name}.
-          title: Preview and voting
+          allocated_budget: Celkový rozpočet pro vybrané návrhy
+          allocated_projects: Počet vybraných návrhů
+          empty_order: Nevybrali jste žádné návrhy z oblasti %{name}.
+          title: Náhled a hlasování
           total_budget: Rozpočet pro oblast
-          total_projects: Number of proposals available in the area
+          total_projects: Počet návrhů dostupných v oblasti
           vote: Hlasovat
         orders_modal:
           close: Zpět na výběr návrhu
       project_list_item:
-        more_info: Read more about this proposal
+        more_info: Přečtěte si více o tomto návrhu
         more_info_with_title: Přečtěte si více o %{title}
       project_m:
         card_label: "Návrh: %{title}"
@@ -213,16 +213,16 @@ cs:
           remove_descriptive: Odebrat návrh %{resource_name} z košíku hlasování
           remove_from_vote: Odebrat z hlasovacího košíku
         projects:
-          empty: No proposals matching your search criteria. Please change your search criteria and try again.
+          empty: Žádné návrhy neodpovídají vašim kritériím vyhledávání. Změňte prosím svá kritéria a zkuste to znovu.
           order_items_amount:
             one: There is %{count} proposal in your cart
             few: There are %{count} proposals in your cart
             many: There are %{count} proposals in your cart
             other: There are %{count} proposals in your cart
-          show_orders: Show voting cart
+          show_orders: Zobrazit hlasovací košík
         show:
           close: Zavřít
-          start_voting: Start voting
+          start_voting: Zahájit hlasování
           view_all_projects: Show all proposals
           votes_amount:
             one: "%{count} vote"
