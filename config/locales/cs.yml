@@ -386,7 +386,7 @@ cs:
           actions:
             previous: Vybrat návrhy
             vote: Hlasovat
-            vote_empty: Cast an empty vote
+            vote_empty: Vhodit prázdný hlas
           allocated_budget: Total budget for the selected proposals
           allocated_projects: Počet vybraných návrhů
           empty_order: Nevybrali jste žádné návrhy z oblasti %{name}.
