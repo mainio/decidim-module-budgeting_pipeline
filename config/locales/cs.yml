@@ -241,9 +241,9 @@ cs:
           extra_note_for_projects_rule: The proposals shown below were not selected for implementation.
           no_votes_yet: V této oblasti zatím nejsou žádné hlasy.
           show_less: Zobrazit méně
-          show_less_detailed: Show less from area %{name}
+          show_less_detailed: Zobrazit méně z oblasti %{name}
           show_more: Zobrazit více
-          show_more_detailed: Show more from area %{name}
+          show_more_detailed: Zobrazit více z oblasti %{name}
           title_ordered: "%{budget}"
           title_winning: "%{budget}"
         icon_heart:
@@ -287,18 +287,18 @@ cs:
             many: "Based on your identification, your areas are:"
             other: "Based on your identification, your areas are:"
           highlighted_budgets_note:
-            one: If the area is correct, you can proceed to voting.
-            few: If the areas are correct, you can proceed to voting.
-            many: If the areas are correct, you can proceed to voting.
-            other: If the areas are correct, you can proceed to voting.
+            one: Pokud je oblast správná, můžete přistoupit k hlasování.
+            few: Pokud jsou oblasti správné, můžete přistoupit k hlasování.
+            many: Pokud jsou oblasti správné, můžete přistoupit k hlasování.
+            other: Pokud jsou oblasti správné, můžete přistoupit k hlasování.
           select_budgets: Vyberte hlasovací oblast
           show_more_information_default: Zobrazit další informace
           sticky_budgets:
-            one: Everyone can vote for the proposals in this area
-            few: Everyone can vote for the proposals in these areas
-            many: Everyone can vote for the proposals in these areas
-            other: Everyone can vote for the proposals in these areas
-          title: Select voting area
+            one: Každý může hlasovat pro návrhy v této oblasti
+            few: Každý může hlasovat pro návrhy v těchto oblastech
+            many: Každý může hlasovat pro návrhy v těchto oblastech
+            other: Každý může hlasovat pro návrhy v těchto oblastech
+          title: Vyberte hlasovací oblast
         create:
           error: Processing your vote failed, please try again.
           success: Your vote has been successfully saved!
