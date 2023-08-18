@@ -303,13 +303,13 @@ cs:
           error: Processing your vote failed, please try again.
           success: Your vote has been successfully saved!
         exit_modal:
-          cancel: Return to voting
-          close: Close window
-          exit: Exit voting
-          message: Your vote has not been registered because you have not yet completed the voting process. Are you sure you want to exit voting?
-          title: Exit notification
+          cancel: Návrat k hlasování
+          close: Zavřít okno
+          exit: Ukončit hlasování
+          message: Váš hlas nebyl zaregistrován, protože jste ještě nedokončili proces hlasování. Opravdu chcete ukončit hlasování?
+          title: Ukončit oznámení
         general:
-          already_voted: You have already voted.
+          already_voted: Již jste hlasoval.
           exit_voting: Ukončit hlasování
           move_to_next_step: "Pokračujte k dalšímu kroku: %{name}"
           move_to_prev_step: "Zpět k předchozímu kroku: %{name}"
