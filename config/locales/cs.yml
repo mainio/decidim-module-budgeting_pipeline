@@ -310,14 +310,14 @@ cs:
           title: Exit notification
         general:
           already_voted: You have already voted.
-          exit_voting: Exit voting
-          move_to_next_step: "Proceed to the next step: %{name}"
-          move_to_prev_step: "Back to the previous step: %{name}"
-          not_authorized: You have to identify yourself in order to vote.
-          voting_blocked: You cannot vote at this moment.
-          voting_over: Voting has ended.
+          exit_voting: Ukončit hlasování
+          move_to_next_step: "Pokračujte k dalšímu kroku: %{name}"
+          move_to_prev_step: "Zpět k předchozímu kroku: %{name}"
+          not_authorized: Abyste mohli hlasovat, musíte se identifikovat.
+          voting_blocked: Momentálně nemůžete hlasovat.
+          voting_over: Hlasování skončilo.
         identify_options:
-          granted_authorizations_info: Your identity information does not match the voting requirements and therefore you cannot vote.
+          granted_authorizations_info: Vaše údaje o identitě neodpovídají hlasovacím požadavkům, a proto nemůžete hlasovat.
           granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
           granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
           pending_authorizations_notice: "Již jste se identifikovali s následujícími poskytovateli, kteří čekají na schválení:"
