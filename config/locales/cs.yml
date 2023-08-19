@@ -300,8 +300,8 @@ cs:
             other: Každý může hlasovat pro návrhy v těchto oblastech
           title: Vyberte hlasovací oblast
         create:
-          error: Processing your vote failed, please try again.
-          success: Your vote has been successfully saved!
+          error: Zpracování vašeho hlasování se nezdařilo, zkuste to prosím znovu.
+          success: Váš hlas byl úspěšně uložen!
         exit_modal:
           cancel: Návrat k hlasování
           close: Zavřít okno
@@ -318,8 +318,8 @@ cs:
           voting_over: Hlasování skončilo.
         identify_options:
           granted_authorizations_info: Vaše údaje o identitě neodpovídají hlasovacím požadavkům, a proto nemůžete hlasovat.
-          granted_authorizations_notice: "You have already identified yourself with the following identity providers:"
-          granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
+          granted_authorizations_notice: "Již jste se identifikovali s následujícími poskytovateli totožnosti:"
+          granted_authorizations_other: Pokud máte možnost se identifikovat s jiným poskytovatelem, můžete to vyzkoušet ze seznamu níže.
           pending_authorizations_notice: "Již jste se identifikovali s následujícími poskytovateli, kteří čekají na schválení:"
           pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
           title: Silná identifikace
