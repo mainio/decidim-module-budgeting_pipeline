@@ -387,31 +387,31 @@ cs:
             previous: Vybrat návrhy
             vote: Hlasovat
             vote_empty: Vhodit prázdný hlas
-          allocated_budget: Total budget for the selected proposals
+          allocated_budget: Celkový rozpočet pro vybrané návrhy
           allocated_projects: Počet vybraných návrhů
           empty_order: Nevybrali jste žádné návrhy z oblasti %{name}.
           empty_vote:
             description: Pokud si však přejete, můžete nechat prázdné hlasování.
-            title: You have not selected any proposals to vote on!
-          title: Preview and vote
+            title: Nevybrali jste žádné návrhy k hlasování!
+          title: Náhled a hlas
           total_budget: Rozpočet pro oblast
           total_projects: Maximální počet návrhů, které mají být vybrány v oblasti
         projects:
           actions:
-            continue: Preview and vote
-            previous: Voting area selection
+            continue: Náhled a hlas
+            previous: Výběr hlasovací oblasti
           back_to_projects: Zobrazit návrhy
           budget_html: "Oblast: <strong>%{name}</strong>"
           orders_summary_title: Stav hlasovacího košíku
           title: Vybrat návrhy
         start:
-          invalid: Failed to select voting area, please try again.
+          invalid: Nepodařilo se vybrat hlasovací oblast, zkuste to prosím znovu.
         steps:
-          authorization: Strong identification and voting area selection
-          budgets: Voting area selection
-          login: Sign in and select voting area
+          authorization: Silná identifikace a výběr hlasovací oblasti
+          budgets: Výběr hlasovací oblasti
+          login: Přihlaste se a vyberte hlasovací oblast
           next: "Další: %{name}"
-          preview: Preview and vote
+          preview: Náhled a hlas
           previous: "Předchozí: %{name}"
           projects: Vybrat návrhy
           step: Krok %{number}
