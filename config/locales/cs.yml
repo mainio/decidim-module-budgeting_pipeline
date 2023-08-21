@@ -422,8 +422,8 @@ cs:
         settings:
           global:
             geocoding_enabled: Geokódování povoleno
-            default_map_center_coordinates: Default center coordinates for the map (latitude,longitude)
-            more_information_modal_label: More information modal open link text
+            default_map_center_coordinates: Výchozí souřadnice středu pro mapu (zeměpisná šířka, zeměpisná délka)
+            more_information_modal_label: Další informace o modálním otevřeném odkazu
             projects_per_page: Návrhů na stránku
             results_page_content: Obsah stránky výsledků
             vote_budgets_page_content: Obsah stránky výběru oblasti
@@ -431,10 +431,10 @@ cs:
             vote_identify_invalid_authorization_title: Invalid identity information error title
             vote_identify_page_content: Obsah identifikační stránky
             vote_identify_page_more_information: Identification page details
-            vote_preview_page_content: Preview page content
-            vote_projects_page_content: Browse proposals page content
-            vote_projects_per_page: Proposals per page during voting
-            vote_success_content: Content displayed after successful voting
+            vote_preview_page_content: Náhled obsahu stránky
+            vote_projects_page_content: Procházet obsah stránky s návrhy
+            vote_projects_per_page: Návrhů na stránku při hlasování
+            vote_success_content: Obsah zobrazený po úspěšném hlasování
       component_order_selector:
         order:
           vote: Hlasovat
