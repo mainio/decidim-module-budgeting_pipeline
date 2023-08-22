@@ -124,7 +124,7 @@ cs:
         index:
           back: Zobrazit návrhy
           description_html: <p>Na této stránce vidíte, jak jste hlasovali.</p>
-          follow_voting: Follow the voting situation
+          follow_voting: Sledujte hlasovací situaci
           not_voted: Zatím jste nehlasovali.
           see_results: Zobrazit konečné výsledky
           title: Můj hlas
@@ -430,7 +430,7 @@ cs:
             vote_identify_invalid_authorization_content: Neplatný obsah informací o identitě
             vote_identify_invalid_authorization_title: Invalid identity information error title
             vote_identify_page_content: Obsah identifikační stránky
-            vote_identify_page_more_information: Identification page details
+            vote_identify_page_more_information: Detaily identifikační stránky
             vote_preview_page_content: Náhled obsahu stránky
             vote_projects_page_content: Procházet obsah stránky s návrhy
             vote_projects_per_page: Návrhů na stránku při hlasování
