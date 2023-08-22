@@ -321,7 +321,7 @@ cs:
           granted_authorizations_notice: "Již jste se identifikovali s následujícími poskytovateli totožnosti:"
           granted_authorizations_other: Pokud máte možnost se identifikovat s jiným poskytovatelem, můžete to vyzkoušet ze seznamu níže.
           pending_authorizations_notice: "Již jste se identifikovali s následujícími poskytovateli, kteří čekají na schválení:"
-          pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
+          pending_authorizations_other: Pokud máte možnost se identifikovat s jiným poskytovatelem, můžete si vybrat tohoto poskytovatele ze seznamu níže.
           title: Silná identifikace
         order_items:
           empty: Nevybrali jste žádné návrhy z této oblasti.
