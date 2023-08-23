@@ -230,15 +230,15 @@ cs:
             many: "%{count} hlasů"
             other: "%{count} hlasů"
           voting_note_html: |-
-            <p>To start voting, you have to identify yourself and enter the voting mode.
-            In the voting mode, you have to select the area to which this proposal belongs and select it for your vote.
-            Add this proposal to your favourites in order to find its area more easily during the voting.</p>
+            <p>Chcete-li začít hlasovat, musíte se identifikovat a vstoupit do režimu hlasování.
+            V režimu hlasování musíte vybrat oblast, do které tento návrh patří, a vybrat ji pro váš hlas.
+            Přidejte tento návrh k vašim oblíbeným, abyste během hlasování našli jeho oblast snadněji.</p>
       results:
         budget_results:
           budget: "Rozpočet: %{amount}"
           extra_note_for_budgeting_rule: Rozpočet této oblasti není dostatečný pro níže uvedené návrhy, a proto v současné době nesměřují k jejich plnění.
-          extra_note_for_budgeting_rule_selected: The proposals shown below were not selected for implementation.
-          extra_note_for_projects_rule: The proposals shown below were not selected for implementation.
+          extra_note_for_budgeting_rule_selected: Níže uvedené návrhy nebyly vybrány k provedení.
+          extra_note_for_projects_rule: Níže uvedené návrhy nebyly vybrány k provedení.
           no_votes_yet: V této oblasti zatím nejsou žádné hlasy.
           show_less: Zobrazit méně
           show_less_detailed: Zobrazit méně z oblasti %{name}
