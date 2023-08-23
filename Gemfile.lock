@@ -7,11 +7,51 @@ GIT
       decidim-core (~> 0.27.0)
 
 GIT
+  remote: https://github.com/mainio/decidim-module-feedback.git
+  revision: 8e7b4374992be09a8b3d07490660be4d745fdbc2
+  branch: main
+  specs:
+    decidim-feedback (0.27.0)
+      decidim-admin (~> 0.27.0)
+      decidim-core (~> 0.27.0)
+
+GIT
+  remote: https://github.com/mainio/decidim-module-ideas.git
+  revision: 1a17c9f6fe4351dd6076a1f6513342d6eac412d4
+  branch: main
+  specs:
+    decidim-ideas (0.27.0)
+      decidim-core (~> 0.27.0)
+      decidim-favorites (~> 0.27.0)
+      decidim-feedback (~> 0.27.0)
+
+GIT
+  remote: https://github.com/mainio/decidim-module-plans.git
+  revision: aad56f68b00ef74888ac3d336aa3734aaf39234d
+  branch: main
+  specs:
+    decidim-plans (0.27.0)
+      decidim-core (~> 0.27.0)
+      decidim-favorites (~> 0.27.0)
+      decidim-feedback (~> 0.27.0)
+      decidim-proposals (~> 0.27.0)
+      decidim-tags (~> 0.27.0)
+      paper_trail-association_tracking (~> 2.0)
+
+GIT
   remote: https://github.com/mainio/decidim-module-stats.git
   revision: 15217d392e31935223ca18f02a19ea1764db0b80
   branch: main
   specs:
     decidim-stats (0.27.0)
+      decidim-core (~> 0.27.0)
+
+GIT
+  remote: https://github.com/mainio/decidim-module-tags.git
+  revision: b6816469f15713ffc273bbf7f7d5568a8f0e4810
+  branch: main
+  specs:
+    decidim-tags (0.27.0)
       decidim-core (~> 0.27.0)
 
 PATH
@@ -568,6 +608,8 @@ GEM
     paper_trail (12.3.0)
       activerecord (>= 5.2)
       request_store (~> 1.1)
+    paper_trail-association_tracking (2.2.1)
+      paper_trail (>= 12.0)
     parallel (1.23.0)
     parallel_tests (3.13.0)
       parallel
@@ -816,10 +858,16 @@ DEPENDENCIES
   bootsnap (~> 1.4)
   byebug (~> 11.0)
   decidim (~> 0.27.0)
+  decidim-accountability (~> 0.27.0)
   decidim-budgeting_pipeline!
   decidim-dev (~> 0.27.0)
   decidim-favorites!
+  decidim-feedback!
+  decidim-ideas!
+  decidim-plans!
+  decidim-proposals (~> 0.27.0)
   decidim-stats!
+  decidim-tags!
   faker (~> 2.14)
   letter_opener_web (~> 2.0)
   listen (~> 3.1)

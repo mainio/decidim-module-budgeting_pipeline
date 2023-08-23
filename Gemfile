@@ -36,3 +36,13 @@ group :development do
   gem "spring-watcher-listen", "~> 2.0"
   gem "web-console", "~> 4.2"
 end
+
+group :test do
+  gem "decidim-accountability", DECIDIM_VERSION
+  gem "decidim-proposals", DECIDIM_VERSION
+
+  gem "decidim-feedback", github: "mainio/decidim-module-feedback", branch: "main"
+  gem "decidim-ideas", github: "mainio/decidim-module-ideas", branch: "main"
+  gem "decidim-plans", github: "mainio/decidim-module-plans", branch: "main"
+  gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "main"
+end

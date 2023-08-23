@@ -2,11 +2,17 @@
 
 require "decidim/dev/common_rake"
 
-def install_module(path)
+def install_module(path, test: false)
   Dir.chdir(path) do
     system("bundle exec rake decidim_favorites:install:migrations")
     system("bundle exec rake decidim_stats:install:migrations")
     system("bundle exec rake decidim_budgeting_pipeline:install:migrations")
+    if test
+      system("bundle exec rake decidim_feedback:install:migrations")
+      system("bundle exec rake decidim_tags:install:migrations")
+      system("bundle exec rake decidim_ideas:install:migrations")
+      system("bundle exec rake decidim_plans:install:migrations")
+    end
     system("bundle exec rake db:migrate")
 
     # Temporary fix to overcome the issue with sass-embedded, see:
@@ -35,7 +41,7 @@ desc "Generates a dummy app for testing"
 task test_app: "decidim:generate_external_test_app" do
   ENV["RAILS_ENV"] = "test"
   fix_babel_config("spec/decidim_dummy_app")
-  install_module("spec/decidim_dummy_app")
+  install_module("spec/decidim_dummy_app", test: true)
 end
 
 desc "Generates a development app"
