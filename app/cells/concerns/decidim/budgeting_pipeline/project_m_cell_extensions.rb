@@ -140,6 +140,7 @@ module Decidim
         full_category = []
         full_category << translated_attribute(cat.parent.name) if cat.parent
         full_category << translated_attribute(cat.name)
+        raise full_category.inspect
 
         content_tag(:span, class: "card__category__icon", "aria-hidden": true) do
           image_tag(cat.attached_uploader(:category_icon).path, alt: full_category.join(" - "))

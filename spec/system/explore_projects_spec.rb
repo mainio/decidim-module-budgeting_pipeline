@@ -81,5 +81,38 @@ describe "Explore projects", type: :system do
         expect(page).to have_content(translated(category.name))
       end
     end
+
+    context "when voting finished" do
+      before do
+        component.step_settings = { component.participatory_space.active_step.id => { votes: "finished", show_votes: true } }
+        component.save
+        budget1_projects.first.update(selected_at: Time.current)
+      end
+
+      it "renders status selection" do
+        visit_component
+        select_element = find("select[name='filter[with_any_status]']")
+        expect(select_element).to have_selector("option", text: "Proceeds to implementation")
+        expect(select_element).to have_selector("option", text: "Will not proceed to implementation")
+        find("select[name='filter[with_any_status]']").select("Proceeds to implementation")
+        within "form.new_filter" do
+          click_button "Search"
+        end
+        within "#project_#{project.id}" do
+          expect(page).to have_content("Proceeds to implementation")
+        end
+      end
+    end
+
+    context "when categories exist" do
+      let!(:categories) { create_list(:category, 2, participatory_space: component.participatory_space) }
+
+      it "shows the categories" do
+        visit_component
+        select_element = find("select[name='filter[with_any_category]']")
+        expect(select_element).to have_selector("option", text: translated(categories.first.name))
+        expect(select_element).to have_selector("option", text: translated(categories.last.name))
+      end
+    end
   end
 end
