@@ -144,10 +144,10 @@ cs:
       project_m:
         card_label: "Návrh: %{title}"
         votes_amount:
-          one: "%{count} vote"
-          few: "%{count} votes"
-          many: "%{count} votes"
-          other: "%{count} votes"
+          one: "%{count} hlas"
+          few: "%{count} hlasy"
+          many: "%{count} hlasů"
+          other: "%{count} hlasů"
       projects:
         count:
           projects_count:
@@ -184,7 +184,7 @@ cs:
           search: Hledat
           status_values:
             not_selected: Nebude pokračovat k implementaci
-            selected: Proceeds to implementation
+            selected: Podstoupit k provedení
           term: Klíčové slovo
           title: Hledat návrhy
         index:
@@ -215,10 +215,10 @@ cs:
         projects:
           empty: Žádné návrhy neodpovídají vašim kritériím vyhledávání. Změňte prosím svá kritéria a zkuste to znovu.
           order_items_amount:
-            one: There is %{count} proposal in your cart
-            few: There are %{count} proposals in your cart
-            many: There are %{count} proposals in your cart
-            other: There are %{count} proposals in your cart
+            one: Ve vašem košíku je %{count} návrh
+            few: Ve vašem košíku jsou %{count} návrhy
+            many: Ve vašem košíku je %{count} návrhů
+            other: Ve vašem košíku je %{count} návrhů
           show_orders: Zobrazit hlasovací košík
         show:
           close: Zavřít
@@ -250,10 +250,10 @@ cs:
           title: Srdíčko
         projects_table:
           amount:
-            one: "%{count} pcs"
-            few: "%{count} pcs"
-            many: "%{count} pcs"
-            other: "%{count} pcs"
+            one: "%{count} projekt"
+            few: "%{count} projekty"
+            many: "%{count} projektů"
+            other: "%{count} projektů"
           order_number: Pořadové číslo
           project_budget: Rozpočet
           project_name: Návrh
