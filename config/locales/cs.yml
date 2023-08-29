@@ -110,7 +110,7 @@ cs:
             address: Adresa
           statuses:
             not_selected: Nebude pokračovat k implementaci
-            selected: Proceeds to implementation
+            selected: Podstoupit k provedení
       order_summaries_mailer:
         order_summaries:
           no_selected_projects: Nevybrali jste žádné návrhy z této oblasti.
@@ -342,7 +342,7 @@ cs:
             maximum_projects:
               description: Před pokračováním do dalšího kroku prosím odeberte z vašeho hlasování jeden nebo více návrhů.
               title:
-                one: You can select a single proposal from the area %{budget}
+                one: Můžete vybrat jeden návrh z oblasti %{budget}
                 few: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
                 many: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
                 other: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
