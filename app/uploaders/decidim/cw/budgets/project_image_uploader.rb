@@ -7,7 +7,7 @@ module Decidim::Cw
       process :orientate
 
       version :thumbnail do
-        process resize_to_fill: [860, 340]
+        process resize_to_fill: [860, 395]
       end
 
       version :big do
@@ -15,7 +15,7 @@ module Decidim::Cw
       end
 
       version :main do
-        process resize_to_fill: [1480, 740]
+        process resize_to_fill: [1500, 920]
       end
 
       def max_image_height_or_width

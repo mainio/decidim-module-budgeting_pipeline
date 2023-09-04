@@ -1,1 +1,9 @@
-<%= cell "decidim/ideas/idea_tags", model %>
+<div class="card__tags">
+  <span class="label">Lorem ipsum dolor</span>
+</div>
+
+<% if state_visible? %>
+  <div class="card__tags">
+    <%= render :state if state_visible? %>
+  </div>
+<% end %>
