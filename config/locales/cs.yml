@@ -353,10 +353,10 @@ cs:
                 many: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
                 other: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
               title:
-                one: You have not selected any proposals from the area %{budget}
-                few: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
-                many: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
-                other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
+                one: Nevybrali jste žádný návrh z oblasti %{budget}
+                few: Nevybrali jste dostatečný počet návrhů z oblasti %{budget}, musíte vybrat alespoň %{count} návrhy
+                many: Nevybrali jste dostatečný počet návrhů z oblasti %{budget}, musíte vybrat alespoň %{count} návrhů
+                other: Nevybrali jste dostatečný počet návrhů z oblasti %{budget}, musíte vybrat alespoň %{count} návrhů
           warnings:
             no_projects:
               description: Vezměte prosím na vědomí, že můžete vybrat návrhy pro košík hlasování z více oblastí. Pokud chcete do této oblasti přidat návrhy, přejděte zpět k zobrazení návrhů a vyberte ty, které chcete přidat k vašemu hlasování.
@@ -378,7 +378,7 @@ cs:
             hide: Skrýt vybrané návrhy pro tuto oblast
             hide_detailed: Skrýt vybrané návrhy v oblasti %{name}
             show: Zobrazit vybrané návrhy pro tuto oblast
-            show_detailed: Show selected proposals on the %{name} area
+            show_detailed: Zobrazit vybrané návrhy v oblasti %{name}
         order_total:
           order_budget_sum: Celkem pro vybrané návrhy
           order_projects_sum: Počet vybraných návrhů
