@@ -23,8 +23,8 @@ cs:
       decidim/budgets/project:
         one: Návrh hlasování
         few: Návrhy hlasování
-        many: Votable proposals
-        other: Votable proposals
+        many: Návrhů hlasování
+        other: Návrhů hlasování
   decidim:
     budgeting_pipeline:
       admin:
@@ -152,9 +152,9 @@ cs:
         count:
           projects_count:
             one: Nalezen 1 návrh
-            few: Found %{count} proposals
-            many: Found %{count} proposals
-            other: Found %{count} proposals
+            few: Nalezeny %{count} návrhy
+            many: Nalezeno %{count} návrhů
+            other: Nalezeno %{count} návrhů
         details_table:
           budget_amount: Rozpočet
           budget_name: Oblast
@@ -428,7 +428,7 @@ cs:
             results_page_content: Obsah stránky výsledků
             vote_budgets_page_content: Obsah stránky výběru oblasti
             vote_identify_invalid_authorization_content: Neplatný obsah informací o identitě
-            vote_identify_invalid_authorization_title: Invalid identity information error title
+            vote_identify_invalid_authorization_title: Neplatný název chyby informací o identitě
             vote_identify_page_content: Obsah identifikační stránky
             vote_identify_page_more_information: Detaily identifikační stránky
             vote_preview_page_content: Náhled obsahu stránky
