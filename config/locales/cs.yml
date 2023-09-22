@@ -271,9 +271,9 @@ cs:
         budget_selector:
           favorites_for_budget:
             one: "jeden oblíbený v oblasti"
-            few: "%{count} favorites in the area"
-            many: "%{count} favorites in the area"
-            other: "%{count} favorites in the area"
+            few: "%{count} oblíbené v oblasti"
+            many: "%{count} oblíbených v oblasti"
+            other: "%{count} oblíbených v oblasti"
         budgets:
           actions:
             continue: Vybrat návrhy
@@ -283,9 +283,9 @@ cs:
             suggested: Hlasovací oblast můžete změnit výběrem jiné oblasti.
           highlighted_budgets:
             one: "Na základě vaší identifikace, vaše oblast je:"
-            few: "Based on your identification, your areas are:"
-            many: "Based on your identification, your areas are:"
-            other: "Based on your identification, your areas are:"
+            few: "Na základě vaší identifikace, vaše oblasti jsou:"
+            many: "Na základě vaší identifikace, vaše oblasti jsou:"
+            other: "Na základě vaší identifikace, vaše oblasti jsou:"
           highlighted_budgets_note:
             one: Pokud je oblast správná, můžete přistoupit k hlasování.
             few: Pokud jsou oblasti správné, můžete přistoupit k hlasování.
@@ -343,15 +343,15 @@ cs:
               description: Před pokračováním do dalšího kroku prosím odeberte z vašeho hlasování jeden nebo více návrhů.
               title:
                 one: Můžete vybrat jeden návrh z oblasti %{budget}
-                few: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
-                many: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
-                other: You have selected too many proposals from the area %{budget}, you can select up to %{count} proposals
+                few: Vybrali jste příliš mnoho návrhů z oblasti %{budget}, můžete vybrat maximálně %{count} návrhy
+                many: Vybrali jste příliš mnoho návrhů z oblasti %{budget}, můžete vybrat maximálně %{count} návrhů
+                other: Vybrali jste příliš mnoho návrhů z oblasti %{budget}, můžete vybrat maximálně %{count} návrhů
             minimum_projects:
               description:
-                one: Musíte k hlasování přidat alespoň jeden návrh z této oblasti, abyste mohli přistoupit k dalšímu kroku.
-                few: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
-                many: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
-                other: You have to add at least %{count} proposals from this area to your vote in order to proceed to the next step.
+                one: Abyste mohli postoupit k dalšímu kroku, musíte do hlasování přidat alespoň jeden návrh z této oblasti.
+                few: Abyste mohli přejít k dalšímu kroku, musíte do svého hlasování přidat alespoň %{count} návrhy z této oblasti.
+                many: Abyste mohli přejít k dalšímu kroku, musíte do svého hlasování přidat alespoň %{count} návrhů z této oblasti.
+                other: Abyste mohli přejít k dalšímu kroku, musíte do svého hlasování přidat alespoň %{count} návrhů z této oblasti.
               title:
                 one: Nevybrali jste žádný návrh z oblasti %{budget}
                 few: Nevybrali jste dostatečný počet návrhů z oblasti %{budget}, musíte vybrat alespoň %{count} návrhy
