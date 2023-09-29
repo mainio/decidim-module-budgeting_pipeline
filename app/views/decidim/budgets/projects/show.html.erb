@@ -12,119 +12,72 @@ edit_link(
 )
 %>
 
-<% if voting_open? %>
-  <% content_for :top do %>
-    <div class="extended hero bg-primary mt-5">
-      <div class="hero__container">
-        <div class="row">
-          <div class="columns small-centered large-10">
-            <h1 class="heading2 hero-heading"><%= translated_attribute project.title %></h1>
-          </div>
-        </div>
-        <div class="row">
-          <div class="columns mediumlarge-6 mediumlarge-push-3">
-            <div class="static__content text-left">
-              <%= render partial: "details_table" %>
-
-              <p><%= t(".voting_note_html") %></p>
-
-              <p class="text-center">
-                <%= link_to t(".start_voting"), vote_path, class: "button secondary large" %>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-<% end %>
-
-<div class="row column view-header">
-  <%= link_to projects_path, class: "small hollow" do %>
-    <%= icon "chevron-left", class: "icon--small" %>
-    <%= t(".view_all_projects") %>
+<div class="row column back-link">
+  <%= link_to projects_path, class: "action-link" do %>
+    <%= icon "arrow-left", role: "img", "aria-hidden": true %>
+    <span><%= t(".view_all_projects") %></span>
   <% end %>
 </div>
 
-<div class="resource-intro">
-  <div class="row" data-equalizer>
-    <div class="columns mediumlarge-7">
-      <div class="resource-image" data-equalizer-watch>
+<div class="row column resource">
+  <div class="row">
+    <div class="columns small-12 medium-8">
+      <div class="resource__main static__content">
+        <h1><%= translated_attribute project.title %></h1>
+
+        <div class="resource__info">
+          <div class="resource__info__item"><%= translated_attribute(project.budget.title) %></div>
+          <div class="resource__info__item">#<%= project.id %></div>
+          <div class="resource__info__item"><%= l(project.created_at.to_date, format: :decidim_short) %></div>
+          <% if project.category.present? %>
+            <div class="resource__info__item">
+              <% if project.category.parent %>
+                <%= translated_attribute(project.category.parent.name) %> -
+              <% end %>
+              <%= translated_attribute(project.category.name) %>
+            </div>
+          <% end %>
+          <% if component_settings.geocoding_enabled? && project.address.present? %>
+            <div class="resource-resource__info__item"><%= project.address %></div>
+          <% end %>
+        </div>
+
         <% if project.main_image && project.main_image.attached? %>
-          <%= image_tag project.attached_uploader(:main_image).path(variant: :main), class:"project-image", alt: strip_tags(translated_attribute(project.title)) %>
+          <%= image_tag project.attached_uploader(:main_image).path(variant: :main), class:"resource-image", alt: strip_tags(translated_attribute(project.title)) %>
         <% elsif category_image_path(project.category) %>
-          <%= image_tag category_image_path(project.category), class:"project-image", alt: strip_tags(translated_attribute(project.title)) %>
+          <%= image_tag category_image_path(project.category), class:"resource-image", alt: strip_tags(translated_attribute(project.title)) %>
         <% else %>
-          <%= image_tag asset_pack_path("media/images/budgets-project-default.jpg"), class:"project-image", alt: strip_tags(translated_attribute(project.title)) %>
+          <%= image_tag asset_pack_path("media/images/budgets-project-default.jpg"), class:"resource-image", alt: strip_tags(translated_attribute(project.title)) %>
         <% end %>
       </div>
     </div>
-    <div class="columns mediumlarge-4">
-      <div class="actionbox" data-equalizer-watch>
+
+    <div class="columns small-12 medium-4">
+      <div class="resource__aside resource__actions">
         <%= render partial: "project_actions", locals: { project: project } %>
       </div>
     </div>
   </div>
-</div>
 
-<div class="resource-details">
+
   <div class="row">
-    <div class="columns mediumlarge-7">
-      <div class="resource-details-row">
-        <div class="resource-detail">#<%= project.id %></div>
-        <div class="resource-detail">
-          <%= translated_attribute(project.budget.title) %>
-        </div>
-      </div>
-      <% if component_settings.geocoding_enabled? && project.address.present? %>
-        <div class="resource-details-row">
-          <div class="resource-detail"><%= project.address %></div>
-        </div>
-      <% end %>
-    </div>
-    <div class="columns mediumlarge-4 text-right">
-      <div class="resource-details-row">
-        <div class="resource-detail"><%= l(project.created_at.to_date, format: :decidim_short) %></div>
-      </div>
-      <% if project.category.present? %>
-        <div class="resource-details-row">
-          <div class="resource-detail">
-            <% if project.category.parent %>
-              <%= translated_attribute(project.category.parent.name) %> -
-            <% end %>
-            <%= translated_attribute(project.category.name) %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</div>
-
-<div class="resource-title">
-  <div class="row">
-    <div class="columns mediumlarge-7">
-      <h3 class="heading3"><%= decidim_sanitize(translated_attribute(project.title)) %></h3>
-
-    <% if voting_finished? && current_settings.show_votes? %>
-      <p><strong><%= t(".votes_amount", count: project.confirmed_orders_count) %></strong></p>
-    <% end %>
-    </div>
-  </div>
-</div>
-
-<div class="resource-body">
-  <div class="row">
-    <div class="columns">
-      <div class="section static__content">
+    <div class="columns small-12 medium-8">
+      <div class="resource__main resource__content static__content">
         <%= decidim_sanitize(translated_attribute(project.description)) %>
+
+        <% if voting_finished? && current_settings.show_votes? %>
+          <p><strong><%= t(".votes_amount", count: project.confirmed_orders_count) %></strong></p>
+        <% end %>
       </div>
 
+      <div class="resource__details">
       <%= attachments_for project %>
 
-      <%= linked_resources_for project, :proposals, "included_proposals" %>
-      <%= linked_resources_for project, :ideas, "included_ideas" %>
-      <%= linked_resources_for project, :plans, "included_plans" %>
-      <%= linked_resources_for project, :results, "included_projects" %>
+      <%# = linked_resources_for project, :proposals, "included_proposals" %>
+      <%# = linked_resources_for project, :ideas, "included_ideas" %>
+      <%# = linked_resources_for project, :plans, "included_plans" %>
+      <%# = linked_resources_for project, :results, "included_projects" %>
+      </div>
     </div>
   </div>
 </div>

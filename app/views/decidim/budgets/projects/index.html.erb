@@ -1,98 +1,111 @@
-<% content_for :top do %>
-  <div class="extended hero bg-primary mt-5">
-    <div class="hero__container">
-      <div class="row">
-        <div class="columns small-centered large-10">
-          <h1 class="heading2 hero-heading"><%= translated_attribute current_component.name %></h1>
-        </div>
-      </div>
-      <div class="row">
-        <% if help_sections.any? %>
-          <div class="columns mediumlarge-5">
-            <div class="mt-3">
-              <%= render partial: "decidim/budgets/shared/help_sections" %>
-            </div>
-          </div>
-        <% end %>
-        <div class="columns mediumlarge-6 <%= help_sections.any? ? "mediumlarge-push-1" : "mediumlarge-push-3" %> end">
-          <div class="info-section mt-3">
-            <div class="row">
-              <div class="columns large-8 large-push-2">
-                <div class="static__content text-center">
-                  <%== landing_page_content %>
-                  <% if voting_open? && !user_voted? %>
-                    <p>
-                      <%= link_to t(".start_voting"), vote_path, class: "button expanded secondary" %>
-                    </p>
-                  <% elsif user_voted? %>
-                    <p>
-                      <%= link_to t(".see_your_vote"), orders_path, class: "button expanded secondary" %>
-                    </p>
-                  <% end %>
-                  <% if current_settings.show_votes? %>
-                    <p>
-                      <%= link_to voting_finished? ? t(".see_results") : t(".follow_voting"), results_path, class: "button expanded secondary hollow" %>
-                    </p>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-<% end %>
-
 <div class="row columns">
-  <h2><%= t(".title") %></h2>
+  <div class="page-title">
+    <h2 class="heading1"><%= translated_attribute(current_component.name) %></h2>
+  </div>
 </div>
 
-<% if component_settings.geocoding_enabled? %>
-  <%= projects_map projects_data_for_map(geocoded_projects) do %>
-    <template id="marker-popup">
-      <div class="map-info__content">
-        <h3>${title}</h3>
-        <div id="bodyContent">
-          <p>{{html body}}</p>
-          <div class="map__date-adress">
-            <div class="address card__extra">
-              <div class="address__icon">{{html icon}}</div>
-              <div class="address__details">
-                <span>${address}</span><br>
-              </div>
-            </div>
-          </div>
-          <div class="map-info__button">
-            <a href="${link}" class="button button--sc">
-              <%= t(".view_project") %>
-            </a>
-          </div>
-        </div>
+<div class="row medium-unstack content-intro">
+  <div class="columns medium-6 mediumlarge-8">
+    <div class="text-large">
+      <%== landing_page_content %>
+    </div>
+  </div>
+  <div class="columns medium-6 mediumlarge-4">
+    <% if voting_open? && !user_voted? %>
+      <div class="actions-panel bg-secondary">
+        <%= link_to vote_path, class: "action-link" do %>
+          <span><%= t(".start_voting") %></span>
+          <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
+        <% end %>
       </div>
-    </template>
-  <% end %>
-<% end %>
+    <% elsif user_voted? %>
+      <div class="actions-panel bg-secondary">
+        <%= link_to orders_path, class: "action-link" do %>
+          <span><%= t(".see_your_vote") %></span>
+          <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
+        <% end %>
+      </div>
+    <% end %>
+    <% if current_settings.show_votes? %>
+      <div class="actions-panel bg-secondary">
+        <%= link_to results_path, class: "action-link" do %>
+          <span><%= voting_finished? ? t(".see_results") : t(".follow_voting") %></span>
+          <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
 
-<div class="row columns">
-  <%= render partial: "filters_small_view" %>
-  <div class="card card--secondary show-for-mediumlarge">
-    <div class="record-filters">
+<div class="container bg-secondary filters-section">
+  <div class="row columns">
+    <div class="result-filters record-filters">
       <%= render partial: "filters" %>
     </div>
   </div>
 </div>
 
-<div class="row columns">
-  <div class="title-action">
-    <h2 id="projects-count" class="title-action__title section-heading" aria-live="polite" aria-atomic="true">
-      <%= render partial: "count" %>
-    </h2>
-  </div>
-</div>
-<div class="row">
-  <div id="projects" class="columns" aria-live="polite">
-    <%= render partial: "projects" %>
+<div class="container listing-section">
+  <div class="row columns">
+    <% if component_settings.geocoding_enabled? %>
+      <ul class="tabs" data-tabs id="listing-tabs">
+        <li class="tabs-title is-active"><a data-tabs-target="projects-listing" href="#projects-listing" aria-selected="true"><%= t(".show_list") %></a></li>
+        <li class="tabs-title"><a data-tabs-target="projects-map" href="#projects-map"><%= t(".show_map") %></a></li>
+      </ul>
+    <% end %>
+
+    <div class="tabs-content" data-tabs-content="listing-tabs">
+      <div class="tabs-panel is-active" id="projects-listing">
+        <div class="collection-controls">
+          <div class="control">
+            <%= order_selector available_orders, i18n_scope: "decidim.budgets.projects.orders" %>
+          </div>
+          <% if false %>
+            <div class="control">
+              <%= render partial: "decidim/shared/results_per_page" %>
+            </div>
+          <% end %>
+        </div>
+
+        <div id="projects-count">
+          <%= render partial: "count" %>
+        </div>
+
+        <div id="projects">
+          <div class="cards-list">
+            <%= render partial: "projects" %>
+          </div>
+        </div>
+      </div>
+
+      <% if component_settings.geocoding_enabled? %>
+        <div class="tabs-panel" id="projects-map">
+          <%= projects_map projects_data_for_map(geocoded_projects) do %>
+            <template id="marker-popup">
+              <div class="map-info__content">
+                <h3>${title}</h3>
+                <div id="bodyContent">
+                  <p>{{html body}}</p>
+                  <div class="map__date-adress">
+                    <div class="address card__extra">
+                      <div class="address__icon">{{html icon}}</div>
+                      <div class="address__details">
+                        <span>${address}</span><br>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="map-info__button">
+                    <a href="${link}" class="button button--sc">
+                      <%= t(".view_project") %>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </template>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </div>
 </div>
 

@@ -139,6 +139,8 @@ en:
       project_list_item:
         more_info: Read more about this proposal
         more_info_with_title: Read more about %{title}
+      project_l:
+        card_label: "Proposal: %{title}"
       project_m:
         card_label: "Proposal: %{title}"
         votes_amount:
@@ -185,6 +187,8 @@ en:
           follow_voting: Follow the voting situation
           see_results: Show final results
           see_your_vote: See my vote
+          show_list: Show results as list
+          show_map: Show results on map
           start_voting: Go to browse the proposals and vote
           title: Proposals
           view_project: Show proposal
