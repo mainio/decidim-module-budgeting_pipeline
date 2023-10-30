@@ -1,12 +1,4 @@
 <%
-main_row_column_class = begin
-  if display_budgets_filter? && display_status_filter? && display_category_filter?
-    "columns mediumlarge-6 large-3"
-  else
-    "columns mediumlarge-6 large-4"
-  end
-end
-
 type_suffix = defined?(type) ? "_#{type}" : ""
 %>
 
@@ -21,8 +13,8 @@ type_suffix = defined?(type) ? "_#{type}" : ""
     </div>
   </div>
 
-  <div class="row">
-    <div class="<%= main_row_column_class %>">
+  <div class="row medium-unstack">
+    <div class="columns mediumlarge-6 large-4">
       <div class="filters__section text_filter">
         <fieldset>
           <legend class="mini-title"><%= t(".term") %></legend>
@@ -31,7 +23,7 @@ type_suffix = defined?(type) ? "_#{type}" : ""
       </div>
     </div>
     <% if display_budgets_filter? %>
-      <div class="<%= main_row_column_class %><%= " end" if !display_category_filter? && !display_status_filter? %>">
+      <div class="columns mediumlarge-6 large-4">
         <div class="filters__section decidim_budgets_budget_id_eq_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".budget") %></legend>
@@ -41,7 +33,7 @@ type_suffix = defined?(type) ? "_#{type}" : ""
       </div>
     <% end %>
     <% if display_category_filter? %>
-      <div class="<%= main_row_column_class %><%= " end" unless display_status_filter? %>">
+      <div class="columns mediumlarge-6 large-4">
         <div class="filters__section with_any_category_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".category") %></legend>
@@ -51,7 +43,7 @@ type_suffix = defined?(type) ? "_#{type}" : ""
       </div>
     <% end %>
     <% if display_status_filter? %>
-      <div class="<%= main_row_column_class %> end">
+      <div class="columns mediumlarge-6 large-4">
         <div class="filters__section with_any_status_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".status") %></legend>
@@ -65,13 +57,13 @@ type_suffix = defined?(type) ? "_#{type}" : ""
   <% if display_budget_amount_filters? || current_user %>
     <div class="row columns">
       <div class="filters__section">
-        <button type="button" class="link" data-toggle="additional_search<%= type_suffix %> additional_search_closed<%= type_suffix %> additional_search_open<%= type_suffix %>" id="additional_search_toggle<%= type_suffix %>">
+        <button type="button" class="link action-link margin-bottom-2" data-toggle="additional_search<%= type_suffix %> additional_search_closed<%= type_suffix %> additional_search_open<%= type_suffix %>" id="additional_search_toggle<%= type_suffix %>">
           <span id="additional_search_closed<%= type_suffix %>" data-toggler=".is-hidden" aria-expanded="true">
-            <%= t(".more_criteria.show") %>
+            <span><%= t(".more_criteria.show") %></span>
             <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>
           </span>
           <span id="additional_search_open<%= type_suffix %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false">
-            <%= t(".more_criteria.hide") %>
+            <span><%= t(".more_criteria.hide") %></span>
             <%= icon "chevron-top", role: "img", "aria-hidden": true %>
           </span>
         </button>
@@ -79,9 +71,9 @@ type_suffix = defined?(type) ? "_#{type}" : ""
     </div>
   <% end %>
 
-  <div id="additional_search<%= type_suffix %>" class="row is-hidden" data-toggler=".is-hidden">
+  <div id="additional_search<%= type_suffix %>" class="row medium-unstack is-hidden" data-toggler=".is-hidden">
     <% if display_budget_amount_filters? %>
-      <div class="columns mediumlarge-6 large-3">
+      <div class="columns mediumlarge-6 large-4">
         <div class="filters__section budget_amount_gteq_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".budget_amount_min") %></legend>
@@ -92,7 +84,7 @@ type_suffix = defined?(type) ? "_#{type}" : ""
           </fieldset>
         </div>
       </div>
-      <div class="columns mediumlarge-6 large-3<%= " end" unless current_user %>">
+      <div class="columns mediumlarge-6 large-4">
         <div class="filters__section budget_amount_lteq_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".budget_amount_max") %></legend>
@@ -105,7 +97,7 @@ type_suffix = defined?(type) ? "_#{type}" : ""
       </div>
     <% end %>
     <% if current_user %>
-      <div class="columns mediumlarge-6 end">
+      <div class="columns mediumlarge-6 large-4">
         <div class="filters__section activity_collection_radio_buttons_filter">
           <fieldset>
             <legend class="mini-title"><%= t(".activity") %></legend>

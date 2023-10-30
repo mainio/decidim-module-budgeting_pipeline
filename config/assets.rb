@@ -19,4 +19,4 @@ Decidim::Webpacker.register_entrypoints(
 )
 
 # Register the main application's stylesheet include statement
-Decidim::Webpacker.register_stylesheet_import("stylesheets/decidim/budgeting_pipeline/budgets")
+# Decidim::Webpacker.register_stylesheet_import("stylesheets/decidim/budgeting_pipeline/budgets")
