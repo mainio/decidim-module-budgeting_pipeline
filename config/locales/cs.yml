@@ -142,7 +142,7 @@ cs:
         more_info: Přečtěte si více o tomto návrhu
         more_info_with_title: Přečtěte si více o %{title}
       project_l:
-        card_label: "Proposal: %{title}"
+        card_label: "Návrh: %{title}"
       project_m:
         card_label: "Návrh: %{title}"
         votes_amount:
@@ -193,8 +193,8 @@ cs:
           follow_voting: Sledujte hlasovací situaci
           see_results: Zobrazit konečné výsledky
           see_your_vote: Zobrazit můj hlas
-          show_list: Show results as list
-          show_map: Show results on map
+          show_list: Zobrazit výsledky jako seznam
+          show_map: Zobrazit výsledky na mapě
           start_voting: Přejděte na procházení návrhů a hlasujte
           title: Návrhy
           view_project: Zobrazit návrh
