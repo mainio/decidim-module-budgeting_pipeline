@@ -44,6 +44,33 @@ describe Decidim::Budgets::ProjectType do
     end
   end
 
+  describe "budgetAmount" do
+    let(:query) { "{ budgetAmount }" }
+
+    it "returns the project's budget amount" do
+      expect(response["budgetAmount"]).to match(model.budget_amount)
+    end
+  end
+
+  # Deprecated, keep for the time being.
+  describe "budget_amount" do
+    let(:query) { "{ budget_amount }" }
+
+    it "returns the project's budget amount" do
+      expect(response["budget_amount"]).to match(model.budget_amount)
+    end
+  end
+
+  describe "budgetAmountMin" do
+    let(:model) { create(:budgeting_pipeline_project, component: component, budget_amount_min: 10_000) }
+
+    let(:query) { "{ budgetAmountMin }" }
+
+    it "returns the project's minimum budget amount" do
+      expect(response["budgetAmountMin"]).to match(model.budget_amount_min)
+    end
+  end
+
   describe "linkedResources" do
     let(:query) { "{ linkedResources { ...on Proposal { id } } }" }
 
