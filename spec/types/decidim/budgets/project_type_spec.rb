@@ -44,6 +44,68 @@ describe Decidim::Budgets::ProjectType do
     end
   end
 
+  describe "mainImageBlob" do
+    let(:query) { "{ mainImageBlob { id } }" }
+
+    context "without a user" do
+      let!(:current_user) { nil }
+
+      context "when the blob is attached" do
+        before do
+          model.main_image.attach(
+            io: File.open(Decidim::Dev.asset("city.jpeg")),
+            filename: "city.jpeg",
+            content_type: "image/jpeg"
+          )
+        end
+
+        it "returns nil" do
+          expect(response["mainImageBlob"]).to be_nil
+        end
+      end
+    end
+
+    context "with a regular user" do
+      context "when the blob is attached" do
+        before do
+          model.main_image.attach(
+            io: File.open(Decidim::Dev.asset("city.jpeg")),
+            filename: "city.jpeg",
+            content_type: "image/jpeg"
+          )
+        end
+
+        it "returns nil" do
+          expect(response["mainImageBlob"]).to be_nil
+        end
+      end
+    end
+
+    context "with an admin user" do
+      let!(:current_user) { create(:user, :confirmed, :admin, organization: current_organization) }
+
+      context "when the blob is not attached" do
+        it "returns nil" do
+          expect(response["mainImageBlob"]).to be_nil
+        end
+      end
+
+      context "when the blob is attached" do
+        before do
+          model.main_image.attach(
+            io: File.open(Decidim::Dev.asset("city.jpeg")),
+            filename: "city.jpeg",
+            content_type: "image/jpeg"
+          )
+        end
+
+        it "returns the project's main image blob ID" do
+          expect(response["mainImageBlob"]).to eq("id" => model.main_image.blob.id.to_s)
+        end
+      end
+    end
+  end
+
   describe "budgetAmount" do
     let(:query) { "{ budgetAmount }" }
 
