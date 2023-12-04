@@ -28,6 +28,22 @@ describe Decidim::Budgets::ProjectType do
     end
   end
 
+  describe "mainImage" do
+    let(:query) { "{ mainImage }" }
+
+    before do
+      model.main_image.attach(
+        io: File.open(Decidim::Dev.asset("city.jpeg")),
+        filename: "city.jpeg",
+        content_type: "image/jpeg"
+      )
+    end
+
+    it "returns the project's main image" do
+      expect(response["mainImage"]).to match(model.attached_uploader(:main_image).url)
+    end
+  end
+
   describe "linkedResources" do
     let(:query) { "{ linkedResources { ...on Proposal { id } } }" }
 
