@@ -23,6 +23,12 @@ module Decidim
         argument :attributes, ProjectAttributes, required: true
       end
 
+      field :delete_project, Decidim::Budgets::ProjectType, null: false do
+        description "A mutation to delete a project within a budget."
+
+        argument :id, GraphQL::Types::ID, required: true
+      end
+
       def create_project(attributes:)
         enforce_permission_to :create, :project
 
@@ -47,10 +53,10 @@ module Decidim
       end
 
       def update_project(id:, attributes:)
-        enforce_permission_to :update, :project, project: object
+        project = object.projects.find(id)
+        enforce_permission_to :update, :project, project: project
 
         form = project_form_from(attributes)
-        project = object.projects.find(id)
         Decidim::Budgets::Admin::UpdateProject.call(form, project) do
           on(:ok) do
             return project
@@ -64,6 +70,21 @@ module Decidim
 
         GraphQL::ExecutionError.new(
           I18n.t("decidim.budgets.admin.projects.update.invalid")
+        )
+      end
+
+      def delete_project(id:)
+        project = object.projects.find(id)
+        enforce_permission_to :destroy, :project, project: project
+
+        Decidim::Budgets::Admin::DestroyProject.call(project, current_user) do
+          on(:ok) do
+            return project
+          end
+        end
+
+        GraphQL::ExecutionError.new(
+          I18n.t("decidim.budgets.admin.projects.destroy.invalid")
         )
       end
 

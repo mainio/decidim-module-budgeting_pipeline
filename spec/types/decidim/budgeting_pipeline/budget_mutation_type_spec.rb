@@ -138,13 +138,13 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
     context "with no user" do
       let!(:current_user) { nil }
 
-      it "does not allow creating the project" do
+      it "does not allow updating the project" do
         expect { response }.to raise_error(Decidim::BudgetingPipeline::ActionForbidden)
       end
     end
 
     context "with a participant user" do
-      it "does not allow creating the project" do
+      it "does not allow updating the project" do
         expect { response }.to raise_error(Decidim::BudgetingPipeline::ActionForbidden)
       end
     end
@@ -201,6 +201,39 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
 
           expect(project.main_image.blob).to eq(blob)
         end
+      end
+    end
+  end
+
+  describe "deleteProject" do
+    let!(:project) { create(:budgeting_pipeline_project, budget: model) }
+    let(:query) { "{ deleteProject(id: #{project.id}) { id } }" }
+
+    context "with no user" do
+      let!(:current_user) { nil }
+
+      it "does not allow deleting the project" do
+        expect do
+          expect { response }.to raise_error(Decidim::BudgetingPipeline::ActionForbidden)
+        end.not_to change(Decidim::Budgets::Project, :count)
+      end
+    end
+
+    context "with a participant user" do
+      it "does not allow deleting the project" do
+        expect do
+          expect { response }.to raise_error(Decidim::BudgetingPipeline::ActionForbidden)
+        end.not_to change(Decidim::Budgets::Project, :count)
+      end
+    end
+
+    context "with an admin user" do
+      let!(:current_user) { create(:user, :confirmed, :admin, organization: current_organization) }
+
+      it "deletes the project" do
+        expect { response }.to change(Decidim::Budgets::Project, :count).by(-1)
+
+        expect(response["deleteProject"]).to eq("id" => project.id.to_s)
       end
     end
   end
