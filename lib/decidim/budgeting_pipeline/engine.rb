@@ -103,6 +103,10 @@ module Decidim
         )
       end
 
+      initializer "decidim_budgeting_pipeline.mutation_extensions", after: "decidim-api.graphiql" do
+        Decidim::Api::MutationType.include(Decidim::BudgetingPipeline::MutationExtensions)
+      end
+
       # Needed for the 0.25 active storage migration
       initializer "decidim_budgeting_pipeline.activestorage_migration" do
         next unless Decidim.const_defined?("CarrierWaveMigratorService")
