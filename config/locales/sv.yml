@@ -16,6 +16,8 @@ sv:
         weight: Ordning nummer
       project:
         address: Adress
+        budget_amount: Högsta budgetbelopp
+        budget_amount_min: Minsta budgetbelopp
         main_image: Primär bild
         summary: Sammanfattning för kort
   activerecord:

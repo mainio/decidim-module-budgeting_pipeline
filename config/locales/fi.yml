@@ -16,6 +16,8 @@ fi:
         weight: Järjestysnumero
       project:
         address: Osoite
+        budget_amount: Enimmäisbudjetti
+        budget_amount_min: Vähimmäisbudjetti
         main_image: Ensisijainen kuva
         summary: Tiivistelmä kortteihin
   activerecord:

@@ -63,6 +63,7 @@ FactoryBot.define do
     address { "#{Faker::Address.street_address} #{Faker::Address.zip} #{Faker::Address.city}" }
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
+    budget_amount_min { Faker::Boolean.boolean ? Faker::Number.number(digits: 5) : nil }
     paper_orders_count { rand(0..10) }
   end
 

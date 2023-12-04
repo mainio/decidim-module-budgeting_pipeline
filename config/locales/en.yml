@@ -16,6 +16,8 @@ en:
         weight: Order number
       project:
         address: Address
+        budget_amount: Maximum budget amount
+        budget_amount_min: Minimum budget amount
         main_image: Primary image
         summary: Summary for cards
   activerecord:
