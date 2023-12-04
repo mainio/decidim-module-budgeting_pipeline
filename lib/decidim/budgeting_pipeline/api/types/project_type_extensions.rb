@@ -6,6 +6,7 @@ module Decidim
       module ProjectTypeExtensions
         def self.included(type)
           type.include Decidim::Stats::StatsTypeExtension
+          type.field :summary, Decidim::Core::TranslatedFieldType, "The summary for this project", null: true
 
           return unless Decidim::BudgetingPipeline.possible_project_linked_resources.any?
 

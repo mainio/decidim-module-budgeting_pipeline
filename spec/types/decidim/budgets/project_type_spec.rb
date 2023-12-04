@@ -12,6 +12,22 @@ describe Decidim::Budgets::ProjectType do
   let(:proposal) { create(:proposal, component: proposals_component) }
   let(:proposals_component) { create(:proposal_component, participatory_space: participatory_space) }
 
+  describe "summary" do
+    let(:query) { "{ summary { translations { text locale } } }" }
+
+    let(:response_summary) do
+      response["summary"]["translations"].to_h do |value|
+        [value["locale"], value["text"]]
+      end
+    end
+
+    it "returns the project summary" do
+      actual_summary = model.summary.except("machine_translations")
+      machine_translations = model.summary["machine_translations"]
+      expect(response_summary).to match(actual_summary.merge(machine_translations))
+    end
+  end
+
   describe "linkedResources" do
     let(:query) { "{ linkedResources { ...on Proposal { id } } }" }
 
