@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/mainio/decidim-module-apifiles.git
-  revision: 4a8844a1903fe1c613dd62764afb3c7d71e44235
+  revision: 57efc84dcc93420e35f6c43eecd0c48b4c38e20c
   branch: main
   specs:
     decidim-apifiles (0.27.0)
