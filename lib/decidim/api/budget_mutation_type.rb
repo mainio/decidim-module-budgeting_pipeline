@@ -16,14 +16,14 @@ module Decidim
         argument :attributes, ProjectAttributes, required: true
       end
 
-      field :update_project, Decidim::Budgets::ProjectType, null: false do
+      field :update_project, Decidim::Budgets::ProjectType, null: true do
         description "A mutation to update a project within a budget."
 
         argument :id, GraphQL::Types::ID, required: true
         argument :attributes, ProjectAttributes, required: true
       end
 
-      field :delete_project, Decidim::Budgets::ProjectType, null: false do
+      field :delete_project, Decidim::Budgets::ProjectType, null: true do
         description "A mutation to delete a project within a budget."
 
         argument :id, GraphQL::Types::ID, required: true
@@ -53,7 +53,9 @@ module Decidim
       end
 
       def update_project(id:, attributes:)
-        project = object.projects.find(id)
+        project = object.projects.find_by(id: id)
+        return unless project
+
         enforce_permission_to :update, :project, project: project
 
         form = project_form_from(attributes)
@@ -74,7 +76,9 @@ module Decidim
       end
 
       def delete_project(id:)
-        project = object.projects.find(id)
+        project = object.projects.find_by(id: id)
+        return unless project
+
         enforce_permission_to :destroy, :project, project: project
 
         Decidim::Budgets::Admin::DestroyProject.call(project, current_user) do
