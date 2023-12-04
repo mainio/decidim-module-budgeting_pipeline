@@ -38,10 +38,10 @@ module Decidim
         validates :address, geocoding: true, if: ->(form) { form.has_address? && !form.geocoded? }
         validates :main_image, passthru: {
           to: Decidim::Budgets::Project,
-          with: {
-            budget: ->(form) { form.budget },
-            component: ->(form) { form.current_component }
-          }
+          # Note that the `with` attribute needs to be provided as a block
+          # because otherwise it may be remembered for different instances of
+          # the form due to some internal logic with the validators.
+          with: ->(form) { { budget: form.budget } }
         }
 
         def map_model(model)
