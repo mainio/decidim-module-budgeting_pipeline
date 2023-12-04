@@ -15,6 +15,7 @@ DECIDIM_VERSION = Decidim::BudgetingPipeline.decidim_version
 gem "decidim", DECIDIM_VERSION
 gem "decidim-budgeting_pipeline", path: "."
 
+gem "decidim-apifiles", github: "mainio/decidim-module-apifiles", branch: "main"
 gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "main"
 gem "decidim-stats", github: "mainio/decidim-module-stats", branch: "main"
 
