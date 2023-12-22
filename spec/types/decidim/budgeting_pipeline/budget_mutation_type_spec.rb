@@ -78,6 +78,8 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
         expect(project.linked_resources(:proposals, "included_proposals").map(&:id)).to match_array(proposals.map(&:id))
         expect(project.linked_resources(:ideas, "included_ideas").map(&:id)).to match_array(ideas.map(&:id))
         expect(project.linked_resources(:plans, "included_plans").map(&:id)).to match_array(plans.map(&:id))
+
+        expect(project.selected?).to be(false)
       end
 
       context "with a blob" do
@@ -171,6 +173,21 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
         expect(project.linked_resources(:proposals, "included_proposals").map(&:id)).to match_array(proposals.map(&:id))
         expect(project.linked_resources(:ideas, "included_ideas").map(&:id)).to match_array(ideas.map(&:id))
         expect(project.linked_resources(:plans, "included_plans").map(&:id)).to match_array(plans.map(&:id))
+
+        expect(project.selected?).to be(false)
+      end
+
+      context "when the project is selected" do
+        before { project.update!(selected_at: Time.current) }
+
+        it "does not change the selected state" do
+          expect { response }.not_to change(Decidim::Budgets::Project, :count)
+
+          expect(response["updateProject"]).to eq("id" => project.id.to_s)
+          project.reload
+
+          expect(project.selected?).to be(true)
+        end
       end
 
       context "with a blob" do

@@ -58,7 +58,7 @@ module Decidim
 
         enforce_permission_to :update, :project, project: project
 
-        form = project_form_from(attributes)
+        form = project_form_from(attributes, project)
         Decidim::Budgets::Admin::UpdateProject.call(form, project) do
           on(:ok) do
             return project
@@ -105,6 +105,7 @@ module Decidim
         )
       end
 
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
       def project_params(attributes, project = nil)
         {
           "title" => attributes.title,
@@ -121,9 +122,11 @@ module Decidim
           "idea_ids" => attributes.idea_ids || related_ids_for(project, :ideas),
           "plan_ids" => attributes.plan_ids || related_ids_for(project, :plans)
         }.tap do |attrs|
+          attrs["selected"] ||= project&.selected?
           attrs.merge!(attributes.main_image_attributes) if attributes.main_image_attributes
         end
       end
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
       def related_ids_for(project, resource)
         return [] unless project
