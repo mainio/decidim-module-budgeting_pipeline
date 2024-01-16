@@ -3,9 +3,10 @@ var $map = $('#map');
 var $projectsCount = $('#projects-count');
 var $orderFilterInput = $('.order_filter');
 
-$projects.html('<%= j(render partial: "decidim/budgets/projects/projects").strip.html_safe %>');
-$projectsCount.html('<%= j(render partial: "decidim/budgets/projects/count").strip.html_safe %>');
-$orderFilterInput.val('<%= order %>');
+$projects.html('<%= j(render partial: "decidim/budgets/votes/projects_list").strip.html_safe %>');
+// $orderFilterInput.val('<%= order %>');
 
 var $dropdownMenu = $('.dropdown.menu', $projects);
 $dropdownMenu.foundation();
+
+window.initializeProjects();

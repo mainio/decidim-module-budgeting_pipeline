@@ -9,16 +9,18 @@ module Decidim
       def build(params)
         @activity = params[:activity]
 
-        if activity && user
-          case activity
-          when "own"
-            # TODO: Filter by related records that the user has coauthored.
-          when "favorites"
-            add_scope(:user_favorites, user)
-          end
+        if user
+          add_scope(:user_favorites, user) if params[:favorites] == "1"
+          add_scope(:voted_by, user) if params[:selected] == "1"
         end
 
-        super
+        search_text = params[:search_text_cont]
+        if search_text && (id_match = search_text.match(/\A#([0-9]+)\z/))
+          params.delete(:search_text_cont)
+          params[:id_eq] = id_match[1]
+        end
+
+        super(params)
       end
     end
   end

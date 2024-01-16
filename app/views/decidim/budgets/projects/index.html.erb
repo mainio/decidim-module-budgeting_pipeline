@@ -8,17 +8,35 @@
   <div class="columns medium-6 mediumlarge-8">
     <div class="text-large">
       <%== landing_page_content %>
+
+      <% if voting_open? %>
+        <% if user_signed_in? %>
+          <% unless user_voted? %>
+            <% if user_authorized? %>
+              <%= link_to vote_path, class: "button button--icon" do %>
+                <%= t(".start_voting") %>
+                <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
+              <% end %>
+            <% else %>
+              <%= render partial: "decidim/budgets/votes/identify_user" %>
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= render partial: "decidim/budgets/votes/identify_user" %>
+        <% end %>
+      <% end %>
     </div>
   </div>
   <div class="columns medium-6 mediumlarge-4">
-    <% if voting_open? && !user_voted? %>
+    <% if voting_open? && component_settings.help_page_url.present? %>
       <div class="actions-panel bg-secondary">
-        <%= link_to vote_path, class: "action-link" do %>
-          <span><%= t(".start_voting") %></span>
+        <%= link_to component_settings.help_page_url, class: "action-link" do %>
+          <span><%= t(".help") %></span>
           <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
         <% end %>
       </div>
-    <% elsif user_voted? %>
+    <% end %>
+    <% if user_voted? %>
       <div class="actions-panel bg-secondary">
         <%= link_to orders_path, class: "action-link" do %>
           <span><%= t(".see_your_vote") %></span>

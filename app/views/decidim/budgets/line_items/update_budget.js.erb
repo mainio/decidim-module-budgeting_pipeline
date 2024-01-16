@@ -1,51 +1,37 @@
-<% amount = current_orders.map { |o| o.line_items.count }.inject(0, :+) %>
-
-var $projectCard = $("#project_<%= project.id %> .card");
-var $projectBudgetButton = $("#project-<%= project.id %>-budget-button");
 var $continueButton = $("#projects_continue_button");
-var $continueButtonOrders = $("#projects_continue_button_orders");
-var $cartButton = $("#cart-button");
-var voted = <%= voted_for?(project).to_json %>;
-var amount = <%= amount %>;
-var amountText = "<%= j(t("decidim.budgets.projects.projects.order_items_amount", count: amount)) %>";
-
-if (voted) {
-  $projectCard.addClass("selected");
-} else {
-  $projectCard.removeClass("selected");
-}
-
-if ($projectBudgetButton.length > 0) {
-  $projectBudgetButton.replaceWith('<%= j(render partial: "decidim/budgets/projects/project_budget_button", locals: { project: project }).strip.html_safe %>');
-}
+var $continueButtonMobile = $("#projects_continue_button_mobile");
 
 if ($continueButton.length > 0) {
   $continueButton.html('<%= j(render partial: "decidim/budgets/votes/projects_continue_button").strip.html_safe %>');
 }
-
-if ($continueButtonOrders.length > 0) {
-  $continueButtonOrders.html('<%= j(render partial: "decidim/budgets/orders/continue_button").strip.html_safe %>');
+if ($continueButtonMobile.length > 0) {
+  $continueButtonMobile.html('<%= j(render partial: "decidim/budgets/votes/projects_continue_button", locals: { mobile: true }).strip.html_safe %>');
 }
 
-if ($cartButton.length > 0) {
-  $(".amount", $cartButton).text("(" + amount + ")");
-  $(".amount", $cartButton).attr("aria-label", amountText);
-}
-
-var $orderProgress;
-var $orderNotifications;
-var $orderItems;
 <% current_orders.each do |order| %>
-$orderProgress = $("#order-progress-<%= order.budget.id %>");
+var $orderProgress = $("#order-progress-<%= order.budget.id %>");
 if ($orderProgress.length > 0) {
   morphdom($orderProgress[0], '<%= j(render partial: "decidim/budgets/votes/order_progress", locals: { order: order }).strip.html_safe %>');
 }
-$orderNotifications = $("#order-notifications-<%= order.budget.id %>");
-if ($orderNotifications.length > 0) {
-  $orderNotifications.html('<%= j(render partial: "decidim/budgets/votes/order_notifications", locals: { order: order }).strip.html_safe %>');
-}
-$orderItems = $("#order-items-<%= order.budget.id %>");
+
+var $orderItems = $("#order-items-<%= order.budget.id %>");
 if ($orderItems.length > 0) {
   morphdom($orderItems[0], '<%= j(render partial: "decidim/budgets/votes/order_items", locals: { order: order }).strip.html_safe %>');
 }
+<% end %>
+
+var $project = $("[data-project-id='<%= project.id %>']");
+if ($project.length > 0) {
+  <% if @added %>
+    $("input[type='checkbox']", $project).prop("checked", true);
+  <% else %>
+    $("input[type='checkbox']", $project).prop("checked", false);
+  <% end %>
+}
+
+var $nonSeleceted = $(".projects-table__row .input-checkbox input[type='checkbox']:not(:checked)");
+<% if current_orders.first.projects_rule? && current_orders.all? { |o| o.unused_allocation < 1 } %>
+$nonSeleceted.attr("disabled", true);
+<% else %>
+$nonSeleceted.removeAttr("disabled");
 <% end %>

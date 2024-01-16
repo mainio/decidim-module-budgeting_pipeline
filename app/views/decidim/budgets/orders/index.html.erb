@@ -1,18 +1,11 @@
-<div class="row column view-header">
-  <%= link_to projects_path, class: "small hollow" do %>
-    <%= icon "chevron-left", class: "icon--small" %>
-    <%= t(".back") %>
-  <% end %>
-</div>
-
 <div class="row columns">
-  <div class="text-center">
-    <h1><%= t(".title") %></h1>
+  <div class="page-title">
+    <h1 class="heading1"><%= t(".title") %></h1>
   </div>
 </div>
 
-<div class="row mb-5">
-  <div class="columns small-centered mediumlarge-10 large-8">
+<div class="row margin-bottom-3 align-center">
+  <div class="columns mediumlarge-10 large-8">
     <div class="static__content text-center">
       <%== t(".description_html") %>
 
@@ -25,6 +18,15 @@
   </div>
 </div>
 
-<div class="row columns">
-  <%= render partial: "orders_info" %>
+<div class="row margin-bottom-3 align-center">
+  <div class="columns mediumlarge-10 large-8">
+    <%= render partial: "orders_info" %>
+  </div>
+</div>
+
+<div class="row column margin-bottom-3">
+  <%= link_to projects_path, class: "action-link" do %>
+    <%= icon "arrow-left", class: "icon--small" %>
+    <%= t(".back") %>
+  <% end %>
 </div>

@@ -75,6 +75,10 @@ module Decidim
         validates_upload :main_image, uploader: Decidim::Budgets::ProjectImageUploader
         has_one_attached :main_image
 
+        scope :voted_by, lambda { |user|
+          joins(:orders).where(decidim_budgets_orders: { decidim_user_id: user })
+        }
+
         scope :order_by_most_voted, lambda { |only_voted: false|
           scope = joins(
             <<~SQLJOIN.squish

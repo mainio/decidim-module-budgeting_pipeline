@@ -1,65 +1,35 @@
-<%= render partial: "top" %>
+<% content_for :top do %>
+  <div class="row columns">
+    <h1><%= budgets.map { |b| translated_attribute(b.title) }.join(", ") %></h1>
+  </div>
+<% end %>
 
-<div class="wrapper">
-  <div class="row columns voting-wrapper">
+<div class="wrapper voting-wrapper">
+  <div class="row columns margin-bottom-3">
     <div class="static__content">
-      <h2><%= t(".title") %></h2>
       <%== translated_attribute component_settings.vote_projects_page_content %>
-      <% if budgets.one? %>
-        <p><%= t(".budget_html", name: translated_attribute(budgets.first.title)) %></p>
-      <% end %>
+
+      <h2 class="h3 margin-top-3"><%= t(".subtitle", service_name: current_organization.name) %></h2>
     </div>
 
+    <%= render partial: "orders_summary", locals: { orders: current_orders } %>
+  </div>
+
+  <div class="container listing-section">
     <div class="row columns">
-      <%= render partial: "decidim/budgets/votes/filters_small_view" %>
-      <div class="card card--secondary show-for-mediumlarge">
-        <div class="record-filters">
+      <div class="filters-section filters-section--compact">
+        <div class="result-filters record-filters">
           <%= render partial: "decidim/budgets/votes/filters" %>
         </div>
       </div>
     </div>
 
     <div class="row columns">
-      <div class="title-action">
-        <h2 id="projects-count" class="title-action__title section-heading" aria-live="polite" aria-atomic="true">
-          <%= render partial: "decidim/budgets/projects/count" %>
-        </h2>
+      <div id="projects" class="voting" aria-live="polite">
+        <%= render partial: "decidim/budgets/votes/projects_list" %>
       </div>
-    </div>
-    <div class="row">
-      <div id="projects" class="columns voting" aria-live="polite">
-        <%= render partial: "decidim/budgets/projects/projects" %>
-      </div>
-    </div>
-
-    <div id="orders" class="orders-summary mt-5">
-      <div class="orders-summary-top">
-        <div class="orders-summary-title">
-          <h2><%= t(".orders_summary_title") %></h2>
-        </div>
-        <div class="orders-summary-button">
-          <%= link_to "#projects-count", class: "button primary hollow" do %>
-            <%= t(".back_to_projects") %>
-            <%= icon "arrow-top", role: "img", "aria-hidden": true %>
-          <% end %>
-        </div>
-      </div>
-
-      <%= render partial: "orders_summary", locals: { orders: current_orders } %>
-    </div>
-
-    <div class="row column flex-actions actions mt-5">
-      <%= link_to budgets_vote_path, class: "button primary hollow icon-before", aria: {
-        label: t("decidim.budgets.votes.general.move_to_prev_step", name: t(".actions.previous"))
-      } do %>
-        <%= icon "chevron-left", role: "img", "aria-hidden": true %>
-        <%= t(".actions.previous") %>
-      <% end %>
-      <span id="projects_continue_button">
-        <%= render partial: "projects_continue_button" %>
-      </span>
     </div>
   </div>
 </div>
 
-<%= javascript_pack_tag "decidim_budgeting_pipeline_preview" %>
+<%= javascript_pack_tag "decidim_budgeting_pipeline_projects" %>

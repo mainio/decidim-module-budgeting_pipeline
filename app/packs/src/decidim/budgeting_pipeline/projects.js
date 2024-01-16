@@ -5,24 +5,43 @@ import "src/decidim/budgeting_pipeline/exit_handler";
   const $ = exports.$; // eslint-disable-line id-length
   const Rails = exports.Rails;
 
-  $(() => {
-    const $form = $("form.new_filter");
-
-    $form.on("reset.budgets", () => {
-      // Give the browser a bit of time to clear the fields
-      setTimeout(() => {
-        Rails.fire($form[0], "submit");
-      }, 100);
+  window.initializeProjects = () => {
+    const loadingProjects = [];
+    document.querySelectorAll("[data-project-selector] input[type='checkbox']").forEach((el) => {
+      el.addEventListener("change", () => {
+        loadingProjects.push(el.value);
+        document.body.classList.add("loading");
+        Rails.ajax({
+          url: el.dataset.selectUrl,
+          type: el.checked ? "POST" : "DELETE",
+          success: () => {
+            loadingProjects.shift();
+            if (loadingProjects.length < 1) {
+              document.body.classList.remove("loading");
+            }
+          },
+          error: () => {
+            loadingProjects.shift();
+            if (loadingProjects.length < 1) {
+              document.body.classList.remove("loading");
+            }
+          }
+        });
+      });
     });
 
-    // Unregister the history callbacks for the filter forms because they cause
-    // the form to be sent when anchor links are clicked. This would cause the
-    // results to flash and also causes the screen reader to announce the number
-    // of results. They would also never trigger because the change events are
-    // disabled for all filter inputs.
-    $form.each((_i, el) => {
-      const $currentForm = $(el);
-      unregisterCallback(`filters-${$currentForm.attr("id")}`);
+    document.querySelectorAll(".projects-table__row").forEach((el) => {
+      el.querySelector(".projects-table__row__data").addEventListener("click", (ev) => {
+        ev.preventDefault();
+
+        if (el.dataset.open) {
+          el.removeAttribute("data-open");
+        } else {
+          el.setAttribute("data-open", true);
+        }
+      });
     });
-  });
+  };
+
+  window.initializeProjects();
 })(window);

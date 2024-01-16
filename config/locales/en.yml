@@ -7,6 +7,7 @@ en:
       budget:
         center_latitude: Center latitude
         center_longitude: Center longitude
+        list_image: List image
       help_section:
         description: Description
         image: Image
@@ -72,6 +73,8 @@ en:
             create: Export to results
             select_component: Select the target component
             title: Exports proposals to results
+      budget_information_modal:
+        continue: Close
       last_activity:
         show_vote_at: Show my vote at %{name}
         voted_at_html: "<span>You voted at %{link}</span>"
@@ -84,19 +87,19 @@ en:
         error_message:
           error:
             order_checked_out:
-              description: You have already voted in participatory budgeting. You can no longer add proposals to your voting cart.
+              description: You have already voted in participatory budgeting. You can no longer add proposals to your vote.
               title: You have already voted
             project_exceeds_amount:
-              description: You cannot add more proposals for this area to your voting cart. First, remove other proposals in this area from your vote and add this proposal again to your vote.
+              description: You cannot add more proposals for this area to your vote. First, remove other proposals in this area from your vote and add this proposal again to your vote.
               title: You have already added the maximum amount of proposals
             project_exceeds_budget:
               description: The cost of this proposal exceeds the remaining budget for this area. First, remove other proposals in this area from your vote and add this proposal again to your vote.
               title: The remaining budget on this area is not sufficient for this proposal
             voting_not_enabled:
-              description: Voting has ended. You cannot add proposals to the voting cart when voting is inactive.
+              description: Voting has ended. You cannot add proposals to the vote when voting is inactive.
               title: Voting is not possible at this moment
         error_modal:
-          title: Failed adding the proposal to the voting cart
+          title: Failed adding the proposal to the vote
       models:
         help_container:
           fields:
@@ -159,11 +162,6 @@ en:
           category_name: Theme
           vote_count: Votes
         filters:
-          activity: My activity
-          activity_values:
-            all: All
-            authored: My proposals
-            favorites: My favorites
           budget: Area
           budget_amount_max: Maximum budget
           budget_amount_min: Minimum budget
@@ -172,14 +170,17 @@ en:
             all:
               two: Both areas
               other: All areas
+          category: Theme
           categories_values:
             all: All themes
+          favorites: Show my favourites
           label: Proposal search
           more_criteria:
             hide: Hide search criteria
             show: Show more search criteria
           reset: Clear filters
           search: Search
+          selected: Show my voted proposals
           status_values:
             not_selected: Will not proceed to implementation
             selected: Proceeds to implementation
@@ -187,11 +188,12 @@ en:
           title: Search proposals
         index:
           follow_voting: Follow the voting situation
+          help: Help
           see_results: Show final results
           see_your_vote: See my vote
           show_list: Show results as list
           show_map: Show results on map
-          start_voting: Go to browse the proposals and vote
+          start_voting: Go to vote
           title: Proposals
           view_project: Show proposal
           view_project_detailed: "Show proposal: %{name}"
@@ -207,17 +209,17 @@ en:
           show_on_map: Show proposal on map
           print: Print proposal
         project_budget_button:
-          add_descriptive: Add proposal %{resource_name} to your voting cart
-          added_descriptive: Proposal %{resource_name} added to your voting cart
-          add_to_vote: Add to voting cart
-          remove_descriptive: Remove proposal %{resource_name} from voting cart
-          remove_from_vote: Remove from voting cart
+          add_descriptive: Add proposal %{resource_name} to your vote
+          added_descriptive: Proposal %{resource_name} added to your vote
+          add_to_vote: Add to vote
+          remove_descriptive: Remove proposal %{resource_name} from vote
+          remove_from_vote: Remove from vote
         projects:
           empty: No proposals matching your search criteria. Please change your search criteria and try again.
           order_items_amount:
-            one: There is %{count} proposal in your cart
-            other: There are %{count} proposals in your cart
-          show_orders: Show voting cart
+            one: There is %{count} proposal in your vote
+            other: There are %{count} proposals in your vote
+          show_orders: Show vote
         show:
           close: Close
           start_voting: Start voting
@@ -266,25 +268,23 @@ en:
           favorites_for_budget:
             one: "one favorite in the area"
             other: "%{count} favorites in the area"
+          image: "Image: %{title}"
         budgets:
           actions:
             continue: Select proposals
-          authorization_note: "Your postal code belongs to area: %{budget_name}"
-          budget_select_note:
-            default: Choose the area in which you want to vote.
-            suggested: You can change the voting area by selecting another area.
+          authorization_note: "Your area based on your postal code:"
           highlighted_budgets:
             one: "Based on your identification, your area is:"
             other: "Based on your identification, your areas are:"
           highlighted_budgets_note:
             one: If the area is correct, you can proceed to voting.
             other: If the areas are correct, you can proceed to voting.
-          select_budgets: Select voting area
+          rest_of_budgets: "Other areas:"
+          select_budgets: Select the area where you want to vote
           show_more_information_default: Show additional information
           sticky_budgets:
             one: Everyone can vote for the proposals in this area
             other: Everyone can vote for the proposals in these areas
-          title: Select voting area
         create:
           error: Processing your vote failed, please try again.
           success: Your vote has been successfully saved!
@@ -294,6 +294,11 @@ en:
           exit: Exit voting
           message: Your vote has not been registered because you have not yet completed the voting process. Are you sure you want to exit voting?
           title: Exit notification
+        finished:
+          feedback_link: If you wish, you can give more extensive feedback using the feedback form
+          sign_out: Sign out
+          sign_out_info: Sign out in order to keep your information private. When using a shared computer, for example in the library, also clear the browser's cache and cookies. After this, sign out of the computer.
+          title: "%{service_name} voting"
         general:
           already_voted: You have already voted.
           exit_voting: Exit voting
@@ -308,7 +313,7 @@ en:
           granted_authorizations_other: If you have the opportunity to identify yourself with another provider, you can try this from the list below.
           pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
           pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
-          title: Strong identification
+          title: Log in to the service to vote
         order_items:
           empty: You have not selected any proposals from this area.
         order_notifications:
@@ -339,25 +344,27 @@ en:
                 other: You have not selected enough proposals from the area %{budget}, you have to select at least %{count} proposals
           warnings:
             no_projects:
-              description: Please note that you can select proposals for the voting cart from multiple areas. If you want to add proposals to this area, go back to view the proposals and select the ones you want to add to your vote.
+              description: Please note that you can select proposals for the vote from multiple areas. If you want to add proposals to this area, go back to view the proposals and select the ones you want to add to your vote.
               title: You have not selected any proposals from the area %{budget}
             no_projects_single:
-              description: If you want to add proposals also to your vote, go back to proposals browsing and select the proposals you want to add to your voting cart.
+              description: If you want to add proposals also to your vote, go back to proposals browsing and select the proposals you want to add to your vote.
               title: You have not selected any proposals from the area %{budget}
         order_progress:
           allocated_budget: Budget spent
           allocated_projects: Number of selected proposals
           available_budget: Budget for the area
           available_projects: Maximum amount of proposals to be selected
-          selected_projects: Proposals in the cart
+          remaining_budget: "%{amount} remaining"
+          remaining_votes:
+            one: "%{count} vote remaining"
+            other: "%{count} votes remaining"
+          selected_projects: Proposals in the vote
           selected_projects_count: "%{count} pcs"
-          unused_budget: Remaining budget
-          unused_projects: Remaining proposals to select
         orders_summary:
           order_items:
-            hide: Hide selected proposals for this area
+            hide: Hide proposals selected for the vote
             hide_detailed: Hide selected proposals on the %{name} area
-            show: Show selected proposals for this area
+            show: Proposals selected for the vote
             show_detailed: Show selected proposals on the %{name} area
         order_total:
           order_budget_sum: Total for the selected proposals
@@ -376,14 +383,37 @@ en:
           title: Preview and vote
           total_budget: Budget for the area
           total_projects: Maximum amount of proposals to be selected in the area
+        preview_modal:
+          buttons:
+            vote: Yes, confirm my vote
+            cancel: No, cancel and make changes
+          lead: You are confirming your votes for Helsinki's participatory budgeting proposals.
+          notes_html: |
+            <p>If you are happy with your choices, confirm your vote below. You can also go back to make changes.</p>
+            <p><strong>Once confirmed, the votes cannot be changed.</strong></p>
+            <p>Do you want to confirm your votes?</p>
+          selected_proposals: "Proposals you selected:"
+          title: "%{service_name} voting"
+          total_budget_html: "The total budget cost of the proposals you have chosen is approximately <strong>%{amount}</strong>."
+          remaining:
+            budget: You still have unused budget. Are you sure you only want to cast these votes?
+            votes: You still have unused votes. Are you sure you only want to cast these votes?
         projects:
           actions:
-            continue: Preview and vote
-            previous: Voting area selection
-          back_to_projects: Show proposals
-          budget_html: "Area: <strong>%{name}</strong>"
-          orders_summary_title: Voting cart status
-          title: Select proposals
+            continue: Confirm your vote
+          subtitle: "%{service_name} voting"
+        projects_list:
+          budget: Budget range
+          category: Theme
+          headers:
+            budget: Budget range
+            id: No.
+            title: Title
+            vote: Vote
+          project_note: Proposals may be refined by the city after the vote, for example in terms of location or method of implementation.
+        show:
+          privacy_accept: I accept these terms
+          privacy_reject: Cancel and log out
         start:
           invalid: Failed to select voting area, please try again.
         steps:
@@ -396,24 +426,26 @@ en:
           projects: Select proposals
           step: Step %{number}
         top:
-          title: Voting
+          title: "%{service_name} voting"
     components:
       budgets:
         settings:
           global:
             geocoding_enabled: Geocoding enabled
             default_map_center_coordinates: Default center coordinates for the map (latitude,longitude)
+            help_page_url: Help page URL
             more_information_modal_label: More information modal open link text
             projects_per_page: Proposals per page
             results_page_content: Results page content
             vote_budgets_page_content: Area selection page content
+            vote_choose_budget_note_content: Area selection content
             vote_identify_invalid_authorization_content: Invalid identity information error content
             vote_identify_invalid_authorization_title: Invalid identity information error title
             vote_identify_page_content: Identification page content
-            vote_identify_page_more_information: Identification page details
             vote_preview_page_content: Preview page content
+            vote_privacy_content: Privacy information content
             vote_projects_page_content: Browse proposals page content
-            vote_projects_per_page: Proposals per page during voting
+            vote_projects_voting_info_content: Browse proposals page voting help content
             vote_success_content: Content displayed after successful voting
       component_order_selector:
         order:

@@ -11,8 +11,12 @@ module Decidim
       include Decidim::BudgetingPipeline::ProjectItemUtilities # Overrides the `voted_for?` method for multiple orders.
 
       included do
+        helper Decidim::Budgets::VotesHelper
+
         def create
           enforce_permission_to :vote, :project, project: project, budget: budget, workflow: current_workflow
+
+          @added = true
 
           respond_to do |format|
             Decidim::Budgets::AddLineItem.call(persisted_current_order, project, current_user) do

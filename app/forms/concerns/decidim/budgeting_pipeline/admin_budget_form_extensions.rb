@@ -9,6 +9,12 @@ module Decidim
       included do
         attribute :center_latitude, Float
         attribute :center_longitude, Float
+        attribute :list_image, Decidim::Attributes::Blob
+
+        validates :list_image, passthru: {
+          to: Decidim::Budgets::Budget,
+          with: { component: ->(form) { form.current_component } }
+        }
 
         def geocoded?
           center_latitude.present? && center_longitude.present?

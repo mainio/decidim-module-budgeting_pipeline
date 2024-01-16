@@ -7,13 +7,17 @@ module Decidim
       include Decidim::FormFactory
       include Decidim::FilterResource
       include Decidim::Paginable
+      include Decidim::TranslatableAttributes
       include Decidim::Budgets::Orderable
+      include Decidim::BudgetingPipeline::Authorizable
       include Decidim::BudgetingPipeline::Orderable
       include Decidim::BudgetingPipeline::OrdersUtilities
       include Decidim::BudgetingPipeline::VoteUtilities
 
+      helper Decidim::BudgetingPipeline::AuthorizationHelper
+
       helper_method(
-        :authorization_required?,
+        :user_authorized?,
         :help_sections,
         :voting_steps,
         :current_step,
@@ -29,7 +33,7 @@ module Decidim
 
       before_action :ensure_voting_open!
       before_action :ensure_authorized!
-      before_action :ensure_not_voted!
+      before_action :ensure_not_voted!, except: [:finished]
       before_action :ensure_orders!, only: [:projects, :preview, :create]
       before_action :ensure_orders_valid!, only: [:preview, :create]
       before_action :set_current_step
@@ -38,9 +42,12 @@ module Decidim
       skip_before_action :ensure_not_voted!, only: [:show]
 
       def show
+        return redirect_to(routes_proxy.projects_path) unless user_signed_in?
+
         define_step(authorization_required? ? :authorization : :login)
         return unless user_authorized?
         return ensure_not_voted! if user_voted?
+        return if current_workflow.progress.blank? && translated_attribute(component_settings.vote_privacy_content).present?
 
         redirect_to routes_proxy.budgets_vote_path
       end
@@ -66,8 +73,7 @@ module Decidim
       end
 
       def projects
-        @projects = search.result.page(params[:page]).per(current_component.settings.vote_projects_per_page)
-        @projects = reorder(@projects)
+        @projects = reorder(search.result)
       end
 
       def create
@@ -78,11 +84,11 @@ module Decidim
             # popup which is displayed after a successful vote. This is
             # important for screen reader users who need to hear the modal
             # content when it is displayed.
-            session["decidim-budgets.voted"] = true
+            # session["decidim-budgets.voted"] = true
             if current_settings.show_votes?
               redirect_to routes_proxy.results_path
             else
-              redirect_to routes_proxy.projects_path
+              redirect_to routes_proxy.finished_vote_path
             end
           end
 
@@ -91,6 +97,10 @@ module Decidim
             redirect_to projects_vote_path
           end
         end
+      end
+
+      def finished
+        redirect_to(routes_proxy.projects_path) if !user_signed_in? || !user_voted?
       end
 
       private
@@ -142,28 +152,6 @@ module Decidim
         redirect_to routes_proxy.projects_vote_path
       end
 
-      # This ensures that only people eligible to vote can enter the voting
-      # pipeline after the authorization step. The authorization conditions
-      # should be used to control user's ability to vote (e.g. where they live,
-      # how old they are, etc.).
-      def user_authorized?
-        @user_authorized ||= user_signed_in? && action_authorized_to("vote").ok?
-      end
-
-      def authorization_required?
-        @authorization_required ||= begin
-          permission = current_component.permissions&.fetch("vote", nil)
-          handlers = permission&.fetch("authorization_handlers", nil)&.keys
-          if handlers && handlers.any?
-            providers = Decidim::BudgetingPipeline.authorization_providers
-            providers = providers.call(current_organization) if providers.respond_to?(:call)
-            (handlers & providers).any?
-          else
-            false
-          end
-        end
-      end
-
       def set_current_step
         define_step(action_name.to_sym)
       end
@@ -193,9 +181,9 @@ module Decidim
       # one(s) that will be automatically selected.
       def choose_budgets
         @choose_budgets ||= begin
-          sticky_ids = sticky_budgets.map(&:id)
-          current_workflow.allowed.reject do |budget|
-            sticky_ids.include?(budget.id)
+          suggested_ids = suggested_budgets.map(&:id)
+          current_workflow.budgets.reject do |budget|
+            suggested_ids.include?(budget.id)
           end
         end
       end
@@ -290,7 +278,8 @@ module Decidim
           decidim_budgets_budget_id_eq: nil,
           budget_amount_gteq: 0,
           budget_amount_lteq: maximum_project_budget,
-          activity: "all"
+          favorites: nil,
+          selected: nil
         }
       end
 

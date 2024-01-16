@@ -1,45 +1,17 @@
-<%
-unless defined?(selected)
-  if defined?(form)
-    selected = form.object.budget_ids.include?(budget.id)
-  else
-    selected = false
-  end
-end
-%>
-<div class="detail-selector-item<%= " selected" if selected %>">
-  <div class="detail-selector-title">
-    <div class="row">
-      <div class="columns medium-6">
-        <% if defined?(form) %>
-          <%= form.radio_button :budget_ids, budget.id, label: translated_attribute(budget.title), checked: selected %>
-        <% else %>
-          <%= translated_attribute(budget.title) %>
-        <% end %>
-      </div>
-      <div class="columns medium-6">
-        <% if budget.projects.user_favorites(current_user).any? %>
-          <div class="detail-selector-toggle">
-            <button type="button" data-toggle="budget_detail_<%= budget.id %> budget_detail_closed_<%= budget.id %> budget_detail_open_<%= budget.id %>">
-              <%= t(".favorites_for_budget", count: budget.projects.user_favorites(current_user).count) %>
-              <span id="budget_detail_closed_<%= budget.id %>" data-toggler=".hide" aria-expanded="true">
-                <%= icon "chevron-bottom" %>
-              </span>
-              <span id="budget_detail_open_<%= budget.id %>" class="hide" data-toggler=".hide" aria-expanded="false">
-                <%= icon "chevron-top" %>
-              </span>
-            </button>
-          </div>
-        <% end %>
-      </div>
+<div class="column small-12 medium-6 large-4">
+  <%= link_to start_vote_path(budget_ids: budget.id), class: "card card--border card--padded card--lead", method: :post do %>
+    <div class="card__header">
+      <h2 class="h4"><%= translated_attribute(budget.title) %></h2>
     </div>
-  </div>
-
-  <% if budget.projects.user_favorites(current_user).any? %>
-    <div class="detail-selector-content hide" data-toggler=".hide" id="budget_detail_<%= budget.id %>" aria-expanded="false">
-      <% budget.projects.user_favorites(current_user).each do |project| %>
-        <div><%= translated_attribute(project.title) %></div>
-      <% end %>
+    <div class="card__main">
+      <%= image_tag budget.attached_uploader(:list_image).path, alt: t(".image", title: translated_attribute(budget.title)), class: "card__image" if budget.list_image.attached? %>
+    </div>
+    <div class="card__content">
+      <div class="card__text">
+        <div class="card__text--paragraph">
+          <%= strip_tags(translated_attribute(budget.description)).presence || "&nbsp;".html_safe %>
+        </div>
+      </div>
     </div>
   <% end %>
 </div>

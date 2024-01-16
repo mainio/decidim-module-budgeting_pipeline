@@ -1,0 +1,41 @@
+<div class="reveal" data-reveal id="order-preview" role="dialog" aria-modal="true" aria-live="polite">
+  <div class="reveal__header">
+    <div class="reveal__title"><%= t(".title", service_name: current_organization.name) %></div>
+    <button class="close-button" data-close aria-label="<%= t("decidim.budgets.budget_information_modal.close_modal") %>" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="reveal__content">
+    <p><%= t(".lead") %></p>
+    <p><%= t(".selected_proposals") %></p>
+    <ul>
+      <% current_orders.each do |order| %>
+        <% order.line_items.order_by_projects.each do |item| %>
+          <li><%= item.project.id %> <%= translated_attribute(item.project.title) %> (<%= budget_to_currency(item.project.budget_amount) %>)</li>
+        <% end %>
+      <% end %>
+    </ul>
+    <% if current_orders.any? { |o| o.unused_allocation > 0 } %>
+      <div class="callout callout--plain warning margin-bottom-1">
+        <% if current_orders.first.projects_rule? %>
+          <p><%= t(".remaining.votes") %></p>
+        <% else %>
+          <p><%= t(".remaining.budget") %></p>
+        <% end %>
+      </div>
+    <% end %>
+    <p><%= t(".total_budget_html", amount: budget_to_currency(current_orders.sum(&:total_budget))) %></p>
+    <%= t(".notes_html") %>
+  </div>
+
+  <div class="buttons buttons-row">
+    <%= button_to vote_path, class: "button" do %>
+      <%= t(".buttons.vote") %>
+    <% end %>
+
+    <button type="button" class="button hollow" data-close>
+      <%= t(".buttons.cancel") %>
+    </button>
+  </div>
+</div>

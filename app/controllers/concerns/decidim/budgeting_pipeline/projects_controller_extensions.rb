@@ -8,10 +8,13 @@ module Decidim
 
       include Decidim::Paginable
       include Decidim::BudgetingPipeline::VoteUtilities
+      include Decidim::BudgetingPipeline::Authorizable
       include Decidim::BudgetingPipeline::Orderable
 
       included do
-        helper_method :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :statuses_available?, :vote_success?
+        helper_method :authorization_required?, :user_authorized?, :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :statuses_available?, :vote_success?
+
+        helper Decidim::BudgetingPipeline::AuthorizationHelper
 
         def index; end
 
@@ -28,7 +31,8 @@ module Decidim
             decidim_budgets_budget_id_eq: nil,
             budget_amount_gteq: 0,
             budget_amount_lteq: maximum_project_budget,
-            activity: "all"
+            favorites: nil,
+            selected: nil
           }
         end
 

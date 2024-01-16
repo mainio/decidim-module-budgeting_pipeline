@@ -33,6 +33,17 @@ module Decidim
         end
       end
 
+      def identity_providers
+        providers = Decidim::BudgetingPipeline.identity_providers
+        return providers unless providers.respond_to?(:call)
+
+        providers.call(current_organization)
+      end
+
+      def identity_provider_name(provider)
+        Decidim::BudgetingPipeline.identity_provider_name.call(provider)
+      end
+
       def landing_page_content
         translated_attribute(current_settings.landing_page_content).presence ||
           translated_attribute(component_settings.landing_page_content)

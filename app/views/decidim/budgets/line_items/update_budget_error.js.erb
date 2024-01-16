@@ -10,3 +10,8 @@ $(".error-message", $modal).html('<%= j(render partial: "error_message").strip.h
 $(".error-details", $modal).html('<%= j(render partial: "error_details").strip.html_safe %>');
 
 $modal.foundation("open");
+
+var $project = $("[data-project-id='<%= project.id %>']");
+if ($project.length > 0) {
+  $("input[type='checkbox']", $project).prop("checked", false);
+}

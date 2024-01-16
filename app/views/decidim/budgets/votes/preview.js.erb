@@ -1,0 +1,11 @@
+var $modal = $("#order-preview");
+if ($modal.length > 0) {
+  $modal.remove();
+}
+
+$modal = $('<%= j(render partial: "preview_modal").strip.html_safe %>');
+$("body").append($modal);
+
+$modal.foundation();
+$modal.foundation("open");
+

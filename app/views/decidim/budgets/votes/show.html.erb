@@ -1,31 +1,31 @@
-<% content_for :top_extra do %>
-  <% if user_signed_in? && user_authorizations(:granted).any? && invalid_authorization_title.present? %>
-    <div class="row mt-2">
-      <div class="columns small-centered mediumlarge-9 large-8">
-        <div class="callout alert" role="complementary">
-          <p class=h5>
-            <%= icon "information", role: "img", "aria-hidden": true %>
-            <%== invalid_authorization_title %>
-          </p>
-          <%== invalid_authorization_content %>
+<%= render partial: "top" %>
+
+<% if user_signed_in? %>
+  <% if user_authorized? %>
+    <div class="row column margin-bottom-3">
+      <%== privacy_content %>
+
+      <div class="row">
+        <div class="columns shrink">
+          <%= link_to t(".privacy_accept"), budgets_vote_path, class: "button" %>
+        </div>
+
+        <div class="columns shrink">
+          <%= button_to decidim.destroy_user_session_path, method: :delete, class: "button clear link" do %>
+            <%= t(".privacy_reject") %>
+          <% end %>
         </div>
       </div>
     </div>
-  <% end %>
-
-  <% if help_sections.any? %>
-    <div class="extended hero">
-      <div class="pt-4">
-        <div class="row">
-          <div class="columns small-centered mediumlarge-8 large-7">
-            <%= render partial: "decidim/budgets/shared/help_sections", locals: { type: :large } %>
-          </div>
-        </div>
+  <% else %>
+    <div class="row column margin-bottom-3">
+      <div class="callout alert" role="complementary">
+        <p class=h5>
+          <%= icon "information", role: "img", "aria-hidden": true %>
+          <%== invalid_authorization_title %>
+        </p>
+        <%== invalid_authorization_content %>
       </div>
     </div>
   <% end %>
 <% end %>
-
-<%= render partial: "top" %>
-
-<%= render partial: "identify_user" %>

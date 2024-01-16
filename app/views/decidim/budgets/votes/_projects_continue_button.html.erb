@@ -1,18 +1,20 @@
 <% button_label ||= t("decidim.budgets.votes.projects.actions.continue") %>
+<% button_class = %w(button button--icon) %>
+<% button_class << "expanded" if defined?(mobile) && mobile %>
 
 <% if can_cast_votes? %>
-  <%= link_to preview_vote_path, class: "button primary icon-after", aria: {
+  <%= link_to preview_vote_path, remote: true, class: "#{button_class.join(" ")} margin-bottom-0", aria: {
     label: t("decidim.budgets.votes.general.move_to_next_step", name: button_label)
   } do %>
     <%= button_label %>
-    <%= icon "chevron-right", role: "img", "aria-hidden": true %>
+    <%= icon "arrow-right", role: "img", "aria-hidden": true %>
   <% end %>
 <% else %>
-  <%= content_tag :span, class: "button primary icon-after disabled", role: "link", tabindex: 0, aria: {
+  <%= content_tag :span, class: "#{button_class.join(" ")} hollow disabled margin-bottom-0", role: "link", tabindex: 0, aria: {
     disabled: true,
     label: t("decidim.budgets.votes.general.move_to_next_step", name: button_label)
   } do %>
     <%= button_label %>
-    <%= icon "chevron-right", role: "img", "aria-hidden": true %>
+    <%= icon "arrow-right", role: "img", "aria-hidden": true %>
   <% end %>
 <% end %>

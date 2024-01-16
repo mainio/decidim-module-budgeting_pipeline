@@ -1,0 +1,36 @@
+<% content_for :top do %>
+  <div class="row columns">
+    <h1><%= t(".title", service_name: current_organization.name) %></h1>
+  </div>
+<% end %>
+
+<div class="wrapper voting-wrapper">
+  <div class="row columns margin-bottom-3">
+    <div class="static__content text-center">
+      <p><%= icon("circle-check", role: "img", "aria-hidden": true, class: "icon--notify") %></p>
+
+      <%= render partial: "decidim/budgets/votes/finished_content" %>
+    </div>
+  </div>
+  <div class="row columns margin-bottom-3">
+    <hr class="strong">
+
+    <div class="static__content text-center">
+      <p><a href="https://palautteet.hel.fi" target="_blank"><%= t(".feedback_link") %></a></p>
+    </div>
+  </div>
+  <div class="row columns margin-bottom-3">
+    <div class="banner banner--padded bg-secondary">
+      <div class="banner__content">
+        <h2 class="h5 margin-top-0"><%= t(".sign_out") %></h2>
+        <p><%= t(".sign_out_info") %></p>
+      </div>
+      <div class="banner__aside">
+        <%= link_to decidim.destroy_user_session_path, method: :delete, class: "sign-out-link button expanded button--icon margin-bottom-0", role: "button" do %>
+          <%= t(".sign_out") %>
+          <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

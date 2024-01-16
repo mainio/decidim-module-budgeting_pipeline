@@ -1,0 +1,82 @@
+<div class="projects-table">
+  <div class="projects-table__header">
+    <div class="projects-table__header__data">
+      <div class="projects-table__cell projects-table__cell--id"><%== t(".headers.id") %></div>
+      <div class="projects-table__cell projects-table__cell--title"><%== t(".headers.title") %></div>
+      <div class="projects-table__cell projects-table__cell--budget"><%== t(".headers.budget") %></div>
+    </div>
+
+    <div class="projects-table__header__vote">
+      <%== t(".headers.vote") %>
+    </div>
+  </div>
+
+  <div class="projects-table__body">
+    <% projects.each do |project| %>
+      <div class="projects-table__row" data-project-id="<%= project.id %>">
+        <div class="projects-table__row__header">
+          <div class="projects-table__row__data" tabindex="0" role="button">
+            <div class="projects-table__cell projects-table__cell--id">
+              <%= project.id %>
+            </div>
+
+            <div class="projects-table__cell projects-table__cell--title">
+              <%= translated_attribute(project.title) %>
+            </div>
+
+            <div class="projects-table__cell projects-table__cell--budget">
+              <span><%= budget_to_currency(project.budget_amount) %></span>
+
+              <div class="projects-table__row__icon">
+                <%= icon("chevron-bottom", role: "img", "aria-hidden": true) %>
+              </div>
+            </div>
+          </div>
+          <div class="projects-table__row__vote" data-project-selector>
+            <div class="input-checkbox">
+              <input id="project_selector_<%= project.id %>"
+                type="checkbox"
+                name="projects[]"
+                value="<%= project.id %>"
+                data-select-url="<%= budget_order_line_item_path(project.budget, project_id: project.id, format: :js) %>"
+                <%= "checked" if project_selected?(project) %>
+              >
+              <label for="project_selector_<%= project.id %>">
+                <span class="show-for-sr">Valitse ehdotus <%= translated_attribute(project.title) %></span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="projects-table__row__details">
+          <div class="projects-table__row__main">
+            <% if (summary = translated_attribute(project.summary))&.strip.present? %>
+              <p><%= translated_attribute(summary) %></p>
+            <% end %>
+            <%== translated_attribute(project.description) %>
+          </div>
+          <div class="projects-table__row__side">
+            <div class="details-list">
+              <% if project.category.present? %>
+                <div class="details-list__item">
+                  <div class="details-list__item__title"><%== t(".category") %></div>
+                  <div class="details-list__item__data"><%= translated_attribute(project.category.name) %></div>
+                </div>
+              <% end %>
+              <div class="details-list__item">
+                <div class="details-list__item__title"><%= t(".budget") %></div>
+                <div class="details-list__item__data">
+                  <%= budget_to_currency(project.budget_amount) %>
+                </div>
+              </div>
+              <div class="details-list__item">
+                <br><br>
+                <%= t(".project_note") %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

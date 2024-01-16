@@ -19,26 +19,24 @@ module Decidim
             more_information.editor = true
 
             # Add extra attributes
-            settings.attribute :vote_projects_per_page, type: :integer, default: 6
             settings.attribute :more_information_modal_label, type: :string, translated: true
             settings.attribute :geocoding_enabled, type: :boolean
             settings.attribute :default_map_center_coordinates, type: :string
+            settings.attribute :help_page_url, type: :string
             settings.attribute :vote_identify_page_content, type: :text, translated: true, editor: true
-            settings.attribute :vote_identify_page_more_information, type: :text, translated: true, editor: true
+            settings.attribute :vote_privacy_content, type: :text, translated: true, editor: true
             settings.attribute :vote_identify_invalid_authorization_title, type: :string, translated: true
             settings.attribute :vote_identify_invalid_authorization_content, type: :text, translated: true, editor: true
             settings.attribute :vote_budgets_page_content, type: :text, translated: true, editor: true
+            settings.attribute :vote_choose_budget_note_content, type: :text, translated: true, editor: true
             settings.attribute :vote_projects_page_content, type: :text, translated: true, editor: true
+            settings.attribute :vote_projects_voting_info_content, type: :text, translated: true, editor: true
             settings.attribute :vote_preview_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_success_content, type: :text, translated: true, editor: true
             settings.attribute :results_page_content, type: :text, translated: true, editor: true
 
             # Create the settings manipulator for moving the attributes
             m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
-
-            # Move the voting projects per page after the default projects per
-            # page setting so it is in a logic position.
-            m.move_attribute_after(:vote_projects_per_page, :projects_per_page)
 
             # Move the more information modal label before the modal content so
             # it is in a logic position.
@@ -62,6 +60,7 @@ module Decidim
             post :start
             get :projects
             get :preview
+            get :finished
           end
 
           resources :orders, only: [:index]
@@ -191,7 +190,7 @@ module Decidim
             Decidim::BudgetingPipeline::ActionLogExtensions
           )
           Decidim::Budgets::Budget.include(
-            Decidim::Stats::Measurable
+            Decidim::BudgetingPipeline::BudgetExtensions
           )
           Decidim::Budgets::Project.include(
             Decidim::BudgetingPipeline::ProjectExtensions

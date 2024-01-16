@@ -1,29 +1,5 @@
 <% content_for :top do %>
-  <div class="voting-header wrapper pt-0 pb-0">
-    <div class="row columns">
-      <div class="exit-link">
-        <%= link_to "#exit-notification", data: { open: "exit-notification" }, aria: { haspopup: "dialog" } do %>
-          <%= icon "account-logout", role: "img", "aria-hidden": true %>
-          <%= t("decidim.budgets.votes.general.exit_voting") %>
-        <% end %>
-      </div>
-    </div>
-
-
-    <div class="voting-header__content">
-      <div class="voting-header__title">
-        <div class="row">
-          <div class="columns small-centered large-10">
-            <h1><%= t(".title") %></h1>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="row columns">
+    <h1><%= t(".title", service_name: current_organization.name) %></h1>
   </div>
-
-  <%= render partial: "steps" %>
-
-  <%= yield :top_extra if content_for? :top_extra %>
-
-  <%= render partial: "exit_modal" %>
 <% end %>
