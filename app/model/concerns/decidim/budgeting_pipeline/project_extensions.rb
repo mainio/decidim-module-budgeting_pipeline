@@ -75,6 +75,60 @@ module Decidim
         validates_upload :main_image, uploader: Decidim::Budgets::ProjectImageUploader
         has_one_attached :main_image
 
+        # Searches through the plan type linked resources in order for users
+        # to discover budgeting projects or plans that match a specific text.
+        #
+        # Implemented as its own scope because the linked resource search is
+        # difficult to implement in a performant way through ransack directly.
+        scope :matching_id_or_text_with_linked_plans, lambda { |text, locales = []|
+          id_match = text.match(/\A([0-9]+)\z/)
+
+          query =
+            if id_match
+              where(id: text)
+            else
+              ransack(search_text_cont: text).result
+            end
+          return query if locales.empty?
+
+          # Find with linked plans, this is the complex part as the plans
+          # separate the content into different sections.
+          plan_links = Decidim::ResourceLink.joins(
+            "INNER JOIN decidim_budgets_projects ON decidim_budgets_projects.id = decidim_resource_links.from_id"
+          ).where(
+            from_type: name,
+            to_type: "Decidim::Plans::Plan",
+            decidim_budgets_projects: { id: self }
+          ).distinct.pluck(:to_id)
+          if plan_links.any?
+            plan_components = Decidim::Plans::Plan.where(id: plan_links).distinct.pluck(:decidim_component_id)
+            if plan_components.any?
+              searchable_sections = Decidim::Plans::Section.where(component: plan_components, searchable: true)
+              matching_plans =
+                if id_match
+                  Decidim::Plans::Plan.where(id: text)
+                else
+                  Decidim::Plans::Plan.containing_text(text, searchable_sections, locales)
+                end
+              query = query.or(
+                where(
+                  id: joins(:resource_links_from).joins(
+                    "INNER JOIN decidim_plans_plans ON decidim_plans_plans.id = decidim_resource_links.to_id"
+                  ).where(
+                    decidim_resource_links: {
+                      from_type: name,
+                      to_type: "Decidim::Plans::Plan"
+                    },
+                    decidim_plans_plans: { id: matching_plans }
+                  )
+                )
+              )
+            end
+          end
+
+          query
+        }
+
         scope :voted_by, lambda { |user|
           joins(:orders).where(decidim_budgets_orders: { decidim_user_id: user })
         }

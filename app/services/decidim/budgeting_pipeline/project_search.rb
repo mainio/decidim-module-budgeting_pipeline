@@ -14,10 +14,10 @@ module Decidim
           add_scope(:voted_by, user) if params[:selected] == "1"
         end
 
-        search_text = params[:search_text_cont]
-        if search_text && (id_match = search_text.match(/\A#([0-9]+)\z/))
-          params.delete(:search_text_cont)
-          params[:id_eq] = id_match[1]
+        # In case the organization has been given, search with the linked plans
+        if organization
+          search_text = params.delete(:search_text_cont)
+          add_scope(:matching_id_or_text_with_linked_plans, [search_text, organization.available_locales]) if search_text
         end
 
         super(params)
