@@ -397,8 +397,8 @@ fi:
           title: "%{service_name}-äänestys"
           total_budget_html: "Valitsemiesi ehdotusten budjettikustannus on yhteensä noin <strong>%{amount}</strong>."
           remaining:
-            budget: Sinulla on vielä käyttämätöntä budjettia. Oletko varma että haluat antaa vain nämä äänet?
-            votes: Sinulla on vielä käyttämättömiä ääniä. Oletko varma että haluat antaa vain nämä äänet?
+            budget: Sinulla on vielä käyttämätöntä budjettia. Oletko varma että, haluat antaa vain nämä äänet?
+            votes: Sinulla on vielä käyttämättömiä ääniä. Oletko varma että, haluat antaa vain nämä äänet?
         projects:
           actions:
             continue: Vahvista äänesi
