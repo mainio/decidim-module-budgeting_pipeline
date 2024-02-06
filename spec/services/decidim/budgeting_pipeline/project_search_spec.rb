@@ -32,7 +32,7 @@ describe Decidim::BudgetingPipeline::ProjectSearch do
   context "when the search query matches a single project" do
     let(:params) { { search_text_cont: "first" } }
 
-    it "finds the correct projects" do
+    it "finds the correct project" do
       expect(subject.result.count).to eq(1)
       expect(subject.result.first).to eq(projects[0])
     end
@@ -67,9 +67,21 @@ describe Decidim::BudgetingPipeline::ProjectSearch do
     context "when the search query matches a single plan" do
       let(:params) { { search_text_cont: "quaternary" } }
 
-      it "finds the correct projects" do
+      it "finds the correct project" do
         expect(subject.result.count).to eq(1)
         expect(subject.result.first).to eq(projects[3])
+      end
+    end
+
+    context "when searching with searchable plan content" do
+      let(:section) { create(:section, :field_text, component: plans_component) }
+      let!(:content) { create(:content, section: section, plan: plans.first, body: { en: "This content should be discoverable through the search." }) }
+
+      let(:params) { { search_text_cont: "discoverable" } }
+
+      it "finds the correct project" do
+        expect(subject.result.count).to eq(1)
+        expect(subject.result.first).to eq(projects[0])
       end
     end
   end
