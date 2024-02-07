@@ -41,7 +41,7 @@ module Decidim
               projects
             end
           when "alphabetical"
-            projects.order("title->>'#{Arel.sql(current_locale)}'")
+            projects.order(Arel.sql("decidim_budgets_projects.title->>'#{current_locale}'"))
           when "random"
             projects.order_randomly(random_seed)
           else
