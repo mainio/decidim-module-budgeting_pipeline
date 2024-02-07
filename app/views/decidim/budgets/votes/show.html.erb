@@ -1,23 +1,11 @@
-<%= render partial: "top" %>
+<div class="row columns">
+  <div class="page-title">
+    <h1 class="heading1"><%= translated_attribute(current_component.name) %></h1>
+  </div>
+</div>
 
 <% if user_signed_in? %>
   <% if user_authorized? %>
-    <div class="row column margin-bottom-3">
-      <%== privacy_content %>
-
-      <div class="row">
-        <div class="columns shrink">
-          <%= link_to t(".privacy_accept"), budgets_vote_path, class: "button" %>
-        </div>
-
-        <div class="columns shrink">
-          <%= button_to decidim.destroy_user_session_path, method: :delete, class: "button clear link" do %>
-            <%= t(".privacy_reject") %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  <% else %>
     <div class="row column margin-bottom-3">
       <div class="callout alert" role="complementary">
         <p class=h5>
@@ -27,5 +15,9 @@
         <%== invalid_authorization_content %>
       </div>
     </div>
+  <% else %>
+    <%= render partial: "landing" %>
   <% end %>
+<% else %>
+  <%= render partial: "landing" %>
 <% end %>

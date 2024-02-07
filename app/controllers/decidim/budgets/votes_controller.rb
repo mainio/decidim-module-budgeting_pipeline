@@ -17,6 +17,7 @@ module Decidim
       helper Decidim::BudgetingPipeline::AuthorizationHelper
 
       helper_method(
+        :authorization_required?,
         :user_authorized?,
         :help_sections,
         :voting_steps,
@@ -42,12 +43,9 @@ module Decidim
       skip_before_action :ensure_not_voted!, only: [:show]
 
       def show
-        return redirect_to(routes_proxy.projects_path) unless user_signed_in?
-
         define_step(authorization_required? ? :authorization : :login)
         return unless user_authorized?
         return ensure_not_voted! if user_voted?
-        return if current_workflow.progress.blank? && translated_attribute(component_settings.vote_privacy_content).present?
 
         redirect_to routes_proxy.budgets_vote_path
       end

@@ -17,6 +17,7 @@ gem "decidim-budgeting_pipeline", path: "."
 
 gem "decidim-apifiles", github: "mainio/decidim-module-apifiles", branch: "main"
 gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "main"
+gem "decidim-feedback", github: "mainio/decidim-module-feedback", branch: "main"
 gem "decidim-stats", github: "mainio/decidim-module-stats", branch: "main"
 
 gem "bootsnap", "~> 1.4"
@@ -42,7 +43,6 @@ group :test do
   gem "decidim-accountability", DECIDIM_VERSION
   gem "decidim-proposals", DECIDIM_VERSION
 
-  gem "decidim-feedback", github: "mainio/decidim-module-feedback", branch: "main"
   gem "decidim-ideas", github: "mainio/decidim-module-ideas", branch: "main"
   gem "decidim-plans", github: "mainio/decidim-module-plans", branch: "main"
   gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "main"

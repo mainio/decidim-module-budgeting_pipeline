@@ -187,14 +187,9 @@ en:
           term: Keyword
           title: Search proposals
         index:
-          follow_voting: Follow the voting situation
-          help: Help
-          see_results: Show final results
-          see_your_vote: See my vote
           show_list: Show results as list
           show_map: Show results on map
-          start_voting: Go to vote
-          title: Proposals
+          title: Browse proposals
           view_project: Show proposal
           view_project_detailed: "Show proposal: %{name}"
         orders:
@@ -314,6 +309,12 @@ en:
           pending_authorizations_notice: "You have already identified yourself with the following providers that are pending approval:"
           pending_authorizations_other: If you have the opportunity to identify yourself with another provider, you can choose that provider from the list below.
           title: Log in to the service to vote
+        landing:
+          follow_voting: Follow the voting situation
+          help: Help
+          see_results: Show final results
+          see_your_vote: See my vote
+          start_voting: Go to vote
         order_items:
           empty: You have not selected any proposals from this area.
         order_notifications:
@@ -433,17 +434,17 @@ en:
           global:
             geocoding_enabled: Geocoding enabled
             default_map_center_coordinates: Default center coordinates for the map (latitude,longitude)
+            feedback_url: Feedback survey URL
             help_page_url: Help page URL
             more_information_modal_label: More information modal open link text
             projects_per_page: Proposals per page
             results_page_content: Results page content
-            vote_budgets_page_content: Area selection page content
-            vote_choose_budget_note_content: Area selection content
+            vote_budgets_page_content: Area selection page main content
+            vote_choose_budget_note_content: Area selection help
             vote_identify_invalid_authorization_content: Invalid identity information error content
             vote_identify_invalid_authorization_title: Invalid identity information error title
             vote_identify_page_content: Identification page content
             vote_preview_page_content: Preview page content
-            vote_privacy_content: Privacy information content
             vote_projects_page_content: Browse proposals page content
             vote_projects_voting_info_content: Browse proposals page voting help content
             vote_success_content: Content displayed after successful voting

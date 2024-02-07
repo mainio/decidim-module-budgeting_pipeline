@@ -19,9 +19,9 @@ module Decidim
         mobile_tag + desktop_tag
       end
 
-      def privacy_content
-        translated_attribute(component_settings.vote_privacy_content)
-      end
+      # def privacy_content
+      #   translated_attribute(component_settings.vote_privacy_content)
+      # end
 
       def display_more_information?
         translated_attribute(component_settings.more_information_modal).present?

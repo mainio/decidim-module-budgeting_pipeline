@@ -4,6 +4,8 @@
   </div>
 <% end %>
 
+<% feedback_url = translated_attribute(component_settings.feedback_url) %>
+
 <div class="wrapper voting-wrapper">
   <div class="row columns margin-bottom-3">
     <div class="static__content text-center">
@@ -15,9 +17,13 @@
   <div class="row columns margin-bottom-3">
     <hr class="strong">
 
-    <div class="static__content text-center">
-      <p><a href="https://palautteet.hel.fi" target="_blank"><%= t(".feedback_link") %></a></p>
-    </div>
+    <%= cell("decidim/feedback/feedback_inline", current_component, metadata: { context: "budgets", action: "vote" }) %>
+
+    <% if feedback_url.present? %>
+      <div class="static__content text-center">
+        <p><%= link_to t(".feedback_link"), feedback_url, target: "_blank" %></p>
+      </div>
+    <% end %>
   </div>
   <div class="row columns margin-bottom-3">
     <div class="banner banner--padded bg-secondary">
@@ -26,7 +32,7 @@
         <p><%= t(".sign_out_info") %></p>
       </div>
       <div class="banner__aside">
-        <%= link_to decidim.destroy_user_session_path, method: :delete, class: "sign-out-link button expanded button--icon margin-bottom-0", role: "button" do %>
+        <%= link_to decidim.destroy_user_session_path(redirect_url: projects_path), method: :delete, class: "sign-out-link button expanded button--icon margin-bottom-0", role: "button" do %>
           <%= t(".sign_out") %>
           <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
         <% end %>

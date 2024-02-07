@@ -192,14 +192,9 @@ sv:
           term: Nyckelord
           title: Sök förslag
         index:
-          follow_voting: Följ omröstningssituationen
-          help: Hjälp
-          see_results: Visa slutresultat
-          see_your_vote: Se min röst
-          start_voting: Gå till omröstning
           show_list: Visa resultat som lista
           show_map: Visa resultat på kartan
-          title: Förslag
+          title: Bekanta dig med förslag
           view_project: Visa förslag
           view_project_detailed: "Visa förslag: %{name}"
         orders:
@@ -227,7 +222,7 @@ sv:
           show_orders: Visa röst
         show:
           close: Stänga
-          start_voting: Börja rösta
+          start_voting: Gå till omröstning
           view_all_projects: Visa alla förslag
           votes_amount:
             one: "%{count} röst"
@@ -319,6 +314,12 @@ sv:
           pending_authorizations_notice: "Du har redan identifierat dig med följande leverantörer som väntar på godkännande:"
           pending_authorizations_other: Om du har möjlighet att identifiera dig med en annan leverantör kan du välja den leverantören från listan nedan.
           title: Logga in på tjänsten för att rösta
+        landing:
+          follow_voting: Följ omröstningssituationen
+          help: Hjälp
+          see_results: Visa slutresultat
+          see_your_vote: Se min röst
+          start_voting: Gå till omröstning
         order_items:
           empty: Du har inte valt några förslag från detta område.
         order_notifications:
@@ -438,17 +439,17 @@ sv:
           global:
             geocoding_enabled: Geokodning aktiverad
             default_map_center_coordinates: Standardcentrumkoordinater för kartan (latitud, longitud)
+            feedback_url: URL för feedbackundersökning
             help_page_url: Hjälpsidans URL
             more_information_modal_label: Mer information modal öppen länktext
             projects_per_page: Förslag per sida
             results_page_content: Resultatsidans innehåll
-            vote_budgets_page_content: Områdesval sidinnehåll
-            vote_choose_budget_note_content: Områdesvalsinnehåll
+            vote_budgets_page_content: Områdesvalssida huvudinnehåll
+            vote_choose_budget_note_content: Områdesval hjälp
             vote_identify_invalid_authorization_content: Ogiltigt identitetsinformation fel innehåll
             vote_identify_invalid_authorization_title: Ogiltig identitetsinformation fel titel
             vote_identify_page_content: Identitetssidans innehåll
             vote_preview_page_content: Förhandsvisning sidinnehåll
-            vote_privacy_content: Sekretessinformationsinnehåll
             vote_projects_page_content: Bläddra bland innehållsförslag
             vote_projects_voting_info_content: Bläddra förslag sida röstning hjälpinnehåll
             vote_success_content: Innehåll som visas efter lyckad omröstning

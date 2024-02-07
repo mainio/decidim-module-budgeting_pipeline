@@ -187,14 +187,9 @@ fi:
           term: Hakusana
           title: Etsi ehdotuksista
         index:
-          follow_voting: Seuraa äänestystilannetta
-          help: Ohjeet
-          see_results: Näytä lopullinen äänestystilanne
-          see_your_vote: Näytä oma ääneni
           show_list: Näytä tulokset listana
           show_map: Näytä tulokset kartalla
-          start_voting: Siirry äänestämään
-          title: Ehdotukset
+          title: Tutustu ehdotuksiin
           view_project: Näytä ehdotus
           view_project_detailed: "Näytä ehdotus: %{name}"
         orders:
@@ -314,6 +309,12 @@ fi:
           pending_authorizations_notice: "Olet jo tunnistautunut seuraavilla tunnistautumistavoilla, jotka odottavat hyväksyntää:"
           pending_authorizations_other: Mikäli sinulla on mahdollisuus tunnistautua toisella tavalla, voit valita toisen tunnistautumistavan alla olevasta listasta.
           title: Tunnistaudu palveluun, jotta voit äänestää
+        landing:
+          follow_voting: Seuraa äänestystilannetta
+          help: Ohjeet
+          see_results: Näytä lopullinen äänestystilanne
+          see_your_vote: Näytä oma ääneni
+          start_voting: Siirry äänestämään
         order_items:
           empty: Et ole valinnut yhtään ehdotusta tältä alueelta.
           total_note: Valitsemiesi ehdotusten budjettikustannus on yhteensä noin %{amount}.
@@ -434,17 +435,17 @@ fi:
           global:
             geocoding_enabled: Geokoodaus käytössä
             default_map_center_coordinates: Kartan oletuskeskipisteen koordinaatit (latitude,longitude)
+            feedback_url: Palautekyselyn URL-osoite
             help_page_url: Ohjesivun URL-osoite
             more_information_modal_label: Lisätietoikkunan avauslinkin teksti
             projects_per_page: Ehdotukset sivua kohden
             results_page_content: Tulossivun sisältö
-            vote_budgets_page_content: Alueen valintasivun sisältö
-            vote_choose_budget_note_content: Alueen valinnan sisältö
+            vote_budgets_page_content: Alueen valintasivun pääsisältö
+            vote_choose_budget_note_content: Alueen valinnan ohje
             vote_identify_invalid_authorization_content: Virheellisten tunnistautumistietojen virheen sisältö
             vote_identify_invalid_authorization_title: Virheellisten tunnistautumistietojen virheen otsikko
             vote_identify_page_content: Tunnistautumissivun sisältö
             vote_preview_page_content: Esikatselusivun sisältö
-            vote_privacy_content: Tietosuojaselosteen sisältö
             vote_projects_page_content: Ehdotusten selaussivun sisältö
             vote_projects_voting_info_content: Ehdotusten valintasivun äänestysohjeen sisältö
             vote_success_content: Onnistuneen äänestyksen jälkeen näytettävä sisältö

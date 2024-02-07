@@ -24,7 +24,6 @@ module Decidim
             settings.attribute :default_map_center_coordinates, type: :string
             settings.attribute :help_page_url, type: :string
             settings.attribute :vote_identify_page_content, type: :text, translated: true, editor: true
-            settings.attribute :vote_privacy_content, type: :text, translated: true, editor: true
             settings.attribute :vote_identify_invalid_authorization_title, type: :string, translated: true
             settings.attribute :vote_identify_invalid_authorization_content, type: :text, translated: true, editor: true
             settings.attribute :vote_budgets_page_content, type: :text, translated: true, editor: true
@@ -33,6 +32,7 @@ module Decidim
             settings.attribute :vote_projects_voting_info_content, type: :text, translated: true, editor: true
             settings.attribute :vote_preview_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_success_content, type: :text, translated: true, editor: true
+            settings.attribute :feedback_url, type: :string, translated: true
             settings.attribute :results_page_content, type: :text, translated: true, editor: true
 
             # Create the settings manipulator for moving the attributes
