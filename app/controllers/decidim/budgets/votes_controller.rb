@@ -45,7 +45,11 @@ module Decidim
       def show
         define_step(authorization_required? ? :authorization : :login)
         return unless user_authorized?
-        return ensure_not_voted! if user_voted?
+
+        if user_voted?
+          flash[:warning] = I18n.t("decidim.budgets.votes.general.already_voted")
+          return redirect_to routes_proxy.orders_path
+        end
 
         redirect_to routes_proxy.budgets_vote_path
       end
