@@ -256,7 +256,7 @@ sv:
           project_votes: Röster
         show:
           show_projects: Visa förslag
-          see_your_vote: Se min röst
+          see_your_vote: Grannska mina röster
           title: Valsituationen
         vote_finished_modal:
           close: Stäng fönstret
@@ -402,8 +402,8 @@ sv:
           title: "%{service_name} omröstning"
           total_budget_html: "Den totala budgetkostnaden för de förslag du har valt är ungefär <strong>%{amount}</strong>."
           remaining:
-            budget: Du har fortfarande oanvända röster. Är du säker på att du bara vill lägga dessa röster?
-            votes: Du har fortfarande oanvända röster. Är du säker på att du bara vill lägga dessa röster?
+            budget: Du har fortfarande oanvända röster. Är du säker på att du inte vill använda alla dina röster?
+            votes: Du har fortfarande oanvända röster. Är du säker på att du inte vill använda alla dina röster?
         projects:
           actions:
             continue: Bekräfta din röst
