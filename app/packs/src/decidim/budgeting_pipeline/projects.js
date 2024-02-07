@@ -3,6 +3,10 @@
 
   const stickySummary = () => {
     const ordersSummary = document.getElementById("orders-summary");
+    if (!ordersSummary) {
+      return;
+    }
+
     const stickPosition = document.createElement("div");
     const placeHolder = document.createElement("div");
     stickPosition.style.position = "relative";
