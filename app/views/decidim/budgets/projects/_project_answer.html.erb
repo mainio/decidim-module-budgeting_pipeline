@@ -6,7 +6,7 @@ answers = linked_plans.map { |plan| translated_attribute(plan.answer) }.select {
 <% if answers.any? %>
   <div class="banner bg-silver-medium-light">
     <div class="banner__content">
-      <h2 class="h3">Ehdotuksen vastaus</h2>
+      <h2 class="h3"><%= t(".title") %></h2>
 
       <% answers.each do |answer| %>
         <%== answer %>

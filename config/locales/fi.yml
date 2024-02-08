@@ -203,6 +203,8 @@ fi:
           show_comments: Katso ehdotuksen kommentit
           show_on_map: Katso ehdotus kartalla
           print: Tulosta ehdotus
+        project_answer:
+          title: Ehdotuksen arviointi
         project_budget_button:
           add_descriptive: Lisää ehdotus %{resource_name} ääneesi
           added_descriptive: Ehdotus %{resource_name} lisätty ääneesi

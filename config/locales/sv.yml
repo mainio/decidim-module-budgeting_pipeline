@@ -208,6 +208,8 @@ sv:
           show_comments: Visa kommentarer om förslaget
           show_on_map: Visa förslag på karta
           print: Skriv ut förslag
+        project_answer:
+          title: Utvärdering av förslaget
         project_budget_button:
           add_descriptive: Lägg till förslag %{resource_name} i din röst
           added_descriptive: Förslaget %{resource_name} har lagts till i din röst

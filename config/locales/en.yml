@@ -203,6 +203,8 @@ en:
           show_comments: Show proposal comments
           show_on_map: Show proposal on map
           print: Print proposal
+        project_answer:
+          title: Evaluation of the proposal
         project_budget_button:
           add_descriptive: Add proposal %{resource_name} to your vote
           added_descriptive: Proposal %{resource_name} added to your vote
