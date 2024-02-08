@@ -28,6 +28,15 @@ edit_link(
         <div class="resource__info">
           <div class="resource__info__item"><%= translated_attribute(project.budget.title) %></div>
           <div class="resource__info__item">#<%= project.id %></div>
+          <% if project.budget_amount > 0 %>
+            <div class="resource__info__item">
+              <% if project.budget_amount_min.present? && project.budget_amount_min > 0 %>
+                <%= number_to_delimited(project.budget_amount_min) %>
+                &ndash;
+              <% end %>
+              <%= budget_to_currency(project.budget_amount) %>
+            </div>
+          <% end %>
           <div class="resource__info__item"><%= l(project.created_at.to_date, format: :decidim_short) %></div>
           <% if project.category.present? %>
             <div class="resource__info__item">

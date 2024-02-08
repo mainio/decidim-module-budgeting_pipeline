@@ -26,11 +26,7 @@
 
 <% if model.budget_amount > 0 || votes_visible? %>
   <div class="card__info">
-    <% if model.budget_amount > 0 %>
-      <div class="card__info__item">
-        <%= budget_to_currency model.budget_amount %>
-      </div>
-    <% end %>
+    <%= render :data_budget %>
 
     <% if votes_visible? %>
       <div class="card__info__item">

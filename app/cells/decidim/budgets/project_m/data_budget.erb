@@ -1,0 +1,9 @@
+<% if model.budget_amount > 0 %>
+  <div class="card__info__item">
+    <% if model.budget_amount_min.present? && model.budget_amount_min > 0 %>
+      <%= number_to_delimited(model.budget_amount_min) %>
+      &ndash;
+    <% end %>
+    <%= budget_to_currency(model.budget_amount) %>
+  </div>
+<% end %>

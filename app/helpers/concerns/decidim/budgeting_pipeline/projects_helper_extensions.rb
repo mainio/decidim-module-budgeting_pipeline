@@ -6,6 +6,7 @@ module Decidim
     module ProjectsHelperExtensions
       extend ActiveSupport::Concern
 
+      include ActiveSupport::NumberHelper
       include Decidim::BudgetingPipeline::TextUtilities
       include Decidim::MapHelper
 
