@@ -1,0 +1,16 @@
+<%
+linked_plans = project.linked_resources(:plans, "included_plans")
+answers = linked_plans.map { |plan| translated_attribute(plan.answer) }.select { |answer| strip_tags(answer).strip.present? }
+%>
+
+<% if answers.any? %>
+  <div class="banner bg-silver-medium-light">
+    <div class="banner__content">
+      <h2 class="h3">Ehdotuksen vastaus</h2>
+
+      <% answers.each do |answer| %>
+        <%== answer %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
