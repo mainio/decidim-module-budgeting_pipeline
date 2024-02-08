@@ -209,6 +209,9 @@ en:
           add_to_vote: Add to vote
           remove_descriptive: Remove proposal %{resource_name} from vote
           remove_from_vote: Remove from vote
+        project_status:
+          not_selected: Unfortunately, this proposal will not be implemented because it did not receive enough votes.
+          selected: This proposal proceeds to implementation.
         projects:
           empty: No proposals matching your search criteria. Please change your search criteria and try again.
           order_items_amount:

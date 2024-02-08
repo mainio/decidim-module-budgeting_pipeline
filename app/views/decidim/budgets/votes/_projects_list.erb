@@ -54,6 +54,8 @@
               <p><%= translated_attribute(summary) %></p>
             <% end %>
             <%== translated_attribute(project.description) %>
+
+            <%= render partial: "project_linked_resources", locals: { resource: project, type: :plans, link_name: "included_plans" } %>
           </div>
           <div class="projects-table__row__side">
             <div class="details-list">

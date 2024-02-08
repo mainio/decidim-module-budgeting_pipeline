@@ -1,0 +1,12 @@
+<% linked_resources = resource.linked_resources(type, link_name).group_by { |linked_resource| linked_resource.class.name } %>
+
+<% linked_resources.each do |klass, resources| %>
+  <div class="margin-top-2">
+    <% resource_manifest = klass.constantize.resource_manifest %>
+    <% i18n_name = "#{resource.class.name.demodulize.underscore}_#{resource_manifest.name}" %>
+    <p class="h5"><%= t(i18n_name, scope: "decidim.resource_links.#{link_name}") %></p>
+    <% resources.each do |resource| %>
+      <p>#<%= resource.id %> <%== decidim_html_escape(present(resource).title) %></p>
+    <% end %>
+  </div>
+<% end %>

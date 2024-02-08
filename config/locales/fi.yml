@@ -209,6 +209,9 @@ fi:
           add_to_vote: Lisää ääneen
           remove_descriptive: Poista ehdotus %{resource_name} äänestä
           remove_from_vote: Poista äänestä
+        project_status:
+          not_selected: Ehdotus ei valitettavasti etene toteutukseen, koska se ei saanut tarpeeksi ääniä.
+          selected: Ehdotus etenee toteutukseen.
         projects:
           empty: Hakuehdoillasi ei löytynyt yhtään ehdotusta. Muuta hakuehtoja löytääksesi lisää ehdotuksia.
           order_items_amount:

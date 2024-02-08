@@ -1,0 +1,7 @@
+<% callout_class = project.selected? ? "success" : "alert" %>
+
+<div class="callout <%= callout_class %> margin-bottom-2">
+  <div class="callout__title">
+    <p class="h6"><%= project.selected? ? t(".selected") : t(".not_selected") %></p>
+  </div>
+</div>

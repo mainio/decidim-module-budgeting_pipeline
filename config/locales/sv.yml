@@ -112,8 +112,8 @@ sv:
           fields:
             address: Adress
           statuses:
-            not_selected: Går inte vidare till implementering
-            selected: Fortsätter till implementering
+            not_selected: Går inte vidare till genomförande
+            selected: Fortsätter till genomförande
       order_summaries_mailer:
         order_summaries:
           no_selected_projects: Du valde inga förslag från detta område.
@@ -187,8 +187,8 @@ sv:
           search: Sök
           selected: Visa mina röstade förslag
           status_values:
-            not_selected: Går inte vidare till implementering
-            selected: Fortsätter till implementering
+            not_selected: Går inte vidare till genomförande
+            selected: Fortsätter till genomförande
           term: Nyckelord
           title: Sök förslag
         index:
@@ -214,6 +214,9 @@ sv:
           add_to_vote: Lägg till i röst
           remove_descriptive: Ta bort förslag %{resource_name} från röst
           remove_from_vote: Ta bort från röst
+        project_status:
+          not_selected: Tyvärr kommer förslaget inte att genomföras eftersom det inte fick tillräckligt många röster.
+          selected: Förslaget fortsätter till genomförande.
         projects:
           empty: Inga förslag hittades för dina sökkriterier. Ändra dina sökkriterier för att hitta fler förslag.
           order_items_amount:

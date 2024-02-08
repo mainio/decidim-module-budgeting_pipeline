@@ -2,7 +2,7 @@
 type_suffix = defined?(type) ? "_#{type}" : ""
 %>
 
-<%= filter_form_for filter, projects_path, role: "region", "aria-label": t(".label") do |form| %>
+<%= filter_form_for filter, projects_path, "aria-label": t(".label") do |form| %>
   <div class="row medium-unstack">
     <div class="columns">
       <div class="filters__control text_filter">
