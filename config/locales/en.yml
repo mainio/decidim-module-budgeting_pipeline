@@ -220,6 +220,8 @@ en:
             one: There is %{count} proposal in your vote
             other: There are %{count} proposals in your vote
           show_orders: Show vote
+        shared:
+          project_note: Proposals may be refined by the city after the vote, for example in terms of location or method of implementation.
         show:
           close: Close
           start_voting: Start voting
@@ -416,7 +418,6 @@ en:
             id: No.
             title: Title
             vote: Vote
-          project_note: Proposals may be refined by the city after the vote, for example in terms of location or method of implementation.
         show:
           privacy_accept: I accept these terms
           privacy_reject: Cancel and log out

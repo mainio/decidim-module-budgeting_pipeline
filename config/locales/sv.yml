@@ -225,6 +225,8 @@ sv:
             one: Det finns %{count} förslag i din röst
             other: Det finns %{count} förslag i din röst
           show_orders: Visa röst
+        shared:
+          project_note: Förslag kan förfinas av staden efter omröstningen, till exempel när det gäller lokalisering eller genomförandemetod.
         show:
           close: Stänga
           start_voting: Gå till omröstning
@@ -421,7 +423,6 @@ sv:
             id: Nr
             title: Titel
             vote: Rösta
-          project_note: Förslag kan förfinas av staden efter omröstningen, till exempel när det gäller lokalisering eller genomförandemetod.
         show:
           privacy_accept: Jag accepterar dessa villkor
           privacy_reject: Avbryta och logga ut

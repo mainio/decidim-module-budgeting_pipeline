@@ -220,6 +220,8 @@ fi:
             one: Äänessäsi on %{count} ehdotus
             other: Äänessäsi on %{count} ehdotusta
           show_orders: Näytä ääni
+        shared:
+          project_note: Ehdotuksia saatetaan tarkentaa äänestyksen jälkeen kaupungin toimesta esimerkiksi sijainnin tai toteutustavan osalta.
         show:
           close: Sulje
           start_voting: Aloita äänestys
@@ -417,7 +419,6 @@ fi:
             id: Nro
             title: Otsikko
             vote: Äänestä
-          project_note: Ehdotuksia saatetaan tarkentaa äänestyksen jälkeen kaupungin toimesta esimerkiksi sijainnin tai toteutustavan osalta.
         show:
           privacy_accept: Hyväksyn nämä ehdot
           privacy_reject: Peruuta ja kirjaudu ulos

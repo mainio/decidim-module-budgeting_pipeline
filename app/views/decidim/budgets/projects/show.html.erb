@@ -64,8 +64,14 @@ edit_link(
     </div>
 
     <div class="columns small-12 medium-4">
-      <div class="resource__aside resource__actions">
-        <%= render partial: "project_actions", locals: { project: project } %>
+      <div class="resource__aside">
+        <div class="resource__actions">
+          <%= render partial: "project_actions", locals: { project: project } %>
+        </div>
+
+        <div class="resource__note">
+          <%= t("decidim.budgets.projects.shared.project_note") %>
+        </div>
       </div>
     </div>
   </div>
