@@ -20,7 +20,6 @@ module Decidim
 
             # Add extra attributes
             settings.attribute :more_information_modal_label, type: :string, translated: true
-            settings.attribute :geocoding_enabled, type: :boolean
             settings.attribute :default_map_center_coordinates, type: :string
             settings.attribute :help_page_url, type: :string
             settings.attribute :vote_identify_page_content, type: :text, translated: true, editor: true
