@@ -210,6 +210,17 @@ sv:
           print: Skriv ut förslag
         project_answer:
           title: Utvärdering av förslaget
+        project_attributes:
+          amount: "%{count} st"
+          attributes:
+            address: Plats
+            budget: Område
+            budget_amount: Budgetkategori
+            category: Tema
+            created_at: Skapande tid
+            id: Nummer (ID)
+            votes_amount: Antal röster
+          title: Information
         project_budget_button:
           add_descriptive: Lägg till förslag %{resource_name} i din röst
           added_descriptive: Förslaget %{resource_name} har lagts till i din röst
@@ -230,10 +241,8 @@ sv:
         show:
           close: Stänga
           start_voting: Gå till omröstning
+          subtitle: Förslag
           view_all_projects: Visa alla förslag
-          votes_amount:
-            one: "%{count} röst"
-            other: "%{count} röster"
           voting_note_html: |-
             <p>För att börja rösta måste du identifiera dig och gå in i omröstningsläget.
             I omröstningsläget måste du välja det område som detta förslag tillhör och välja det för din röst.

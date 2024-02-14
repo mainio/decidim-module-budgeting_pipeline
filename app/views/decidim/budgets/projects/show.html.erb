@@ -22,39 +22,17 @@ edit_link(
 <div class="row column resource">
   <div class="row ">
     <div class="columns small-12 medium-8">
-      <div class="resource__main static__content">
+      <div class="resource__main static__content margin-bottom-0">
         <h1><%= translated_attribute project.title %></h1>
-
-        <div class="resource__info">
-          <div class="resource__info__item"><%= translated_attribute(project.budget.title) %></div>
-          <div class="resource__info__item">#<%= project.id %></div>
-          <% if project.budget_amount > 0 %>
-            <div class="resource__info__item">
-              <%= budget_to_currency(project.budget_amount) %>
-            </div>
-          <% end %>
-          <div class="resource__info__item"><%= l(project.created_at.to_date, format: :decidim_short) %></div>
-          <% if project.category.present? %>
-            <div class="resource__info__item">
-              <% if project.category.parent %>
-                <%= translated_attribute(project.category.parent.name) %> -
-              <% end %>
-              <%= translated_attribute(project.category.name) %>
-            </div>
-          <% end %>
-          <% if component_settings.geocoding_enabled? && project.address.present? %>
-            <div class="resource-resource__info__item"><%= project.address %></div>
-          <% end %>
-        </div>
 
         <%= render partial: "project_status" if voting_finished? && statuses_available? %>
 
         <% if project.main_image && project.main_image.attached? %>
-          <%= image_tag project.attached_uploader(:main_image).path(variant: :main), class:"resource-image", alt: strip_tags(translated_attribute(project.title)) %>
+          <%= image_tag project.attached_uploader(:main_image).path(variant: :main), class:"resource__image", alt: strip_tags(translated_attribute(project.title)) %>
         <% elsif category_image_path(project.category) %>
-          <%= image_tag category_image_path(project.category), class:"resource-image", alt: strip_tags(translated_attribute(project.title)) %>
+          <%= image_tag category_image_path(project.category), class:"resource__image", alt: strip_tags(translated_attribute(project.title)) %>
         <% else %>
-          <%= image_tag asset_pack_path("media/images/budgets-project-default.jpg"), class:"resource-image", alt: strip_tags(translated_attribute(project.title)) %>
+          <%= image_tag asset_pack_path("media/images/budgets-project-default.jpg"), class:"resource__image", alt: strip_tags(translated_attribute(project.title)) %>
         <% end %>
       </div>
     </div>
@@ -64,6 +42,8 @@ edit_link(
         <div class="resource__actions">
           <%= render partial: "project_actions", locals: { project: project } %>
         </div>
+
+        <%= render partial: "project_attributes", locals: { project: project } %>
 
         <div class="resource__note">
           <%= t("decidim.budgets.projects.shared.project_note") %>
@@ -76,11 +56,8 @@ edit_link(
   <div class="row">
     <div class="columns small-12 medium-8">
       <div class="resource__main resource__content static__content">
+        <h2><%= t(".subtitle") %></h2>
         <%= decidim_sanitize(translated_attribute(project.description)) %>
-
-        <% if voting_finished? && current_settings.show_votes? %>
-          <p><strong><%= t(".votes_amount", count: project.confirmed_orders_count) %></strong></p>
-        <% end %>
 
         <%= linked_resources_for project, :plans, "included_plans" %>
 

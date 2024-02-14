@@ -205,6 +205,17 @@ fi:
           print: Tulosta ehdotus
         project_answer:
           title: Ehdotuksen arviointi
+        project_attributes:
+          amount: "%{count} kpl"
+          attributes:
+            address: Sijainti
+            budget: Alue
+            budget_amount: Budjettiluokka
+            category: Teema
+            created_at: Luontiaika
+            id: Numero (ID)
+            votes_amount: Äänten määrä
+          title: Tiedot
         project_budget_button:
           add_descriptive: Lisää ehdotus %{resource_name} ääneesi
           added_descriptive: Ehdotus %{resource_name} lisätty ääneesi
@@ -225,10 +236,8 @@ fi:
         show:
           close: Sulje
           start_voting: Aloita äänestys
+          subtitle: Ehdotus
           view_all_projects: Näytä kaikki ehdotukset
-          votes_amount:
-            one: "%{count} ääni"
-            other: "%{count} ääntä"
           voting_note_html: |-
             <p>Aloittaaksesi äänestyksen sinun on tunnistauduttava ja siirryttävä äänestystilaan.
             Äänestystilassa sinun tulee valita se alue, johon tämä ehdotus kuuluu ja valittava se ääneesi.
