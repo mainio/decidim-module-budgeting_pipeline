@@ -166,6 +166,10 @@ module Decidim
           )
         }
 
+        # Create i18n ransackers for :title, :summary and :description.
+        # Create the :search_text ransacker alias for searching from both of these.
+        ransacker_i18n_multi :search_text, [:title, :summary, :description]
+
         # Replicates the same data for a single project as returned for a
         # collection through the `#geocoded_data_for` method.
         def geocoded_data
