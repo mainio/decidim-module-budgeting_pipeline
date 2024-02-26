@@ -100,6 +100,15 @@ fi:
               title: Äänestys ei ole mahdollista tällä hetkellä
         error_modal:
           title: Ehdotuksen lisääminen ääneen epäonnistui
+      linked_resources:
+        resource_modal:
+          title: Title
+          close: Sulje
+          # close: Close
+          # close: Stäng
+          close_modal: Sulje ikkuna
+          # close_modal: Close modal
+          # close_modal: Stäng fönstret
       models:
         help_container:
           fields:
@@ -126,6 +135,7 @@ fi:
           label: Esikatselu ja äänestys
         index:
           back: Näytä ehdotukset
+          breadcrumb: Oma ääneni
           description_html: <p>Tältä sivulta näet, mitä äänestit.</p>
           follow_voting: Seuraa äänestystilannetta
           not_voted: Et ole vielä äänestänyt.
@@ -178,6 +188,7 @@ fi:
           more_criteria:
             hide: Piilota hakuehdot
             show: Näytä lisää hakuehtoja
+          order: Järjestys
           reset: Tyhjennä rajaukset
           search: Hae
           selected: Näytä äänestämäni ehdotukset
@@ -187,13 +198,16 @@ fi:
           term: Hakusana
           title: Etsi ehdotuksista
         index:
+          breadcrumb: Tutustu ehdotuksiin
           show_list: Näytä tulokset listana
           show_map: Näytä tulokset kartalla
           title: Tutustu ehdotuksiin
-          view_project: Näytä ehdotus
           view_project_detailed: "Näytä ehdotus: %{name}"
+        map_template:
+          view_project: Näytä ehdotus
         orders:
           alphabetical: Aakkosjärjestys
+          category: Teeman mukaan
           label: Järjestä ehdotukset
         project:
           view: Näytä ehdotus
@@ -210,7 +224,7 @@ fi:
           attributes:
             address: Sijainti
             budget: Alue
-            budget_amount: Budjettiluokka
+            budget_amount: Budjetti
             category: Teema
             created_at: Luontiaika
             id: Numero (ID)
@@ -222,6 +236,9 @@ fi:
           add_to_vote: Lisää ääneen
           remove_descriptive: Poista ehdotus %{resource_name} äänestä
           remove_from_vote: Poista äänestä
+        project_map:
+          note: Ehdotuksen sijaintia saatetaan tarkentaa äänestyksen jälkeen kaupungin toimesta.
+          title: Ehdotus kartalla
         project_status:
           not_selected: Ehdotus ei valitettavasti etene toteutukseen, koska se ei saanut tarpeeksi ääniä.
           selected: Ehdotus etenee toteutukseen.
@@ -235,8 +252,10 @@ fi:
           project_note: Ehdotuksia saatetaan tarkentaa äänestyksen jälkeen kaupungin toimesta esimerkiksi sijainnin tai toteutustavan osalta.
         show:
           close: Sulje
+          description: Ehdotuksen kuvaus
           start_voting: Aloita äänestys
           subtitle: Ehdotus
+          summary: Lyhennelmä
           view_all_projects: Näytä kaikki ehdotukset
           voting_note_html: |-
             <p>Aloittaaksesi äänestyksen sinun on tunnistauduttava ja siirryttävä äänestystilaan.
@@ -266,9 +285,14 @@ fi:
           project_name: Ehdotus
           project_votes: Ääniä
         show:
+          amount:
+            one: "%{count} kpl"
+            other: "%{count} kpl"
+          results_by_budget: Äänestyksen tulokset alueittain
           show_projects: Näytä ehdotukset
           see_your_vote: Näytä oma ääneni
-          title: Äänestystilanne
+          title: "%{service_name}-äänestyksen tulokset"
+          total_votes: Ääniä annettu kaikkiaan
         vote_finished_modal:
           close: Sulje ikkuna
           continue: Jatka sisäänkirjautuneena
@@ -284,6 +308,7 @@ fi:
           actions:
             continue: Ehdotusten valinta
           authorization_note: "Oma alueesi postinumerosi perusteella:"
+          breadcrumb: Valitse alue
           highlighted_budgets:
             one: "Tunnistautumisen perusteella alueesi on:"
             other: "Tunnistautumisen perusteella alueesi ovat:"
@@ -306,10 +331,12 @@ fi:
           message: Ääntäsi ei ole kirjattu, koska et ole vielä suorittanut äänestystä loppuun asti. Haluatko varmasti poistua äänestyksestä?
           title: Poistumishuomautus
         finished:
+          breadcrumb: Äänesi on rekisteröity
           feedback_link: Voit halutessasi antaa laajempaa palautetta palautelomakkeella
+          feedback_title: Miten arvioisit äänestämistä sivustolla?
           sign_out: Kirjaudu ulos
           sign_out_info: Kirjaudu ulos, jotta tietosi eivät jää tietokoneelle näkyviin. Käyttäessäsi yhteiskäyttöistä tietokonetta esimerkiksi kirjastossa, tyhjennä myös selaimen välimuisti ja evästeet. Kirjaudu tämän jälkeen ulos tietokoneelta.
-          title: "%{service_name}-äänestys"
+          title: Äänesi on rekisteröity
         general:
           already_voted: Olet jo äänestänyt.
           exit_voting: Poistu äänestyksestä
@@ -333,7 +360,7 @@ fi:
           start_voting: Siirry äänestämään
         order_items:
           empty: Et ole valinnut yhtään ehdotusta tältä alueelta.
-          total_note: Valitsemiesi ehdotusten budjettikustannus on yhteensä noin %{amount}.
+          total_note: Valitsemiesi ehdotusten toteuttaminen maksaa yhteensä noin %{amount}.
         order_notifications:
           errors:
             allocation_exceeded:
@@ -408,11 +435,11 @@ fi:
           lead: Olet vahvistamassa antamasi äänet Helsingin osallistuvan budjetoinnin ehdotuksille.
           notes_html: |
             <p>Jos olet tyytyväinen valintoihisi, vahvista äänesi alta. Voit myös palata tekemään muutoksia.</p>
-            <p><strong>Kun äänet on vahvistettu, niitä ei voi enää muuttaa.</strong></p>
             <p>Vahvistetaanko antamasi äänet?</p>
+          notice: Voit äänestää vain kerran. Äänestämisen jälkeen et voi enää muuttaa äänestysvalintojasi.
           selected_proposals: "Valitsemasi ehdotukset:"
           title: "%{service_name}-äänestys"
-          total_budget_html: "Valitsemiesi ehdotusten budjettikustannus on yhteensä noin <strong>%{amount}</strong>."
+          total_budget_html: "Valitsemiesi ehdotusten toteuttaminen maksaa yhteensä noin <strong>%{amount}</strong>."
           remaining:
             budget: Sinulla on vielä käyttämätöntä budjettia. Oletko varma että, haluat antaa vain nämä äänet?
             votes: Sinulla on vielä käyttämättömiä ääniä. Oletko varma että, haluat antaa vain nämä äänet?
@@ -420,17 +447,30 @@ fi:
           actions:
             continue: Vahvista äänesi
           subtitle: "%{service_name}-äänestys"
+        projects_info:
+          list_description:
+            one: Löytyi %{count} ehdotus
+            other: Löytyi %{count} ehdotusta
         projects_list:
-          budget: Budjettiluokka
+          budget: Budjetti
           category: Teema
+          choose: Valitse ehdotus %{title}
+          description: Ehdotuksen kuvaus
           headers:
-            budget: Budjettiluokka
+            budget: Budjetti
             id: Nro
             title: Otsikko
             vote: Äänestä
+          list_label: Ehdotukset
+          show_details: Näytä ehdotuksen %{title} lisätiedot
+          subtitle_category: "Teema: %{category}"
+          subtitle_category_missing: Ehdotukset ilman teemaa
+          summary: Lyhennelmä
         show:
+          breadcrumb: Äänestys
           privacy_accept: Hyväksyn nämä ehdot
           privacy_reject: Peruuta ja kirjaudu ulos
+          title: Äänestys
         start:
           invalid: Äänestysalueen valinta epäonnistui, yritä uudestaan.
         steps:

@@ -166,6 +166,23 @@ module Decidim
           )
         }
 
+        # Replicates the same data for a single project as returned for a
+        # collection through the `#geocoded_data_for` method.
+        def geocoded_data
+          locale = I18n.locale.to_s
+          default_locale = I18n.default_locale.to_s
+
+          [
+            id,
+            (title.present? ? title[locale] || title[default_locale] : ""),
+            (summary.present? ? summary[locale] || summary[default_locale] : ""),
+            (description.present? ? description[locale] || description[default_locale] : ""),
+            address,
+            latitude,
+            longitude
+          ]
+        end
+
         # Public: Returns the number of times an specific project have been checked out.
         def confirmed_orders_count
           orders.finished.count + paper_orders_count

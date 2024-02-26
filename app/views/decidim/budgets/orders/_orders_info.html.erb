@@ -1,6 +1,6 @@
 <% current_orders.each do |order| %>
   <div class="order-wrapper mt-5 mb-5">
-    <h3><%= translated_attribute(order.budget.title) %></h3>
+    <h2><%= translated_attribute(order.budget.title) %></h2>
 
     <% if order.projects_rule? %>
       <p><%= t(".total_projects") %>: <%= order.available_allocation %></p>

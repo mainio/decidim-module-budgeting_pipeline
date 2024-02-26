@@ -8,11 +8,24 @@ module Decidim
 
       helper_method :budgets, :sticky_budgets, :common_budgets, :projects_with_votes, :minimum_project_budget, :maximum_project_budget, :vote_success?
 
+      before_action :set_breadcrumbs, only: [:show]
+
       def show
         redirect_to EngineRouter.main_proxy(current_component).projects_path unless current_settings.show_votes?
+
+        @total_votes = Decidim::Budgets::Order.finished.where(budget: budgets).count(:decidim_budgets_vote_id)
       end
 
       private
+
+      def set_breadcrumbs
+        return unless respond_to?(:add_breadcrumb, true)
+
+        add_breadcrumb(
+          t("decidim.budgets.results.show.title", service_name: current_organization.name),
+          results_path
+        )
+      end
 
       def budgets
         current_workflow.budgets

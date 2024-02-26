@@ -1,6 +1,6 @@
 <% content_for :top do %>
   <div class="row columns">
-    <h1><%= t(".title", service_name: current_organization.name) %></h1>
+    <h1><%= t(".title") %></h1>
   </div>
 <% end %>
 
@@ -17,7 +17,7 @@
   <div class="row columns margin-bottom-3">
     <hr class="strong">
 
-    <%= cell("decidim/feedback/feedback_inline", current_component, metadata: { context: "budgets", action: "vote" }) %>
+    <%= cell("decidim/feedback/feedback_inline", current_component, title: t(".feedback_title"), metadata: { context: "budgets", action: "vote" }) %>
 
     <% if feedback_url.present? %>
       <div class="static__content text-center">

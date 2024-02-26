@@ -2,63 +2,38 @@
 projects = projects_with_votes(budget)
 extra_projects = []
 
-if budget.settings.respond_to?(:vote_rule_selected_projects_enabled) && budget.settings.vote_rule_selected_projects_enabled && budget.total_budget.zero?
-  winning = winning_projects(budget) if voting_finished?
-  if winning && winning.any? && winning.first.selected?
-    extra_projects = projects.where.not(id: winning.map(&:id))
-    projects = winning
-  end
-else
+# if budget.settings.respond_to?(:vote_rule_selected_projects_enabled) && budget.settings.vote_rule_selected_projects_enabled && budget.total_budget.zero?
+#   winning = winning_projects(budget) if voting_finished?
+#   if winning && winning.any? && winning.first.selected?
+#     extra_projects = projects.where.not(id: winning.map(&:id))
+#     projects = winning
+#   end
+# else
+# end
+
+if voting_finished?
   winning = winning_projects(budget)
   extra_projects = projects.where.not(id: winning.map(&:id))
   projects = winning
+else
+  extra_projects = projects
+  projects = []
 end
 %>
-<div class="budget-results mb-5">
-  <div class="text-center">
-    <% if budget.settings.respond_to?(:vote_rule_selected_projects_enabled) && budget.settings.vote_rule_selected_projects_enabled %>
-      <h2><%= t(".title_ordered", budget: translated_attribute(budget.title)) %></h2>
+
+<div class="accordion-item" data-accordion-item>
+  <a href="#" role="button" class="accordion-title">
+    <span class="accordion-title__text"><%= translated_attribute(budget.title) %></span>
+    <span class="accordion-title__icon">
+      <span class="accordion--inactive"><%= icon("chevron-bottom", role: "img", "aria-hidden": true) %></span>
+      <span class="accordion--active"><%= icon("chevron-top", role: "img", "aria-hidden": true) %></span>
+    </span>
+  </a>
+  <div class="accordion-content" data-tab-content>
+    <% if projects.any? || extra_projects.any? %>
+      <%= render partial: "projects_table", locals: { budget: budget, winning: projects, others: extra_projects } %>
     <% else %>
-      <h2><%= t(".title_winning", budget: translated_attribute(budget.title)) %></h2>
-    <% end %>
-    <% if budget.total_budget > 0 %>
-      <p class="h5"><%= t(".budget", amount: budget_to_currency(budget.total_budget)) %></p>
+      <p class="lead"><%= t(".no_votes_yet") %></p>
     <% end %>
   </div>
-
-  <% if projects.any? %>
-    <%= render partial: "projects_table", locals: { budget: budget, projects: projects } %>
-
-    <% if extra_projects.any? %>
-      <div class="text-center">
-        <button type="button" class="link" data-toggle="budget-extra-<%= budget.id %> budget-extra-closed-<%= budget.id %> budget-extra-open-<%= budget.id %>" id="budget-extra-toggle-<%= budget.id %>">
-          <span id="budget-extra-closed-<%= budget.id %>" data-toggler=".is-hidden" aria-expanded="true" aria-label="<%= t(".show_more_detailed", name: translated_attribute(budget.title)) %>">
-            <%= t(".show_more") %>
-            <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>
-          </span>
-          <span id="budget-extra-open-<%= budget.id %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false" aria-label="<%= t(".show_less_detailed", name: translated_attribute(budget.title)) %>">
-            <%= t(".show_less") %>
-            <%= icon "chevron-top", role: "img", "aria-hidden": true %>
-          </span>
-        </button>
-      </div>
-
-      <div id="budget-extra-<%= budget.id %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false">
-        <div class="text-center">
-          <% if budget.settings.respond_to?(:vote_rule_selected_projects_enabled) && budget.settings.vote_rule_selected_projects_enabled %>
-            <p><%= t(".extra_note_for_projects_rule") %></p>
-          <% elsif projects.first.selected? %>
-            <p><%= t(".extra_note_for_budgeting_rule_selected") %></p>
-          <% else %>
-            <p><%= t(".extra_note_for_budgeting_rule") %></p>
-          <% end %>
-        </div>
-        <%= render partial: "projects_table", locals: { budget: budget, projects: extra_projects, order: projects.count } %>
-      </div>
-    <% end %>
-  <% else %>
-    <div class="text-center">
-      <p><%= t(".no_votes_yet") %></p>
-    </div>
-  <% end %>
 </div>

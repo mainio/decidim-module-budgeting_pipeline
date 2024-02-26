@@ -23,7 +23,9 @@ module Decidim
             else
               available_orders << "random"
             end
-            available_orders += %w(alphabetical highest_cost lowest_cost)
+            available_orders << "alphabetical"
+            available_orders << "category" if is_a?(Decidim::Budgets::VotesController)
+            available_orders += %w(highest_cost lowest_cost)
             available_orders
           end
         end
@@ -42,6 +44,12 @@ module Decidim
             end
           when "alphabetical"
             projects.order(Arel.sql("decidim_budgets_projects.title->>'#{current_locale}'"))
+          when "category"
+            projects.left_joins(:category).order(
+              Arel.sql(
+                "decidim_categories.name->>'#{current_locale}', decidim_budgets_projects.title->>'#{current_locale}'"
+              )
+            )
           when "random"
             projects.order_randomly(random_seed)
           else

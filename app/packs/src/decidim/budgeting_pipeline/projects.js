@@ -32,6 +32,22 @@
     });
   };
 
+  const voteActionHandler = () => {
+    document.body.classList.add("loading");
+  };
+
+  window.updateBudget = () => {
+    const continueButton = document.getElementById("projects_continue_button")?.querySelector(".button");
+    if (continueButton) {
+      continueButton.addEventListener("click", voteActionHandler);
+    }
+
+    const continueButtonMobile = document.getElementById("projects_continue_button_mobile")?.querySelector(".button");
+    if (continueButtonMobile) {
+      continueButtonMobile.addEventListener("click", voteActionHandler);
+    }
+  };
+
   window.initializeProjects = () => {
     const loadingProjects = [];
     document.querySelectorAll("[data-project-selector] input[type='checkbox']").forEach((el) => {
@@ -58,13 +74,24 @@
     });
 
     document.querySelectorAll(".projects-table__row").forEach((el) => {
-      el.querySelector(".projects-table__row__data").addEventListener("click", (ev) => {
+      const clickableArea = el.querySelector(".projects-table__row__data");
+      const button = clickableArea.querySelector(".projects-table__row__button")
+      const clickHandler = (ev) => {
         ev.preventDefault();
 
-        if (el.dataset.open) {
-          el.removeAttribute("data-open");
+        if (el.dataset.showDetails) {
+          el.removeAttribute("data-show-details");
+          button.setAttribute("aria-expanded", false);
         } else {
-          el.setAttribute("data-open", true);
+          el.setAttribute("data-show-details", true);
+          button.setAttribute("aria-expanded", true);
+        }
+      }
+
+      clickableArea.addEventListener("click", clickHandler);
+      button.addEventListener("keydown", (ev) => {
+        if (ev.code === "Enter" || ev.code === "Space") {
+          buttonClickHandler(ev);
         }
       });
     });
@@ -72,4 +99,5 @@
 
   stickySummary();
   window.initializeProjects();
+  window.updateBudget();
 })(window);

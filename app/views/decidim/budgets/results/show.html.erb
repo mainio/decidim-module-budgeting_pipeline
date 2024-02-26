@@ -1,42 +1,59 @@
-<div class="row column view-header">
-  <%= link_to projects_path, class: "small hollow" do %>
-    <%= icon "chevron-left", class: "icon--small" %>
-    <%= t(".show_projects") %>
-  <% end %>
-</div>
-
 <div class="row columns">
-  <div class="text-center">
-    <h1><%= t(".title") %></h1>
+  <div class="page-title">
+    <h1 class="heading1"><%= t(".title", service_name: current_organization.name) %></h1>
   </div>
 </div>
 
-<div class="row mb-5">
-  <div class="columns small-centered mediumlarge-10 large-8">
-    <div class="static__content text-center">
+<div class="row medium-unstack content-intro">
+  <div class="columns medium-6 mediumlarge-8">
+    <div class="text-large">
       <%== translated_attribute component_settings.results_page_content %>
-
-      <% if user_voted? %>
-        <p>
-          <%= link_to t(".see_your_vote"), orders_path, class: "button primary" %>
-        </p>
+    </div>
+  </div>
+  <div class="columns medium-6 mediumlarge-4">
+    <% if user_voted? %>
+      <div class="actions-panel bg-secondary">
+        <%= link_to orders_path, class: "action-link" do %>
+          <span><%= t(".see_your_vote") %></span>
+          <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
+        <% end %>
+      </div>
+    <% end %>
+    <div class="actions-panel bg-secondary">
+      <%= link_to projects_path, class: "action-link" do %>
+        <span><%= t(".show_projects") %></span>
+        <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
       <% end %>
     </div>
   </div>
 </div>
 
-<div class="row columns">
-  <% sticky_budgets.each do |budget| %>
-    <% cache budget, expires_in: 15.minutes do %>
-      <%= render partial: "budget_results", locals: { budget: budget } %>
-    <% end %>
-  <% end %>
+<div class="row lead">
+  <div class="column">
+    <%= t(".total_votes") %>
+  </div>
+  <div class="column text-right">
+    <%= t(".amount", count: number_with_delimiter(@total_votes)) %>
+  </div>
+</div>
 
-  <% common_budgets.each do |budget| %>
-    <% cache budget, expires_in: 15.minutes do %>
-      <%= render partial: "budget_results", locals: { budget: budget } %>
-    <% end %>
-  <% end %>
+<div class="container content-section">
+  <div class="row columns">
+    <h2 class="h4 margin-bottom-1"><%= t(".results_by_budget") %></h2>
+    <div class="accordion accordion--large" data-accordion data-multi-expand="true" data-allow-all-closed="true">
+      <% sticky_budgets.each do |budget| %>
+        <% cache budget, expires_in: 15.minutes do %>
+          <%= render partial: "budget_results", locals: { budget: budget } %>
+        <% end %>
+      <% end %>
+
+      <% common_budgets.each do |budget| %>
+        <% cache budget, expires_in: 15.minutes do %>
+          <%= render partial: "budget_results", locals: { budget: budget } %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
 
 <% if vote_success? %>

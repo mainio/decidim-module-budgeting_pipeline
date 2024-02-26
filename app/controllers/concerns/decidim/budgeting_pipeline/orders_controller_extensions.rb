@@ -11,6 +11,7 @@ module Decidim
 
       included do
         before_action :ensure_checked_out_orders!, only: [:index]
+        before_action :set_breadcrumbs, only:  [:index]
       end
 
       private
@@ -21,6 +22,13 @@ module Decidim
 
         flash[:warning] = I18n.t("decidim.budgets.orders.index.not_voted")
         redirect_to EngineRouter.main_proxy(current_component).projects_path
+      end
+
+      def set_breadcrumbs
+        return unless respond_to?(:add_breadcrumb, true)
+
+        add_breadcrumb(t("decidim.budgets.projects.index.breadcrumb"), projects_path)
+        add_breadcrumb(t("decidim.budgets.orders.index.breadcrumb"), orders_path)
       end
     end
   end

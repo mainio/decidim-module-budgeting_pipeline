@@ -15,18 +15,18 @@
 
   <% orders.each do |order| %>
     <div class="orders-summary-cart">
-      <button type="button" class="link action-link" data-toggle="order-items-wrapper-<%= order.budget.id %> order-items-closed-<%= order.budget.id %> order-items-open-<%= order.budget.id %>" id="order-items-toggle-<%= order.budget.id %>" aria-controls="order-items-closed-<%= order.budget.id %> order-items-open-<%= order.budget.id %> order-items-wrapper-<%= order.budget.id %>">
-        <span id="order-items-closed-<%= order.budget.id %>" data-toggler=".is-hidden" aria-label="<%= t(".order_items.show_detailed", name: translated_attribute(order.budget.title)) %>">
+      <button type="button" class="link action-link" data-toggle="order-items-wrapper-<%= order.budget.id %> order-items-closed-<%= order.budget.id %> order-items-open-<%= order.budget.id %>" id="order-items-toggle-<%= order.budget.id %>" aria-controls="order-items-closed-<%= order.budget.id %> order-items-open-<%= order.budget.id %> order-items-wrapper-<%= order.budget.id %>" aria-expanded="true">
+        <span id="order-items-closed-<%= order.budget.id %>" class="is-hidden" data-toggler=".is-hidden" aria-label="<%= t(".order_items.show_detailed", name: translated_attribute(order.budget.title)) %>">
           <%= t(".order_items.show") %>
           <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>
         </span>
-        <span id="order-items-open-<%= order.budget.id %>" class="is-hidden" data-toggler=".is-hidden" aria-label="<%= t(".order_items.hide_detailed", name: translated_attribute(order.budget.title)) %>">
+        <span id="order-items-open-<%= order.budget.id %>" data-toggler=".is-hidden" aria-label="<%= t(".order_items.hide_detailed", name: translated_attribute(order.budget.title)) %>">
           <%= t(".order_items.hide") %>
           <%= icon "chevron-top", role: "img", "aria-hidden": true %>
         </span>
       </button>
 
-      <div id="order-items-wrapper-<%= order.budget.id %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false">
+      <div id="order-items-wrapper-<%= order.budget.id %>" data-toggler=".is-hidden">
         <%= render partial: "decidim/budgets/votes/order_items", locals: { order: order } %>
       </div>
     </div>

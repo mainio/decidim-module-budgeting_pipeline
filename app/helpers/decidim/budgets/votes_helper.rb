@@ -19,9 +19,11 @@ module Decidim
         mobile_tag + desktop_tag
       end
 
-      # def privacy_content
-      #   translated_attribute(component_settings.vote_privacy_content)
-      # end
+      def order_values
+        available_orders.index_with do |value|
+          t(value, scope: "decidim.budgets.projects.orders")
+        end
+      end
 
       def display_more_information?
         translated_attribute(component_settings.more_information_modal).present?

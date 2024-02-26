@@ -38,6 +38,7 @@ module Decidim
       before_action :ensure_orders!, only: [:projects, :preview, :create]
       before_action :ensure_orders_valid!, only: [:preview, :create]
       before_action :set_current_step
+      before_action :set_breadcrumbs, only: [:show, :budgets, :projects, :finished]
 
       skip_before_action :ensure_authorized!, only: [:show]
       skip_before_action :ensure_not_voted!, only: [:show]
@@ -75,6 +76,7 @@ module Decidim
       end
 
       def projects
+        @total_projects = search.result.count
         @projects = reorder(search.result)
       end
 
@@ -108,6 +110,21 @@ module Decidim
       private
 
       attr_accessor :current_step, :prev_step, :next_step
+
+      def set_breadcrumbs
+        return unless respond_to?(:add_breadcrumb, true)
+
+        add_breadcrumb(t("decidim.budgets.votes.show.breadcrumb"), vote_path)
+
+        case action_name
+        when "budgets"
+          add_breadcrumb(t("decidim.budgets.votes.budgets.breadcrumb"), budgets_vote_path)
+        when "projects"
+          add_breadcrumb(selected_budgets.map { |b| translated_attribute(b.title) }.join(", "), projects_vote_path)
+        when "finished"
+          add_breadcrumb(t("decidim.budgets.votes.finished.breadcrumb"), finished_vote_path)
+        end
+      end
 
       def layout
         "decidim/budgets/participatory_space_plain"

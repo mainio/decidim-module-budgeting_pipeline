@@ -50,13 +50,13 @@ module Decidim
           translated_attribute(component_settings.landing_page_content)
       end
 
-      def projects_map(geocoded_projects)
+      def projects_map(geocoded_projects, **options)
         map_options = { type: "projects", markers: geocoded_projects }
         map_center = component_settings.default_map_center_coordinates
         center_values = map_center.split(",").map(&:to_f) if map_center
         map_options[:center_coordinates] = center_values if center_values && center_values.length > 1
 
-        dynamic_map_for(map_options) do
+        dynamic_map_for(map_options.merge(options)) do
           yield
         end
       end

@@ -52,7 +52,9 @@ module Decidim
 
       initializer "decidim_budgeting_pipeline.mount_routes" do
         Decidim::Budgets::Engine.routes.prepend do
-          resources :projects, only: [:index, :show]
+          resources :projects, only: [:index, :show] do
+            resources :linked_resources, only: [:show]
+          end
 
           resource :vote, only: [:show, :create] do
             get :budgets

@@ -5,8 +5,11 @@
     <% resource_manifest = klass.constantize.resource_manifest %>
     <% i18n_name = "#{resource.class.name.demodulize.underscore}_#{resource_manifest.name}" %>
     <p class="h5"><%= t(i18n_name, scope: "decidim.resource_links.#{link_name}") %></p>
-    <% resources.each do |resource| %>
-      <p>#<%= resource.id %> <%== decidim_html_escape(present(resource).title) %></p>
+    <% resources.each do |linked_resource| %>
+      <p>
+        <%= link_to project_linked_resource_path(resource, linked_resource.to_gid.to_param), remote: true do %>
+          #<%= linked_resource.id %> <%== decidim_html_escape(present(linked_resource).title) %></p>
+        <% end %>
     <% end %>
   </div>
 <% end %>

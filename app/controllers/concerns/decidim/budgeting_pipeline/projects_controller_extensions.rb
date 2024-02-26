@@ -7,11 +7,14 @@ module Decidim
       extend ActiveSupport::Concern
 
       include Decidim::Paginable
+      include Decidim::TranslatableAttributes
       include Decidim::BudgetingPipeline::VoteUtilities
       include Decidim::BudgetingPipeline::Authorizable
       include Decidim::BudgetingPipeline::Orderable
 
       included do
+        before_action :set_breadcrumbs, only: [:index, :show]
+
         helper_method :authorization_required?, :user_authorized?, :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :statuses_available?, :vote_success?
 
         helper Decidim::BudgetingPipeline::AuthorizationHelper
@@ -50,6 +53,16 @@ module Decidim
       end
 
       private
+
+      def set_breadcrumbs
+        return unless respond_to?(:add_breadcrumb, true)
+
+        add_breadcrumb(t("decidim.budgets.projects.index.breadcrumb"), projects_path)
+        return unless action_name == "show"
+        return unless project
+
+        add_breadcrumb(translated_attribute(project.title), project_path(project))
+      end
 
       def help_sections
         @help_sections ||= Decidim::Budgets::HelpSection.where(

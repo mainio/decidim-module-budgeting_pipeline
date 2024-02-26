@@ -3,12 +3,12 @@
   <%= cell("decidim/favorites/favorite_button", project, button_class: "link action-link", disable_tooltip: true) %>
 </div>
 
-<% if component_settings.geocoding_enabled? && project.latitude.present? && project.longitude.present? %>
+<% if component_settings.geocoding_enabled? && project.address.present? && project.latitude.present? && project.longitude.present? %>
   <div class="actions-panel bg-secondary">
-    <%= link_to project_map_link(project), class: "action-link", target: "_blank", data: { external_link_spacer: "" } do %>
+    <a href="#project_map" class="action-link">
       <span class="link-text"><%= t ".show_on_map" %></span>
       <%= icon "map-marker", role: "img", "aria-hidden": true %>
-    <% end %>
+    </a>
   </div>
 <% end %>
 

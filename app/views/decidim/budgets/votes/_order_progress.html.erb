@@ -10,7 +10,7 @@
           <% end %>
         <% end %>
       </div>
-      <div class="voting-progress__explanation">
+      <div class="voting-progress__explanation" aria-live="polite">
         <%= t(".remaining_votes", count: order.unused_allocation) %>
       </div>
     <% else %>
@@ -26,7 +26,7 @@
           </div>
         </div>
       </div>
-      <%= t(".remaining_budget", amount: budget_to_currency(order.unused_allocation)) %>
+      <span aria-live="polite"><%= t(".remaining_budget", amount: budget_to_currency(order.unused_allocation)) %></span>
     <% end %>
   </div>
 </div>

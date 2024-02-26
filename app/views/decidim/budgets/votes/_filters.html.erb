@@ -22,9 +22,20 @@ type_suffix = defined?(type) ? "_#{type}" : ""
 
     <div class="columns">
       <div class="filters__control user_modifiers">
-        <label aria-hidden="true">&nbsp;</label>
+        <label aria-hidden="true" class="show-for-medium">&nbsp;</label>
         <%= form.check_box :favorites, label: t("favorites", scope: i18n_scope), data: { disable_dynamic_change: true } %>
         <%= form.check_box :selected, label: t("selected", scope: i18n_scope), data: { disable_dynamic_change: true } %>
+      </div>
+    </div>
+
+    <div class="columns">
+      <div class="filters__control text_filter">
+        <label>
+          <span class="label__wrapper">
+            <span class="label__text"><%= t("order", scope: i18n_scope) %></span>
+          </span>
+          <%= select_tag(:order, options_for_select(order_values.invert, params[:order]), aria: { controls: "projects" }) %>
+        </label>
       </div>
     </div>
   </div>
@@ -38,6 +49,4 @@ type_suffix = defined?(type) ? "_#{type}" : ""
       <button type="reset" class="button clear text-lg"><%= t "reset", scope: i18n_scope %></button>
     </div>
   </div>
-
-  <%= hidden_field_tag :order, order, id: nil, class: "order_filter" %>
 <% end %>

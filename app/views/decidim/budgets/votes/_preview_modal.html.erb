@@ -9,22 +9,26 @@
   <div class="reveal__content">
     <p><%= t(".lead") %></p>
     <p><%= t(".selected_proposals") %></p>
-    <ul>
+    <ul class="no-bullet with-icons">
       <% current_orders.each do |order| %>
         <% order.line_items.order_by_projects.each do |item| %>
-          <li><%= item.project.id %> <%= translated_attribute(item.project.title) %> (<%= budget_to_currency(item.project.budget_amount) %>)</li>
+          <li>
+            <%= icon("circle-check", role: "img", "aria-hidden": true) %>
+            <span><%= item.project.id %> <%= translated_attribute(item.project.title) %> (<%= budget_to_currency(item.project.budget_amount) %>)</span>
+          </li>
         <% end %>
       <% end %>
     </ul>
-    <% if current_orders.any? { |o| o.unused_allocation > 0 } %>
-      <div class="callout callout--plain warning margin-bottom-1">
+    <div class="callout callout--plain warning margin-bottom-1">
+      <p><strong><%= t(".notice") %></strong></p>
+      <% if current_orders.any? { |o| o.unused_allocation > 0 } %>
         <% if current_orders.first.projects_rule? %>
           <p><%= t(".remaining.votes") %></p>
         <% else %>
           <p><%= t(".remaining.budget") %></p>
         <% end %>
-      </div>
-    <% end %>
+      <% end %>
+    </div>
     <p><%= t(".total_budget_html", amount: budget_to_currency(current_orders.sum(&:total_budget))) %></p>
     <%= t(".notes_html") %>
   </div>

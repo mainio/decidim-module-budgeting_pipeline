@@ -126,6 +126,7 @@ en:
           label: Preview and vote
         index:
           back: Show proposals
+          breadcrumb: My vote
           description_html: <p>On this page you see how you voted.</p>
           follow_voting: Follow the voting situation
           not_voted: You have not yet voted.
@@ -178,6 +179,7 @@ en:
           more_criteria:
             hide: Hide search criteria
             show: Show more search criteria
+          order: Order
           reset: Clear filters
           search: Search
           selected: Show my voted proposals
@@ -187,13 +189,16 @@ en:
           term: Keyword
           title: Search proposals
         index:
+          breadcrumb: Browse proposals
           show_list: Show results as list
           show_map: Show results on map
           title: Browse proposals
-          view_project: Show proposal
           view_project_detailed: "Show proposal: %{name}"
+        map_template:
+          view_project: Show proposal
         orders:
           alphabetical: Alphabetical
+          category: According to the theme
           label: Proposal order
         project:
           view: Show proposal
@@ -210,7 +215,7 @@ en:
           attributes:
             address: Location
             budget: Area
-            budget_amount: Budget category
+            budget_amount: Budget
             category: Theme
             created_at: Creation time
             id: Number (ID)
@@ -222,6 +227,9 @@ en:
           add_to_vote: Add to vote
           remove_descriptive: Remove proposal %{resource_name} from vote
           remove_from_vote: Remove from vote
+        project_map:
+          note: The location of the proposal may be refined by the city after the vote.
+          title: Proposal on map
         project_status:
           not_selected: Unfortunately, this proposal will not be implemented because it did not receive enough votes.
           selected: This proposal proceeds to implementation.
@@ -235,8 +243,10 @@ en:
           project_note: Proposals may be refined by the city after the vote, for example in terms of location or method of implementation.
         show:
           close: Close
+          description: Proposal description
           start_voting: Start voting
           subtitle: Proposal
+          summary: Summary
           view_all_projects: Show all proposals
           voting_note_html: |-
             <p>To start voting, you have to identify yourself and enter the voting mode.
@@ -266,9 +276,14 @@ en:
           project_name: Proposal
           project_votes: Votes
         show:
+          amount:
+            one: "%{count} pcs"
+            other: "%{count} pcs"
+          results_by_budget: Voting results by area
           show_projects: Show proposals
           see_your_vote: See my vote
-          title: Current voting results
+          title: "%{service_name} voting results"
+          total_votes: Total amount of votes given
         vote_finished_modal:
           close: Close window
           continue: Continue signed in
@@ -284,6 +299,7 @@ en:
           actions:
             continue: Select proposals
           authorization_note: "Your area based on your postal code:"
+          breadcrumb: Select area
           highlighted_budgets:
             one: "Based on your identification, your area is:"
             other: "Based on your identification, your areas are:"
@@ -306,10 +322,12 @@ en:
           message: Your vote has not been registered because you have not yet completed the voting process. Are you sure you want to exit voting?
           title: Exit notification
         finished:
+          breadcrumb: Your vote is registered
           feedback_link: If you wish, you can give more extensive feedback using the feedback form
+          feedback_title: How would you rate the voting process on the site?
           sign_out: Sign out
           sign_out_info: Sign out in order to keep your information private. When using a shared computer, for example in the library, also clear the browser's cache and cookies. After this, sign out of the computer.
-          title: "%{service_name} voting"
+          title: Your vote is registered
         general:
           already_voted: You have already voted.
           exit_voting: Exit voting
@@ -333,6 +351,7 @@ en:
           start_voting: Go to vote
         order_items:
           empty: You have not selected any proposals from this area.
+          total_note: The total budget cost of the proposals you have chosen is approximately %{amount}.
         order_notifications:
           errors:
             allocation_exceeded:
@@ -407,8 +426,8 @@ en:
           lead: You are confirming your votes for Helsinki's participatory budgeting proposals.
           notes_html: |
             <p>If you are happy with your choices, confirm your vote below. You can also go back to make changes.</p>
-            <p><strong>Once confirmed, the votes cannot be changed.</strong></p>
             <p>Do you want to confirm your votes?</p>
+          notice: You can only vote once. Once confirmed, the votes cannot be changed.
           selected_proposals: "Proposals you selected:"
           title: "%{service_name} voting"
           total_budget_html: "The total budget cost of the proposals you have chosen is approximately <strong>%{amount}</strong>."
@@ -419,17 +438,30 @@ en:
           actions:
             continue: Confirm your vote
           subtitle: "%{service_name} voting"
+        projects_info:
+          list_description:
+            one: Found %{count} proposal
+            other: Found %{count} proposals
         projects_list:
-          budget: Budget range
+          budget: Budget
           category: Theme
+          choose: Choose proposal %{title}
+          description: Proposal description
           headers:
-            budget: Budget range
+            budget: Budget
             id: No.
             title: Title
             vote: Vote
+          list_label: Proposals
+          show_details: Show details for proposal %{title}
+          subtitle_category: "Theme: %{category}"
+          subtitle_category_missing: Proposals without a theme
+          summary: Summary
         show:
+          breadcrumb: Voting
           privacy_accept: I accept these terms
           privacy_reject: Cancel and log out
+          title: Voting
         start:
           invalid: Failed to select voting area, please try again.
         steps:

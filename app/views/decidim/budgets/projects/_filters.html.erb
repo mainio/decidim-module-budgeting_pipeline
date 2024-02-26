@@ -38,7 +38,7 @@ type_suffix = defined?(type) ? "_#{type}" : ""
   <% if display_budget_amount_filters? || current_user %>
     <div class="row columns">
       <div class="filters__section">
-        <button type="button" class="link action-link margin-bottom-2" data-toggle="additional_search<%= type_suffix %> additional_search_closed<%= type_suffix %> additional_search_open<%= type_suffix %>" id="additional_search_toggle<%= type_suffix %>">
+        <button type="button" class="link action-link margin-bottom-2" data-toggle="additional_search<%= type_suffix %> additional_search_closed<%= type_suffix %> additional_search_open<%= type_suffix %>" id="additional_search_toggle<%= type_suffix %>" aria-expanded="false">
           <span id="additional_search_closed<%= type_suffix %>" data-toggler=".is-hidden">
             <span><%= t(".more_criteria.show") %></span>
             <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>

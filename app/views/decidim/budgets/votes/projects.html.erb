@@ -25,8 +25,14 @@
     </div>
 
     <div class="row columns">
-      <div id="projects" class="voting" aria-live="polite">
-        <%= render partial: "decidim/budgets/votes/projects_list" %>
+      <div id="projects" class="voting">
+        <div id="projects_table_desc" class="projects-description" aria-live="polite">
+          <%= render partial: "decidim/budgets/votes/projects_info" %>
+        </div>
+
+        <div id="projects_table">
+          <%= render partial: "decidim/budgets/votes/projects_list" %>
+        </div>
       </div>
     </div>
   </div>

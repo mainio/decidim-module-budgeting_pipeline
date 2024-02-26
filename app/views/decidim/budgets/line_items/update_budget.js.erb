@@ -23,8 +23,10 @@ if ($orderItems.length > 0) {
 var $project = $("[data-project-id='<%= project.id %>']");
 if ($project.length > 0) {
   <% if @added %>
+    $project.attr("data-selected", true);
     $("input[type='checkbox']", $project).prop("checked", true);
   <% else %>
+    $project.removeAttr("data-selected");
     $("input[type='checkbox']", $project).prop("checked", false);
   <% end %>
 }
@@ -35,3 +37,5 @@ $nonSeleceted.attr("disabled", true);
 <% else %>
 $nonSeleceted.removeAttr("disabled");
 <% end %>
+
+window.updateBudget();

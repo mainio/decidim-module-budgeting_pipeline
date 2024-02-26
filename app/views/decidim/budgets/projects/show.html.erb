@@ -1,6 +1,7 @@
 <% add_decidim_meta_tags(
   title: translated_attribute(project.title),
-  description: translated_attribute(project.description)
+  description: translated_attribute(project.description),
+  url: project_url(project)
 ) %>
 
 <%
@@ -10,6 +11,10 @@ edit_link(
   :project,
   project: project
 )
+%>
+
+<%
+summary = translated_attribute(project.summary)
 %>
 
 <div class="row column back-link">
@@ -57,11 +62,20 @@ edit_link(
     <div class="columns small-12 medium-8">
       <div class="resource__main resource__content static__content">
         <h2><%= t(".subtitle") %></h2>
+
+        <% if strip_tags(summary).strip.present? %>
+          <h3 class="h5"><%= t(".summary") %></h3>
+          <p><%= summary %></p>
+          <h3 class="h5"><%= t(".description") %></h3>
+        <% end %>
+
         <%= decidim_sanitize(translated_attribute(project.description)) %>
 
         <%= linked_resources_for project, :plans, "included_plans" %>
 
         <%= render partial: "project_answer", locals: { project: project } %>
+
+        <%= render partial: "project_map", locals: { project: project } %>
       </div>
 
       <div class="resource__details">
