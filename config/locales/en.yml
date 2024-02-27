@@ -349,6 +349,7 @@ en:
           see_results: Show final results
           see_your_vote: See my vote
           start_voting: Go to vote
+          vote: Voting
         order_items:
           empty: You have not selected any proposals from this area.
           total_note: The total budget cost of the proposals you have chosen is approximately %{amount}.

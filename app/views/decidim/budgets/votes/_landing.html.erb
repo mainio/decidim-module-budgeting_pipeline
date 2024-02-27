@@ -3,7 +3,7 @@
     <div class="text-large">
       <%== landing_page_content %>
 
-      <% if voting_open? %>
+      <% if controller.is_a?(Decidim::Budgets::VotesController) && voting_open? %>
         <% if user_signed_in? %>
           <% unless user_voted? %>
             <% if user_authorized? %>
@@ -34,6 +34,13 @@
       <div class="actions-panel bg-secondary">
         <%= link_to orders_path, class: "action-link" do %>
           <span><%= t(".see_your_vote") %></span>
+          <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
+        <% end %>
+      </div>
+    <% elsif voting_open? && controller.is_a?(Decidim::Budgets::ProjectsController) %>
+      <div class="actions-panel bg-secondary">
+        <%= link_to vote_path, class: "action-link" do %>
+          <span><%= t(".vote") %></span>
           <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
         <% end %>
       </div>

@@ -358,6 +358,7 @@ fi:
           see_results: Näytä lopullinen äänestystilanne
           see_your_vote: Näytä oma ääneni
           start_voting: Siirry äänestämään
+          vote: Äänestys
         order_items:
           empty: Et ole valinnut yhtään ehdotusta tältä alueelta.
           total_note: Valitsemiesi ehdotusten toteuttaminen maksaa yhteensä noin %{amount}.

@@ -233,7 +233,7 @@ sv:
           remove_descriptive: Ta bort förslag %{resource_name} från röst
           remove_from_vote: Ta bort från röst
         project_map:
-          note: Förslagets lokalisering kan förfinas av staden efter omröstningen.
+          note: Var förslaget kommer att förverkligas kan specificeras ännu efter omröstningen.
           title: Förslag på karta
         project_status:
           not_selected: Tyvärr kommer förslaget inte att genomföras eftersom det inte fick tillräckligt många röster.
@@ -245,7 +245,7 @@ sv:
             other: Det finns %{count} förslag i din röst
           show_orders: Visa röst
         shared:
-          project_note: Förslag kan förfinas av staden efter omröstningen, till exempel när det gäller lokalisering eller genomförandemetod.
+          project_note: Förslagen kan förtydligas och vidareutvecklas omröstningen, till exempel gällande plats och hur förslagen genomförs.
         show:
           close: Stänga
           description: Förslagsbeskrivning
@@ -354,6 +354,7 @@ sv:
           see_results: Visa slutresultat
           see_your_vote: Se min röst
           start_voting: Gå till omröstning
+          vote: Omröstning
         order_items:
           empty: Du har inte valt några förslag från detta område.
           total_note: Förverkligandet av de förslag du valt kommer att kosta ungefär %{amount}.
