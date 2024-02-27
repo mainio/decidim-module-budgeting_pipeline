@@ -1,6 +1,8 @@
 <% content_for :top do %>
   <div class="row columns">
-    <h1><%= budgets.map { |b| translated_attribute(b.title) }.join(", ") %></h1>
+    <div class="page-title">
+      <h1><%= budgets.map { |b| translated_attribute(b.title) }.join(", ") %></h1>
+    </div>
   </div>
 <% end %>
 
