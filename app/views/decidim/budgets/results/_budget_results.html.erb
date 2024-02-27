@@ -2,15 +2,6 @@
 projects = projects_with_votes(budget)
 extra_projects = []
 
-# if budget.settings.respond_to?(:vote_rule_selected_projects_enabled) && budget.settings.vote_rule_selected_projects_enabled && budget.total_budget.zero?
-#   winning = winning_projects(budget) if voting_finished?
-#   if winning && winning.any? && winning.first.selected?
-#     extra_projects = projects.where.not(id: winning.map(&:id))
-#     projects = winning
-#   end
-# else
-# end
-
 if voting_finished?
   winning = winning_projects(budget)
   extra_projects = projects.where.not(id: winning.map(&:id))
@@ -30,6 +21,9 @@ end
     </span>
   </a>
   <div class="accordion-content" data-tab-content>
+    <div class="margin-bottom-2">
+      <p class="lead"><%= t(".budget", amount: budget_to_currency(budget.total_budget)) %></p>
+    </div>
     <% if projects.any? || extra_projects.any? %>
       <%= render partial: "projects_table", locals: { budget: budget, winning: projects, others: extra_projects } %>
     <% else %>

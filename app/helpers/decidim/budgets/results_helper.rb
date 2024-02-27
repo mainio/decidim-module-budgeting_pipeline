@@ -9,28 +9,6 @@ module Decidim
         selected = selected_projects(budget)
         return selected.order_by_most_voted.to_a if selected.any?
 
-        if budget.settings.vote_rule_selected_projects_enabled
-          winning_projects_by_votes_rule(budget)
-        else
-          winning_projects_by_budget_rule(budget)
-        end
-      end
-
-      def winning_projects_by_votes_rule(budget)
-        total_available = budget.settings.vote_selected_projects_maximum
-
-        [].tap do |projects|
-          projects_with_votes(budget).each do |project|
-            break if project.votes_count < 1
-
-            projects << project
-            total_available -= 1
-            break if total_available < 1
-          end
-        end
-      end
-
-      def winning_projects_by_budget_rule(budget)
         total_available = budget.total_budget
 
         [].tap do |projects|
