@@ -22,18 +22,26 @@ module Decidim
         return broadcast(:invalid, orders) if orders.empty?
         return broadcast(:invalid, orders) if orders.any?(&:invalid?)
 
-        # This ensures that if the user happens to submit their vote twice in a
-        # row, the vote record won't be duplicated. It would not affect the
-        # amount of votes for projects as the other duplicate vote gets "cleared
-        # out" when the orders are mapped to the new vote but it would affect
-        # the reporting of the ongoing voting.
-        return broadcast(:ok, orders) if existing_vote.present?
+        # The user lock ensures that if the user happens to submit their vote
+        # twice in a row, the vote record won't be duplicated. It would not
+        # affect the amount of votes for projects as the other duplicate vote
+        # gets "cleared out" when the orders are mapped to the new vote but it
+        # would affect the reporting of the ongoing voting (i.e. the number of
+        # empty votes would increase).
+        user.with_lock do
+          next if has_existing_vote?
 
-        checkout_orders
-        create_vote
-        send_summary
+          checkout_orders
+          create_vote
+
+          send_summary
+        end
 
         broadcast(:ok, orders)
+      rescue ActiveRecord::RecordInvalid
+        # This would be the case if the order cannot be checked out e.g. because
+        # it has too few projects.
+        broadcast(:invalid, orders)
       end
 
       private
@@ -61,8 +69,8 @@ module Decidim
         )
       end
 
-      def existing_vote
-        @existing_vote ||= Decidim::Budgets::Vote.where(component: orders.first.component, user: user)
+      def has_existing_vote?
+        Decidim::Budgets::Vote.find_by(component: orders.first.component, user: user).present?
       end
 
       def send_summary
