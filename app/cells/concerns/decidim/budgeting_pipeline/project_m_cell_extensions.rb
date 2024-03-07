@@ -161,7 +161,7 @@ module Decidim
         full_category << translated_attribute(cat.name)
 
         content_tag(:span, class: "card__category__icon", "aria-hidden": true) do
-          image_tag(cat.attached_uploader(:category_icon).path, alt: full_category.join(" - "))
+          image_tag(cat.attached_uploader(:category_icon).url, alt: full_category.join(" - "))
         end
       end
 
@@ -173,7 +173,7 @@ module Decidim
       end
 
       def resource_image_path
-        return model.attached_uploader(:main_image).path(variant: resource_image_variant) if has_image?
+        return model.attached_uploader(:main_image).variant_url(resource_image_variant) if has_image?
 
         path = category_image_path(model.category)
         return path if path
@@ -203,7 +203,7 @@ module Decidim
         return unless cat.category_image
         return unless cat.category_image.attached?
 
-        cat.attached_uploader(:category_image).path(variant: category_image_variant)
+        cat.attached_uploader(:category_image).variant_url(category_image_variant)
       end
 
       def category_image_variant

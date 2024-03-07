@@ -114,7 +114,7 @@ module Decidim
         return unless category.respond_to?(:category_image)
 
         if category.category_image && category.category_image.attached?
-          category.attached_uploader(:category_image).path
+          category.attached_uploader(:category_image).url
         elsif category.parent
           category_image_path(category.parent)
         end
@@ -134,7 +134,7 @@ module Decidim
       end
 
       def share_image_url
-        return project.attached_uploader(:main_image).path if has_project_image?
+        return project.attached_uploader(:main_image).url if has_project_image?
 
         organization_share_image_url
       end
@@ -150,7 +150,7 @@ module Decidim
             scope_name: :homepage,
             manifest_name: :hero
           ).try(:images_container)
-          container.attached_uploader(:background_image).path if container && container.background_image && container.background_image.attached?
+          container.attached_uploader(:background_image).url if container && container.background_image && container.background_image.attached?
         end
       end
 

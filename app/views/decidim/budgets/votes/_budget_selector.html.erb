@@ -4,7 +4,7 @@
       <h2 class="h4"><%= translated_attribute(budget.title) %></h2>
     </div>
     <div class="card__main">
-      <%= image_tag budget.attached_uploader(:list_image).path, alt: t(".image", title: translated_attribute(budget.title)), class: "card__image" if budget.list_image.attached? %>
+      <%= image_tag budget.attached_uploader(:list_image).url, alt: t(".image", title: translated_attribute(budget.title)), class: "card__image" if budget.list_image.attached? %>
     </div>
     <div class="card__content">
       <div class="card__text">
