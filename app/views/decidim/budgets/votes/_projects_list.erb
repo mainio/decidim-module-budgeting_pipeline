@@ -63,7 +63,7 @@ show_categories = params[:order] == "category"
                   type="checkbox"
                   name="projects[]"
                   value="<%= project.id %>"
-                  data-select-url="<%= budget_order_line_item_path(project.budget, project_id: project.id, format: :js) %>"
+                  data-select-url="<%= budget_order_line_item_path(project.decidim_budgets_budget_id, project_id: project.id, format: :js) %>"
                   <%= "checked" if project_selected?(project) %>
                   <%= "disabled" if order_full && !project_selected?(project) %>
                 >

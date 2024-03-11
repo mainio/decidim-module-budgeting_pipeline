@@ -37,10 +37,10 @@ module Decidim
       end
 
       def project_selected?(project)
-        order = current_orders.find_by(budget: project.budget)
+        order = current_orders.find { |ord| ord.decidim_budgets_budget_id == project.decidim_budgets_budget_id }
         return false unless order
 
-        order.projects.include?(project)
+        order.projects.any? { |pr| pr.id == project.id }
       end
     end
   end

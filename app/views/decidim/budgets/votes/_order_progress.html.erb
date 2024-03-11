@@ -2,8 +2,9 @@
   <div class="voting-progress">
     <% if order.projects_rule? %>
       <div class="voting-progress__indicator">
+        <% allocated_amount = order.total_projects %>
         <% order.available_allocation.times do |idx| %>
-          <% if idx < order.total_projects %>
+          <% if idx < allocated_amount %>
             <%= icon "circle-check", role: "img", "aria-hidden": true %>
           <% else %>
             <%= icon "circle-hollow", role: "img", "aria-hidden": true %>
