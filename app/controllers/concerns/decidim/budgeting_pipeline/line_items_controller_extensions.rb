@@ -41,6 +41,27 @@ module Decidim
           end
         end
 
+        def destroy
+          respond_to do |format|
+            # Note that the user-specific lock here is important in order to
+            # prevent multiple simultaneous processes on different machines from
+            # creating multiple orders for the same user in case the button is
+            # pressed multiple times.
+            current_user.with_lock do
+              Decidim::Budgets::RemoveLineItem.call(current_order, project) do
+                on(:ok) do |_order|
+                  format.html { redirect_back(fallback_location: budget_path(budget)) }
+                  format.js { render "update_budget" }
+                end
+
+                on(:invalid) do
+                  format.js { render "update_budget", status: :unprocessable_entity }
+                end
+              end
+            end
+          end
+        end
+
         private
 
         def budget
