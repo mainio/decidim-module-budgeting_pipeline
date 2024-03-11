@@ -16,7 +16,7 @@ gem "decidim", DECIDIM_VERSION
 gem "decidim-budgeting_pipeline", path: "."
 
 gem "decidim-apifiles", github: "mainio/decidim-module-apifiles", branch: "main"
-gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "main"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "develop"
 gem "decidim-feedback", github: "mainio/decidim-module-feedback", branch: "main"
 gem "decidim-stats", github: "mainio/decidim-module-stats", branch: "main"
 
