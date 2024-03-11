@@ -38,10 +38,18 @@ module Decidim
         validates :address, geocoding: true, if: ->(form) { form.has_address? && !form.geocoded? }
         validates :main_image, passthru: {
           to: Decidim::Budgets::Project,
-          # Note that the `with` attribute needs to be provided as a block
-          # because otherwise it may be remembered for different instances of
-          # the form due to some internal logic with the validators.
-          with: ->(form) { { budget: form.budget } }
+          with: {
+            # When the image validations are done through the validation
+            # endpoint, the component is unknown and would cause the
+            # validations to fail because the component would not exist.
+            component: lambda do |form|
+              Decidim::Component.new(
+                participatory_space: Decidim::ParticipatoryProcess.new(
+                  organization: form.current_organization
+                )
+              )
+            end
+          }
         }
 
         def map_model(model)
