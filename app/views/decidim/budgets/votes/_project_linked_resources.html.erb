@@ -1,4 +1,6 @@
-<% linked_resources = resource.linked_resources(type, link_name).group_by { |linked_resource| linked_resource.class.name } %>
+<%
+linked_resources = cached_linked_resources_for(type, link_name, resource) || {}
+%>
 
 <% linked_resources.each do |klass, resources| %>
   <div class="margin-top-2">
@@ -6,10 +8,15 @@
     <% i18n_name = "#{resource.class.name.demodulize.underscore}_#{resource_manifest.name}" %>
     <p class="h5"><%= t(i18n_name, scope: "decidim.resource_links.#{link_name}") %></p>
     <% resources.each do |linked_resource| %>
+      <%
+      title = translated_attribute(linked_resource.title).strip
+      title = title.values.first if title.blank? && linked_resource.title.is_a?(Hash)
+      %>
       <p>
         <%= link_to project_linked_resource_path(resource, linked_resource.to_gid.to_param), remote: true do %>
-          #<%= linked_resource.id %> <%== decidim_html_escape(present(linked_resource).title) %></p>
+          #<%= linked_resource.id %> <%== decidim_html_escape(title) %>
         <% end %>
+      </p>
     <% end %>
   </div>
 <% end %>

@@ -29,7 +29,8 @@ module Decidim
         :suggested_budgets,
         :choose_budgets,
         :selected_budgets,
-        :projects
+        :projects,
+        :cached_linked_resources_for
       )
 
       before_action :ensure_voting_open!
@@ -308,6 +309,59 @@ module Decidim
 
       def routes_proxy
         @routes_proxy ||= EngineRouter.main_proxy(current_component)
+      end
+
+      def cached_linked_resources_for(type, link_name, project)
+        resources = linked_resources[type]
+        return unless resources
+
+        resources = resources[link_name]
+        return unless resources
+
+        resources = resources[project.id]
+        return unless resources
+        return unless resources.any?
+
+        klass = resources.first.class.name
+        { klass => resources }
+      end
+
+      # For performance, this produces 3 queries in total per page load to find
+      # the linked resources for each record individually. Otherwise, the
+      # amount of queries would be very high when there is a large amount of
+      # linked resources (e.g. over 100).
+      #
+      # Note that this is currently working only for the resource_link_types
+      # defined below. Other resources may require adjustments.
+      def linked_resources
+        @linked_resources ||= resource_link_types.to_h do |type, link_name|
+          manifest = Decidim.find_resource_manifest(type)
+          next unless manifest
+
+          scope = manifest.resource_scope(current_component)
+                          .published.not_hidden.except_withdrawn
+                          .where.not(decidim_components: { published_at: nil })
+          from = scope.joins(:resource_links_from)
+                      .where(decidim_resource_links: { name: link_name, to: @projects })
+          to = scope.joins(:resource_links_to)
+                    .where(decidim_resource_links: { name: link_name, from: @projects })
+
+          resources = scope.where(id: from).or(scope.where(id: to))
+
+          mapped_resources = {}
+          Decidim::ResourceLink.where(name: link_name, to: @projects).each do |link|
+            mapped_resources[link.to_id] = resources.select { |r| r.id == link.from_id }
+          end
+          Decidim::ResourceLink.where(name: link_name, from: @projects).each do |link|
+            mapped_resources[link.from_id] = resources.select { |r| r.id == link.to_id }
+          end
+
+          [type, { link_name => mapped_resources }]
+        end
+      end
+
+      def resource_link_types
+        @resource_link_types ||= { plans: "included_plans" }
       end
     end
   end
