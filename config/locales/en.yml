@@ -100,6 +100,10 @@ en:
               title: Voting is not possible at this moment
         error_modal:
           title: Failed adding the proposal to the vote
+      linked_resources:
+        resource_modal:
+          close: Close
+          close_modal: Close modal
       models:
         help_container:
           fields:

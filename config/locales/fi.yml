@@ -102,13 +102,8 @@ fi:
           title: Ehdotuksen lisääminen ääneen epäonnistui
       linked_resources:
         resource_modal:
-          title: Title
           close: Sulje
-          # close: Close
-          # close: Stäng
           close_modal: Sulje ikkuna
-          # close_modal: Close modal
-          # close_modal: Stäng fönstret
       models:
         help_container:
           fields:
