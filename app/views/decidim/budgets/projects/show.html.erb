@@ -30,7 +30,7 @@ summary = translated_attribute(project.summary)
       <div class="resource__main static__content margin-bottom-0">
         <h1><%= translated_attribute project.title %></h1>
 
-        <%= render partial: "project_status" if voting_finished? && statuses_available? %>
+        <%= render partial: "project_status" if voting_finished? && current_settings.show_selected_status? %>
 
         <% if project.main_image && project.main_image.attached? %>
           <%= image_tag project.attached_uploader(:main_image).variant_url(:main), class:"resource__image", alt: strip_tags(translated_attribute(project.title)) %>

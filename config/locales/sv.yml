@@ -156,6 +156,7 @@ sv:
         votes_amount:
           one: "%{count} röst"
           other: "%{count} röster"
+        votes_count: Antal röster
       projects:
         count:
           projects_count:
@@ -505,6 +506,8 @@ sv:
             vote_projects_page_content: Bläddra bland innehållsförslag
             vote_projects_voting_info_content: Bläddra förslag sida röstning hjälpinnehåll
             vote_success_content: Innehåll som visas efter lyckad omröstning
+          step:
+            show_selected_status: Visa vald status för förslag
       component_order_selector:
         order:
           vote: Röst

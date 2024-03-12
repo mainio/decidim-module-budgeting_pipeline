@@ -97,7 +97,7 @@ module Decidim
       end
 
       def display_status_filter?
-        voting_finished? && statuses_available?
+        voting_finished? && current_settings.show_selected_status?
       end
 
       def display_category_filter?
@@ -111,13 +111,9 @@ module Decidim
 
       def category_image_path(category)
         return unless category
-        return unless category.respond_to?(:category_image)
+        return unless category.respond_to?(:category_image_url)
 
-        if category.category_image && category.category_image.attached?
-          category.attached_uploader(:category_image).url
-        elsif category.parent
-          category_image_path(category.parent)
-        end
+        category.category_image_url
       end
 
       def project_map_link(resource, options = {})

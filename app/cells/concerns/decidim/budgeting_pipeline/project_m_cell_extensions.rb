@@ -11,7 +11,6 @@ module Decidim
 
       included do
         delegate(
-          :statuses_available?,
           :budget_order_line_item_path,
           :current_workflow,
           :allowed_to?,
@@ -74,14 +73,7 @@ module Decidim
       end
 
       def state_visible?
-        voting_done =
-          if controller.is_a?(Decidim::HomepageController)
-            model.component.current_settings.votes == "finished"
-          else
-            voting_finished?
-          end
-
-        voting_done && model.selected_at.present?
+        voting_finished? && model.component.current_settings.show_selected_status?
       end
 
       def votes_visible?
@@ -137,7 +129,15 @@ module Decidim
       end
 
       def statuses
-        [:comments_count, :favorites_count]
+        @statuses ||= [:comments_count, :favorites_count].tap do |details|
+          details << :votes_count if votes_visible?
+        end
+      end
+
+      def votes_count_status
+        with_tooltip t("decidim.budgets.project_m.votes_count") do
+          render :votes_counter
+        end
       end
 
       def creation_date_status
@@ -153,32 +153,32 @@ module Decidim
       end
 
       def category_icon
-        cat = icon_category
-        return unless cat
+        return unless has_category?
+        return unless model.category.respond_to?(:category_icon_url)
 
-        full_category = []
-        full_category << translated_attribute(cat.parent.name) if cat.parent
-        full_category << translated_attribute(cat.name)
+        icon_url = model.category.category_icon_url
+        return unless icon_url
 
         content_tag(:span, class: "card__category__icon", "aria-hidden": true) do
-          image_tag(cat.attached_uploader(:category_icon).url, alt: full_category.join(" - "))
+          image_tag(icon_url, alt: full_category.join(" - "))
         end
       end
 
       def category_style
-        cat = color_category
-        return unless cat
+        return unless has_category?
+        return unless model.category.respond_to?(:color)
 
-        "background-color:#{cat.color};"
+        color = model.category.color
+        return unless color
+
+        "background-color:#{color};"
       end
 
       def resource_image_path
         return model.attached_uploader(:main_image).variant_url(resource_image_variant) if has_image?
+        return unless has_category?
 
-        path = category_image_path(model.category)
-        return path if path
-
-        category_image_path(model.category.parent) if model.category&.parent.present?
+        category_image_path(model.category)
       end
 
       def resource_image_variant
@@ -198,38 +198,13 @@ module Decidim
       end
 
       def category_image_path(cat)
-        return unless has_category?
-        return unless cat.respond_to?(:category_image)
-        return unless cat.category_image
-        return unless cat.category_image.attached?
+        return unless cat.respond_to?(:category_image_url)
 
-        cat.attached_uploader(:category_image).variant_url(category_image_variant)
+        cat.category_image_url(category_image_variant)
       end
 
       def category_image_variant
         :card
-      end
-
-      def icon_category(cat = nil)
-        return unless has_category?
-
-        cat ||= model.category
-        return unless cat.respond_to?(:category_icon)
-        return cat if cat.category_icon && cat.category_icon.attached?
-        return unless cat.parent
-
-        icon_category(cat.parent)
-      end
-
-      def color_category(cat = nil)
-        return unless has_category?
-
-        cat ||= model.category
-        return unless cat.respond_to?(:color)
-        return cat if cat.color
-        return unless cat.parent
-
-        color_category(cat.parent)
       end
     end
   end

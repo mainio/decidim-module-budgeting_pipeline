@@ -156,6 +156,7 @@ fi:
         votes_amount:
           one: "%{count} ääni"
           other: "%{count} ääntä"
+        votes_count: "Äänten määrä"
       projects:
         count:
           projects_count:
@@ -500,6 +501,8 @@ fi:
             vote_projects_page_content: Ehdotusten selaussivun sisältö
             vote_projects_voting_info_content: Ehdotusten valintasivun äänestysohjeen sisältö
             vote_success_content: Onnistuneen äänestyksen jälkeen näytettävä sisältö
+          step:
+            show_selected_status: Näytä ehdotusten valittu-tila
       component_order_selector:
         order:
           vote: Ääni

@@ -8,30 +8,15 @@
   </div>
 </div>
 
-<% if has_category? || votes_visible? %>
+<% if has_category? || model.budget_amount > 0 %>
   <div class="card__info">
+    <%= render :data_budget %>
+
     <% if has_category? %>
       <div class="card__info__item">
         <span class="card__category__name"><%= category %></span>
       </div>
     <% end %>
-
-    <% if votes_visible? %>
-      <div class="card__info__item">
-        <%= t(".votes_amount", count: votes_count) %>
-      </div>
-    <% end %>
   </div>
 <% end %>
 
-<% if model.budget_amount > 0 || votes_visible? %>
-  <div class="card__info">
-    <%= render :data_budget %>
-
-    <% if votes_visible? %>
-      <div class="card__info__item">
-        <%= t(".votes_amount", count: votes_count) %>
-      </div>
-    <% end %>
-  </div>
-<% end %>

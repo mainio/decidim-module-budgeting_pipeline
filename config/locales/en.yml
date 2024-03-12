@@ -156,6 +156,7 @@ en:
         votes_amount:
           one: "%{count} vote"
           other: "%{count} votes"
+        votes_count: Amount of votes
       projects:
         count:
           projects_count:
@@ -500,6 +501,8 @@ en:
             vote_projects_page_content: Browse proposals page content
             vote_projects_voting_info_content: Browse proposals page voting help content
             vote_success_content: Content displayed after successful voting
+          step:
+            show_selected_status: Show selected status for proposals
       component_order_selector:
         order:
           vote: Vote

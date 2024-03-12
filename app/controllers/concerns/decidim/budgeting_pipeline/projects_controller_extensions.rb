@@ -9,13 +9,14 @@ module Decidim
       include Decidim::Paginable
       include Decidim::TranslatableAttributes
       include Decidim::BudgetingPipeline::VoteUtilities
+      include Decidim::BudgetingPipeline::OrdersUtilities
       include Decidim::BudgetingPipeline::Authorizable
       include Decidim::BudgetingPipeline::Orderable
 
       included do
         before_action :set_breadcrumbs, only: [:index, :show]
 
-        helper_method :authorization_required?, :user_authorized?, :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :statuses_available?, :vote_success?
+        helper_method :authorization_required?, :user_authorized?, :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :vote_success?
 
         helper Decidim::BudgetingPipeline::AuthorizationHelper
 
@@ -84,10 +85,6 @@ module Decidim
 
       def maximum_project_budget
         @maximum_project_budget ||= Decidim::Budgets::Project.where(budget: budgets).maximum(:budget_amount)
-      end
-
-      def statuses_available?
-        @statuses_available ||= Decidim::Budgets::Project.where(budget: budgets).where.not(selected_at: nil).any?
       end
 
       def vote_success?

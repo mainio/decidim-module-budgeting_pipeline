@@ -46,6 +46,16 @@ module Decidim
             # Remove the more information modal from the step settings as it is
             # not needed there.
             settings.attributes.delete(:more_information_modal)
+
+            # Add setting to display the statuses
+            settings.attribute :show_selected_status, type: :boolean, default: false
+
+            # Create the settings manipulator for moving the attributes
+            m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
+
+            # Move the show selected status before the show votes configuration
+            # so it is in a logic position.
+            m.move_attribute_after(:show_selected_status, :show_votes)
           end
         end
       end
