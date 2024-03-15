@@ -18,7 +18,7 @@ module Decidim
           return false unless current_user
 
           order =
-            if controller.respond_to?(:current_orders, true)
+            if respond_to?(:controller) && controller.respond_to?(:current_orders, true)
               controller.send(:current_orders).find { |o| o.decidim_budgets_budget_id == project.decidim_budgets_budget_id }
             else
               # Fallback when the cell is displayed outside of the projects
