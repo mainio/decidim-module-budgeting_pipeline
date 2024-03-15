@@ -236,8 +236,8 @@ fi:
           note: Ehdotuksen sijaintia saatetaan tarkentaa äänestyksen jälkeen kaupungin toimesta.
           title: Ehdotus kartalla
         project_status:
-          not_selected: Ehdotus ei valitettavasti etene toteutukseen, koska se ei saanut tarpeeksi ääniä.
-          selected: Ehdotus etenee toteutukseen.
+          not_selected: Ehdotus ei valitettavasti etene toteutukseen, koska se ei saanut tarpeeksi ääniä
+          selected: Ehdotus etenee toteutukseen
         projects:
           empty: Hakuehdoillasi ei löytynyt yhtään ehdotusta. Muuta hakuehtoja löytääksesi lisää ehdotuksia.
           order_items_amount:
@@ -351,7 +351,7 @@ fi:
         landing:
           follow_voting: Seuraa äänestystilannetta
           help: Ohjeet
-          see_results: Näytä lopullinen äänestystilanne
+          see_results: Näytä äänestystulos
           see_your_vote: Näytä oma ääneni
           start_voting: Siirry äänestämään
           vote: Äänestys
@@ -490,8 +490,12 @@ fi:
             feedback_url: Palautekyselyn URL-osoite
             help_page_url: Ohjesivun URL-osoite
             more_information_modal_label: Lisätietoikkunan avauslinkin teksti
+            project_not_selected_content: Ehdotusten vastauksen sisältö niille, joita ei ole valittu toteutukseen
+            project_selected_content: Ehdotusten vastauksen sisältö niille, jotka on valittu toteutukseen
             projects_per_page: Ehdotukset sivua kohden
+            results_page_budget_content: Tulossivun budjettien yhteydessä näytettävä sisältö
             results_page_content: Tulossivun sisältö
+            results_page_title: Tulossivun otsikko
             vote_budgets_page_content: Alueen valintasivun pääsisältö
             vote_choose_budget_note_content: Alueen valinnan ohje
             vote_identify_invalid_authorization_content: Virheellisten tunnistautumistietojen virheen sisältö

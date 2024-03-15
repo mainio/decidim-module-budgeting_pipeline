@@ -32,7 +32,11 @@ module Decidim
             settings.attribute :vote_preview_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_success_content, type: :text, translated: true, editor: true
             settings.attribute :feedback_url, type: :string, translated: true
+            settings.attribute :results_page_title, type: :string, translated: true
             settings.attribute :results_page_content, type: :text, translated: true, editor: true
+            settings.attribute :results_page_budget_content, type: :text, translated: true, editor: true
+            settings.attribute :project_selected_content, type: :text, translated: true, editor: true
+            settings.attribute :project_not_selected_content, type: :text, translated: true, editor: true
 
             # Create the settings manipulator for moving the attributes
             m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)

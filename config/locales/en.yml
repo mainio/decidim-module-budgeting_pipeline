@@ -236,8 +236,8 @@ en:
           note: The location of the proposal may be refined by the city after the vote.
           title: Proposal on map
         project_status:
-          not_selected: Unfortunately, this proposal will not be implemented because it did not receive enough votes.
-          selected: This proposal proceeds to implementation.
+          not_selected: Unfortunately, this proposal will not be implemented because it did not receive enough votes
+          selected: This proposal proceeds to implementation
         projects:
           empty: No proposals matching your search criteria. Please change your search criteria and try again.
           order_items_amount:
@@ -288,7 +288,7 @@ en:
           show_projects: Show proposals
           see_your_vote: See my vote
           title: "%{service_name} voting results"
-          total_votes: Total amount of votes given
+          total_votes: Total votes
         vote_finished_modal:
           close: Close window
           continue: Continue signed in
@@ -351,7 +351,7 @@ en:
         landing:
           follow_voting: Follow the voting situation
           help: Help
-          see_results: Show final results
+          see_results: Show voting results
           see_your_vote: See my vote
           start_voting: Go to vote
           vote: Voting
@@ -490,8 +490,12 @@ en:
             feedback_url: Feedback survey URL
             help_page_url: Help page URL
             more_information_modal_label: More information modal open link text
+            project_not_selected_content: Proposal answer content for those not selected for implementation
+            project_selected_content: Proposal answer content for those selected for implementation
             projects_per_page: Proposals per page
+            results_page_budget_content: Results page content for budget sections
             results_page_content: Results page content
+            results_page_title: Results page title
             vote_budgets_page_content: Area selection page main content
             vote_choose_budget_note_content: Area selection help
             vote_identify_invalid_authorization_content: Invalid identity information error content

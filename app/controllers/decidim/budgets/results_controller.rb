@@ -4,9 +4,10 @@ module Decidim
   module Budgets
     # Controls the results view.
     class ResultsController < ApplicationController
+      include Decidim::TranslatableAttributes
       include Decidim::BudgetingPipeline::VoteUtilities
 
-      helper_method :budgets, :sticky_budgets, :common_budgets, :projects_with_votes, :minimum_project_budget, :maximum_project_budget, :vote_success?
+      helper_method :page_title, :budgets, :sticky_budgets, :common_budgets, :projects_with_votes, :minimum_project_budget, :maximum_project_budget, :vote_success?
 
       before_action :set_breadcrumbs, only: [:show]
 
@@ -18,13 +19,17 @@ module Decidim
 
       private
 
+      def page_title
+        @page_title ||= begin
+          title = translated_attribute(component_settings.results_page_title).strip
+          title.presence || t("decidim.budgets.results.show.title", service_name: current_organization.name)
+        end
+      end
+
       def set_breadcrumbs
         return unless respond_to?(:add_breadcrumb, true)
 
-        add_breadcrumb(
-          t("decidim.budgets.results.show.title", service_name: current_organization.name),
-          results_path
-        )
+        add_breadcrumb(page_title, results_path)
       end
 
       def budgets

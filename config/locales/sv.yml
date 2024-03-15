@@ -134,7 +134,7 @@ sv:
           description_html: <p>På den här sidan ser du hur du röstade.</p>
           follow_voting: Följ omröstningssituationen
           not_voted: Du har ännu inte röstat.
-          see_results: Visa slutresultat
+          see_results: Visa röstresultatet
           title: Min röst
         orders_info:
           allocated_budget: Total budget för de valda förslagen
@@ -241,8 +241,8 @@ sv:
           note: Var förslaget kommer att förverkligas kan specificeras ännu efter omröstningen.
           title: Förslag på karta
         project_status:
-          not_selected: Tyvärr kommer förslaget inte att genomföras eftersom det inte fick tillräckligt många röster.
-          selected: Förslaget fortsätter till genomförande.
+          not_selected: Tyvärr kommer förslaget inte att genomföras eftersom det inte fick tillräckligt många röster
+          selected: Förslaget fortsätter till genomförande
         projects:
           empty: Inga förslag hittades för dina sökkriterier. Ändra dina sökkriterier för att hitta fler förslag.
           order_items_amount:
@@ -289,11 +289,11 @@ sv:
           amount:
             one: "%{count} st"
             other: "%{count} st"
-          results_by_budget: Omröstningsresultat per område
+          results_by_budget: Röstresultaten enligt områden
           show_projects: Visa förslag
           see_your_vote: Grannska mina röster
           title: "%{service_name} röstningsresultat"
-          total_votes: Totalt antal röster
+          total_votes: Rösterna sammanlagt
         vote_finished_modal:
           close: Stäng fönstret
           continue: Fortsätt inloggad
@@ -495,8 +495,12 @@ sv:
             feedback_url: URL för feedbackundersökning
             help_page_url: Hjälpsidans URL
             more_information_modal_label: Mer information modal öppen länktext
+            project_not_selected_content: Förslagets svarsinnehåll för de som inte valts ut för implementering
+            project_selected_content: Förslagets svarsinnehåll för de utvalda för implementering
             projects_per_page: Förslag per sida
+            results_page_budget_content: Resultatsidans innehåll för budgetsektioner
             results_page_content: Resultatsidans innehåll
+            results_page_title: Resultatsidans titel
             vote_budgets_page_content: Områdesvalssida huvudinnehåll
             vote_choose_budget_note_content: Områdesval hjälp
             vote_identify_invalid_authorization_content: Ogiltigt identitetsinformation fel innehåll
