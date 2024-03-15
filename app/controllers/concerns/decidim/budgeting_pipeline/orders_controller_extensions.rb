@@ -11,7 +11,7 @@ module Decidim
 
       included do
         before_action :ensure_checked_out_orders!, only: [:index]
-        before_action :set_breadcrumbs, only:  [:index]
+        before_action :set_breadcrumbs, only: [:index]
       end
 
       private
