@@ -12,12 +12,20 @@ module Decidim
       before_action :set_breadcrumbs, only: [:show]
 
       def show
-        redirect_to EngineRouter.main_proxy(current_component).projects_path unless current_settings.show_votes?
+        redirect_to EngineRouter.main_proxy(current_component).projects_path unless results_visible?
 
         @total_votes = Decidim::Budgets::Order.finished.where(budget: budgets).count(:decidim_budgets_vote_id)
       end
 
       private
+
+      def results_visible?
+        # Allow admins to see the results page in advance so that we can check
+        # that the results are displayed correctly before they are published.
+        return true if voting_finished? && current_user&.admin?
+
+        current_settings.show_votes?
+      end
 
       def page_title
         @page_title ||= begin
