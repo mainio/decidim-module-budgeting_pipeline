@@ -236,8 +236,8 @@ en:
           note: The location of the proposal may be refined by the city after the vote.
           title: Proposal on map
         project_status:
-          not_selected: Unfortunately, this proposal will not be implemented because it did not receive enough votes
-          selected: This proposal proceeds to implementation
+          not_selected: Unfortunately, this project will not be implemented as it did not receive enough votes
+          selected: This proposal will be implemented
         projects:
           empty: No proposals matching your search criteria. Please change your search criteria and try again.
           order_items_amount:

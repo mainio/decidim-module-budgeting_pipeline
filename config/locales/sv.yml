@@ -241,8 +241,8 @@ sv:
           note: Var förslaget kommer att förverkligas kan specificeras ännu efter omröstningen.
           title: Förslag på karta
         project_status:
-          not_selected: Tyvärr kommer förslaget inte att genomföras eftersom det inte fick tillräckligt många röster
-          selected: Förslaget fortsätter till genomförande
+          not_selected: Tyvärr kommer förslaget inte att genomföras eftersom det inte fick tillräckligt många röster.
+          selected: Förslaget kommer att genomföras
         projects:
           empty: Inga förslag hittades för dina sökkriterier. Ändra dina sökkriterier för att hitta fler förslag.
           order_items_amount:
