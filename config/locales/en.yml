@@ -288,7 +288,7 @@ en:
           show_projects: Show proposals
           see_your_vote: See my vote
           title: "%{service_name} voting results"
-          total_votes: Total votes
+          total_votes: Amount of voters
         vote_finished_modal:
           close: Close window
           continue: Continue signed in

@@ -293,7 +293,7 @@ sv:
           show_projects: Visa förslag
           see_your_vote: Grannska mina röster
           title: "%{service_name} röstningsresultat"
-          total_votes: Rösterna sammanlagt
+          total_votes: Antalet röstande
         vote_finished_modal:
           close: Stäng fönstret
           continue: Fortsätt inloggad

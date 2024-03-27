@@ -288,7 +288,7 @@ fi:
           show_projects: Näytä ehdotukset
           see_your_vote: Näytä oma ääneni
           title: "%{service_name}-äänestyksen tulokset"
-          total_votes: Ääniä annettu kaikkiaan
+          total_votes: Äänestäjien määrä
         vote_finished_modal:
           close: Sulje ikkuna
           continue: Jatka sisäänkirjautuneena
