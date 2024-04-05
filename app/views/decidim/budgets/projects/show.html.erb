@@ -71,11 +71,18 @@ summary = translated_attribute(project.summary)
 
         <%= decidim_sanitize(translated_attribute(project.description)) %>
 
-        <%= linked_resources_for project, :plans, "included_plans" %>
-
         <%= render partial: "project_answer", locals: { project: project } %>
 
         <%= render partial: "project_map", locals: { project: project } %>
+
+        <% if respond_to?(:linked_resources_group_for) %>
+          <div class="linked-resources">
+            <%= linked_resources_group_for(project, {
+              plans: "included_plans",
+              ideas: "included_ideas"
+            }) %>
+          </div>
+        <% end %>
       </div>
 
       <div class="resource__details">
