@@ -68,7 +68,10 @@ module Decidim
         @projects_with_votes ||= {}
         return @projects_with_votes[budget.id] if @projects_with_votes[budget.id].present?
 
-        @projects_with_votes[budget.id] = Decidim::Budgets::Project.where(budget: budget).order_by_most_voted(only_voted: true)
+        @projects_with_votes[budget.id] = Decidim::Budgets::Project.where(budget: budget).order_by_most_voted(only_voted: true).select(
+          "decidim_budgets_projects.*",
+          "decidim_budgets_projects_with_votes.votes_count"
+        )
       end
 
       def minimum_project_budget(budget)

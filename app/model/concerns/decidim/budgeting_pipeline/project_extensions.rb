@@ -133,37 +133,44 @@ module Decidim
           joins(:orders).where(decidim_budgets_orders: { decidim_user_id: user })
         }
 
-        scope :order_by_most_voted, lambda { |only_voted: false|
-          scope = joins(
+        # Adds a new join table `decidim_budgets_projects_with_votes` that
+        # contains the amount of votes for each project.
+        scope :with_votes, lambda {
+          scope = klass.joins(
             <<~SQLJOIN.squish
-              LEFT JOIN decidim_budgets_line_items
+              LEFT OUTER JOIN decidim_budgets_line_items
                 ON decidim_budgets_line_items.decidim_project_id = decidim_budgets_projects.id
             SQLJOIN
           ).joins(
             <<~SQLJOIN.squish
-              LEFT JOIN decidim_budgets_orders
+              LEFT OUTER JOIN decidim_budgets_orders
                 ON decidim_budgets_orders.id = decidim_budgets_line_items.decidim_order_id
                 AND decidim_budgets_orders.checked_out_at IS NOT NULL
             SQLJOIN
           ).select(
-            [
-              "decidim_budgets_projects.*",
-              "COUNT(decidim_budgets_orders.id) + decidim_budgets_projects.paper_orders_count AS votes_count",
-              "CASE #{Arel.sql locale_case("decidim_budgets_projects.title")} END AS localized_title"
-            ].join(", ")
+            "decidim_budgets_projects.id",
+            "COUNT(decidim_budgets_orders.id) + decidim_budgets_projects.paper_orders_count AS votes_count",
+            "CASE #{Arel.sql locale_case("decidim_budgets_projects.title")} END AS localized_title"
           ).group("decidim_budgets_projects.id")
 
-          if only_voted
-            voted_ids = joins(
-              Arel.sql("LEFT JOIN (#{scope.to_sql}) AS with_votes ON with_votes.id = decidim_budgets_projects.id")
-            ).where("with_votes.votes_count > 0").pluck(:id)
-            scope = scope.where(id: voted_ids)
-          end
-
-          scope.order(
-            votes_count: :desc,
-            localized_title: :asc
+          joins(
+            Arel.sql(
+              <<~SQLJOIN.squish
+                LEFT OUTER JOIN (#{scope.to_sql}) AS decidim_budgets_projects_with_votes
+                  ON decidim_budgets_projects_with_votes.id = decidim_budgets_projects.id
+              SQLJOIN
+            )
           )
+        }
+
+        scope :order_by_most_voted, lambda { |only_voted: false|
+          scope = with_votes.order(
+            "decidim_budgets_projects_with_votes.votes_count DESC",
+            "decidim_budgets_projects_with_votes.localized_title"
+          )
+          scope = scope.where("decidim_budgets_projects_with_votes.votes_count > 0") if only_voted
+
+          scope
         }
 
         # Create i18n ransackers for :title, :summary and :description.

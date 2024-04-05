@@ -188,6 +188,18 @@ describe Decidim::Budgets::Project do
         expect(subject.map(&:id)).to eq(expected_order.map(&:id))
       end
     end
+
+    context "with favorites filtering" do
+      subject { described_class.where(budget: budget).user_favorites(user).order_by_most_voted }
+
+      let(:user) { create(:user, :confirmed, organization: component.organization) }
+      let(:favorite_projects) { budget_projects[0..1] }
+      let!(:favorites) { favorite_projects.map { |pr| create(:favorite, favoritable: pr, user: user) } }
+
+      it "returns the favorites" do
+        expect(subject).to match_array(favorite_projects)
+      end
+    end
   end
 
   describe "#confirmed_orders_count" do
