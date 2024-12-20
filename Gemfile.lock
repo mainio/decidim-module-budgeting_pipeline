@@ -59,6 +59,12 @@ PATH
   remote: .
   specs:
     decidim-budgeting_pipeline (0.28.0)
+      decidim-apifiles (~> 0.28.0)
+      decidim-budgets (~> 0.28.0)
+      decidim-core (~> 0.28.0)
+      decidim-favorites (~> 0.28.0)
+      decidim-feedback (~> 0.28.0)
+      decidim-stats (~> 0.28.0)
 
 GEM
   remote: https://rubygems.org/

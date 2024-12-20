@@ -25,10 +25,10 @@ Gem::Specification.new do |spec|
 
   spec.require_paths = ["lib"]
 
-  # spec.add_dependency "decidim-apifiles", Decidim::BudgetingPipeline.decidim_version
-  # spec.add_dependency "decidim-budgets", Decidim::BudgetingPipeline.decidim_version
-  # spec.add_dependency "decidim-core", Decidim::BudgetingPipeline.decidim_version
-  # spec.add_dependency "decidim-favorites", Decidim::BudgetingPipeline.decidim_version
-  # spec.add_dependency "decidim-feedback", Decidim::BudgetingPipeline.decidim_version
-  # spec.add_dependency "decidim-stats", Decidim::BudgetingPipeline.decidim_version
+  spec.add_dependency "decidim-apifiles", Decidim::BudgetingPipeline.decidim_version
+  spec.add_dependency "decidim-budgets", Decidim::BudgetingPipeline.decidim_version
+  spec.add_dependency "decidim-core", Decidim::BudgetingPipeline.decidim_version
+  spec.add_dependency "decidim-favorites", Decidim::BudgetingPipeline.decidim_version
+  spec.add_dependency "decidim-feedback", Decidim::BudgetingPipeline.decidim_version
+  spec.add_dependency "decidim-stats", Decidim::BudgetingPipeline.decidim_version
 end
