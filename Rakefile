@@ -4,6 +4,7 @@ require "decidim/dev/common_rake"
 
 def install_module(path, test: false)
   Dir.chdir(path) do
+    system("bundle exec rake decidim_apifiles:install:migrations")
     system("bundle exec rake decidim_favorites:install:migrations")
     system("bundle exec rake decidim_stats:install:migrations")
     system("bundle exec rake decidim_budgeting_pipeline:install:migrations")
