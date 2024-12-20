@@ -2,12 +2,12 @@
 
 require "spec_helper"
 
-describe Decidim::Budgets::ProjectMCell, type: :cell do
+describe Decidim::Budgets::ProjectCell, type: :cell do
   controller Decidim::Budgets::ProjectsController
 
   subject { my_cell.call }
 
-  let(:my_cell) { cell("decidim/budgets/project_m", model) }
+  let(:my_cell) { cell("decidim/budgets/project", model) }
   let!(:model) { create(:budgeting_pipeline_project, component: component) }
   let(:component) { create(:budgeting_pipeline_component) }
 

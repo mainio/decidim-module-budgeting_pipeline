@@ -15,15 +15,15 @@ DECIDIM_VERSION = Decidim::BudgetingPipeline.decidim_version
 gem "decidim", DECIDIM_VERSION
 gem "decidim-budgeting_pipeline", path: "."
 
-gem "decidim-apifiles", github: "mainio/decidim-module-apifiles", branch: "main"
-gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "develop"
-gem "decidim-feedback", github: "mainio/decidim-module-feedback", branch: "main"
-gem "decidim-stats", github: "mainio/decidim-module-stats", branch: "main"
+gem "decidim-apifiles", github: "mainio/decidim-module-apifiles"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites"
+gem "decidim-feedback", github: "mainio/decidim-module-feedback"
+gem "decidim-stats", github: "mainio/decidim-module-stats"
 
 gem "bootsnap", "~> 1.4"
 gem "puma", ">= 5.6.2"
 
-gem "faker", "~> 2.14"
+gem "faker", "~> 3.2"
 
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
@@ -32,10 +32,10 @@ end
 
 group :development do
   gem "letter_opener_web", "~> 2.0"
-  gem "listen", "~> 3.1"
+  gem "listen", "~> 3.8"
   gem "rubocop-faker"
-  gem "spring", "~> 2.0"
-  gem "spring-watcher-listen", "~> 2.0"
+  gem "spring", "~> 4.1.3"
+  gem "spring-watcher-listen", "~> 2.1"
   gem "web-console", "~> 4.2"
 end
 
@@ -43,7 +43,7 @@ group :test do
   gem "decidim-accountability", DECIDIM_VERSION
   gem "decidim-proposals", DECIDIM_VERSION
 
-  gem "decidim-ideas", github: "mainio/decidim-module-ideas", branch: "main"
-  gem "decidim-plans", github: "mainio/decidim-module-plans", branch: "main"
-  gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "main"
+  gem "decidim-ideas", github: "mainio/decidim-module-ideas", branch: "develop"
+  gem "decidim-plans", github: "mainio/decidim-module-plans"
+  gem "decidim-tags", github: "mainio/decidim-module-tags"
 end

@@ -165,11 +165,11 @@ module Decidim
           )
 
           # Cell extensions
-          Decidim::Budgets::ProjectMCell.include(
-            Decidim::BudgetingPipeline::ProjectMCellExtensions
+          Decidim::Budgets::ProjectCell.include(
+            Decidim::BudgetingPipeline::ProjectCellExtensions
           )
-          Decidim::Budgets::ProjectListItemCell.include(
-            Decidim::BudgetingPipeline::ProjectListItemCellExtensions
+          Decidim::Budgets::ProjectVoteButtonCell.include(
+            Decidim::BudgetingPipeline::ProjectVoteButtonCellExtensions
           )
 
           # Form extensions

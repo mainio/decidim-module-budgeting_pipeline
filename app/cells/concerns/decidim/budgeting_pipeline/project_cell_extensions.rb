@@ -3,7 +3,7 @@
 module Decidim
   module BudgetingPipeline
     # Customizes the project card cell
-    module ProjectMCellExtensions
+    module ProjectCellExtensions
       extend ActiveSupport::Concern
 
       include Decidim::BudgetingPipeline::ProjectItemUtilities

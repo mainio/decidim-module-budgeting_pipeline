@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe Decidim::Budgets::ProjectListItemCell, type: :cell do
+describe Decidim::Budgets::ProjectVoteButtonCell, type: :cell do
   controller Decidim::Budgets::ProjectsController
 
   subject { my_cell.call }

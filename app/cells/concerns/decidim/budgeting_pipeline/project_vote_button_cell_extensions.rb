@@ -3,7 +3,7 @@
 module Decidim
   module BudgetingPipeline
     # Customizes the project list item cell
-    module ProjectListItemCellExtensions
+    module ProjectVoteButtonCellExtensions
       extend ActiveSupport::Concern
 
       private

@@ -5,7 +5,7 @@ require "cell/partial"
 module Decidim
   module Budgets
     # This cell renders a project with its L-size card.
-    class ProjectLCell < Decidim::Budgets::ProjectMCell
+    class ProjectLCell < Decidim::Budgets::ProjectGCell
       def card_classes
         classes = super
         classes = classes.split unless classes.is_a?(Array)
