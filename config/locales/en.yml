@@ -40,6 +40,7 @@ en:
       admin:
         actions:
           export_results: Exports proposals to results
+          new: New project
         models:
           help_section:
             name: Help section

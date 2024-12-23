@@ -6,9 +6,9 @@
         <%= link_to translated_attribute(budget.title), budgets_path %> &gt;
         <%= t(".title") %>
       </div>
-      <div class="flex--cc flex-gap--1">
-        <%= link_to t("actions.import", scope: "decidim.budgets", name: t("models.project.name", scope: "decidim.budgets.admin")), new_budget_proposals_import_path(budget), class: "button tiny button--title" if allowed_to? :import_proposals, :project %>
-        <%= link_to t("actions.new", scope: "decidim.budgets", name: t("models.project.name", scope: "decidim.budgets.admin")), new_budget_project_path, class: "button tiny button--title new" if allowed_to? :create, :project %>
+      <div class="flex items-center gap-x-4">
+        <%= link_to t("actions.import", scope: "decidim.budgets", name: t("models.project.name", scope: "decidim.budgets.admin")), new_budget_proposals_import_path(budget), class: "button button__sm button__secondary" if allowed_to? :import_proposals, :project %>
+        <%= link_to t("actions.new", scope: "decidim.budgets.admin", name: t("models.project.name", scope: "decidim.budgets.admin")), new_budget_project_path, class: "button button__sm button__secondary" if allowed_to? :create, :project %>
       </div>
     </h1>
   </div>
