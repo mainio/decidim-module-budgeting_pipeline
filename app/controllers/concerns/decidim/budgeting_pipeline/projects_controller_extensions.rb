@@ -30,7 +30,7 @@ module Decidim
           {
             search_text_cont: "",
             with_any_status: %w(all),
-            with_any_scope: default_filter_scope_params,
+            with_any_scope: nil,
             with_any_category: "all",
             decidim_budgets_budget_id_eq: nil,
             budget_amount_gteq: 0,

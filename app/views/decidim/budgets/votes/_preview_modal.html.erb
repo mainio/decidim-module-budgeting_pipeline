@@ -13,7 +13,7 @@
       <% current_orders.each do |order| %>
         <% order.line_items.order_by_projects.each do |item| %>
           <li>
-            <%= icon("circle-check", role: "img", "aria-hidden": true) %>
+            <%= icon("checkbox-circle-line", role: "img", "aria-hidden": true) %>
             <span><%= item.project.id %> <%= translated_attribute(item.project.title) %> (<%= budget_to_currency(item.project.budget_amount) %>)</span>
           </li>
         <% end %>

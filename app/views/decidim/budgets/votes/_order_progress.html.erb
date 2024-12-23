@@ -5,9 +5,9 @@
         <% allocated_amount = order.total_projects %>
         <% order.available_allocation.times do |idx| %>
           <% if idx < allocated_amount %>
-            <%= icon "circle-check", role: "img", "aria-hidden": true %>
+            <%= icon "checkbox-circle-line", role: "img", "aria-hidden": true %>
           <% else %>
-            <%= icon "circle-hollow", role: "img", "aria-hidden": true %>
+            <%= icon "checkbox-blank-circle-line", role: "img", "aria-hidden": true %>
           <% end %>
         <% end %>
       </div>

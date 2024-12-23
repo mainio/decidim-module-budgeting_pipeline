@@ -19,12 +19,12 @@
         <span id="order-items-closed-<%= order.budget.id %>" class="is-hidden" data-toggler=".is-hidden">
           <span aria-hidden="true"><%= t(".order_items.show") %></span>
           <span class="show-for-sr"><%= t(".order_items.show_detailed", name: translated_attribute(order.budget.title)) %></span>
-          <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>
+          <%= icon "arrow-down-s-line", role: "img", "aria-hidden": true %>
         </span>
         <span id="order-items-open-<%= order.budget.id %>" data-toggler=".is-hidden">
           <span aria-hidden="true"><%= t(".order_items.hide") %></span>
           <span class="show-for-sr"><%= t(".order_items.hide_detailed", name: translated_attribute(order.budget.title)) %></span>
-          <%= icon "chevron-top", role: "img", "aria-hidden": true %>
+          <%= icon "arrow-up-s-line", role: "img", "aria-hidden": true %>
         </span>
       </button>
 

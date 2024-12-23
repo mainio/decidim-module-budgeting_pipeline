@@ -5,13 +5,13 @@
 <% if can_cast_votes? %>
   <%= link_to preview_vote_path, remote: true, class: "#{button_class.join(" ")} margin-bottom-0", role: "button" do %>
     <%= button_label %>
-    <%= icon "arrow-right", role: "img", "aria-hidden": true %>
+    <%= icon "arrow-right-line", role: "img", "aria-hidden": true %>
   <% end %>
 <% else %>
   <%= content_tag :span, class: "#{button_class.join(" ")} hollow disabled margin-bottom-0", role: "button", tabindex: 0, aria: {
     disabled: true
   } do %>
     <%= button_label %>
-    <%= icon "arrow-right", role: "img", "aria-hidden": true %>
+    <%= icon "arrow-right-line", role: "img", "aria-hidden": true %>
   <% end %>
 <% end %>

@@ -7,7 +7,7 @@
   <div class="actions-panel bg-secondary">
     <a href="#project_map" class="action-link">
       <span class="link-text"><%= t ".show_on_map" %></span>
-      <%= icon "map-marker", role: "img", "aria-hidden": true %>
+      <%= icon "map-pin-line", role: "img", "aria-hidden": true %>
     </a>
   </div>
 <% end %>
@@ -16,7 +16,7 @@
   <div class="actions-panel bg-secondary">
     <%= link_to "#comments", class: "action-link" do %>
       <span class="link-text"><%= t ".show_comments" %></span>
-      <%= icon "comment-square", role: "img", "aria-hidden": true %>
+      <%= icon "question-answer-line", role: "img", "aria-hidden": true %>
     <% end %>
   </div>
 <% end %>
@@ -24,7 +24,7 @@
 <div class="actions-panel bg-secondary">
   <button type="button" class="link action-link" data-open="socialShare" aria-controls="socialShare" aria-haspopup="dialog">
     <span class="link-text"><%= t ".share" %></span>
-    <%= icon "share", role: "img", "aria-hidden": true %>
+    <%= icon "share-line", role: "img", "aria-hidden": true %>
   </button>
 </div>
 
@@ -33,7 +33,7 @@
 <% if false %>
   <div class="actions-panel bg-secondary">
     <button type="button" class="link action-link">
-      <%= icon "print", role: "img", "aria-hidden": true %>
+      <%= icon "printer-line", role: "img", "aria-hidden": true %>
       <span class="link-text"><%= t ".print" %></span>
     </button>
   </div>

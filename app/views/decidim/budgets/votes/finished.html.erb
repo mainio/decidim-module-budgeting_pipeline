@@ -11,7 +11,7 @@
 <div class="wrapper voting-wrapper">
   <div class="row columns margin-bottom-3">
     <div class="static__content text-center">
-      <p><%= icon("circle-check", role: "img", "aria-hidden": true, class: "icon--notify") %></p>
+      <p><%= icon("checkbox-circle-line", role: "img", "aria-hidden": true, class: "icon--notify") %></p>
 
       <%= render partial: "decidim/budgets/votes/finished_content" %>
     </div>
@@ -36,7 +36,7 @@
       <div class="banner__aside">
         <%= link_to decidim.destroy_user_session_path(redirect_url: projects_path), method: :delete, class: "sign-out-link button expanded button--icon margin-bottom-0", role: "button" do %>
           <%= t(".sign_out") %>
-          <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
+          <%= icon("arrow-right-line", role: "img", "aria-hidden": true) %>
         <% end %>
       </div>
     </div>

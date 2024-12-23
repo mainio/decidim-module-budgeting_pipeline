@@ -41,11 +41,11 @@ type_suffix = defined?(type) ? "_#{type}" : ""
         <button type="button" class="link action-link margin-bottom-2" data-toggle="additional_search<%= type_suffix %> additional_search_closed<%= type_suffix %> additional_search_open<%= type_suffix %>" id="additional_search_toggle<%= type_suffix %>" aria-expanded="false">
           <span id="additional_search_closed<%= type_suffix %>" data-toggler=".is-hidden">
             <span><%= t(".more_criteria.show") %></span>
-            <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>
+            <%= icon "arrow-down-s-line", role: "img", "aria-hidden": true %>
           </span>
           <span id="additional_search_open<%= type_suffix %>" class="is-hidden" data-toggler=".is-hidden">
             <span><%= t(".more_criteria.hide") %></span>
-            <%= icon "chevron-top", role: "img", "aria-hidden": true %>
+            <%= icon "arrow-up-s-line", role: "img", "aria-hidden": true %>
           </span>
         </button>
       </div>
@@ -89,7 +89,7 @@ type_suffix = defined?(type) ? "_#{type}" : ""
     <div class="filters__actions">
       <button type="submit" class="button button--icon" aria-label="<%= t(".search") %>" aria-controls="projects-count projects" data-close>
         <%= t(".search") %>
-        <%= icon("magnifying-glass", role: "img", "aria-hidden": true) %>
+        <%= icon("search-line", role: "img", "aria-hidden": true) %>
       </button>
       <button type="reset" class="button clear text-lg"><%= t ".reset" %></button>
     </div>

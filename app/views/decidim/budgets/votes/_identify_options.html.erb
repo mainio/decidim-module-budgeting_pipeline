@@ -41,7 +41,7 @@
           <%== "<br>" if idx > 0 %>
           <%= link_to provider.root_path, class: "button button--icon button--#{normalize_provider_name(provider)}" do %>
             <%= authorization_provider_name(provider.key) %>
-            <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
+            <%= icon("arrow-right-line", role: "img", "aria-hidden": true) %>
           <% end %>
         <% end %>
       <% end %>
@@ -50,7 +50,7 @@
         <%== "<br>" if idx > 0 %>
         <%= link_to decidim.send("user_#{provider}_omniauth_authorize_path", redirect_url: vote_path), class: "button button--icon button--#{normalize_provider_name(provider)}", method: :post do %>
           <%= identity_provider_name(provider) %>
-          <%= icon("arrow-right", role: "img", "aria-hidden": true) %>
+          <%= icon("arrow-right-line", role: "img", "aria-hidden": true) %>
         <% end %>
       <% end %>
     <% end %>

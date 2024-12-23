@@ -52,7 +52,7 @@ show_categories = params[:order] == "category"
                 <div class="projects-table__row__icon">
                   <button type="button" class="projects-table__row__button" aria-expanded="false" aria-controls="<%= row_id %>_details">
                     <span class="show-for-sr"><%= t(".show_details", title: translated_attribute(project.title)) %></span>
-                    <%= icon("chevron-bottom", role: "img", "aria-hidden": true) %>
+                    <%= icon("arrow-down-s-line", role: "img", "aria-hidden": true) %>
                   </button>
                 </div>
               </div>
