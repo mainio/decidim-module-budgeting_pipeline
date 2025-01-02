@@ -7,9 +7,7 @@ module Decidim
     # This cell renders a project with its L-size card.
     class ProjectLCell < Decidim::Budgets::ProjectCell
       def card_classes
-        classes = super
-        classes = classes.split unless classes.is_a?(Array)
-        (classes + ["card--full"]).join(" ")
+        ["card--full"]
       end
 
       private

@@ -1,10 +1,13 @@
-var modalId = "project-modal-<%= project.id %>";
-var $modal = $("#" + modalId);
+let modalId = "project-modal-<%= project.id %>";
+let $modal = $("#" + modalId);
 if ($modal.length < 1) {
-  $modal = $('<%= j(render partial: "project_modal").strip.html_safe %>');
-  $("body").append($modal);
+  let modalHTML = '<%= j(render partial: "project_modal").strip.html_safe %>';
+  $("body").append(modalHTML);
 
-  $modal.foundation();
+  let dialog = new A11yDialog($modal);
+  $modal.data("projectDialog", dialog);
 }
 
-$modal.foundation("open");
+let dialogInstance = $modal.data("projectDialog");
+
+dialogInstance.show();
