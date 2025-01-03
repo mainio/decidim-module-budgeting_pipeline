@@ -9,7 +9,7 @@ describe "Explore projects", type: :system do
     it "lists the first page of projects" do
       visit_component
 
-      expect(page).to have_content("FOUND 50 PROPOSALS")
+      expect(page).to have_content("Found 50 proposals")
     end
 
     context "when filtering" do
@@ -24,7 +24,7 @@ describe "Explore projects", type: :system do
           click_button "Search"
         end
 
-        expect(page).to have_content("FOUND 1 PROPOSAL")
+        expect(page).to have_content("Found 1 proposal")
       end
 
       it "can filter based on the area" do
@@ -33,7 +33,7 @@ describe "Explore projects", type: :system do
           click_button "Search"
         end
 
-        expect(page).to have_content("FOUND 10 PROPOSALS")
+        expect(page).to have_content("Found 10 proposals")
       end
 
       it "can filter based on the budget" do
@@ -46,7 +46,7 @@ describe "Explore projects", type: :system do
           click_button "Search"
         end
 
-        expect(page).to have_content("FOUND 20 PROPOSALS")
+        expect(page).to have_content("Found 20 proposals")
       end
     end
   end
@@ -59,10 +59,10 @@ describe "Explore projects", type: :system do
     end
 
     it "shows the project details" do
-      scroll_to find(".resource-details")
+      scroll_to find(".resource__details")
 
       expect(page).to have_content("##{project.id}")
-      expect(page).to have_content(translated(project.budget.title))
+      expect(page).to have_content(decidim_sanitize(translated(project.budget.title)))
       expect(page).to have_content(project.address)
       expect(page).to have_content(translated(project.title))
       expect(page).to have_content(strip_tags(translated(project.description)))
@@ -75,7 +75,7 @@ describe "Explore projects", type: :system do
       let!(:project) { create(:budgeting_pipeline_project, budget: budget1, category: category) }
 
       it "displays the category and its parent category" do
-        scroll_to find(".resource-details")
+        scroll_to find(".resource__details")
 
         expect(page).to have_content(translated(parent_category.name))
         expect(page).to have_content(translated(category.name))

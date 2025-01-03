@@ -2,7 +2,7 @@
   <tbody>
     <tr>
       <th class="text-left"><%= t(".budget_title") %></th>
-      <td class="text-right"><%= translated_attribute(current_order.budget.title) %></td>
+      <td class="text-right"><%= decidim_sanitize(translated_attribute(current_order.budget.title)) %></td>
     </tr>
     <% unless current_order.projects_rule? %>
       <tr>

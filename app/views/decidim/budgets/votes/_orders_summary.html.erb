@@ -1,17 +1,17 @@
 <div id="orders-summary">
   <% orders.each do |order| %>
     <div class="orders-summary-item">
-      <h3><%= translated_attribute(order.budget.title) %></h3>
+      <h3><%= decidim_sanitize(translated_attribute(order.budget.title)) %></h3>
 
       <%= render partial: "decidim/budgets/votes/order_progress", locals: { order: order } %>
       <%= render partial: "decidim/budgets/votes/order_notifications", locals: { order: order } %>
 
       <button type="button" class="link" data-toggle="order-items-wrapper-<%= order.budget.id %> order-items-closed-<%= order.budget.id %> order-items-open-<%= order.budget.id %>" id="order-items-toggle-<%= order.budget.id %>">
-        <span id="order-items-closed-<%= order.budget.id %>" data-toggler=".is-hidden" aria-expanded="true" aria-label="<%= t(".order_items.show_detailed", name: translated_attribute(order.budget.title)) %>">
+        <span id="order-items-closed-<%= order.budget.id %>" data-toggler=".is-hidden" aria-expanded="true" aria-label="<%= t(".order_items.show_detailed", name: decidim_sanitize(translated_attribute(order.budget.title))) %>">
           <%= t(".order_items.show") %>
           <%= icon "chevron-bottom", role: "img", "aria-hidden": true %>
         </span>
-        <span id="order-items-open-<%= order.budget.id %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false" aria-label="<%= t(".order_items.hide_detailed", name: translated_attribute(order.budget.title)) %>">
+        <span id="order-items-open-<%= order.budget.id %>" class="is-hidden" data-toggler=".is-hidden" aria-expanded="false" aria-label="<%= t(".order_items.hide_detailed", name: decidim_sanitize(translated_attribute(order.budget.title))) %>">
           <%= t(".order_items.hide") %>
           <%= icon "chevron-top", role: "img", "aria-hidden": true %>
         </span>

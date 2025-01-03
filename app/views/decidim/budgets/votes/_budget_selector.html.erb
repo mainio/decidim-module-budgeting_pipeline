@@ -12,9 +12,9 @@ end
     <div class="row">
       <div class="columns medium-6">
         <% if defined?(form) %>
-          <%= form.radio_button :budget_ids, budget.id, label: translated_attribute(budget.title), checked: selected %>
+          <%= form.radio_button :budget_ids, budget.id, label: decidim_sanitize(translated_attribute(budget.title)), checked: selected %>
         <% else %>
-          <%= translated_attribute(budget.title) %>
+          <%= decidim_sanitize(translated_attribute(budget.title)) %>
         <% end %>
       </div>
       <div class="columns medium-6">

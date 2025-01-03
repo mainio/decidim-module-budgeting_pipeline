@@ -70,7 +70,7 @@ describe "Explore results", type: :system do
 
   def find_budget_by_title(title)
     budgets.each do |budget|
-      return budget if translated(budget.title) == title
+      return budget if decidim_sanitize(translated(budget.title)) == title
     end
 
     nil

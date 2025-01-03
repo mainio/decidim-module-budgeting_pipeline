@@ -16,7 +16,7 @@
       <div class="callout warning">
         <p class=h5>
           <%= icon "information", role: "img", "aria-hidden": true %>
-          <%= t(".errors.minimum_projects.title", count: order.minimum_projects, budget: translated_attribute(order.budget.title)) %>
+          <%= t(".errors.minimum_projects.title", count: order.minimum_projects, budget: decidim_sanitize(translated_attribute(order.budget.title))) %>
         </p>
         <p><%= t(".errors.minimum_projects.description", count: order.minimum_projects) %></p>
       </div>
@@ -26,7 +26,7 @@
       <div class="callout warning">
         <p class=h5>
           <%= icon "information", role: "img", "aria-hidden": true %>
-          <%= t(".errors.maximum_projects.title", count: order.maximum_projects, budget: translated_attribute(order.budget.title)) %>
+          <%= t(".errors.maximum_projects.title", count: order.maximum_projects, budget: decidim_sanitize(translated_attribute(order.budget.title))) %>
         </p>
         <p><%= t(".errors.maximum_projects.description", count: order.maximum_projects) %></p>
       </div>
@@ -36,7 +36,7 @@
       <div class="callout warning">
         <p class=h5>
           <%= icon "information", role: "img", "aria-hidden": true %>
-          <%= t(".errors.minimum_budget.title", budget: translated_attribute(order.budget.title)) %>
+          <%= t(".errors.minimum_budget.title", budget: decidim_sanitize(translated_attribute(order.budget.title))) %>
         </p>
         <p><%= t(".errors.minimum_budget.description", amount: budget_to_currency(order.minimum_budget)) %></p>
       </div>
@@ -46,7 +46,7 @@
       <div class="callout warning">
         <p class=h5>
           <%= icon "information", role: "img", "aria-hidden": true %>
-          <%= t(".errors.maximum_budget.title", budget: translated_attribute(order.budget.title)) %>
+          <%= t(".errors.maximum_budget.title", budget: decidim_sanitize(translated_attribute(order.budget.title))) %>
         </p>
         <p><%= t(".errors.maximum_budget.description", amount: budget_to_currency(order.maximum_budget)) %></p>
       </div>
@@ -57,7 +57,7 @@
         <div class="callout warning">
           <p class=h5>
             <%= icon "information", role: "img", "aria-hidden": true %>
-            <%= t(".warnings.no_projects_single.title", budget: translated_attribute(order.budget.title)) %>
+            <%= t(".warnings.no_projects_single.title", budget: decidim_sanitize(translated_attribute(order.budget.title))) %>
           </p>
           <p><%= t(".warnings.no_projects_single.description") %></p>
         </div>
@@ -67,7 +67,7 @@
         <div class="callout warning">
           <p class=h5>
             <%= icon "information", role: "img", "aria-hidden": true %>
-            <%= t(".warnings.no_projects.title", budget: translated_attribute(order.budget.title)) %>
+            <%= t(".warnings.no_projects.title", budget: decidim_sanitize(translated_attribute(order.budget.title))) %>
           </p>
           <p><%= t(".warnings.no_projects.description") %></p>
         </div>

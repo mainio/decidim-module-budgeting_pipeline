@@ -6,7 +6,7 @@
       <h2><%= t(".title") %></h2>
       <%== translated_attribute component_settings.vote_projects_page_content %>
       <% if budgets.one? %>
-        <p><%= t(".budget_html", name: translated_attribute(budgets.first.title)) %></p>
+        <p><%= t(".budget_html", name: decidim_sanitize(translated_attribute(budgets.first.title))) %></p>
       <% end %>
     </div>
 

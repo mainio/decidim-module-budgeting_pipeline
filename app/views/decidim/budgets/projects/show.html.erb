@@ -26,7 +26,7 @@ edit_link(
         <h1><%= translated_attribute project.title %></h1>
 
         <div class="resource__info">
-          <div class="resource__info__item"><%= translated_attribute(project.budget.title) %></div>
+          <div class="resource__info__item"><%= decidim_sanitize(translated_attribute(project.budget.title)) %></div>
           <div class="resource__info__item">#<%= project.id %></div>
           <div class="resource__info__item"><%= l(project.created_at.to_date, format: :decidim_short) %></div>
           <% if project.category.present? %>

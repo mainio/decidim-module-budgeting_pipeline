@@ -7,6 +7,7 @@ module Decidim
       include Decidim::SanitizeHelper
 
       helper Decidim::TranslationsHelper
+      helper Decidim::SanitizeHelper
 
       # Send an email to an user with the summary of the order.
       #
@@ -21,7 +22,7 @@ module Decidim
         with_user(user) do
           @user = user
           @orders = orders
-          @budget_names = @orders.map { |order| translated_attribute(order.budget.title) }
+          @budget_names = @orders.map { |order| decidim_sanitize(translated_attribute(order.budget.title)) }
 
           @component = @orders.first.budget.component
           @space = @component.participatory_space

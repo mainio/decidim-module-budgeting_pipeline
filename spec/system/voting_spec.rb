@@ -66,7 +66,7 @@ describe "Voting", type: :system do
 
       within "form#new_budget_select_" do
         budgets.each do |budget|
-          expect(find("label", text: translated(budget.title))).not_to be_nil
+          expect(find("label", text: decidim_sanitize(translated(budget.title)))).not_to be_nil
         end
       end
     end
@@ -80,7 +80,7 @@ describe "Voting", type: :system do
 
       page.scroll_to find("h2", text: "Select voting area")
 
-      find("label", text: translated(budget1.title)).click
+      find("label", text: decidim_sanitize(translated(budget1.title))).click
       click_button "Select proposals"
 
       expect(find("h2", text: "Select proposals")).not_to be_nil
@@ -94,7 +94,7 @@ describe "Voting", type: :system do
       login_as user, scope: :user
 
       visit_voting
-      find("label", text: translated(budget.title)).click
+      find("label", text: decidim_sanitize(translated(budget.title))).click
       click_button "Select proposals"
 
       page.scroll_to find("h2", text: "Select proposals")

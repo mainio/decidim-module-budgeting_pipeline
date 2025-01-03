@@ -14,10 +14,6 @@ def install_module(path, test: false)
       system("bundle exec rake decidim_plans:install:migrations")
     end
     system("bundle exec rake db:migrate")
-
-    # Temporary fix to overcome the issue with sass-embedded, see:
-    # https://github.com/decidim/decidim/pull/11074
-    system("npm i sass-embedded@~1.62.0")
   end
 end
 

@@ -2,7 +2,7 @@
   <tbody>
     <tr>
       <th class="text-left"><%= t(".budget_name") %></th>
-      <td><%= translated_attribute(project.budget.title) %></td>
+      <td><%= decidim_sanitize(translated_attribute(project.budget.title)) %></td>
     </tr>
     <% if project.category %>
       <tr>
