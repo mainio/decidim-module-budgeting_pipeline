@@ -7,6 +7,7 @@ module Decidim
       include Decidim::SanitizeHelper
 
       helper Decidim::TranslationsHelper
+      helper Decidim::SanitizeHelper
 
       # Send an email to an user with the summary of the order.
       #

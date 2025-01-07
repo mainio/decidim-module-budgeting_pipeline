@@ -168,9 +168,6 @@ module Decidim
           Decidim::Budgets::ProjectCell.include(
             Decidim::BudgetingPipeline::ProjectCellExtensions
           )
-          Decidim::Budgets::ProjectVoteButtonCell.include(
-            Decidim::BudgetingPipeline::ProjectVoteButtonCellExtensions
-          )
 
           # Form extensions
           Decidim::Budgets::Admin::ComponentForm.include(

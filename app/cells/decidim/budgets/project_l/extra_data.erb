@@ -1,0 +1,20 @@
+<div class="budget__card__list-project">
+  <span class="budget__card__list-project__amount">
+      <% if project.budget_amount > 0 %>
+        <%= budget_to_currency(model.budget_amount) %>
+      <% else %>
+        -
+      <% end %>
+  </span>
+  <%= cell("decidim/budgets/project_vote_button", model, show_only_added:) %>
+
+  <%= link_to resource_path, class: "card__link" do %>
+    <span aria-hidden="true">
+      <%= t(".more_info") %>
+      <%= icon "arrow-right-s-line", role: "img", "aria-hidden": true %>
+    </span>
+    <span class="show-for-sr">
+      <%= t(".more_info_with_title", title: resource_title) %>
+    </span>
+  <% end %>
+</div>

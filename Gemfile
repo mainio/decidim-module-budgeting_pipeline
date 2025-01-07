@@ -43,7 +43,7 @@ group :test do
   gem "decidim-accountability", DECIDIM_VERSION
   gem "decidim-proposals", DECIDIM_VERSION
 
-  gem "decidim-ideas", github: "mainio/decidim-module-ideas", branch: "develop"
+  gem "decidim-ideas", github: "mainio/decidim-module-ideas"
   gem "decidim-plans", github: "mainio/decidim-module-plans"
   gem "decidim-tags", github: "mainio/decidim-module-tags"
 end

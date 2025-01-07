@@ -24,16 +24,16 @@ describe Decidim::Budgets::OrderSummariesMailer, type: :mailer do
     end
 
     it "adds the budgets to the body" do
-      expect(email_body(mail)).to include(translated(budget1.title))
-      expect(email_body(mail)).to include(translated(budget2.title))
+      expect(email_body(mail)).to include(decidim_sanitize(translated(budget1.title)))
+      expect(email_body(mail)).to include(decidim_sanitize(translated(budget2.title)))
     end
 
     it "adds the selected projects to the body" do
       order1.projects.each do |project|
-        expect(email_body(mail)).to include("<li>#{translated(project.title)}</li>")
+        expect(email_body(mail)).to include("<li>#{decidim_escape_translated(project.title)}</li>")
       end
       order2.projects.each do |project|
-        expect(email_body(mail)).to include("<li>#{translated(project.title)}</li>")
+        expect(email_body(mail)).to include("<li>#{decidim_escape_translated(project.title)}</li>")
       end
     end
 

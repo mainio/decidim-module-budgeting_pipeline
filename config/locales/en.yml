@@ -169,6 +169,9 @@ en:
           category_name: Theme
           vote_count: Votes
         filters:
+          activity_values:
+            all: All
+            favorites: My favorites
           budget: Area
           budget_amount_max: Maximum budget
           budget_amount_min: Minimum budget
