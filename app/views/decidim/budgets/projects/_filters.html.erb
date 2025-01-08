@@ -38,12 +38,12 @@ type_suffix = defined?(type) ? "_#{type}" : ""
   <% if display_budget_amount_filters? || current_user %>
     <div class="row columns">
       <div class="filters__section">
-        <button type="button" class="link action-link margin-bottom-2" data-toggle="additional_search<%= type_suffix %> additional_search_closed<%= type_suffix %> additional_search_open<%= type_suffix %>" id="additional_search_toggle<%= type_suffix %>" aria-expanded="false">
-          <span id="additional_search_closed<%= type_suffix %>" data-toggler=".is-hidden">
+        <button type="button" class="link action-link margin-bottom-2" id="additional_search_toggle<%= type_suffix %>" aria-expanded="false">
+          <span id="additional_search_closed<%= type_suffix %>">
             <span><%= t(".more_criteria.show") %></span>
             <%= icon "arrow-down-s-line", role: "img", "aria-hidden": true %>
           </span>
-          <span id="additional_search_open<%= type_suffix %>" class="is-hidden" data-toggler=".is-hidden">
+          <span id="additional_search_open<%= type_suffix %>" class="hidden">
             <span><%= t(".more_criteria.hide") %></span>
             <%= icon "arrow-up-s-line", role: "img", "aria-hidden": true %>
           </span>
@@ -52,7 +52,7 @@ type_suffix = defined?(type) ? "_#{type}" : ""
     </div>
   <% end %>
 
-  <div id="additional_search<%= type_suffix %>" class="row medium-unstack is-hidden" data-toggler=".is-hidden">
+  <div id="additional_search<%= type_suffix %>" class="row medium-unstack hidden">
     <% if display_budget_amount_filters? %>
       <div class="columns">
         <div class="filters__control budget_amount_gteq_filter">

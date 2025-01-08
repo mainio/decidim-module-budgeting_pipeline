@@ -38,7 +38,7 @@ describe "Admin exports projects to accountability", type: :system do
       perform_export
 
       expect(result.component).to eq(accountability_component)
-      expect(result.title).to eq(project.title)
+      expect(translated(result.title)).to eq(decidim_sanitize(translated(project.title)))
       expect(result.description).to eq(project.description)
       expect(result.progress).to eq(0)
       expect(result.status).to be_nil

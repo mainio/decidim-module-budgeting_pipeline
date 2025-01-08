@@ -29,7 +29,7 @@ describe "Admin manages help sections", type: :system do
         click_link "Front page"
       end
 
-      within ".card-title" do
+      within "h1.item_show__header-title" do
         expect(page).to have_content("Front page")
       end
 
@@ -39,7 +39,7 @@ describe "Admin manages help sections", type: :system do
         end
       end
 
-      within ".card-title" do
+      within "h1.item_show__header-title" do
         click_link "Helping content"
       end
 
@@ -61,14 +61,13 @@ describe "Admin manages help sections", type: :system do
         click_link "Front page"
       end
 
-      click_link "New Help section"
+      click_on "New help section"
       expect(page).to have_content("New help section")
     end
 
     it "allows creating a new help section" do
       fill_in_details
-      page.scroll_to find(".form-general-submit")
-      click_button "Create help section"
+      click_on "Create help section"
 
       expect(page).to have_content("Help section successfully created")
       within ".table-list" do
@@ -90,13 +89,10 @@ describe "Admin manages help sections", type: :system do
       within ".table-list" do
         click_link translated(section.title)
       end
-
-      expect(page).to have_content("Edit help section")
     end
 
     it "allows updating the help section" do
       fill_in_details
-      page.scroll_to find(".form-general-submit")
       click_button "Update help section"
 
       expect(page).to have_content("Help section successfully updated")
@@ -116,7 +112,7 @@ describe "Admin manages help sections", type: :system do
         click_link "Front page"
       end
 
-      within ".card-title" do
+      within "h1.item_show__header-title" do
         expect(page).to have_content("Front page")
       end
     end

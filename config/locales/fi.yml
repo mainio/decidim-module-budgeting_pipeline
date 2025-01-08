@@ -146,17 +146,9 @@ fi:
           vote: Äänestä
         orders_modal:
           close: Takaisin ehdotusten valintaan
-      project_list_item:
+      project_l:
         more_info: Tutustu tähän ehdotukseen
         more_info_with_title: Tutustu ehdotukseen %{title}
-      project_l:
-        card_label: "Ehdotus: %{title}"
-      project_m:
-        card_label: "Ehdotus: %{title}"
-        votes_amount:
-          one: "%{count} ääni"
-          other: "%{count} ääntä"
-        votes_count: "Äänten määrä"
       projects:
         count:
           projects_count:

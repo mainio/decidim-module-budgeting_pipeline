@@ -1,4 +1,4 @@
-<%= decidim_modal id="project-modal-#{project.id}" %>
+<%= decidim_modal id:"project-modal-#{project.id}" do %>
   <div data-dialog-container>
     <div class="reveal__header">
       <h2 id="project-modal-<%= project.id %>-label" class="reveal__title h3"><%= translated_attribute(project.title) %></h3>
@@ -24,4 +24,4 @@
       </div>
     </div>
   </div>
-</div>
+<% end %>

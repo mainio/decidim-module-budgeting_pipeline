@@ -1,15 +1,21 @@
+import Dialog from "a11y-dialog-component";
+
 var $modal = $("#order-update-error");
+
 if ($modal.length < 1) {
   $modal = $('<%= j(render partial: "error_modal").strip.html_safe %>');
   $("body").append($modal);
 
-  $modal.foundation();
+  let dialog = new Dialog($modal);
+  $modal.data("budgetErrorDialog", dialog);
 }
 
 $(".error-message", $modal).html('<%= j(render partial: "error_message").strip.html_safe %>')
 $(".error-details", $modal).html('<%= j(render partial: "error_details").strip.html_safe %>');
 
-$modal.foundation("open");
+let dialogInstance = $modal.data("budgetErrorDialog");
+
+dialogInstance.show();
 
 var $project = $("[data-project-id='<%= project.id %>']");
 if ($project.length > 0) {

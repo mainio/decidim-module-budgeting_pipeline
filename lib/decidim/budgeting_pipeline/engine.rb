@@ -169,6 +169,10 @@ module Decidim
             Decidim::BudgetingPipeline::ProjectCellExtensions
           )
 
+          Decidim::Budgets::ProjectLCell.include(
+            Decidim::BudgetingPipeline::ProjectLCellExtensions
+          )
+
           # Form extensions
           Decidim::Budgets::Admin::ComponentForm.include(
             Decidim::BudgetingPipeline::AdminComponentFormExtensions

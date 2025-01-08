@@ -147,17 +147,9 @@ en:
           vote: Vote
         orders_modal:
           close: Back to proposal selection
-      project_list_item:
+      project_l:
         more_info: Read more about this proposal
         more_info_with_title: Read more about %{title}
-      project_l:
-        card_label: "Proposal: %{title}"
-      project_m:
-        card_label: "Proposal: %{title}"
-        votes_amount:
-          one: "%{count} vote"
-          other: "%{count} votes"
-        votes_count: Amount of votes
       projects:
         count:
           projects_count:

@@ -146,17 +146,9 @@ sv:
           vote: Rösta
         orders_modal:
           close: Tillbaka till val av förslag
-      project_list_item:
+      project_l:
         more_info: Bekanta dig med förslagen
         more_info_with_title: Bekanta dig med förslagen %{title}
-      project_l:
-        card_label: "Förslag: %{title}"
-      project_m:
-        card_label: "Förslag: %{title}"
-        votes_amount:
-          one: "%{count} röst"
-          other: "%{count} röster"
-        votes_count: Antal röster
       projects:
         count:
           projects_count:

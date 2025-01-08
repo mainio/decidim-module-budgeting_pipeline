@@ -9,7 +9,7 @@ describe "Explore projects", type: :system do
     it "lists the first page of projects" do
       visit_component
 
-      expect(page).to have_content("FOUND 50 PROPOSALS")
+      expect(page).to have_content("Found 50 proposals")
     end
 
     context "when filtering" do
