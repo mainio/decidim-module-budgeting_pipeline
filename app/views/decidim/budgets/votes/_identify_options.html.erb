@@ -3,7 +3,6 @@
     <h2 class="h4"><%= t(".title") %></h2>
     <%== translated_attribute component_settings.vote_identify_page_content %>
   </div>
-
   <div class="voting-identity">
     <% if user_signed_in? %>
       <% if user_authorizations(:pending).any? %>

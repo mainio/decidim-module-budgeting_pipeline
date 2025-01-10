@@ -33,6 +33,7 @@ describe "Voting", type: :system do
 
       context "when not authorized" do
         let!(:authorization) { nil }
+        let(:authorizations) { [:foo] }
 
         it "displays the authorization options" do
           visit_voting
@@ -50,7 +51,7 @@ describe "Voting", type: :system do
         it "redirects to the budgets selection and allows selecting a budget" do
           visit_voting
 
-          expect(page).to have_content("Select voting area")
+          expect(page).to have_content("Select the area where you want to vote")
         end
       end
     end
@@ -62,12 +63,10 @@ describe "Voting", type: :system do
     it "lists all available budgets" do
       visit_voting
 
-      page.scroll_to find("h2", text: "Select voting area")
+      page.scroll_to find("h2", text: "Select the area where you want to vote")
 
-      within "form#new_budget_select_" do
-        budgets.each do |budget|
-          expect(find("label", text: translated(budget.title))).not_to be_nil
-        end
+      budgets.each do |budget|
+        expect(find("h2", text: translated(budget.title))).not_to be_nil
       end
     end
   end
@@ -75,15 +74,18 @@ describe "Voting", type: :system do
   describe "start" do
     before { login_as user, scope: :user }
 
+    let(:project1) { budget1.projects.first }
+
     it "allows selecting a budget" do
       visit_voting
 
-      page.scroll_to find("h2", text: "Select voting area")
+      page.scroll_to find("h2", text: "Select the area where you want to vote")
 
-      find("label", text: translated(budget1.title)).click
-      click_button "Select proposals"
+      find("h2", text: translated(budget1.title)).click
+      find("input[name='filter[selected]']").click
+      find("label[for=project_selector_#{project1.id}]").click
 
-      expect(find("h2", text: "Select proposals")).not_to be_nil
+      expect(find("div#project-#{project1.id}-order-summary")).to have_content(translated(project1.title))
     end
   end
 
@@ -94,14 +96,11 @@ describe "Voting", type: :system do
       login_as user, scope: :user
 
       visit_voting
-      find("label", text: translated(budget.title)).click
-      click_button "Select proposals"
-
-      page.scroll_to find("h2", text: "Select proposals")
+      find("h2", text: translated(budget.title)).click
     end
 
     it "lists the projects for the selected budget" do
-      expect(page).to have_content("FOUND 10 PROPOSALS")
+      expect(page).to have_content("Found 10 proposals")
     end
 
     it "allows selecting projects" do
@@ -185,7 +184,7 @@ describe "Voting", type: :system do
 
     it "can cast the vote" do
       click_button "Vote"
-
+      click_on "See my vote"
       within "#vote-finished-modal" do
         expect(page).to have_content("Thank you for your vote!")
       end

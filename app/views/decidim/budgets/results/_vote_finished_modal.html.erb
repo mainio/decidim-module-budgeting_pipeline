@@ -1,25 +1,34 @@
-<div class="reveal reveal--vote-finished" id="vote-finished-modal" data-reveal role="dialog" aria-modal="true" aria-labelledby="vote-finished-modal-label" data-close-on-click="false" data-close-on-esc="false">
-  <div class="reveal__header">
-    <h2 id="vote-finished-modal-label" class="reveal__title"><%= t(".title") %></h2>
-  </div>
-  <div class="reveal__content" id="vote-finished-modal-content" aria-live="assertive">
+<%= decidim_modal id:"vote-finished-modal" do %>
+  <div data-dialog-container>
+    <h2 id="vote-finished-modal-label"><%= t(".title") %></h2>
+
     <%= render partial: "decidim/budgets/votes/finished_content" %>
+
+    <%= link_to t(".sign_out"), decidim.destroy_user_session_path, method: :delete, class: "sign-out-link button", role: "button" %>
   </div>
 
-  <div class="buttons buttons-row">
-    <%= link_to t(".sign_out"), decidim.destroy_user_session_path, method: :delete, class: "sign-out-link button", role: "button" %>
-
+  <div data-dialog-actions>
     <button type="button" class="button hollow" data-close>
       <%= t(".continue") %>
     </button>
   </div>
-</div>
+<% end %>
 
 <% content_for(:js_content) do %>
   <script>
   $(document).ready(function() {
-    var $modal = $("#vote-finished-modal");
-    $modal.foundation("open");
+    let $modal = $("#vote-finished-modal");
+
+    if ($modal.length < 1) {
+      $modal = $('<%= j(render partial: "decidim/budgets/votes/finished_modal") %>');
+      $("body").append($modal);
+
+      let dialog = new window.Decidim.Dialogs("#vote-finished-modal");
+      $modal.data("voteFinishedDialog", dialog);
+      var dialogInstance = $modal.data("voteFinishedDialog");
+    }
+
+    dialogInstance.open();
   });
   </script>
 <% end %>

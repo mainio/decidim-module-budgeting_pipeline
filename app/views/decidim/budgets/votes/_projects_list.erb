@@ -81,7 +81,7 @@ show_categories = params[:order] == "category"
                 <p><%= translated_attribute(summary) %></p>
               <% end %>
               <p class="h5"><%= t(".description") %></p>
-              <%== translated_attribute(project.description) %>
+              <%== decidim_sanitize(translated_attribute(project.description)) %>
 
               <%= render partial: "project_linked_resources", locals: { resource: project, type: :plans, link_name: "included_plans" } %>
             </div>

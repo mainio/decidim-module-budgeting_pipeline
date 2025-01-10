@@ -36,7 +36,7 @@
     <h3 class="attributes__item__name"><%= t(".attributes.created_at") %></h3>
     <div class="attributes__item__value"><%= l(project.created_at.to_date, format: :decidim_short) %></div>
   </div>
-  <% if false && component_settings.geocoding_enabled? && project.address.present? %>
+  <% if component_settings.geocoding_enabled? && project.address.present? %>
     <div class="attributes__item">
       <h3 class="attributes__item__name"><%= t(".attributes.address") %></h3>
       <div class="attributes__item__value"><%= project.address %></div>
