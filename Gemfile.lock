@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/mainio/decidim-module-apifiles.git
-  revision: c1770a7234ba07e3790b5e3d89c85ce5ba6dc9d5
+  revision: 110199b6f49540c548baf62c067ad6dda3bff7bd
   specs:
     decidim-apifiles (0.28.0)
       decidim-core (~> 0.28.0)
@@ -146,7 +146,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.1.8)
+    bigdecimal (3.1.9)
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
@@ -195,7 +195,7 @@ GEM
     crass (1.0.6)
     css_parser (1.21.0)
       addressable
-    csv (3.3.1)
+    csv (3.3.2)
     date (3.4.1)
     date_validator (0.12.0)
       activemodel (>= 3)
@@ -402,7 +402,7 @@ GEM
       temple
     erubi (1.13.1)
     escape_utils (1.2.2)
-    excon (1.2.2)
+    excon (1.2.3)
     extended-markdown-filter (0.7.0)
       html-pipeline (~> 2.9)
     factory_bot (6.5.0)
@@ -418,7 +418,7 @@ GEM
       logger
     faraday-net_http (3.4.0)
       net-http (>= 0.5.0)
-    ffi (1.17.0)
+    ffi (1.17.1)
     file_validators (3.0.0)
       activemodel (>= 3.2)
       mime-types (>= 1.0)
@@ -453,7 +453,7 @@ GEM
       sass (~> 3.4)
     hashdiff (1.1.2)
     hashie (5.0.0)
-    highline (3.1.1)
+    highline (3.1.2)
       reline
     html-pipeline (2.14.3)
       activesupport (>= 2)
@@ -482,7 +482,7 @@ GEM
       rails (>= 3.2.0)
     io-console (0.8.0)
     json (2.9.1)
-    jwt (2.9.3)
+    jwt (2.10.1)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -509,8 +509,8 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.6.4)
-    loofah (2.23.1)
+    logger (1.6.5)
+    loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     mail (2.8.1)
@@ -524,7 +524,7 @@ GEM
     mime-types (3.6.0)
       logger
       mime-types-data (~> 3.2015)
-    mime-types-data (3.2024.1203)
+    mime-types-data (3.2025.0107)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.25.4)
@@ -532,7 +532,7 @@ GEM
     multi_xml (0.6.0)
     net-http (0.6.0)
       uri
-    net-imap (0.5.2)
+    net-imap (0.5.5)
       date
       net-protocol
     net-pop (0.1.2)
@@ -581,7 +581,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
-    openssl (3.2.1)
+    openssl (3.3.0)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
     paper_trail (12.3.0)
@@ -590,7 +590,7 @@ GEM
     paper_trail-association_tracking (2.2.1)
       paper_trail (>= 12.0)
     parallel (1.26.3)
-    parallel_tests (4.7.2)
+    parallel_tests (4.9.0)
       parallel
     parser (3.3.6.0)
       ast (~> 2.4.1)
@@ -623,7 +623,7 @@ GEM
       rack (~> 2.2, >= 2.2.4)
     rack-proxy (0.7.7)
       rack
-    rack-test (2.1.0)
+    rack-test (2.2.0)
       rack (>= 1.3)
     rails (6.1.7.10)
       actioncable (= 6.1.7.10)
@@ -671,7 +671,7 @@ GEM
       ffi (~> 1.0)
     redcarpet (3.6.0)
     redis (4.8.1)
-    regexp_parser (2.9.3)
+    regexp_parser (2.10.0)
     reline (0.6.0)
       io-console (~> 0.5)
     request_store (1.5.1)
@@ -746,7 +746,7 @@ GEM
     ruby-vips (2.2.2)
       ffi (~> 1.12)
       logger
-    rubyXL (3.4.32)
+    rubyXL (3.4.33)
       nokogiri (>= 1.10.8)
       rubyzip (>= 1.3.0)
     rubyzip (2.3.2)
@@ -798,7 +798,7 @@ GEM
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
     thor (1.3.2)
-    tilt (2.4.0)
+    tilt (2.5.0)
     timeout (0.4.3)
     trailblazer-option (0.1.2)
     tzinfo (2.0.6)
@@ -834,7 +834,8 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket (1.2.11)
-    websocket-driver (0.7.6)
+    websocket-driver (0.7.7)
+      base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     wicked_pdf (2.8.2)
