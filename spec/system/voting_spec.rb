@@ -116,17 +116,16 @@ describe "Voting", type: :system do
 
     context "when project is selected" do
       it "does not allow exceeding the budget" do
-        page.scroll_to find("#projects-count")
+        page.scroll_to find(".orders-summary-item")
 
-        all(".card form.button_to")[0..4].each do |button|
-          within button do
-            click_button "Add to voting cart"
+        all("#projects_table .projects-table__row").each do |container|
+          within container do
+            find("input").click
           end
         end
 
-        within all(".card")[5] do
-          expect(page).to have_css("button[disabled]")
-        end
+        expect(page).to have_css("#order-update-error-modal")
+        expect(page).to have_content("You have already added the maximum amount of proposals")
       end
 
       it "shows progress correctly" do

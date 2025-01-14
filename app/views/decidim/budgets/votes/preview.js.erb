@@ -1,5 +1,5 @@
 (function() {
-  var $modal = $("#order-preview");
+  var $modal = $("#order-preview-modal");
   if ($modal.length > 0) {
     $modal.remove();
   }
@@ -7,8 +7,11 @@
   $modal = $('<%= j(render partial: "preview_modal").strip.html_safe %>');
   $("body").append($modal);
 
-  $modal.foundation();
-  $modal.foundation("open");
+  let dialog = new window.Decidim.Dialogs("#order-preview-modal");
+  $modal.data("orderPreviewDialog", dialog);
+  let dialogInstance = $modal.data("orderPreviewDialog");
+
+  dialogInstance.open();
 
   document.body.classList.remove("loading");
 

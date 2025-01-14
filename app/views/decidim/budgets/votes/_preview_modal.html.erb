@@ -1,12 +1,10 @@
-<div class="reveal" data-reveal id="order-preview" role="dialog" aria-modal="true" aria-live="polite">
-  <div class="reveal__header">
-    <div class="reveal__title"><%= t(".title", service_name: current_organization.name) %></div>
+<%= decidim_modal id:"order-preview-modal" do %>
+  <div data-dialog-container>
+    <div><%= t(".title", service_name: current_organization.name) %></div>
     <button class="close-button" data-close aria-label="<%= t("decidim.budgets.budget_information_modal.close_modal") %>" type="button">
       <span aria-hidden="true">&times;</span>
     </button>
-  </div>
 
-  <div class="reveal__content">
     <p><%= t(".lead") %></p>
     <p><%= t(".selected_proposals") %></p>
     <ul class="no-bullet with-icons">
@@ -33,7 +31,7 @@
     <%= t(".notes_html") %>
   </div>
 
-  <div class="buttons buttons-row">
+  <div data-dialog-actions>
     <%= button_to vote_path, class: "button" do %>
       <%= t(".buttons.vote") %>
     <% end %>
@@ -42,4 +40,4 @@
       <%= t(".buttons.cancel") %>
     </button>
   </div>
-</div>
+<% end %>

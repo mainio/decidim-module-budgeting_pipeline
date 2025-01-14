@@ -336,7 +336,7 @@ module Decidim
       def linked_resources
         @linked_resources ||= resource_link_types.to_h do |type, link_name|
           manifest = Decidim.find_resource_manifest(type)
-          next unless manifest
+          next [type, {}] unless manifest
 
           scope = manifest.resource_scope(current_component)
                           .published.not_hidden.except_withdrawn
