@@ -69,14 +69,14 @@ describe "Voting" do
   describe "start" do
     before { login_as user, scope: :user }
 
-    let(:project1) { budget1.projects.first }
+    let(:project1) { budget_one.projects.first }
 
     it "allows selecting a budget" do
       visit_voting
 
       page.scroll_to find("h2", text: "Select the area where you want to vote")
 
-      find("h2", text: translated(budget1.title)).click
+      find("h2", text: translated(budget_one.title)).click
       find("input[name='filter[selected]']").click
       find("label[for=project_selector_#{project1.id}]").click
 
@@ -85,7 +85,7 @@ describe "Voting" do
   end
 
   describe "projects" do
-    let(:budget) { budget1 }
+    let(:budget) { budget_one }
 
     before do
       login_as user, scope: :user
@@ -155,11 +155,11 @@ describe "Voting" do
   end
 
   describe "preview" do
-    let(:budget) { budget1 }
-    let!(:order) { create(:order, budget: budget1, user:) }
+    let(:budget) { budget_one }
+    let!(:order) { create(:order, budget: budget_one, user:) }
 
     before do
-      order.projects << budget1_projects.first
+      order.projects << budget_one_projects.first
       order.save!
 
       login_as user, scope: :user
@@ -171,16 +171,16 @@ describe "Voting" do
 
     it "shows the vote preview page" do
       expect(page).to have_content("Maximum amount of proposals to be selected in the area: 5")
-      expect(page).to have_content(translated(budget1_projects.first.title))
+      expect(page).to have_content(translated(budget_one_projects.first.title))
     end
   end
 
   describe "create" do
-    let(:budget) { budget1 }
-    let!(:order) { create(:order, budget: budget1, user:) }
+    let(:budget) { budget_one }
+    let!(:order) { create(:order, budget: budget_one, user:) }
 
     before do
-      order.projects << budget1_projects.first
+      order.projects << budget_one_projects.first
       order.save!
 
       login_as user, scope: :user

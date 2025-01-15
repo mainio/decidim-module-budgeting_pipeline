@@ -26,6 +26,8 @@ module Decidim
           raise ActionController::RoutingError, "Not Found" unless project
         end
 
+        def index; end
+
         def default_filter_params
           {
             search_text_cont: "",

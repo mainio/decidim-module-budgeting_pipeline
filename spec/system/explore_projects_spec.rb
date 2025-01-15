@@ -20,7 +20,7 @@ describe "ExploreProjects" do
 
       it "can filter based on keywords" do
         within "form.new_filter" do
-          find(%(input[name="filter[search_text_cont]"])).set(translated(budget1_projects.first.title))
+          find(%(input[name="filter[search_text_cont]"])).set(translated(budget_one_projects.first.title))
           click_on "Search"
         end
 
@@ -29,7 +29,7 @@ describe "ExploreProjects" do
 
       it "can filter based on the area" do
         within "form.new_filter" do
-          find(%(select[name="filter[decidim_budgets_budget_id_eq]"])).find(%(option[value="#{budget1.id}"])).select_option
+          find(%(select[name="filter[decidim_budgets_budget_id_eq]"])).find(%(option[value="#{budget_one.id}"])).select_option
           click_on "Search"
         end
 
@@ -51,7 +51,7 @@ describe "ExploreProjects" do
   end
 
   describe "show" do
-    let(:project) { budget1_projects.first }
+    let(:project) { budget_one_projects.first }
 
     before do
       visit_project(project)
@@ -69,7 +69,7 @@ describe "ExploreProjects" do
       let(:category) { create(:category, participatory_space: component.participatory_space, parent: parent_category) }
       let(:parent_category) { create(:category, participatory_space: component.participatory_space) }
 
-      let!(:project) { create(:budgeting_pipeline_project, budget: budget1, category:) }
+      let!(:project) { create(:budgeting_pipeline_project, budget: budget_one, category:) }
 
       it "displays the category and its parent category" do
         expect(page).to have_content(translated(parent_category.name))
@@ -81,7 +81,7 @@ describe "ExploreProjects" do
       before do
         component.step_settings = { component.participatory_space.active_step.id => { votes: "finished", show_votes: true, show_selected_status: true } }
         component.save
-        budget1_projects.first.update(selected_at: Time.current)
+        budget_one_projects.first.update(selected_at: Time.current)
       end
 
       it "renders status selection" do

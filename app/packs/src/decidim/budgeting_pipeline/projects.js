@@ -17,7 +17,7 @@
     // placeHolder.style.height = `${ordersSummary.offsetHeight}px`;
     // console.log(ordersSummary.offsetHeight);
 
-    document.addEventListener("scroll", (event) => {
+    document.addEventListener("scroll", () => {
       if (window.scrollY > stickPosition.offsetTop) {
         if (!ordersSummary.classList.contains("is-stuck")) {
           placeHolder.style.height = `${ordersSummary.offsetHeight}px`;
@@ -27,6 +27,8 @@
         if (ordersSummary.classList.contains("is-stuck")) {
           ordersSummary.classList.remove("is-stuck");
           placeHolder.style.height = 0;
+        } else {
+          return;
         }
       }
     });
@@ -70,12 +72,21 @@
   window.initializeProjects = () => {
     const loadingProjects = [];
     document.querySelectorAll("[data-project-selector] input[type='checkbox']").forEach((el) => {
+
       el.addEventListener("change", () => {
+        let requestType;
+
+        if (el.checked) {
+          requestType = "POST";
+        } else {
+          requestType = "DELETE";
+        }
+
         loadingProjects.push(el.value);
         document.body.classList.add("loading");
         Rails.ajax({
           url: el.dataset.selectUrl,
-          type: el.checked ? "POST" : "DELETE",
+          type: requestType,
           success: () => {
             loadingProjects.shift();
             if (loadingProjects.length < 1) {
@@ -108,6 +119,8 @@
       }
 
       clickableArea.addEventListener("click", clickHandler);
+
+      // eslint-disable-next-line no-undef
       button.addEventListener("keydown", (ev) => {
         if (ev.code === "Enter" || ev.code === "Space") {
           buttonClickHandler(ev);
