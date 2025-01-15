@@ -93,7 +93,7 @@ module Decidim
             if current_settings.show_votes?
               redirect_to routes_proxy.results_path
             else
-              redirect_to routes_proxy.finished_vote_path
+              redirect_to routes_proxy.projects_path
             end
           end
 
