@@ -13,13 +13,13 @@ describe Decidim::Budgets::Project do
     let(:data_mapping) { [:id, :title, :summary, :description, :address, :latitude, :longitude] }
     let(:data_mapping_translated) { [:title, :summary, :description] }
 
-    let(:budget1) { create(:budgeting_pipeline_budget, component: component) }
-    let(:budget2) { create(:budgeting_pipeline_budget, component: component) }
-    let!(:budget1_projects) { create_list(:budgeting_pipeline_project, 10, budget: budget1) }
-    let!(:budget2_projects) { create_list(:budgeting_pipeline_project, 5, budget: budget2) }
+    let(:budget_one) { create(:budgeting_pipeline_budget, component:) }
+    let(:budget_two) { create(:budgeting_pipeline_budget, component:) }
+    let!(:budget_one_projects) { create_list(:budgeting_pipeline_project, 10, budget: budget_one) }
+    let!(:budget_two_projects) { create_list(:budgeting_pipeline_project, 5, budget: budget_two) }
     let(:expected_data) do
-      budget1_projects.map { |project| convert_project_data(project) } +
-        budget2_projects.map { |project| convert_project_data(project) }
+      budget_one_projects.map { |project| convert_project_data(project) } +
+        budget_two_projects.map { |project| convert_project_data(project) }
     end
 
     let(:component_coordinates) { component.settings.default_map_center_coordinates.split(",") }
@@ -37,9 +37,9 @@ describe Decidim::Budgets::Project do
     describe "case statements" do
       subject { geocoded_data.first }
 
-      let(:project) { create(:budgeting_pipeline_project, budget: budget1) }
-      let!(:budget1_projects) { [project] }
-      let!(:budget2_projects) { [] }
+      let(:project) { create(:budgeting_pipeline_project, budget: budget_one) }
+      let!(:budget_one_projects) { [project] }
+      let!(:budget_two_projects) { [] }
 
       context "when the locale is not the default locale" do
         let(:returned_data) do
@@ -65,7 +65,7 @@ describe Decidim::Budgets::Project do
               title: { en: "Title" },
               summary: { en: "Summary" },
               description: { en: "<p>Description</p>" },
-              budget: budget1
+              budget: budget_one
             )
           end
 
@@ -78,24 +78,24 @@ describe Decidim::Budgets::Project do
       end
 
       context "when the project does not have an address" do
-        let(:project) { create(:budgeting_pipeline_project, budget: budget1, address: nil) }
+        let(:project) { create(:budgeting_pipeline_project, budget: budget_one, address: nil) }
         let(:returned_data) { data_for_key(subject, :address) }
 
         it "returns the budget title as address" do
-          expect(returned_data).to eq(translated(budget1.title))
+          expect(returned_data).to eq(translated(budget_one.title))
         end
       end
 
       context "when the project does not have a latitude" do
-        let(:project) { create(:budgeting_pipeline_project, budget: budget1, latitude: nil) }
+        let(:project) { create(:budgeting_pipeline_project, budget: budget_one, latitude: nil) }
         let(:returned_data) { data_for_key(subject, :latitude) }
 
         it "returns the budget center latitude" do
-          expect(returned_data).to eq(budget1.center_latitude)
+          expect(returned_data).to eq(budget_one.center_latitude)
         end
 
         context "and the budget does not have a center latitude" do
-          let(:budget1) { create(:budgeting_pipeline_budget, component: component, center_latitude: nil) }
+          let(:budget_one) { create(:budgeting_pipeline_budget, component:, center_latitude: nil) }
 
           it "returns the default latitude" do
             expect(returned_data).to eq(default_latitude)
@@ -104,15 +104,15 @@ describe Decidim::Budgets::Project do
       end
 
       context "when the project does not have a longitude" do
-        let(:project) { create(:budgeting_pipeline_project, budget: budget1, longitude: nil) }
+        let(:project) { create(:budgeting_pipeline_project, budget: budget_one, longitude: nil) }
         let(:returned_data) { data_for_key(subject, :longitude) }
 
         it "returns the budget center longitude" do
-          expect(returned_data).to eq(budget1.center_longitude)
+          expect(returned_data).to eq(budget_one.center_longitude)
         end
 
         context "and the budget does not have a center longitude" do
-          let(:budget1) { create(:budgeting_pipeline_budget, component: component, center_longitude: nil) }
+          let(:budget_one) { create(:budgeting_pipeline_budget, component:, center_longitude: nil) }
 
           it "returns the default longitude" do
             expect(returned_data).to eq(default_longitude)
@@ -137,10 +137,10 @@ describe Decidim::Budgets::Project do
   end
 
   describe ".order_by_most_voted" do
-    subject { described_class.where(budget: budget).order_by_most_voted }
+    subject { described_class.where(budget:).order_by_most_voted }
 
-    let(:budget) { create(:budgeting_pipeline_budget, component: component) }
-    let(:budget_projects) { create_list(:budgeting_pipeline_project, 5, budget: budget, paper_orders_count: 0) }
+    let(:budget) { create(:budgeting_pipeline_budget, component:) }
+    let(:budget_projects) { create_list(:budgeting_pipeline_project, 5, budget:, paper_orders_count: 0) }
     let(:expected_order) { [1, 3, 2, 4, 0].map { |idx| budget_projects[idx] } }
 
     let!(:complete_votes) { [0, 11, 7, 9, 1] }
@@ -150,7 +150,7 @@ describe Decidim::Budgets::Project do
       [:complete_votes, :incomplete_votes].each do |key|
         amounts = public_send(key)
         budget_projects.each_with_index do |project, idx|
-          orders = create_list(:budgeting_pipeline_order, amounts[idx], budget: budget)
+          orders = create_list(:budgeting_pipeline_order, amounts[idx], budget:)
           orders.each do |order|
             order.projects << project
             order.checked_out_at = Time.current if key == :complete_votes
@@ -165,7 +165,7 @@ describe Decidim::Budgets::Project do
     end
 
     context "with only_voted set to true" do
-      subject { described_class.where(budget: budget).order_by_most_voted(only_voted: true) }
+      subject { described_class.where(budget:).order_by_most_voted(only_voted: true) }
 
       let(:expected_order) { [1, 3, 2, 4].map { |idx| budget_projects[idx] } }
 
@@ -190,11 +190,11 @@ describe Decidim::Budgets::Project do
     end
 
     context "with favorites filtering" do
-      subject { described_class.where(budget: budget).user_favorites(user).order_by_most_voted }
+      subject { described_class.where(budget:).user_favorites(user).order_by_most_voted }
 
       let(:user) { create(:user, :confirmed, organization: component.organization) }
       let(:favorite_projects) { budget_projects[0..1] }
-      let!(:favorites) { favorite_projects.map { |pr| create(:favorite, favoritable: pr, user: user) } }
+      let!(:favorites) { favorite_projects.map { |pr| create(:favorite, favoritable: pr, user:) } }
 
       it "returns the favorites" do
         expect(subject).to match_array(favorite_projects)
@@ -205,8 +205,8 @@ describe Decidim::Budgets::Project do
   describe "#confirmed_orders_count" do
     subject { project.confirmed_orders_count }
 
-    let(:budget) { create(:budgeting_pipeline_budget, component: component) }
-    let(:project) { create(:budgeting_pipeline_project, budget: budget, paper_orders_count: paper_orders_count) }
+    let(:budget) { create(:budgeting_pipeline_budget, component:) }
+    let(:project) { create(:budgeting_pipeline_project, budget:, paper_orders_count:) }
     let(:paper_orders_count) { 0 }
 
     let!(:complete_votes) { 123 }
@@ -215,7 +215,7 @@ describe Decidim::Budgets::Project do
     before do
       [:complete_votes, :incomplete_votes].each do |key|
         amount = public_send(key)
-        orders = create_list(:budgeting_pipeline_order, amount, budget: budget)
+        orders = create_list(:budgeting_pipeline_order, amount, budget:)
         orders.each do |order|
           order.projects << project
           order.checked_out_at = Time.current if key == :complete_votes

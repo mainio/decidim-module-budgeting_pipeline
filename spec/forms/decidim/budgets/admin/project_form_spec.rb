@@ -9,11 +9,11 @@ describe Decidim::Budgets::Admin::ProjectForm do
   let(:context) do
     {
       current_organization: organization,
-      current_component: current_component,
+      current_component:,
       current_participatory_space: participatory_process
     }
   end
-  let(:participatory_process) { create(:participatory_process, organization: organization) }
+  let(:participatory_process) { create(:participatory_process, organization:) }
   let(:current_component) { create(:budgets_component, participatory_space: participatory_process) }
   let(:budget) { create(:budget, component: current_component) }
   let(:title) do
@@ -23,7 +23,7 @@ describe Decidim::Budgets::Admin::ProjectForm do
     Decidim::Faker::Localized.sentence
   end
   let(:budget_amount) { Faker::Number.number }
-  let(:parent_scope) { create(:scope, organization: organization) }
+  let(:parent_scope) { create(:scope, organization:) }
   let(:scope) { create(:subscope, parent: parent_scope) }
   let(:scope_id) { scope.id }
   let(:category) { create(:category, participatory_space: participatory_process) }
@@ -38,11 +38,11 @@ describe Decidim::Budgets::Admin::ProjectForm do
       decidim_category_id: category_id,
       title_en: title[:en],
       description_en: description[:en],
-      budget_amount: budget_amount,
-      selected: selected,
-      address: address,
-      latitude: latitude,
-      longitude: longitude
+      budget_amount:,
+      selected:,
+      address:,
+      latitude:,
+      longitude:
     }
   end
   let(:idea_ids) { [] }
@@ -63,10 +63,10 @@ describe Decidim::Budgets::Admin::ProjectForm do
   describe "#map_model" do
     subject { described_class.from_model(project) }
 
-    let(:project) { create(:project, budget: budget) }
+    let(:project) { create(:project, budget:) }
 
     context "with ideas" do
-      let(:idea_component) { create :idea_component, participatory_space: participatory_process }
+      let(:idea_component) { create(:idea_component, participatory_space: participatory_process) }
       let(:idea1) { create(:idea, component: idea_component) }
       let(:idea_ids) { [idea1.id] }
 
@@ -77,7 +77,7 @@ describe Decidim::Budgets::Admin::ProjectForm do
     end
 
     context "with plans" do
-      let(:plan_component) { create :plan_component, participatory_space: participatory_process }
+      let(:plan_component) { create(:plan_component, participatory_space: participatory_process) }
       let(:plan1) { create(:plan, component: plan_component) }
       let(:plan_ids) { [plan1.id] }
 
@@ -113,13 +113,13 @@ describe Decidim::Budgets::Admin::ProjectForm do
   describe "#ideas" do
     subject { described_class.from_model(project).with_context(context) }
 
-    let!(:project) { create(:project, budget: budget) }
-    let(:idea_component) { create :idea_component, participatory_space: participatory_process }
+    let!(:project) { create(:project, budget:) }
+    let(:idea_component) { create(:idea_component, participatory_space: participatory_process) }
     let!(:idea1) { create(:idea, component: idea_component) }
 
     context "with no ideas" do
       it "returns empty" do
-        expect(subject.ideas).to match_array([])
+        expect(subject.ideas).to be_empty
       end
     end
 
@@ -131,7 +131,7 @@ describe Decidim::Budgets::Admin::ProjectForm do
       end
 
       it "returns ideas" do
-        expect(subject.ideas).to match_array([idea1])
+        expect(subject.ideas).to contain_exactly(idea1)
       end
     end
   end
@@ -139,13 +139,13 @@ describe Decidim::Budgets::Admin::ProjectForm do
   describe "#plans" do
     subject { described_class.from_model(project).with_context(context) }
 
-    let!(:project) { create(:project, budget: budget) }
-    let(:plan_component) { create :plan_component, participatory_space: participatory_process }
+    let!(:project) { create(:project, budget:) }
+    let(:plan_component) { create(:plan_component, participatory_space: participatory_process) }
     let!(:plan1) { create(:plan, component: plan_component) }
 
     context "with no plans" do
       it "returns empty" do
-        expect(subject.plans).to match_array([])
+        expect(subject.plans).to be_empty
       end
     end
 
@@ -157,7 +157,7 @@ describe Decidim::Budgets::Admin::ProjectForm do
       end
 
       it "returns ideas" do
-        expect(subject.plans).to match_array([plan1])
+        expect(subject.plans).to contain_exactly(plan1)
       end
     end
   end

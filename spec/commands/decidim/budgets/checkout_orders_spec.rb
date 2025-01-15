@@ -7,27 +7,27 @@ describe Decidim::Budgets::CheckoutOrders do
 
   let(:form) { Decidim::Budgets::BudgetSelectForm.from_params(budget_ids: [budget.id]) }
   let(:organization) { create(:organization) }
-  let(:user) { create(:user, :confirmed, organization: organization) }
+  let(:user) { create(:user, :confirmed, organization:) }
 
-  let(:participatory_space) { create(:participatory_process, organization: organization) }
-  let(:component) { create(:budgets_component, :with_budget_projects_range, participatory_space: participatory_space) }
-  let(:budget1) { create(:budget, component: component) }
-  let(:budget1_projects) { create_list(:project, 5, budget: budget1) }
-  let(:budget2) { create(:budget, component: component) }
-  let(:budget2_projects) { create_list(:project, 5, budget: budget2) }
+  let(:participatory_space) { create(:participatory_process, organization:) }
+  let(:component) { create(:budgets_component, :with_budget_projects_range, participatory_space:) }
+  let(:budget_one) { create(:budget, component:) }
+  let(:budget_one_projects) { create_list(:project, 5, budget: budget_one) }
+  let(:budget_two) { create(:budget, component:) }
+  let(:budget_two_projects) { create_list(:project, 5, budget: budget_two) }
 
   let(:amt_projects) { [3, 4] }
 
-  let(:orders) { [order1, order2] }
-  let(:order1) do
-    create(:order, user: user, budget: budget1).tap do |ord|
-      budget1_projects.sample(amt_projects[0]).each { |pr| ord.projects << pr }
+  let(:orders) { [order_one, order_two] }
+  let(:order_one) do
+    create(:order, user:, budget: budget_one).tap do |ord|
+      budget_one_projects.sample(amt_projects[0]).each { |pr| ord.projects << pr }
       ord.save!
     end
   end
-  let(:order2) do
-    create(:order, user: user, budget: budget2).tap do |ord|
-      budget2_projects.sample(amt_projects[1]).each { |pr| ord.projects << pr }
+  let(:order_two) do
+    create(:order, user:, budget: budget_two).tap do |ord|
+      budget_two_projects.sample(amt_projects[1]).each { |pr| ord.projects << pr }
       ord.save!
     end
   end
@@ -96,7 +96,7 @@ describe Decidim::Budgets::CheckoutOrders do
 
     context "when one of the orders is invalid" do
       it "broadcasts invalid" do
-        allow(order1).to receive(:invalid?).and_return(true)
+        allow(order_one).to receive(:invalid?).and_return(true)
 
         expect { subject }.to broadcast(:invalid)
       end

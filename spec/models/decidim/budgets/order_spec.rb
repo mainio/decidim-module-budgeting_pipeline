@@ -3,7 +3,7 @@
 require "spec_helper"
 
 describe Decidim::Budgets::Order do
-  let(:component) { create(:budgeting_pipeline_component, vote_rule_settings: vote_rule_settings) }
+  let(:component) { create(:budgeting_pipeline_component, vote_rule_settings:) }
   let(:vote_rule_settings) do
     {
       vote_rule_threshold_percent_enabled: true,
@@ -15,37 +15,37 @@ describe Decidim::Budgets::Order do
       vote_selected_projects_maximum: 1
     }
   end
-  let(:budget) { create(:budgeting_pipeline_budget, component: component, total_budget: 40_000) }
-  let(:project1) { create(:budgeting_pipeline_project, budget: budget, budget_amount: 20_000) }
-  let(:project2) { create(:budgeting_pipeline_project, budget: budget, budget_amount: 30_000) }
+  let(:budget) { create(:budgeting_pipeline_budget, component:, total_budget: 40_000) }
+  let(:project_one) { create(:budgeting_pipeline_project, budget:, budget_amount: 20_000) }
+  let(:project_two) { create(:budgeting_pipeline_project, budget:, budget_amount: 30_000) }
 
   shared_context "with first project selected" do
-    before { order.projects << project1 }
+    before { order.projects << project_one }
   end
 
   shared_context "with second project selected" do
-    before { order.projects << project2 }
+    before { order.projects << project_two }
   end
 
   describe ".order_by_budgets" do
-    subject { described_class.where(budget: [budget1, budget2, budget3]).order_by_budgets }
+    subject { described_class.where(budget: [budget_one, budget_two, budget_three]).order_by_budgets }
 
-    let(:budget1) { create(:budgeting_pipeline_budget, component: component, weight: 3) }
-    let(:budget2) { create(:budgeting_pipeline_budget, component: component, weight: 1) }
-    let(:budget3) { create(:budgeting_pipeline_budget, component: component, weight: 2) }
-    let!(:budget1_projects) { create_list(:budgeting_pipeline_project, 10, budget: budget1) }
-    let!(:budget2_projects) { create_list(:budgeting_pipeline_project, 5, budget: budget2) }
-    let!(:budget3_projects) { create_list(:budgeting_pipeline_project, 3, budget: budget3) }
+    let(:budget_one) { create(:budgeting_pipeline_budget, component:, weight: 3) }
+    let(:budget_two) { create(:budgeting_pipeline_budget, component:, weight: 1) }
+    let(:budget_three) { create(:budgeting_pipeline_budget, component:, weight: 2) }
+    let!(:budget_one_projects) { create_list(:budgeting_pipeline_project, 10, budget: budget_one) }
+    let!(:budget_two_projects) { create_list(:budgeting_pipeline_project, 5, budget: budget_two) }
+    let!(:budget_three_projects) { create_list(:budgeting_pipeline_project, 3, budget: budget_three) }
     let(:order_amounts) do
       {
-        budget1.id => 4,
-        budget2.id => 3,
-        budget3.id => 2
+        budget_one.id => 4,
+        budget_two.id => 3,
+        budget_three.id => 2
       }
     end
 
     before do
-      (budget1_projects + budget2_projects + budget3_projects).each do |project|
+      (budget_one_projects + budget_two_projects + budget_three_projects).each do |project|
         orders = create_list(:budgeting_pipeline_order, order_amounts[project.budget.id], budget: project.budget)
         orders.each do |order|
           order.projects << project
@@ -57,26 +57,26 @@ describe Decidim::Budgets::Order do
 
     it "orders the results by the budget weights" do
       indexes = {}
-      indexes[budget2.id] = order_amounts[budget2.id] * budget2_projects.count
-      indexes[budget3.id] = indexes[budget2.id] + (order_amounts[budget3.id] * budget3_projects.count)
-      indexes[budget1.id] = indexes[budget3.id] + (order_amounts[budget1.id] * budget1_projects.count)
+      indexes[budget_two.id] = order_amounts[budget_two.id] * budget_two_projects.count
+      indexes[budget_three.id] = indexes[budget_two.id] + (order_amounts[budget_three.id] * budget_three_projects.count)
+      indexes[budget_one.id] = indexes[budget_three.id] + (order_amounts[budget_one.id] * budget_one_projects.count)
       subject.each_with_index do |order, idx|
         msg = "Expected budget ##{order.budget.id} at index #{idx}"
-        if idx < indexes[budget2.id]
-          expect(order.budget).to eq(budget2), msg
-        elsif idx < indexes[budget3.id]
-          expect(order.budget).to eq(budget3), msg
+        if idx < indexes[budget_two.id]
+          expect(order.budget).to eq(budget_two), msg
+        elsif idx < indexes[budget_three.id]
+          expect(order.budget).to eq(budget_three), msg
         else
-          expect(order.budget).to eq(budget1), msg
+          expect(order.budget).to eq(budget_one), msg
         end
       end
     end
   end
 
   describe "#allocation_available_for?" do
-    subject { order.allocation_available_for?(project2) }
+    subject { order.allocation_available_for?(project_two) }
 
-    let!(:order) { create(:budgeting_pipeline_order, budget: budget) }
+    let!(:order) { create(:budgeting_pipeline_order, budget:) }
 
     context "when there is enough budget left" do
       it { is_expected.to be(true) }
@@ -116,7 +116,7 @@ describe Decidim::Budgets::Order do
   describe "#unused_allocation" do
     subject { order.unused_allocation }
 
-    let!(:order) { create(:budgeting_pipeline_order, budget: budget) }
+    let!(:order) { create(:budgeting_pipeline_order, budget:) }
 
     context "when no projects are selected" do
       it { is_expected.to eq(budget.total_budget) }
@@ -125,7 +125,7 @@ describe Decidim::Budgets::Order do
     context "with a selected project" do
       include_context "with first project selected"
 
-      it { is_expected.to eq(budget.total_budget - project1.budget_amount) }
+      it { is_expected.to eq(budget.total_budget - project_one.budget_amount) }
     end
 
     context "with projects rule" do
@@ -156,7 +156,7 @@ describe Decidim::Budgets::Order do
   describe "#allocation_exceeded?" do
     subject { order.allocation_exceeded? }
 
-    let!(:order) { create(:budgeting_pipeline_order, budget: budget) }
+    let!(:order) { create(:budgeting_pipeline_order, budget:) }
 
     context "when no projects are selected" do
       it { is_expected.to be(false) }
@@ -198,7 +198,7 @@ describe Decidim::Budgets::Order do
   describe "#valid_for_checkout?" do
     subject { order.valid_for_checkout? }
 
-    let!(:order) { create(:budgeting_pipeline_order, budget: budget) }
+    let!(:order) { create(:budgeting_pipeline_order, budget:) }
 
     context "with the minimum projects rule" do
       let(:minimum_projects) { 0 }

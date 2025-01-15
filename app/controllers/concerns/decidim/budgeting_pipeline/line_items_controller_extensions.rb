@@ -14,7 +14,7 @@ module Decidim
         helper Decidim::Budgets::VotesHelper
 
         def create
-          enforce_permission_to :vote, :project, project: project, budget: budget, workflow: current_workflow
+          enforce_permission_to :vote, :project, project:, budget:, workflow: current_workflow
 
           @added = true
 

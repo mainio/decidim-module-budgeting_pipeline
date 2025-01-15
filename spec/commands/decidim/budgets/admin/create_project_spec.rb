@@ -7,13 +7,13 @@ module Decidim::Budgets
     include Decidim::BudgetingPipeline::AdminCreateProjectExtensions
     subject { described_class.new(form) }
 
-    let(:organization) { create :organization, available_locales: [:en] }
-    let(:current_user) { create :user, :admin, :confirmed, organization: organization }
-    let(:participatory_process) { create :participatory_process, organization: organization }
-    let(:current_component) { create :component, manifest_name: :budgets, participatory_space: participatory_process }
-    let(:budget) { create :budget, component: current_component }
-    let(:scope) { create :scope, organization: organization }
-    let(:category) { create :category, participatory_space: participatory_process }
+    let(:organization) { create(:organization, available_locales: [:en]) }
+    let(:current_user) { create(:user, :admin, :confirmed, organization:) }
+    let(:participatory_process) { create(:participatory_process, organization:) }
+    let(:current_component) { create(:component, manifest_name: :budgets, participatory_space: participatory_process) }
+    let(:budget) { create(:budget, component: current_component) }
+    let(:scope) { create(:scope, organization:) }
+    let(:category) { create(:category, participatory_space: participatory_process) }
     let(:uploaded_photos) { [] }
     let(:main_image) { nil }
     let(:photos) { [] }
@@ -33,25 +33,25 @@ module Decidim::Budgets
     let(:form) do
       double(
         invalid?: invalid,
-        current_component: current_component,
-        current_user: current_user,
+        current_component:,
+        current_user:,
         title: { en: "title" },
         summary: { en: "Summary for the project" },
         description: { en: "description" },
         budget_amount: 10_000_000,
         budget_amount_min: nil,
-        address: address,
-        latitude: latitude,
-        longitude: longitude,
+        address:,
+        latitude:,
+        longitude:,
         proposal_ids: proposals.map(&:id),
-        scope: scope,
-        category: category,
-        photos: photos,
+        scope:,
+        category:,
+        photos:,
         add_photos: uploaded_photos,
-        budget: budget,
-        idea_ids: idea_ids,
-        plan_ids: plan_ids,
-        main_image: main_image
+        budget:,
+        idea_ids:,
+        plan_ids:,
+        main_image:
       )
     end
     let(:idea_ids) { [] }
@@ -102,7 +102,7 @@ module Decidim::Budgets
       end
 
       context "when geocoding is enabled" do
-        let(:current_component) { create :budgets_component, :with_geocoding_enabled, participatory_space: participatory_process }
+        let(:current_component) { create(:budgets_component, :with_geocoding_enabled, participatory_space: participatory_process) }
 
         context "when the address is present" do
           let(:address) { "Some address" }
@@ -122,7 +122,7 @@ module Decidim::Budgets
       end
 
       context "with ideas" do
-        let(:idea_component) { create :idea_component, participatory_space: participatory_process }
+        let(:idea_component) { create(:idea_component, participatory_space: participatory_process) }
         let(:idea1) { create(:idea, component: idea_component) }
         let(:idea_ids) { [idea1.id] }
 
@@ -132,12 +132,12 @@ module Decidim::Budgets
           project = Decidim::Budgets::Project.last
           linked_ideas = project.linked_resources(:ideas, "included_ideas")
 
-          expect(linked_ideas).to match_array([idea1])
+          expect(linked_ideas).to contain_exactly(idea1)
         end
       end
 
       context "with plans" do
-        let(:plan_component) { create :plan_component, participatory_space: participatory_process }
+        let(:plan_component) { create(:plan_component, participatory_space: participatory_process) }
         let(:plan1) { create(:plan, component: plan_component) }
         let(:plan_ids) { [plan1.id] }
 
@@ -147,7 +147,7 @@ module Decidim::Budgets
           project = Decidim::Budgets::Project.last
           linked_plans = project.linked_resources(:plans, "included_plans")
 
-          expect(linked_plans).to match_array([plan1])
+          expect(linked_plans).to contain_exactly(plan1)
         end
       end
     end

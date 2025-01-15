@@ -7,11 +7,11 @@ describe Decidim::Budgets::StartVoting do
 
   let(:form) { Decidim::Budgets::BudgetSelectForm.from_params(budget_ids: [budget.id]) }
   let(:organization) { create(:organization) }
-  let(:user) { create(:user, :confirmed, organization: organization) }
+  let(:user) { create(:user, :confirmed, organization:) }
 
-  let(:participatory_space) { create(:participatory_process, organization: organization) }
-  let(:component) { create(:budgets_component, :with_budget_projects_range, participatory_space: participatory_space) }
-  let(:budget) { create(:budget, component: component) }
+  let(:participatory_space) { create(:participatory_process, organization:) }
+  let(:component) { create(:budgets_component, :with_budget_projects_range, participatory_space:) }
+  let(:budget) { create(:budget, component:) }
   let(:workflow) { Decidim::Budgets.workflows[:one].new(component, user) }
 
   describe "#call" do

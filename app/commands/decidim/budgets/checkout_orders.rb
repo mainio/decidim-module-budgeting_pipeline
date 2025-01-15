@@ -62,15 +62,15 @@ module Decidim
           user,
           {
             component: orders.first.component,
-            user: user,
-            orders: orders
+            user:,
+            orders:
           },
           visibility: "private-only"
         )
       end
 
       def has_existing_vote?
-        Decidim::Budgets::Vote.find_by(component: orders.first.component, user: user).present?
+        Decidim::Budgets::Vote.find_by(component: orders.first.component, user:).present?
       end
 
       def send_summary

@@ -14,6 +14,8 @@ module Decidim
         before_action :set_breadcrumbs, only: [:index]
       end
 
+      def index; end
+
       private
 
       def ensure_checked_out_orders!

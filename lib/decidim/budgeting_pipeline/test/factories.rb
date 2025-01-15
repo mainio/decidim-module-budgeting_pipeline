@@ -33,17 +33,17 @@ FactoryBot.define do
     settings do
       vote_rule_settings.merge(
         # Pipeline settings
-        geocoding_enabled: geocoding_enabled,
-        default_map_center_coordinates: default_map_center_coordinates,
-        vote_identify_page_content: vote_identify_page_content,
-        vote_identify_page_more_information: vote_identify_page_more_information,
-        vote_identify_invalid_authorization_title: vote_identify_invalid_authorization_title,
-        vote_identify_invalid_authorization_content: vote_identify_invalid_authorization_content,
-        vote_budgets_page_content: vote_budgets_page_content,
-        vote_projects_page_content: vote_projects_page_content,
-        vote_preview_page_content: vote_preview_page_content,
-        vote_success_content: vote_success_content,
-        results_page_content: results_page_content
+        geocoding_enabled:,
+        default_map_center_coordinates:,
+        vote_identify_page_content:,
+        vote_identify_page_more_information:,
+        vote_identify_invalid_authorization_title:,
+        vote_identify_invalid_authorization_content:,
+        vote_budgets_page_content:,
+        vote_projects_page_content:,
+        vote_preview_page_content:,
+        vote_success_content:,
+        results_page_content:
       )
     end
   end
@@ -89,7 +89,7 @@ FactoryBot.define do
         budget = budgets[idx]
         budget ||= create(:budget, component: vote.component)
 
-        order = create(:order, budget: budget, user: vote.user)
+        order = create(:order, budget:, user: vote.user)
         order.update!(checked_out_at: Time.current) if evaluator.order_checked_out
         vote.orders << order
       end
@@ -98,6 +98,6 @@ FactoryBot.define do
   end
 
   factory :budgeting_pipeline_order, parent: :order do
-    vote { create(:budgeting_pipeline_vote, user: user, component: budget.component, order_checked_out: false) }
+    vote { create(:budgeting_pipeline_vote, user:, component: budget.component, order_checked_out: false) }
   end
 end

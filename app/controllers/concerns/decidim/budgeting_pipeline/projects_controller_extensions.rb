@@ -14,13 +14,13 @@ module Decidim
       include Decidim::BudgetingPipeline::Orderable
 
       included do
+        # rubocop:disable Rails/LexicallyScopedActionFilter
         before_action :set_breadcrumbs, only: [:index, :show]
+        # rubocop:enable Rails/LexicallyScopedActionFilter
 
         helper_method :authorization_required?, :user_authorized?, :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :vote_success?
 
         helper Decidim::BudgetingPipeline::AuthorizationHelper
-
-        def index; end
 
         def show
           raise ActionController::RoutingError, "Not Found" unless project

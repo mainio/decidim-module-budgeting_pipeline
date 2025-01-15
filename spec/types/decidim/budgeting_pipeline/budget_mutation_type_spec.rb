@@ -6,19 +6,19 @@ require "decidim/api/test/type_context"
 describe Decidim::BudgetingPipeline::BudgetMutationType do
   include_context "with a graphql class type"
 
-  let(:model) { create(:budgeting_pipeline_budget, component: component) }
+  let(:model) { create(:budgeting_pipeline_budget, component:) }
   let(:participatory_space) { create(:participatory_process, organization: current_organization) }
-  let(:component) { create(:budgeting_pipeline_component, participatory_space: participatory_space) }
+  let(:component) { create(:budgeting_pipeline_component, participatory_space:) }
 
-  let(:category) { create(:category, participatory_space: participatory_space) }
+  let(:category) { create(:category, participatory_space:) }
   let(:scope) { create(:scope, organization: current_organization) }
 
   let(:proposals) { create_list(:proposal, 3, component: proposals_component) }
-  let(:proposals_component) { create(:proposal_component, participatory_space: participatory_space) }
+  let(:proposals_component) { create(:proposal_component, participatory_space:) }
   let(:ideas) { create_list(:idea, 2, component: ideas_component) }
-  let(:ideas_component) { create(:idea_component, participatory_space: participatory_space) }
+  let(:ideas_component) { create(:idea_component, participatory_space:) }
   let(:plans) { create_list(:plan, 3, component: plans_component) }
-  let(:plans_component) { create(:plan_component, participatory_space: participatory_space) }
+  let(:plans_component) { create(:plan_component, participatory_space:) }
 
   describe "createProject" do
     let(:query) { "{ createProject(attributes: #{attributes_to_graphql(attributes)}) { id } }" }

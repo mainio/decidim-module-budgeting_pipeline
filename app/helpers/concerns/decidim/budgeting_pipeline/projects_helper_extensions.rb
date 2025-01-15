@@ -24,7 +24,7 @@ module Decidim
             {
               id: data[0],
               title: data[1],
-              body: body,
+              body:,
               address: data[4],
               latitude: data[5],
               longitude: data[6],
@@ -125,7 +125,7 @@ module Decidim
         map_utility_static.link(
           latitude: resource.latitude,
           longitude: resource.longitude,
-          options: options
+          options:
         )
       end
 

@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe "Voting", type: :system do
+describe "Voting" do
   include_context "with budgeting setup"
 
   describe "show" do
@@ -10,14 +10,10 @@ describe "Voting", type: :system do
       it "displays the sign in page" do
         visit_voting
 
-        page.scroll_to find("h2", text: "Strong identification")
-
-        contents = all(".wrapper .static__content")
-        within contents[0] do
+        page.scroll_to find("h2", text: "Log in to the service to vote")
+        content = find(".layout-container #content")
+        within content do
           expect(page).to have_content(strip_tags(translated(component.settings.vote_identify_page_content)))
-        end
-        within contents[1] do
-          expect(page).to have_content(strip_tags(translated(component.settings.vote_identify_page_more_information)))
         end
 
         within ".voting-identity" do
@@ -33,13 +29,12 @@ describe "Voting", type: :system do
 
       context "when not authorized" do
         let!(:authorization) { nil }
-        let(:authorizations) { [:foo] }
 
         it "displays the authorization options" do
           visit_voting
 
-          expect(page).to have_content("Strong identification")
-          page.scroll_to find("h2", text: "Strong identification")
+          expect(page).to have_content("Log in to the service to vote")
+          page.scroll_to find("h2", text: "Log in to the service to vote")
 
           within ".voting-identity" do
             expect(page).to have_link("Example authorization")
@@ -137,7 +132,7 @@ describe "Voting", type: :system do
           end
         end
 
-        page.scroll_to find("#orders-summary")
+        page.scroll_to find_by_id("orders-summary")
 
         within "#orders-summary" do
           expect(page).to have_content("4 votes remaining")
@@ -161,7 +156,7 @@ describe "Voting", type: :system do
 
   describe "preview" do
     let(:budget) { budget1 }
-    let!(:order) { create(:order, budget: budget1, user: user) }
+    let!(:order) { create(:order, budget: budget1, user:) }
 
     before do
       order.projects << budget1_projects.first
@@ -182,7 +177,7 @@ describe "Voting", type: :system do
 
   describe "create" do
     let(:budget) { budget1 }
-    let!(:order) { create(:order, budget: budget1, user: user) }
+    let!(:order) { create(:order, budget: budget1, user:) }
 
     before do
       order.projects << budget1_projects.first
@@ -196,7 +191,7 @@ describe "Voting", type: :system do
     end
 
     it "can cast the vote" do
-      click_button "Vote"
+      click_on "Vote"
 
       within "#vote-finished-modal" do
         expect(page).to have_content("Thank you for your vote!")

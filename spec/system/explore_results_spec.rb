@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe "Explore results", type: :system do
+describe "ExploreResults" do
   include ActionView::Helpers::NumberHelper
 
   include_context "with budgeting setup"
@@ -21,7 +21,7 @@ describe "Explore results", type: :system do
           expect(page).to have_content(number_to_currency(budget.total_budget, unit: Decidim.currency_unit, precision: 0))
 
           if voted_budgets.include?(budget)
-            click_button "Show more"
+            click_on "Show more"
 
             projects = sorted_projects_for(budget)
 
@@ -77,6 +77,6 @@ describe "Explore results", type: :system do
   end
 
   def sorted_projects_for(budget)
-    Decidim::Budgets::Project.where(budget: budget).order_by_most_voted(only_voted: false)
+    Decidim::Budgets::Project.where(budget:).order_by_most_voted(only_voted: false)
   end
 end

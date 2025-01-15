@@ -84,7 +84,7 @@ module Decidim
             description: original_project.description,
             progress: statuses.first&.progress || 0,
             status: statuses.first,
-            weight: weight
+            weight:
           }.merge(extra_result_attributes_from(original_project))
         end
 

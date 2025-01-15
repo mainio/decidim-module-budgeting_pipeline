@@ -16,7 +16,7 @@ module Decidim
           # for their checkout validity.
           def orders
             @orders ||= Decidim::Budgets::Order.includes(:projects).where(decidim_user_id: user, decidim_budgets_budget_id: budgets).map do |order|
-              [order.decidim_budgets_budget_id, { order: order, status: order.checked_out? ? :voted : :progress }]
+              [order.decidim_budgets_budget_id, { order:, status: order.checked_out? ? :voted : :progress }]
             end.compact.to_h
           end
         end

@@ -68,7 +68,7 @@ module Decidim
         @projects_with_votes ||= {}
         return @projects_with_votes[budget.id] if @projects_with_votes[budget.id].present?
 
-        @projects_with_votes[budget.id] = Decidim::Budgets::Project.where(budget: budget).order_by_most_voted(only_voted: true).select(
+        @projects_with_votes[budget.id] = Decidim::Budgets::Project.where(budget:).order_by_most_voted(only_voted: true).select(
           "decidim_budgets_projects.*",
           "decidim_budgets_projects_with_votes.votes_count"
         )
@@ -78,14 +78,14 @@ module Decidim
         @minimum_project_budget ||= {}
         return @minimum_project_budget[budget.id] if @minimum_project_budget[budget.id].present?
 
-        @minimum_project_budget[budget.id] = Decidim::Budgets::Project.where(budget: budget).minimum(:budget_amount)
+        @minimum_project_budget[budget.id] = Decidim::Budgets::Project.where(budget:).minimum(:budget_amount)
       end
 
       def maximum_project_budget(budget)
         @maximum_project_budget ||= {}
         return @maximum_project_budget[budget.id] if @maximum_project_budget[budget.id].present?
 
-        @maximum_project_budget[budget.id] = Decidim::Budgets::Project.where(budget: budget).maximum(:budget_amount)
+        @maximum_project_budget[budget.id] = Decidim::Budgets::Project.where(budget:).maximum(:budget_amount)
       end
 
       def vote_success?

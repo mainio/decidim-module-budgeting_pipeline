@@ -20,7 +20,7 @@ module Decidim
           if handlers && handlers.any?
             providers = Decidim::BudgetingPipeline.authorization_providers
             providers = providers.call(current_organization) if providers.respond_to?(:call)
-            (handlers & providers).any?
+            handlers.intersect?(providers)
           else
             false
           end

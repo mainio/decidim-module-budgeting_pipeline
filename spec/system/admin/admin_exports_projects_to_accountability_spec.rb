@@ -2,11 +2,11 @@
 
 require "spec_helper"
 
-describe "Admin exports projects to accountability", type: :system do
+describe "AdminExportsProjectsToAccountability" do
   let(:manifest_name) { "budgets" }
   let(:budget) { create(:budgeting_pipeline_budget, component: current_component) }
-  let!(:selected_projects) { create_list(:budgeting_pipeline_project, 5, budget: budget, selected_at: Time.current) }
-  let!(:other_projects) { create_list(:budgeting_pipeline_project, 10, budget: budget) }
+  let!(:selected_projects) { create_list(:budgeting_pipeline_project, 5, budget:, selected_at: Time.current) }
+  let!(:other_projects) { create_list(:budgeting_pipeline_project, 10, budget:) }
 
   let!(:accountability_component) { create(:accountability_component, participatory_space: current_component.participatory_space) }
 
@@ -16,20 +16,20 @@ describe "Admin exports projects to accountability", type: :system do
     switch_to_host(organization.host)
     login_as user, scope: :user
     visit_component_admin
-    click_link "Exports proposals to results"
+    click_on "Exports proposals to results"
   end
 
   it "can export projects to accountability" do
     select translated(accountability_component.name), from: :accountability_export_target_component_id
     check :accountability_export_export_all_selected_projects
 
-    expect { click_button "Export to results" }.to change(Decidim::Accountability::Result, :count).by(selected_projects.count)
+    expect { click_on "Export to results" }.to change(Decidim::Accountability::Result, :count).by(selected_projects.count)
 
     expect(page).to have_content("Proposals successfully exported to results")
   end
 
   context "when checking the exported details" do
-    let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget: budget, selected_at: Time.current) }
+    let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current) }
     let(:project) { selected_projects.first }
 
     let(:result) { Decidim::Accountability::Result.order(:id).last }
@@ -46,7 +46,7 @@ describe "Admin exports projects to accountability", type: :system do
     end
 
     context "with scope" do
-      let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget: budget, selected_at: Time.current, scope: scope) }
+      let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current, scope:) }
       let(:scope) { create(:scope, organization: current_component.organization) }
 
       it "sets the correct scope" do
@@ -56,8 +56,8 @@ describe "Admin exports projects to accountability", type: :system do
       end
 
       context "when defined by budget" do
-        let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget: budget, selected_at: Time.current) }
-        let(:budget) { create(:budgeting_pipeline_budget, component: current_component, scope: scope) }
+        let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current) }
+        let(:budget) { create(:budgeting_pipeline_budget, component: current_component, scope:) }
 
         it "sets the correct scope" do
           perform_export
@@ -68,7 +68,7 @@ describe "Admin exports projects to accountability", type: :system do
     end
 
     context "with category" do
-      let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget: budget, selected_at: Time.current, category: category) }
+      let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current, category:) }
       let(:category) { create(:category, participatory_space: current_component.participatory_space) }
 
       it "sets the correct category" do
@@ -79,21 +79,21 @@ describe "Admin exports projects to accountability", type: :system do
     end
 
     context "with statuses" do
-      let!(:status1) { create(:status, component: accountability_component, progress: 10) }
-      let!(:status2) { create(:status, component: accountability_component, progress: 50) }
+      let!(:status_one) { create(:status, component: accountability_component, progress: 10) }
+      let!(:status_two) { create(:status, component: accountability_component, progress: 50) }
 
       it "sets the correct status for the result" do
         perform_export
 
         expect(result.progress).to eq(10)
-        expect(result.status).to eq(status1)
+        expect(result.status).to eq(status_one)
       end
     end
 
     def perform_export
       select translated(accountability_component.name), from: :accountability_export_target_component_id
       check :accountability_export_export_all_selected_projects
-      click_button "Export to results"
+      click_on "Export to results"
     end
   end
 end

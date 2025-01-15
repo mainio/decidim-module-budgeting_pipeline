@@ -33,14 +33,14 @@ module Decidim
       attr_reader :form, :user, :workflow, :orders
 
       def destroy_previous_orders!
-        Decidim::Budgets::Order.where(budget: budgets, user: user).where.not(
+        Decidim::Budgets::Order.where(budget: budgets, user:).where.not(
           budget: selected_budgets
         ).destroy_all
       end
 
       def create_orders!
         @orders = selected_budgets.map do |budget|
-          Decidim::Budgets::Order.find_or_create_by!(user: user, budget: budget)
+          Decidim::Budgets::Order.find_or_create_by!(user:, budget:)
         end
       end
 

@@ -42,7 +42,7 @@ module Decidim
       end
 
       def selected_projects(budget)
-        Decidim::Budgets::Project.where(budget: budget).where.not(selected_at: nil)
+        Decidim::Budgets::Project.where(budget:).where.not(selected_at: nil)
       end
     end
   end

@@ -13,13 +13,13 @@ module Decidim
             enforce_permission_to :create, :project
             @form = form(Decidim::Budgets::Admin::ProjectForm).from_params(
               { attachment: form(AttachmentForm).instance },
-              budget: budget
+              budget:
             )
           end
 
           def edit
-            enforce_permission_to :update, :project, project: project
-            @form = form(Decidim::Budgets::Admin::ProjectForm).from_model(project, budget: budget)
+            enforce_permission_to(:update, :project, project:)
+            @form = form(Decidim::Budgets::Admin::ProjectForm).from_model(project, budget:)
             @form.attachment = form(AttachmentForm).instance
           end
         end

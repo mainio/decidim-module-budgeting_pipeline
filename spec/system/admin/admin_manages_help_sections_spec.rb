@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe "Admin manages help sections", type: :system do
+describe "AdminManagesHelpSections" do
   let(:manifest_name) { "budgets" }
   let!(:index_sections) { create_list(:budgeting_pipeline_help_section, 2, component: current_component, key: :index) }
   let!(:pipeline_sections) { create_list(:budgeting_pipeline_help_section, 2, component: current_component, key: :pipeline) }
@@ -13,7 +13,7 @@ describe "Admin manages help sections", type: :system do
     switch_to_host(organization.host)
     login_as user, scope: :user
     visit_component_admin
-    click_link "Helping content"
+    click_on "Helping content"
   end
 
   describe "index" do
@@ -26,7 +26,7 @@ describe "Admin manages help sections", type: :system do
 
     it "browsing through the help sections" do
       within ".table-list" do
-        click_link "Front page"
+        click_on "Front page"
       end
 
       within "h1.item_show__header-title" do
@@ -40,11 +40,11 @@ describe "Admin manages help sections", type: :system do
       end
 
       within "h1.item_show__header-title" do
-        click_link "Helping content"
+        click_on "Helping content"
       end
 
       within ".table-list" do
-        click_link "Voting pipeline"
+        click_on "Voting pipeline"
       end
 
       within ".table-list" do
@@ -58,7 +58,7 @@ describe "Admin manages help sections", type: :system do
   describe "create" do
     before do
       within ".table-list" do
-        click_link "Front page"
+        click_on "Front page"
       end
 
       click_on "New help section"
@@ -83,17 +83,17 @@ describe "Admin manages help sections", type: :system do
 
     before do
       within ".table-list" do
-        click_link "Front page"
+        click_on "Front page"
       end
 
       within ".table-list" do
-        click_link translated(section.title)
+        click_on translated(section.title)
       end
     end
 
     it "allows updating the help section" do
       fill_in_details
-      click_button "Update help section"
+      click_on "Update help section"
 
       expect(page).to have_content("Help section successfully updated")
       within ".table-list" do
@@ -109,7 +109,7 @@ describe "Admin manages help sections", type: :system do
 
     before do
       within ".table-list" do
-        click_link "Front page"
+        click_on "Front page"
       end
 
       within "h1.item_show__header-title" do
@@ -121,7 +121,7 @@ describe "Admin manages help sections", type: :system do
       expect do
         within ".table-list" do
           within "tr[data-id='#{section.id}']" do
-            accept_confirm { click_link "Delete" }
+            accept_confirm { click_on "Delete" }
           end
         end
       end.to change(Decidim::Budgets::HelpSection, :count).by(-1)

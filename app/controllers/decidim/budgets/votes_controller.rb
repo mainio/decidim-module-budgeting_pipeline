@@ -56,6 +56,8 @@ module Decidim
         redirect_to routes_proxy.budgets_vote_path
       end
 
+      def preview; end
+
       def budgets
         @form = form(BudgetSelectForm).from_model(current_workflow)
       end
@@ -256,7 +258,7 @@ module Decidim
                 false
               end
 
-            OpenStruct.new(key: key, done: done, available: available, link: step_link)
+            OpenStruct.new(key:, done:, available:, link: step_link)
           end
 
           steps

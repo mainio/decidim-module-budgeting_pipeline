@@ -2,16 +2,16 @@
 
 require "spec_helper"
 
-describe Decidim::Budgets::VotesController, type: :controller do
+describe Decidim::Budgets::VotesController do
   routes { Decidim::Budgets::Engine.routes }
 
   let(:organization) { build(:organization, tos_version: Time.current, available_authorizations: ["dummy_authorization_handler"]) }
-  let(:user) { create(:user, :confirmed, organization: organization) }
-  let(:participatory_space) { create(:participatory_process, :with_steps, organization: organization) }
+  let(:user) { create(:user, :confirmed, organization:) }
+  let(:participatory_space) { create(:participatory_process, :with_steps, organization:) }
   let(:component) do
     create(
       :budgeting_pipeline_component,
-      participatory_space: participatory_space,
+      participatory_space:,
       permissions: {
         "vote" => {
           "authorization_handlers" => {
@@ -36,10 +36,10 @@ describe Decidim::Budgets::VotesController, type: :controller do
   end
 
   shared_context "with existing orders" do
-    let!(:budget1) { create(:budgeting_pipeline_budget, component: component) }
-    let!(:budget2) { create(:budgeting_pipeline_budget, component: component) }
-    let!(:order1) { create(:order, budget: budget1, user: user) }
-    let!(:order2) { create(:order, budget: budget2, user: user) }
+    let!(:budget_one) { create(:budgeting_pipeline_budget, component:) }
+    let!(:budget_two) { create(:budgeting_pipeline_budget, component:) }
+    let!(:order_one) { create(:order, budget: budget_one, user:) }
+    let!(:order_two) { create(:order, budget: budget_two, user:) }
   end
 
   shared_examples "ensured voting open" do
@@ -84,10 +84,10 @@ describe Decidim::Budgets::VotesController, type: :controller do
       end
 
       context "when the user is authorized" do
-        let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
+        let!(:authorization) { create(:authorization, :granted, user:, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
         context "when the user has voted" do
-          let!(:vote) { create(:budgeting_pipeline_vote, order_count: 2, order_checked_out: true, user: user, component: component) }
+          let!(:vote) { create(:budgeting_pipeline_vote, order_count: 2, order_checked_out: true, user:, component:) }
 
           it "redirects to projects" do
             do_request
@@ -105,7 +105,7 @@ describe Decidim::Budgets::VotesController, type: :controller do
 
     context "when voting is open and the user is authorized" do
       let(:step_settings) { { votes: :enabled } }
-      let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
+      let!(:authorization) { create(:authorization, :granted, user:, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
       context "when there are no orders available" do
         it "redirects to budgets selection" do
@@ -122,18 +122,18 @@ describe Decidim::Budgets::VotesController, type: :controller do
 
     context "when orders are not valid" do
       let(:step_settings) { { votes: :enabled } }
-      let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
+      let!(:authorization) { create(:authorization, :granted, user:, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
       include_context "with existing orders"
 
       before do
-        order1.projects << create(:project, budget_amount: 10, budget: budget1)
-        order1.projects << create(:project, budget_amount: 20, budget: budget1)
-        order1.projects << create(:project, budget_amount: 5, budget: budget1)
-        order1.projects << create(:project, budget_amount: 15, budget: budget1)
-        order1.projects << create(:project, budget_amount: 30, budget: budget1)
-        order1.projects << create(:project, budget_amount: 25, budget: budget1)
-        order1.save!(validate: false)
+        order_one.projects << create(:project, budget_amount: 10, budget: budget_one)
+        order_one.projects << create(:project, budget_amount: 20, budget: budget_one)
+        order_one.projects << create(:project, budget_amount: 5, budget: budget_one)
+        order_one.projects << create(:project, budget_amount: 15, budget: budget_one)
+        order_one.projects << create(:project, budget_amount: 30, budget: budget_one)
+        order_one.projects << create(:project, budget_amount: 25, budget: budget_one)
+        order_one.save!(validate: false)
       end
 
       it "redirects to projects selection" do
@@ -157,7 +157,7 @@ describe Decidim::Budgets::VotesController, type: :controller do
 
     context "when everything is set for voting" do
       let(:step_settings) { { votes: :enabled } }
-      let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
+      let!(:authorization) { create(:authorization, :granted, user:, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
       it "renders" do
         expect(response).to have_http_status(:ok)
@@ -172,7 +172,7 @@ describe Decidim::Budgets::VotesController, type: :controller do
 
     context "when everything is set for voting" do
       let(:step_settings) { { votes: :enabled } }
-      let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
+      let!(:authorization) { create(:authorization, :granted, user:, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
       context "when budgets are not selected" do
         it "renders budgets" do
@@ -184,11 +184,11 @@ describe Decidim::Budgets::VotesController, type: :controller do
       end
 
       context "when budgets are selected" do
-        let!(:budget1) { create(:budgeting_pipeline_budget, component: component) }
-        let!(:budget2) { create(:budgeting_pipeline_budget, component: component) }
+        let!(:budget_one) { create(:budgeting_pipeline_budget, component:) }
+        let!(:budget_two) { create(:budgeting_pipeline_budget, component:) }
 
         it "redirects to projects selection" do
-          post :start, params: { budget_ids: [budget1.id, budget2.id] }
+          post :start, params: { budget_ids: [budget_one.id, budget_two.id] }
 
           expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/vote/projects")
         end
@@ -203,7 +203,7 @@ describe Decidim::Budgets::VotesController, type: :controller do
 
     context "when everything is set for voting" do
       let(:step_settings) { { votes: :enabled } }
-      let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
+      let!(:authorization) { create(:authorization, :granted, user:, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
       context "when there are orders available" do
         include_context "with existing orders"
@@ -224,7 +224,7 @@ describe Decidim::Budgets::VotesController, type: :controller do
 
     context "when everything is set for voting" do
       let(:step_settings) { { votes: :enabled } }
-      let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
+      let!(:authorization) { create(:authorization, :granted, user:, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
       context "when there are orders available" do
         include_context "with existing orders"
@@ -245,7 +245,7 @@ describe Decidim::Budgets::VotesController, type: :controller do
 
     context "when everything is set for voting" do
       let(:step_settings) { { votes: :enabled } }
-      let!(:authorization) { create(:authorization, :granted, user: user, name: "dummy_authorization_handler", unique_id: "123456789X") }
+      let!(:authorization) { create(:authorization, :granted, user:, name: "dummy_authorization_handler", unique_id: "123456789X") }
 
       include_context "with existing orders"
 
@@ -258,8 +258,8 @@ describe Decidim::Budgets::VotesController, type: :controller do
       it "checks out the orders" do
         post :create
 
-        expect(order1.reload.checked_out?).to be(true)
-        expect(order2.reload.checked_out?).to be(true)
+        expect(order_one.reload.checked_out?).to be(true)
+        expect(order_two.reload.checked_out?).to be(true)
       end
 
       context "with show votes enabled" do

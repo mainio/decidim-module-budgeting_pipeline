@@ -6,11 +6,11 @@ require "decidim/api/test/type_context"
 describe Decidim::Budgets::ProjectType do
   include_context "with a graphql class type"
 
-  let(:model) { create(:budgeting_pipeline_project, component: component) }
+  let(:model) { create(:budgeting_pipeline_project, component:) }
   let(:participatory_space) { create(:participatory_process) }
-  let(:component) { create(:budgeting_pipeline_component, participatory_space: participatory_space) }
+  let(:component) { create(:budgeting_pipeline_component, participatory_space:) }
   let(:proposal) { create(:proposal, component: proposals_component) }
-  let(:proposals_component) { create(:proposal_component, participatory_space: participatory_space) }
+  let(:proposals_component) { create(:proposal_component, participatory_space:) }
 
   describe "summary" do
     let(:query) { "{ summary { translations { text locale } } }" }
@@ -124,7 +124,7 @@ describe Decidim::Budgets::ProjectType do
   end
 
   describe "budgetAmountMin" do
-    let(:model) { create(:budgeting_pipeline_project, component: component, budget_amount_min: 10_000) }
+    let(:model) { create(:budgeting_pipeline_project, component:, budget_amount_min: 10_000) }
 
     let(:query) { "{ budgetAmountMin }" }
 

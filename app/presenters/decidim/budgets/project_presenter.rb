@@ -21,7 +21,7 @@ module Decidim
       def title(links: false, extras: true, html_escape: false, all_locales: false)
         return unless project
 
-        super project.title, links, html_escape, all_locales, extras: extras
+        super project.title, links, html_escape, all_locales, extras:
       end
     end
   end

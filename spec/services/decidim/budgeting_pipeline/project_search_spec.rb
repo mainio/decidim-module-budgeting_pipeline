@@ -5,19 +5,19 @@ require "spec_helper"
 describe Decidim::BudgetingPipeline::ProjectSearch do
   subject { described_class.new(base_query, params, options) }
 
-  let(:base_query) { Decidim::Budgets::Project.where(component: component) }
+  let(:base_query) { Decidim::Budgets::Project.where(component:) }
   let(:params) { {} }
-  let(:options) { { component: component } }
+  let(:options) { { component: } }
 
   let(:component) { create(:budgeting_pipeline_component) }
-  let!(:budget1) { create(:budget, component: component) }
-  let!(:budget2) { create(:budget, component: component) }
+  let!(:budget_one) { create(:budget, component:) }
+  let!(:budget_two) { create(:budget, component:) }
   let!(:projects) do
     [].tap do |list|
-      list << create(:project, title: { en: "First project" }, budget: budget1)
-      list << create(:project, title: { en: "Second project" }, budget: budget1)
-      list << create(:project, title: { en: "Third project" }, budget: budget2)
-      list << create(:project, title: { en: "Fourth project" }, budget: budget2)
+      list << create(:project, title: { en: "First project" }, budget: budget_one)
+      list << create(:project, title: { en: "Second project" }, budget: budget_one)
+      list << create(:project, title: { en: "Third project" }, budget: budget_two)
+      list << create(:project, title: { en: "Fourth project" }, budget: budget_two)
     end
   end
 
@@ -75,7 +75,7 @@ describe Decidim::BudgetingPipeline::ProjectSearch do
 
     context "when searching with searchable plan content" do
       let(:section) { create(:section, :field_text, component: plans_component) }
-      let!(:content) { create(:content, section: section, plan: plans.first, body: { en: "This content should be discoverable through the search." }) }
+      let!(:content) { create(:content, section:, plan: plans.first, body: { en: "This content should be discoverable through the search." }) }
 
       let(:params) { { search_text_cont: "discoverable" } }
 

@@ -18,9 +18,14 @@ module Decidim
           @form = form(HelpSectionForm).instance
         end
 
+        def edit
+          enforce_permission_to :update, :help_section, help_section: section
+          @form = form(HelpSectionForm).from_model(section)
+        end
+
         def create
           enforce_permission_to :create, :help_section
-          @form = form(HelpSectionForm).from_params(params, current_component: current_component)
+          @form = form(HelpSectionForm).from_params(params, current_component:)
 
           CreateHelpSection.call(@form, container) do
             on(:ok) do
@@ -35,14 +40,9 @@ module Decidim
           end
         end
 
-        def edit
-          enforce_permission_to :update, :help_section, help_section: section
-          @form = form(HelpSectionForm).from_model(section)
-        end
-
         def update
           enforce_permission_to :update, :help_section, help_section: section
-          @form = form(HelpSectionForm).from_params(params, current_component: current_component)
+          @form = form(HelpSectionForm).from_params(params, current_component:)
 
           UpdateHelpSection.call(@form, section) do
             on(:ok) do
