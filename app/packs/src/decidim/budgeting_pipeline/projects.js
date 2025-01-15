@@ -22,15 +22,12 @@
         if (!ordersSummary.classList.contains("is-stuck")) {
           placeHolder.style.height = `${ordersSummary.offsetHeight}px`;
           ordersSummary.classList.add("is-stuck");
-        } else {
-          return;
         }
       } else {
+        // eslint-disable-next-line no-lonely-if
         if (ordersSummary.classList.contains("is-stuck")) {
           ordersSummary.classList.remove("is-stuck");
           placeHolder.style.height = 0;
-        } else {
-          return;
         }
       }
     });
