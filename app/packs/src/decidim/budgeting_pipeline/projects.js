@@ -22,6 +22,8 @@
         if (!ordersSummary.classList.contains("is-stuck")) {
           placeHolder.style.height = `${ordersSummary.offsetHeight}px`;
           ordersSummary.classList.add("is-stuck");
+        } else {
+          return;
         }
       } else {
         if (ordersSummary.classList.contains("is-stuck")) {
@@ -74,12 +76,10 @@
     document.querySelectorAll("[data-project-selector] input[type='checkbox']").forEach((el) => {
 
       el.addEventListener("change", () => {
-        let requestType;
+        let requestType = "DELETE";
 
         if (el.checked) {
           requestType = "POST";
-        } else {
-          requestType = "DELETE";
         }
 
         loadingProjects.push(el.value);
@@ -120,9 +120,9 @@
 
       clickableArea.addEventListener("click", clickHandler);
 
-      // eslint-disable-next-line no-undef
       button.addEventListener("keydown", (ev) => {
         if (ev.code === "Enter" || ev.code === "Space") {
+          // eslint-disable-next-line no-undef
           buttonClickHandler(ev);
         }
       });
