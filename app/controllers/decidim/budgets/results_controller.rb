@@ -89,7 +89,7 @@ module Decidim
       end
 
       def vote_success?
-        @vote_success ||= session.delete("decidim-budgets.voted") == true
+        @vote_success ||= current_workflow.voted.any?
       end
     end
   end

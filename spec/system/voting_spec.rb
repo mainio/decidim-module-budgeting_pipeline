@@ -104,14 +104,16 @@ describe "Voting", type: :system do
     end
 
     it "allows selecting projects" do
-      page.scroll_to find("#projects-count")
+      page.scroll_to find(".orders-summary-item")
 
-      within all(".card form.button_to")[0] do
-        click_button "Add to voting cart"
+      first("#projects_table .projects-table__row") do |container|
+        within container do
+          find("input").click
+        end
       end
 
       # May be different element when the cart is updated
-      expect(page).to have_button("Remove from voting cart")
+      expect(page).to have_button("Remove from vote")
     end
 
     context "when project is selected" do
@@ -129,17 +131,29 @@ describe "Voting", type: :system do
       end
 
       it "shows progress correctly" do
-        within all(".card form.button_to")[0] do
-          click_button "Add to voting cart"
+        first("#projects_table .projects-table__row") do |container|
+          within container do
+            find("input").click
+          end
         end
 
-        page.scroll_to find("#orders")
+        page.scroll_to find("#orders-summary")
 
-        within "#orders" do
-          expect(page).to have_content("Proposals in the cart 1 pcs")
-          expect(page).to have_content("Maximum amount of proposals to be selected 5")
-          expect(page).to have_content("Number of selected proposals 1")
-          expect(page).to have_content("Remaining proposals to select 4")
+        within "#orders-summary" do
+          expect(page).to have_content("4 votes remaining")
+
+          within ".voting-progress__indicator" do
+            uses = all("use")
+            expect(uses.size).to eq(5)
+
+            hrefs = uses.map { |use| use[:href] }
+
+            circle_line_count = hrefs.count { |href| href.include?("ri-checkbox-circle-line") }
+            blank_circle_line_count = hrefs.count { |href| href.include?("ri-checkbox-blank-circle-line") }
+
+            expect(circle_line_count).to eq(1)
+            expect(blank_circle_line_count).to eq(4)
+          end
         end
       end
     end
@@ -183,7 +197,7 @@ describe "Voting", type: :system do
 
     it "can cast the vote" do
       click_button "Vote"
-      click_on "See my vote"
+
       within "#vote-finished-modal" do
         expect(page).to have_content("Thank you for your vote!")
       end

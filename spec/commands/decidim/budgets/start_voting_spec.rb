@@ -53,8 +53,7 @@ describe Decidim::Budgets::StartVoting do
             Thread.new do
               sleep(rand(0.05..0.5))
 
-              usr = Decidim::User.find(user.id)
-              described_class.new(form, usr, workflow)
+              subject
             end
           end
           # Wait for each thread to finish

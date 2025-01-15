@@ -19,13 +19,12 @@
   $(document).ready(function() {
     let $modal = $("#vote-finished-modal");
 
-    if ($modal.length < 1) {
-      $modal = $('<%= j(render partial: "decidim/budgets/votes/finished_modal") %>');
-      $("body").append($modal);
+    if (!$modal.data("voteFinishedDialog")) {
 
       let dialog = new window.Decidim.Dialogs("#vote-finished-modal");
       $modal.data("voteFinishedDialog", dialog);
-      var dialogInstance = $modal.data("voteFinishedDialog");
+
+      var dialogInstance = dialog;
     }
 
     dialogInstance.open();
