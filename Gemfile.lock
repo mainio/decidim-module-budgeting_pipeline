@@ -42,7 +42,7 @@ GIT
 
 GIT
   remote: https://github.com/mainio/decidim-module-stats.git
-  revision: ed8dab37874a0f7e1df94aaf175647b71ae11789
+  revision: d18e92cbda07187a98dbd2608875002e2e2536b1
   specs:
     decidim-stats (0.28.0)
       decidim-core (~> 0.28.0)
