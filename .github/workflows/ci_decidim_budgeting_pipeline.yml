@@ -16,14 +16,14 @@ jobs:
     name: Build test application
     uses: mainio/gha-decidim-module/.github/workflows/build_app.yml@main
     secrets: inherit
+  main:
+    needs: build_app
+    name: Tests
+    uses: mainio/gha-decidim-module/.github/workflows/ci_rspec.yml@main
+    secrets: inherit
     with:
       extra_steps: |
         - name: Install ImageMagick
           run: |
             sudo apt-get update
             sudo apt-get install -y imagemagick
-  main:
-    needs: build_app
-    name: Tests
-    uses: mainio/gha-decidim-module/.github/workflows/ci_rspec.yml@main
-    secrets: inherit
