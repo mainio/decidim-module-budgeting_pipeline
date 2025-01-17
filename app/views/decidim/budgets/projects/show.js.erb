@@ -1,13 +1,13 @@
-let modalId = "project-modal-<%= project.id %>";
-let $modal = $("#" + modalId);
-if ($modal.length < 1) {
-  let modalHTML = '<%= j(render partial: "project_modal").strip.html_safe %>';
-  $("body").append(modalHTML);
+let $modal = $("#project-modal-<%= project.id %>");
 
-  let dialog = new A11yDialog($modal);
+if ($modal.length < 1) {
+  $modal = $('<%= j(render partial: "project_modal").strip.html_safe %>');
+  $("body").append($modal);
+
+  let dialog = new window.Decidim.Dialogs("#project-modal-<%= project.id %>");
   $modal.data("projectDialog", dialog);
+
+  var dialogInstance = dialog;
 }
 
-let dialogInstance = $modal.data("projectDialog");
-
-dialogInstance.show();
+dialogInstance.open();

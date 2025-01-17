@@ -1,4 +1,14 @@
 (function() {
+  var $notificationModal = $("#exit-notification-modal");
+
+  if ($notificationModal.length < 1) {
+    $notificationModal = $('<%= j(render partial: "exit_modal").strip.html_safe %>');
+    $("body").append($notificationModal);
+
+    let notificationDialog = new window.Decidim.Dialogs("#exit-notification-modal");
+    $notificationModal.data("exitNotificationDialog", notificationDialog);
+  }
+
   var $modal = $("#order-preview-modal");
   if ($modal.length > 0) {
     $modal.remove();
@@ -9,7 +19,7 @@
 
   let dialog = new window.Decidim.Dialogs("#order-preview-modal");
   $modal.data("orderPreviewDialog", dialog);
-  let dialogInstance = $modal.data("orderPreviewDialog");
+  let dialogInstance = dialog;
 
   dialogInstance.open();
 
