@@ -7,28 +7,38 @@ module Decidim
       extend ActiveSupport::Concern
 
       include Decidim::Paginable
+      include Decidim::TranslatableAttributes
       include Decidim::BudgetingPipeline::VoteUtilities
+      include Decidim::BudgetingPipeline::OrdersUtilities
+      include Decidim::BudgetingPipeline::Authorizable
       include Decidim::BudgetingPipeline::Orderable
 
       included do
-        helper_method :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :statuses_available?, :vote_success?
+        # rubocop:disable Rails/LexicallyScopedActionFilter
+        before_action :set_breadcrumbs, only: [:index, :show]
+        # rubocop:enable Rails/LexicallyScopedActionFilter
 
-        def index; end
+        helper_method :authorization_required?, :user_authorized?, :help_sections, :geocoded_projects, :budgets, :maximum_project_budget, :vote_success?
+
+        helper Decidim::BudgetingPipeline::AuthorizationHelper
 
         def show
           raise ActionController::RoutingError, "Not Found" unless project
         end
 
+        def index; end
+
         def default_filter_params
           {
             search_text_cont: "",
             with_any_status: %w(all),
-            with_any_scope: default_filter_scope_params,
+            with_any_scope: nil,
             with_any_category: "all",
             decidim_budgets_budget_id_eq: nil,
             budget_amount_gteq: 0,
             budget_amount_lteq: maximum_project_budget,
-            activity: "all"
+            favorites: nil,
+            selected: nil
           }
         end
 
@@ -46,6 +56,16 @@ module Decidim
       end
 
       private
+
+      def set_breadcrumbs
+        return unless respond_to?(:add_breadcrumb, true)
+
+        add_breadcrumb(t("decidim.budgets.projects.index.breadcrumb"), projects_path)
+        return unless action_name == "show"
+        return unless project
+
+        add_breadcrumb(translated_attribute(project.title), project_path(project))
+      end
 
       def help_sections
         @help_sections ||= Decidim::Budgets::HelpSection.where(
@@ -67,10 +87,6 @@ module Decidim
 
       def maximum_project_budget
         @maximum_project_budget ||= Decidim::Budgets::Project.where(budget: budgets).maximum(:budget_amount)
-      end
-
-      def statuses_available?
-        @statuses_available ||= Decidim::Budgets::Project.where(budget: budgets).where.not(selected_at: nil).any?
       end
 
       def vote_success?

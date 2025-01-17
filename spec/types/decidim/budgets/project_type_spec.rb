@@ -6,11 +6,132 @@ require "decidim/api/test/type_context"
 describe Decidim::Budgets::ProjectType do
   include_context "with a graphql class type"
 
-  let(:model) { create(:budgeting_pipeline_project, component: component) }
+  let(:model) { create(:budgeting_pipeline_project, component:) }
   let(:participatory_space) { create(:participatory_process) }
-  let(:component) { create(:budgeting_pipeline_component, participatory_space: participatory_space) }
+  let(:component) { create(:budgeting_pipeline_component, participatory_space:) }
   let(:proposal) { create(:proposal, component: proposals_component) }
-  let(:proposals_component) { create(:proposal_component, participatory_space: participatory_space) }
+  let(:proposals_component) { create(:proposal_component, participatory_space:) }
+
+  describe "summary" do
+    let(:query) { "{ summary { translations { text locale } } }" }
+
+    let(:response_summary) do
+      response["summary"]["translations"].to_h do |value|
+        [value["locale"], value["text"]]
+      end
+    end
+
+    it "returns the project summary" do
+      actual_summary = model.summary.except("machine_translations")
+      machine_translations = model.summary["machine_translations"]
+      expect(response_summary).to match(actual_summary.merge(machine_translations))
+    end
+  end
+
+  describe "mainImage" do
+    let(:query) { "{ mainImage }" }
+
+    before do
+      model.main_image.attach(
+        io: File.open(Decidim::Dev.asset("city.jpeg")),
+        filename: "city.jpeg",
+        content_type: "image/jpeg"
+      )
+    end
+
+    it "returns the project's main image" do
+      expect(response["mainImage"]).to match(model.attached_uploader(:main_image).url)
+    end
+  end
+
+  describe "mainImageBlob" do
+    let(:query) { "{ mainImageBlob { id } }" }
+
+    context "without a user" do
+      let!(:current_user) { nil }
+
+      context "when the blob is attached" do
+        before do
+          model.main_image.attach(
+            io: File.open(Decidim::Dev.asset("city.jpeg")),
+            filename: "city.jpeg",
+            content_type: "image/jpeg"
+          )
+        end
+
+        it "returns nil" do
+          expect(response["mainImageBlob"]).to be_nil
+        end
+      end
+    end
+
+    context "with a regular user" do
+      context "when the blob is attached" do
+        before do
+          model.main_image.attach(
+            io: File.open(Decidim::Dev.asset("city.jpeg")),
+            filename: "city.jpeg",
+            content_type: "image/jpeg"
+          )
+        end
+
+        it "returns nil" do
+          expect(response["mainImageBlob"]).to be_nil
+        end
+      end
+    end
+
+    context "with an admin user" do
+      let!(:current_user) { create(:user, :confirmed, :admin, organization: current_organization) }
+
+      context "when the blob is not attached" do
+        it "returns nil" do
+          expect(response["mainImageBlob"]).to be_nil
+        end
+      end
+
+      context "when the blob is attached" do
+        before do
+          model.main_image.attach(
+            io: File.open(Decidim::Dev.asset("city.jpeg")),
+            filename: "city.jpeg",
+            content_type: "image/jpeg"
+          )
+        end
+
+        it "returns the project's main image blob ID" do
+          expect(response["mainImageBlob"]).to eq("id" => model.main_image.blob.id.to_s)
+        end
+      end
+    end
+  end
+
+  describe "budgetAmount" do
+    let(:query) { "{ budgetAmount }" }
+
+    it "returns the project's budget amount" do
+      expect(response["budgetAmount"]).to match(model.budget_amount)
+    end
+  end
+
+  # Deprecated, keep for the time being.
+  describe "budget_amount" do
+    let(:query) { "{ budget_amount }" }
+
+    it "returns the project's budget amount" do
+      expect(response["budget_amount"]).to match(model.budget_amount)
+    end
+  end
+
+  describe "budgetAmountMin" do
+    let(:model) { create(:budgeting_pipeline_project, component:, budget_amount_min: 10_000) }
+
+    let(:query) { "{ budgetAmountMin }" }
+
+    it "returns the project's minimum budget amount" do
+      expect(response["budgetAmountMin"]).to match(model.budget_amount_min)
+    end
+  end
 
   describe "linkedResources" do
     let(:query) { "{ linkedResources { ...on Proposal { id } } }" }

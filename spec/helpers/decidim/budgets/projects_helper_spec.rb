@@ -9,10 +9,10 @@ module Decidim
       include Decidim::BudgetingPipeline::ProjectsHelperExtensions
 
       let!(:organization) { create(:organization) }
-      let!(:budgets_component) { create(:budgets_component, :with_geocoding_enabled, organization: organization) }
+      let!(:budgets_component) { create(:budgets_component, :with_geocoding_enabled, organization:) }
       let(:budgets) { create_list(:budget, 2, component: budgets_component) }
-      let!(:user) { create(:user, organization: organization) }
-      let!(:projects) { create_list(:project, 5, budget: budgets.first, address: address, latitude: latitude, longitude: longitude, component: budgets_component) }
+      let!(:user) { create(:user, organization:) }
+      let!(:projects) { create_list(:project, 5, budget: budgets.first, address:, latitude:, longitude:, component: budgets_component) }
       let!(:project) { projects.first }
       let(:address) { "Carrer Pic de Peguera 15, 17003 Girona" }
       let(:latitude) { 40.1234 }

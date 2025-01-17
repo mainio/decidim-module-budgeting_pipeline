@@ -2,10 +2,15 @@ var $projects = $('#projects');
 var $map = $('#map');
 var $projectsCount = $('#projects-count');
 var $orderFilterInput = $('.order_filter');
+var $order = $('.order-by__dropdown a[data-order="<%= order %>"]');
 
 $projects.html('<%= j(render partial: "projects").strip.html_safe %>');
 $projectsCount.html('<%= j(render partial: "count").strip.html_safe %>');
 $orderFilterInput.val('<%= order %>');
+
+if ($order) {
+  $(".order-by__dropdown .is-dropdown-submenu-parent > button").text($order.text());
+}
 
 var $dropdownMenu = $('.dropdown.menu', $projects);
 $dropdownMenu.foundation();

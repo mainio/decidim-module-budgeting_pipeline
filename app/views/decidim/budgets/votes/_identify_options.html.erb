@@ -1,9 +1,8 @@
 <div class="row columns">
   <div class="static__content">
-    <h2><%= t(".title") %></h2>
+    <h2 class="h4"><%= t(".title") %></h2>
     <%== translated_attribute component_settings.vote_identify_page_content %>
   </div>
-
   <div class="voting-identity">
     <% if user_signed_in? %>
       <% if user_authorizations(:pending).any? %>
@@ -20,51 +19,39 @@
         </div>
       <% elsif user_authorizations(:granted).any? %>
         <div class="mb-2">
-          <div class="static__content">
-            <p><%= t(".granted_authorizations_notice") %></p>
-            <ul>
-              <% user_authorizations(:granted).each do |authorization| %>
-                <li><%= authorization_provider_name(authorization.name) %></li>
-              <% end %>
-            </ul>
+          <div class="callout alert margin-bottom-1">
+            <p><%= t(".granted_authorizations_info") %></p>
           </div>
+
+          <p><%= t(".granted_authorizations_notice") %></p>
+          <ul>
+            <% user_authorizations(:granted).each do |authorization| %>
+              <li><%= authorization_provider_name(authorization.name) %></li>
+            <% end %>
+          </ul>
+
           <% if authorization_providers.any? %>
-            <div class="static__content">
-              <p><%= t(".granted_authorizations_info") %></p>
-              <p><%= t(".granted_authorizations_other") %></p>
-            </div>
-          <% else %>
-            <div class="callout alert">
-              <p><%= t(".granted_authorizations_info") %></p>
-            </div>
+            <p><%= t(".granted_authorizations_other") %></p>
           <% end %>
         </div>
       <% end %>
       <% if authorization_providers.any? %>
-        <div class="row">
-          <% authorization_providers.each do |provider| %>
-            <div class="columns small-6">
-              <%= link_to provider.root_path, class: "button expanded button--#{normalize_provider_name(provider)}" do %>
-                <%= authorization_provider_name(provider.key) %>
-              <% end %>
-            </div>
+        <% authorization_providers.each_with_index do |provider, idx| %>
+          <%== "<br>" if idx > 0 %>
+          <%= link_to provider.root_path, class: "button button--icon button--#{normalize_provider_name(provider)}" do %>
+            <%= authorization_provider_name(provider.key) %>
+            <%= icon("arrow-right-line", role: "img", "aria-hidden": true) %>
           <% end %>
-        </div>
+        <% end %>
       <% end %>
     <% else %>
-      <div class="row">
-        <% identity_providers.each do |provider| %>
-          <div class="columns small-6">
-            <%= link_to decidim.send("user_#{provider}_omniauth_authorize_path"), class: "button expanded button--#{normalize_provider_name(provider)}", method: :post do %>
-              <%= identity_provider_name(provider) %>
-            <% end %>
-          </div>
+      <% identity_providers.each_with_index do |provider, idx| %>
+        <%== "<br>" if idx > 0 %>
+        <%= link_to decidim.send("user_#{provider}_omniauth_authorize_path", redirect_url: vote_path), class: "button button--icon button--#{normalize_provider_name(provider)}", method: :post do %>
+          <%= identity_provider_name(provider) %>
+          <%= icon("arrow-right-line", role: "img", "aria-hidden": true) %>
         <% end %>
-      </div>
+      <% end %>
     <% end %>
-  </div>
-
-  <div class="static__content mt-10">
-    <%== translated_attribute component_settings.vote_identify_page_more_information %>
   </div>
 </div>

@@ -1,0 +1,44 @@
+<% content_for :top do %>
+  <div class="row columns">
+    <div class="page-title">
+      <h1><%= t(".title") %></h1>
+    </div>
+  </div>
+<% end %>
+
+<% feedback_url = translated_attribute(component_settings.feedback_url) %>
+
+<div class="wrapper voting-wrapper">
+  <div class="row columns margin-bottom-3">
+    <div class="static__content text-center">
+      <p><%= icon("checkbox-circle-line", role: "img", "aria-hidden": true, class: "icon--notify") %></p>
+
+      <%= render partial: "decidim/budgets/votes/finished_content" %>
+    </div>
+  </div>
+  <div class="row columns margin-bottom-3">
+    <hr class="strong">
+
+    <%= cell("decidim/feedback/feedback_inline", current_component, title: t(".feedback_title"), metadata: { context: "budgets", action: "vote" }) %>
+
+    <% if feedback_url.present? %>
+      <div class="static__content text-center">
+        <p><%= link_to t(".feedback_link"), feedback_url, target: "_blank" %></p>
+      </div>
+    <% end %>
+  </div>
+  <div class="row columns margin-bottom-3">
+    <div class="banner banner--padded bg-secondary">
+      <div class="banner__content">
+        <h2 class="h5 margin-top-0"><%= t(".sign_out") %></h2>
+        <p><%= t(".sign_out_info") %></p>
+      </div>
+      <div class="banner__aside">
+        <%= link_to decidim.destroy_user_session_path(redirect_url: projects_path), method: :delete, class: "sign-out-link button expanded button--icon margin-bottom-0", role: "button" do %>
+          <%= t(".sign_out") %>
+          <%= icon("arrow-right-line", role: "img", "aria-hidden": true) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

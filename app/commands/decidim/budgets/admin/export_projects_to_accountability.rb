@@ -84,7 +84,7 @@ module Decidim
             description: original_project.description,
             progress: statuses.first&.progress || 0,
             status: statuses.first,
-            weight: weight
+            weight:
           }.merge(extra_result_attributes_from(original_project))
         end
 
@@ -108,8 +108,8 @@ module Decidim
             image = original_project&.main_image
             image ||= original_project.photos.first&.file
             if image
-              extra[:main_image] = image
-              extra[:list_image] = image
+              extra[:main_image] = image.blob
+              extra[:list_image] = image.blob
             end
           end
 

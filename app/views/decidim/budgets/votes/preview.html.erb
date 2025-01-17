@@ -13,7 +13,7 @@
       <div class="maximum-budget">
         <div class="callout alert">
           <p class=h5>
-            <%= icon "information", role: "img", "aria-hidden": true %>
+            <%= icon "information-line", role: "img", "aria-hidden": true %>
             <%= t(".empty_vote.title") %>
           </p>
           <p><%= t(".empty_vote.description") %></p>
@@ -73,7 +73,7 @@
         <%= link_to projects_vote_path, class: "button primary hollow icon-before", aria: {
           label: t("decidim.budgets.votes.general.move_to_prev_step", name: t(".actions.previous"))
         } do %>
-          <%= icon "chevron-left", role: "img", "aria-hidden": true %>
+          <%= icon "arrow-left-s-line", role: "img", "aria-hidden": true %>
           <%= t(".actions.previous") %>
         <% end %>
         <%= button_to vote_path, class: "button primary icon-after", role: "link" do %>
@@ -88,4 +88,4 @@
   </div>
 </div>
 
-<%= javascript_pack_tag "decidim_budgeting_pipeline_preview" %>
+<%= append_javascript_pack_tag "decidim_budgeting_pipeline_preview" %>

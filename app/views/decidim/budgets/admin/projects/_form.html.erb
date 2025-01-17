@@ -1,74 +1,74 @@
-<div class="card">
-  <div class="card-divider">
-    <h2 class="card-title">
-      <%= title.html_safe %>
-    </h2>
-  </div>
-
-  <div class="card-section">
-    <div class="row column">
-      <%= form.translated :text_field, :title, autofocus: true %>
-    </div>
-
-    <div class="row column">
-      <%= form.translated :text_area, :summary, rows: 4 %>
-    </div>
-
-    <div class="row column">
-      <%= form.translated :editor, :description %>
-    </div>
-
-    <div class="row column">
-      <%= form.upload :main_image %>
-    </div>
-
-    <div class="row column">
-      <%= form.number_field :budget_amount %>
-    </div>
-
-    <% if component_settings.geocoding_enabled? %>
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="card-section">
       <div class="row column">
-        <%= form.geocoding_field :address %>
+        <%= form.translated :text_field, :title, autofocus: true, aria: { label: :title } %>
       </div>
-    <% end %>
 
-    <% if current_component.has_subscopes? %>
       <div class="row column">
-        <%= scopes_picker_field form, :decidim_scope_id, root: budget.scope %>
+        <%= form.translated :text_area, :summary, rows: 4 %>
       </div>
-    <% end %>
 
-    <div class="row column">
-      <%= form.categories_select :decidim_category_id, current_participatory_space.categories, include_blank: true, disable_parents: false %>
+      <div class="row column">
+        <%= form.translated :editor, :description, aria: { label: :description } %>
+      </div>
+
+      <div class="row column">
+        <%= form.upload :main_image, button_class: "button button__sm button__transparent-secondary" %>
+      </div>
+
+      <div class="row column">
+        <%= form.number_field :budget_amount %>
+      </div>
+
+      <div class="row column">
+        <%= form.number_field :budget_amount_min %>
+      </div>
+
+      <% if @form.geocoding_enabled? %>
+        <div class="row column">
+          <%= form.geocoding_field :address %>
+        </div>
+      <% end %>
+
+      <% if current_component.has_subscopes? %>
+        <div class="row column">
+          <%= scopes_select_field form, :decidim_scope_id, root: budget.scope %>
+        </div>
+      <% end %>
+
+      <div class="row column">
+        <%= form.categories_select :decidim_category_id, current_participatory_space.categories, include_blank: true, disable_parents: false %>
+      </div>
+
+      <% if defined?(Decidim::Proposals::Proposal) %>
+        <div class="row column">
+          <%= render partial: "decidim/proposals/proposals/proposals_picker", locals: { form:, field: :proposals } %>
+        </div>
+      <% end %>
+
+      <% if defined?(Decidim::Ideas::Idea) %>
+        <div class="row column">
+          <%= cell("decidim/ideas/ideas_picker_field", form) %>
+        </div>
+      <% end %>
+
+      <% if defined?(Decidim::Plans::Plan) %>
+        <div class="row column">
+          <%= cell("decidim/plans/plans_picker_field", form) %>
+        </div>
+      <% end %>
+
+      <%= render partial: "decidim/admin/shared/gallery", locals: { form: } %>
+
+      <% if form.object.persisted? %>
+        <div class="row column">
+          <%= form.check_box :selected %>
+          <p class="help-text"><%= t ".selected_help" %></p>
+        </div>
+      <% end %>
     </div>
-
-    <% if defined?(Decidim::Proposals::Proposal) %>
-      <div class="row column">
-        <%= proposals_picker(form, :proposals, proposals_picker_projects_path) %>
-      </div>
-    <% end %>
-
-    <% if defined?(Decidim::Ideas::Idea) %>
-      <div class="row column">
-        <%= cell("decidim/ideas/ideas_picker_field", form) %>
-      </div>
-    <% end %>
-
-    <% if defined?(Decidim::Plans::Plan) %>
-      <div class="row column">
-        <%= cell("decidim/plans/plans_picker_field", form) %>
-      </div>
-    <% end %>
-
-    <%= render partial: "decidim/admin/shared/gallery", locals: { form: form } %>
-
-    <% if form.object.persisted? %>
-      <div class="row column">
-        <%= form.check_box :selected %>
-        <p class="help-text"><%= t ".selected_help" %></p>
-      </div>
-    <% end %>
   </div>
 </div>
 
-<%= javascript_pack_tag "decidim_budgeting_pipeline_admin_projects" %>
+<%= append_javascript_pack_tag "decidim_budgeting_pipeline_admin_projects" %>

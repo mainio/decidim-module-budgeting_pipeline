@@ -85,7 +85,7 @@ class CreateBudgetingVotes < ActiveRecord::Migration[5.2]
             :decidim_budgets_votes,
             decidim_user_id: user_id,
             decidim_component_id: component_id,
-            created_at: created_at,
+            created_at:,
             updated_at: created_at
           )
 
@@ -116,7 +116,7 @@ class CreateBudgetingVotes < ActiveRecord::Migration[5.2]
                 manifest_name: space_manifest
               }
             },
-            created_at: created_at,
+            created_at:,
             updated_at: created_at,
             visibility: "private-only",
             decidim_scope_id: scope_id,

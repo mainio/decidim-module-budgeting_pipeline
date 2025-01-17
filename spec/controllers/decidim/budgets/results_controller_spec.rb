@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-describe Decidim::Budgets::ResultsController, type: :controller do
+describe Decidim::Budgets::ResultsController do
   routes { Decidim::Budgets::Engine.routes }
 
   let(:user) { create(:user, :confirmed, organization: component.organization) }

@@ -1,31 +1,33 @@
-<div class="reveal reveal--vote-finished" id="vote-finished-modal" data-reveal role="dialog" aria-modal="true" aria-labelledby="vote-finished-modal-label" data-close-on-click="false" data-close-on-esc="false">
-  <div class="reveal__header">
-    <div class="icon-wrapper" aria-hidden="true">
-      <%= render partial: "decidim/budgets/results/icon_heart" %>
-    </div>
-    <h2 id="vote-finished-modal-label" class="reveal__title"><%= t(".title") %></h2>
-  </div>
-  <div class="reveal__content" id="vote-finished-modal-content" aria-live="assertive">
-    <%= render partial: "decidim/budgets/results/vote_finished_modal_content" %>
+<%= decidim_modal id:"vote-finished-modal" do %>
+  <div data-dialog-container>
+    <h2 id="vote-finished-modal-label"><%= t(".title") %></h2>
 
-    <div class="row mt-3">
-      <div class="columns medium-8 medium-push-2">
-        <div>
-          <%= link_to t(".sign_out"), decidim.destroy_user_session_path, method: :delete, class: "sign-out-link button expanded primary", role: "button" %>
-        </div>
-        <div>
-          <button class="button primary expanded hollow" data-close><%= t(".continue") %></button>
-        </div>
-      </div>
-    </div>
+    <%= render partial: "decidim/budgets/votes/finished_content" %>
+
+    <%= link_to t(".sign_out"), decidim.destroy_user_session_path, method: :delete, class: "sign-out-link button", role: "button" %>
   </div>
-</div>
+
+  <div data-dialog-actions>
+    <button type="button" class="button hollow" data-close>
+      <%= t(".continue") %>
+    </button>
+  </div>
+<% end %>
 
 <% content_for(:js_content) do %>
   <script>
   $(document).ready(function() {
-    var $modal = $("#vote-finished-modal");
-    $modal.foundation("open");
+    let $modal = $("#vote-finished-modal");
+
+    if (!$modal.data("voteFinishedDialog")) {
+
+      let dialog = new window.Decidim.Dialogs("#vote-finished-modal");
+      $modal.data("voteFinishedDialog", dialog);
+
+      var dialogInstance = dialog;
+    }
+
+    dialogInstance.open();
   });
   </script>
 <% end %>

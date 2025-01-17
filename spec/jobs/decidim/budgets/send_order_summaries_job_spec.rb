@@ -6,9 +6,9 @@ describe Decidim::Budgets::SendOrderSummariesJob do
   subject { described_class.perform_now(vote, user) }
 
   let!(:organization) { create(:organization, tos_version: Time.current) }
-  let(:user) { create(:user, :confirmed, organization: organization) }
-  let(:component) { create(:budgeting_pipeline_component, organization: organization) }
-  let(:vote) { create(:budgeting_pipeline_vote, order_count: 2, user: user, component: component) }
+  let(:user) { create(:user, :confirmed, organization:) }
+  let(:component) { create(:budgeting_pipeline_component, organization:) }
+  let(:vote) { create(:budgeting_pipeline_vote, order_count: 2, user:, component:) }
 
   before do
     clear_emails
@@ -21,7 +21,7 @@ describe Decidim::Budgets::SendOrderSummariesJob do
   end
 
   context "when the user does not have an email" do
-    let(:user) { create(:user, :confirmed, email: "", managed: true, organization: organization) }
+    let(:user) { create(:user, :confirmed, email: "", managed: true, organization:) }
 
     it "does not send email" do
       expect(last_email).to be_nil

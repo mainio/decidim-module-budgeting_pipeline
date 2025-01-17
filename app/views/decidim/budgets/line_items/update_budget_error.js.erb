@@ -1,12 +1,21 @@
-var $modal = $("#order-update-error");
+let $modal = $("#order-update-error");
+
 if ($modal.length < 1) {
   $modal = $('<%= j(render partial: "error_modal").strip.html_safe %>');
   $("body").append($modal);
 
-  $modal.foundation();
+  let dialog = new window.Decidim.Dialogs("#order-update-error-modal");
+  $modal.data("budgetErrorDialog", dialog);
+
+  var dialogInstance = dialog;
 }
 
 $(".error-message", $modal).html('<%= j(render partial: "error_message").strip.html_safe %>')
 $(".error-details", $modal).html('<%= j(render partial: "error_details").strip.html_safe %>');
 
-$modal.foundation("open");
+dialogInstance.open();
+
+var $project = $("[data-project-id='<%= project.id %>']");
+if ($project.length > 0) {
+  $("input[type='checkbox']", $project).prop("checked", false);
+}

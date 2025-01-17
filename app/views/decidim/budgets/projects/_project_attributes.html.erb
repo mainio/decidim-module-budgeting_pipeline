@@ -1,0 +1,45 @@
+<div class="attributes">
+  <h2 class="resource__aside__title"><%= t(".title") %></h2>
+
+  <div class="attributes__item">
+    <h3 class="attributes__item__name"><%= t(".attributes.id") %></h3>
+    <div class="attributes__item__value"><%= project.id %></div>
+  </div>
+  <div class="attributes__item">
+    <h3 class="attributes__item__name"><%= t(".attributes.budget") %></h3>
+    <div class="attributes__item__value"><%= translated_attribute(project.budget.title) %></div>
+  </div>
+  <% if project.category.present? %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.category") %></h3>
+      <div class="attributes__item__value">
+        <% if project.category.parent %>
+          <%= translated_attribute(project.category.parent.name) %> -
+        <% end %>
+        <%= translated_attribute(project.category.name) %>
+      </div>
+    </div>
+  <% end %>
+  <% if project.budget_amount > 0 %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.budget_amount") %></h3>
+      <div class="attributes__item__value"><%= budget_to_currency(project.budget_amount) %></div>
+    </div>
+  <% end %>
+  <% if voting_finished? && current_settings.show_votes? %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.votes_amount") %></h3>
+      <div class="attributes__item__value"><%= t(".amount", count: project.confirmed_orders_count) %></div>
+    </div>
+  <% end %>
+  <div class="attributes__item">
+    <h3 class="attributes__item__name"><%= t(".attributes.created_at") %></h3>
+    <div class="attributes__item__value"><%= l(project.created_at.to_date, format: :decidim_short) %></div>
+  </div>
+  <% if component_settings.geocoding_enabled? && project.address.present? %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.address") %></h3>
+      <div class="attributes__item__value"><%= project.address %></div>
+    </div>
+  <% end %>
+</div>

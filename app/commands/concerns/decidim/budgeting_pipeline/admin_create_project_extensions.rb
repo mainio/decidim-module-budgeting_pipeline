@@ -18,6 +18,7 @@ module Decidim
             summary: form.summary,
             description: form.description,
             budget_amount: form.budget_amount,
+            budget_amount_min: form.budget_amount_min,
             address: form.address,
             latitude: form.latitude,
             longitude: form.longitude

@@ -7,13 +7,18 @@ module Decidim
       include Decidim::FormFactory
       include Decidim::FilterResource
       include Decidim::Paginable
+      include Decidim::TranslatableAttributes
       include Decidim::Budgets::Orderable
+      include Decidim::BudgetingPipeline::Authorizable
       include Decidim::BudgetingPipeline::Orderable
       include Decidim::BudgetingPipeline::OrdersUtilities
       include Decidim::BudgetingPipeline::VoteUtilities
 
+      helper Decidim::BudgetingPipeline::AuthorizationHelper
+
       helper_method(
         :authorization_required?,
+        :user_authorized?,
         :help_sections,
         :voting_steps,
         :current_step,
@@ -24,15 +29,17 @@ module Decidim
         :suggested_budgets,
         :choose_budgets,
         :selected_budgets,
-        :projects
+        :projects,
+        :cached_linked_resources_for
       )
 
       before_action :ensure_voting_open!
       before_action :ensure_authorized!
-      before_action :ensure_not_voted!
+      before_action :ensure_not_voted!, except: [:finished]
       before_action :ensure_orders!, only: [:projects, :preview, :create]
       before_action :ensure_orders_valid!, only: [:preview, :create]
       before_action :set_current_step
+      before_action :set_breadcrumbs, only: [:show, :budgets, :projects, :finished]
 
       skip_before_action :ensure_authorized!, only: [:show]
       skip_before_action :ensure_not_voted!, only: [:show]
@@ -40,10 +47,16 @@ module Decidim
       def show
         define_step(authorization_required? ? :authorization : :login)
         return unless user_authorized?
-        return ensure_not_voted! if user_voted?
+
+        if user_voted?
+          flash[:warning] = I18n.t("decidim.budgets.votes.general.already_voted")
+          return redirect_to routes_proxy.orders_path
+        end
 
         redirect_to routes_proxy.budgets_vote_path
       end
+
+      def preview; end
 
       def budgets
         @form = form(BudgetSelectForm).from_model(current_workflow)
@@ -66,8 +79,8 @@ module Decidim
       end
 
       def projects
-        @projects = search.result.page(params[:page]).per(current_component.settings.vote_projects_per_page)
-        @projects = reorder(@projects)
+        @total_projects = search.result.count
+        @projects = reorder(search.result)
       end
 
       def create
@@ -78,7 +91,7 @@ module Decidim
             # popup which is displayed after a successful vote. This is
             # important for screen reader users who need to hear the modal
             # content when it is displayed.
-            session["decidim-budgets.voted"] = true
+            # session["decidim-budgets.voted"] = true
             if current_settings.show_votes?
               redirect_to routes_proxy.results_path
             else
@@ -93,9 +106,28 @@ module Decidim
         end
       end
 
+      def finished
+        redirect_to(routes_proxy.projects_path) if !user_signed_in? || !user_voted?
+      end
+
       private
 
       attr_accessor :current_step, :prev_step, :next_step
+
+      def set_breadcrumbs
+        return unless respond_to?(:add_breadcrumb, true)
+
+        add_breadcrumb(t("decidim.budgets.votes.show.breadcrumb"), vote_path)
+
+        case action_name
+        when "budgets"
+          add_breadcrumb(t("decidim.budgets.votes.budgets.breadcrumb"), budgets_vote_path)
+        when "projects"
+          add_breadcrumb(selected_budgets.map { |b| translated_attribute(b.title) }.join(", "), projects_vote_path)
+        when "finished"
+          add_breadcrumb(t("decidim.budgets.votes.finished.breadcrumb"), finished_vote_path)
+        end
+      end
 
       def layout
         "decidim/budgets/participatory_space_plain"
@@ -142,28 +174,6 @@ module Decidim
         redirect_to routes_proxy.projects_vote_path
       end
 
-      # This ensures that only people eligible to vote can enter the voting
-      # pipeline after the authorization step. The authorization conditions
-      # should be used to control user's ability to vote (e.g. where they live,
-      # how old they are, etc.).
-      def user_authorized?
-        @user_authorized ||= user_signed_in? && action_authorized_to("vote").ok?
-      end
-
-      def authorization_required?
-        @authorization_required ||= begin
-          permission = current_component.permissions&.fetch("vote", nil)
-          handlers = permission&.fetch("authorization_handlers", nil)&.keys
-          if handlers && handlers.any?
-            providers = Decidim::BudgetingPipeline.authorization_providers
-            providers = providers.call(current_organization) if providers.respond_to?(:call)
-            (handlers & providers).any?
-          else
-            false
-          end
-        end
-      end
-
       def set_current_step
         define_step(action_name.to_sym)
       end
@@ -193,9 +203,9 @@ module Decidim
       # one(s) that will be automatically selected.
       def choose_budgets
         @choose_budgets ||= begin
-          sticky_ids = sticky_budgets.map(&:id)
-          current_workflow.allowed.reject do |budget|
-            sticky_ids.include?(budget.id)
+          suggested_ids = suggested_budgets.map(&:id)
+          current_workflow.budgets.reject do |budget|
+            suggested_ids.include?(budget.id)
           end
         end
       end
@@ -248,7 +258,7 @@ module Decidim
                 false
               end
 
-            OpenStruct.new(key: key, done: done, available: available, link: step_link)
+            OpenStruct.new(key:, done:, available:, link: step_link)
           end
 
           steps
@@ -285,12 +295,13 @@ module Decidim
         {
           search_text_cont: "",
           with_any_status: %w(all),
-          with_any_scope: default_filter_scope_params,
+          with_any_scope: nil,
           with_any_category: "all",
           decidim_budgets_budget_id_eq: nil,
           budget_amount_gteq: 0,
           budget_amount_lteq: maximum_project_budget,
-          activity: "all"
+          favorites: nil,
+          selected: nil
         }
       end
 
@@ -300,6 +311,59 @@ module Decidim
 
       def routes_proxy
         @routes_proxy ||= EngineRouter.main_proxy(current_component)
+      end
+
+      def cached_linked_resources_for(type, link_name, project)
+        resources = linked_resources[type]
+        return unless resources
+
+        resources = resources[link_name]
+        return unless resources
+
+        resources = resources[project.id]
+        return unless resources
+        return unless resources.any?
+
+        klass = resources.first.class.name
+        { klass => resources }
+      end
+
+      # For performance, this produces 3 queries in total per page load to find
+      # the linked resources for each record individually. Otherwise, the
+      # amount of queries would be very high when there is a large amount of
+      # linked resources (e.g. over 100).
+      #
+      # Note that this is currently working only for the resource_link_types
+      # defined below. Other resources may require adjustments.
+      def linked_resources
+        @linked_resources ||= resource_link_types.to_h do |type, link_name|
+          manifest = Decidim.find_resource_manifest(type)
+          next [type, {}] unless manifest
+
+          scope = manifest.resource_scope(current_component)
+                          .published.not_hidden.except_withdrawn
+                          .where.not(decidim_components: { published_at: nil })
+          from = scope.joins(:resource_links_from)
+                      .where(decidim_resource_links: { name: link_name, to: @projects })
+          to = scope.joins(:resource_links_to)
+                    .where(decidim_resource_links: { name: link_name, from: @projects })
+
+          resources = scope.where(id: from).or(scope.where(id: to))
+
+          mapped_resources = {}
+          Decidim::ResourceLink.where(name: link_name, to: @projects).each do |link|
+            mapped_resources[link.to_id] = resources.select { |r| r.id == link.from_id }
+          end
+          Decidim::ResourceLink.where(name: link_name, from: @projects).each do |link|
+            mapped_resources[link.from_id] = resources.select { |r| r.id == link.to_id }
+          end
+
+          [type, { link_name => mapped_resources }]
+        end
+      end
+
+      def resource_link_types
+        @resource_link_types ||= { plans: "included_plans" }
       end
     end
   end

@@ -3,26 +3,28 @@
   <%= cell("decidim/favorites/favorite_button", project, button_class: "link action-link", disable_tooltip: true) %>
 </div>
 
-<% if component_settings.geocoding_enabled? && project.latitude.present? && project.longitude.present? %>
+<% if component_settings.geocoding_enabled? && project.address.present? && project.latitude.present? && project.longitude.present? %>
   <div class="actions-panel bg-secondary">
-    <%= link_to project_map_link(project), class: "action-link", target: "_blank", data: { external_link_spacer: "" } do %>
+    <a href="#project_map" class="action-link">
       <span class="link-text"><%= t ".show_on_map" %></span>
-      <%= icon "map-marker", role: "img", "aria-hidden": true %>
+      <%= icon "map-pin-line", role: "img", "aria-hidden": true %>
+    </a>
+  </div>
+<% end %>
+
+<% if project.commentable? %>
+  <div class="actions-panel bg-secondary">
+    <%= link_to "#comments", class: "action-link" do %>
+      <span class="link-text"><%= t ".show_comments" %></span>
+      <%= icon "question-answer-line", role: "img", "aria-hidden": true %>
     <% end %>
   </div>
 <% end %>
 
 <div class="actions-panel bg-secondary">
-  <%= link_to "#comments", class: "action-link" do %>
-    <span class="link-text"><%= t ".show_comments" %></span>
-    <%= icon "comment-square", role: "img", "aria-hidden": true %>
-  <% end %>
-</div>
-
-<div class="actions-panel bg-secondary">
   <button type="button" class="link action-link" data-open="socialShare" aria-controls="socialShare" aria-haspopup="dialog">
     <span class="link-text"><%= t ".share" %></span>
-    <%= icon "share", role: "img", "aria-hidden": true %>
+    <%= icon "share-line", role: "img", "aria-hidden": true %>
   </button>
 </div>
 
@@ -31,7 +33,7 @@
 <% if false %>
   <div class="actions-panel bg-secondary">
     <button type="button" class="link action-link">
-      <%= icon "print", role: "img", "aria-hidden": true %>
+      <%= icon "printer-line", role: "img", "aria-hidden": true %>
       <span class="link-text"><%= t ".print" %></span>
     </button>
   </div>

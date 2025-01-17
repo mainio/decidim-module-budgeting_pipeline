@@ -6,6 +6,7 @@ module Decidim
     module ProjectsHelperExtensions
       extend ActiveSupport::Concern
 
+      include ActiveSupport::NumberHelper
       include Decidim::BudgetingPipeline::TextUtilities
       include Decidim::MapHelper
 
@@ -23,7 +24,7 @@ module Decidim
             {
               id: data[0],
               title: data[1],
-              body: body,
+              body:,
               address: data[4],
               latitude: data[5],
               longitude: data[6],
@@ -33,18 +34,29 @@ module Decidim
         end
       end
 
+      def identity_providers
+        providers = Decidim::BudgetingPipeline.identity_providers
+        return providers unless providers.respond_to?(:call)
+
+        providers.call(current_organization)
+      end
+
+      def identity_provider_name(provider)
+        Decidim::BudgetingPipeline.identity_provider_name.call(provider)
+      end
+
       def landing_page_content
         translated_attribute(current_settings.landing_page_content).presence ||
           translated_attribute(component_settings.landing_page_content)
       end
 
-      def projects_map(geocoded_projects)
+      def projects_map(geocoded_projects, **options)
         map_options = { type: "projects", markers: geocoded_projects }
         map_center = component_settings.default_map_center_coordinates
         center_values = map_center.split(",").map(&:to_f) if map_center
         map_options[:center_coordinates] = center_values if center_values && center_values.length > 1
 
-        dynamic_map_for(map_options) do
+        dynamic_map_for(map_options.merge(options)) do
           yield
         end
       end
@@ -85,7 +97,7 @@ module Decidim
       end
 
       def display_status_filter?
-        voting_finished? && statuses_available?
+        voting_finished? && current_settings.show_selected_status?
       end
 
       def display_category_filter?
@@ -99,13 +111,9 @@ module Decidim
 
       def category_image_path(category)
         return unless category
-        return unless category.respond_to?(:category_image)
+        return unless category.respond_to?(:category_image_url)
 
-        if category.category_image && category.category_image.attached?
-          category.attached_uploader(:category_image).path
-        elsif category.parent
-          category_image_path(category.parent)
-        end
+        category.category_image_url
       end
 
       def project_map_link(resource, options = {})
@@ -117,12 +125,12 @@ module Decidim
         map_utility_static.link(
           latitude: resource.latitude,
           longitude: resource.longitude,
-          options: options
+          options:
         )
       end
 
       def share_image_url
-        return project.attached_uploader(:main_image).path if has_project_image?
+        return project.attached_uploader(:main_image).url if has_project_image?
 
         organization_share_image_url
       end
@@ -138,7 +146,7 @@ module Decidim
             scope_name: :homepage,
             manifest_name: :hero
           ).try(:images_container)
-          container.attached_uploader(:background_image).path if container && container.background_image && container.background_image.attached?
+          container.attached_uploader(:background_image).url if container && container.background_image && container.background_image.attached?
         end
       end
 

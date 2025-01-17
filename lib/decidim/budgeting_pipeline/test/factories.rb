@@ -17,8 +17,6 @@ FactoryBot.define do
         }
       end
 
-      vote_projects_per_page { 6 }
-      more_information_modal_label { generate_localized_title }
       geocoding_enabled { true }
       default_map_center_coordinates { "60.1674881,24.9427473" }
       vote_identify_page_content { Decidim::Faker::Localized.wrapped("<p>", "</p>") { generate_localized_title } }
@@ -35,19 +33,17 @@ FactoryBot.define do
     settings do
       vote_rule_settings.merge(
         # Pipeline settings
-        vote_projects_per_page: vote_projects_per_page,
-        more_information_modal_label: more_information_modal_label,
-        geocoding_enabled: geocoding_enabled,
-        default_map_center_coordinates: default_map_center_coordinates,
-        vote_identify_page_content: vote_identify_page_content,
-        vote_identify_page_more_information: vote_identify_page_more_information,
-        vote_identify_invalid_authorization_title: vote_identify_invalid_authorization_title,
-        vote_identify_invalid_authorization_content: vote_identify_invalid_authorization_content,
-        vote_budgets_page_content: vote_budgets_page_content,
-        vote_projects_page_content: vote_projects_page_content,
-        vote_preview_page_content: vote_preview_page_content,
-        vote_success_content: vote_success_content,
-        results_page_content: results_page_content
+        geocoding_enabled:,
+        default_map_center_coordinates:,
+        vote_identify_page_content:,
+        vote_identify_page_more_information:,
+        vote_identify_invalid_authorization_title:,
+        vote_identify_invalid_authorization_content:,
+        vote_budgets_page_content:,
+        vote_projects_page_content:,
+        vote_preview_page_content:,
+        vote_success_content:,
+        results_page_content:
       )
     end
   end
@@ -63,6 +59,7 @@ FactoryBot.define do
     address { "#{Faker::Address.street_address} #{Faker::Address.zip} #{Faker::Address.city}" }
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
+    budget_amount_min { Faker::Boolean.boolean ? Faker::Number.number(digits: 5) : nil }
     paper_orders_count { rand(0..10) }
   end
 
@@ -92,7 +89,7 @@ FactoryBot.define do
         budget = budgets[idx]
         budget ||= create(:budget, component: vote.component)
 
-        order = create(:order, budget: budget, user: vote.user)
+        order = create(:order, budget:, user: vote.user)
         order.update!(checked_out_at: Time.current) if evaluator.order_checked_out
         vote.orders << order
       end
@@ -101,6 +98,6 @@ FactoryBot.define do
   end
 
   factory :budgeting_pipeline_order, parent: :order do
-    vote { create(:budgeting_pipeline_vote, user: user, component: budget.component, order_checked_out: false) }
+    vote { create(:budgeting_pipeline_vote, user:, component: budget.component, order_checked_out: false) }
   end
 end

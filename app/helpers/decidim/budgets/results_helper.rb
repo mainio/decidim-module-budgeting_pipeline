@@ -6,8 +6,15 @@ module Decidim
       include Decidim::BudgetingPipeline::TextUtilities
 
       def winning_projects(budget)
-        selected = selected_projects(budget)
-        return selected.order_by_most_voted.to_a if selected.any?
+        if current_settings.show_selected_status?
+          selected = selected_projects(budget)
+          if selected.any?
+            return selected.order_by_most_voted.select(
+              "decidim_budgets_projects.*",
+              "decidim_budgets_projects_with_votes.votes_count"
+            ).to_a
+          end
+        end
 
         total_available = budget.total_budget
 
@@ -35,7 +42,7 @@ module Decidim
       end
 
       def selected_projects(budget)
-        Decidim::Budgets::Project.where(budget: budget).where.not(selected_at: nil)
+        Decidim::Budgets::Project.where(budget:).where.not(selected_at: nil)
       end
     end
   end

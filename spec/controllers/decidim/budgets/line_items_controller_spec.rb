@@ -2,14 +2,14 @@
 
 require "spec_helper"
 
-describe Decidim::Budgets::LineItemsController, type: :controller do
+describe Decidim::Budgets::LineItemsController do
   routes { Decidim::Budgets::Engine.routes }
 
   let(:user) { create(:user, :confirmed, organization: component.organization) }
-  let!(:budget) { create(:budgeting_pipeline_budget, component: component) }
+  let!(:budget) { create(:budgeting_pipeline_budget, component:) }
   let(:component) { create(:budgeting_pipeline_component) }
 
-  let(:project) { create(:budgeting_pipeline_project, budget: budget) }
+  let(:project) { create(:budgeting_pipeline_project, budget:) }
 
   before do
     request.env["decidim.current_organization"] = component.organization
@@ -65,15 +65,15 @@ describe Decidim::Budgets::LineItemsController, type: :controller do
     end
 
     context "when no more allocation is available" do
-      let(:order) { create(:budgeting_pipeline_order, budget: budget, user: user) }
+      let(:order) { create(:budgeting_pipeline_order, budget:, user:) }
 
       before do
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
         order.save!(validate: false)
       end
 
@@ -81,7 +81,7 @@ describe Decidim::Budgets::LineItemsController, type: :controller do
     end
 
     context "when the order is checked out" do
-      let(:order) { create(:budgeting_pipeline_order, budget: budget, user: user) }
+      let(:order) { create(:budgeting_pipeline_order, budget:, user:) }
 
       before do
         order.update!(checked_out_at: Time.current)

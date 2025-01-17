@@ -33,7 +33,7 @@ module Decidim
             scope: "decidim.budgets.order_summaries_mailer",
             budget_names: @budget_names.join(", ")
           )
-          mail(to: user.email, subject: subject)
+          mail(to: user.email, subject:)
         end
       end
     end

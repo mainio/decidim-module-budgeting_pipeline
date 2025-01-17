@@ -2,12 +2,12 @@
 
 require "spec_helper"
 
-describe Decidim::Budgets::OrdersController, type: :controller do
+describe Decidim::Budgets::OrdersController do
   routes { Decidim::Budgets::Engine.routes }
 
   let(:user) { create(:user, :confirmed, organization: component.organization) }
-  let!(:budget1) { create(:budgeting_pipeline_budget, component: component) }
-  let!(:budget2) { create(:budgeting_pipeline_budget, component: component) }
+  let!(:budget_one) { create(:budgeting_pipeline_budget, component:) }
+  let!(:budget_two) { create(:budgeting_pipeline_budget, component:) }
   let(:component) { create(:budgeting_pipeline_component) }
 
   before do
@@ -19,7 +19,7 @@ describe Decidim::Budgets::OrdersController, type: :controller do
 
   describe "GET index" do
     context "with checked out orders" do
-      let!(:vote) { create(:budgeting_pipeline_vote, order_count: 2, order_checked_out: true, user: user, component: component) }
+      let!(:vote) { create(:budgeting_pipeline_vote, order_count: 2, order_checked_out: true, user:, component:) }
 
       it "renders" do
         get :index
@@ -29,7 +29,7 @@ describe Decidim::Budgets::OrdersController, type: :controller do
     end
 
     context "with no checked out orders" do
-      let!(:vote) { create(:budgeting_pipeline_vote, order_count: 2, order_checked_out: false, user: user, component: component) }
+      let!(:vote) { create(:budgeting_pipeline_vote, order_count: 2, order_checked_out: false, user:, component:) }
 
       it "redirects" do
         get :index

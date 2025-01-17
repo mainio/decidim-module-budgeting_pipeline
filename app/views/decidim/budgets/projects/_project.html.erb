@@ -1,5 +1,2 @@
-<% if controller_name == "votes" %>
-  <%= card_for project, from: project, voting: true %>
-<% else %>
-  <%= cell("decidim/budgets/project_l", project) %>
-<% end %>
+<% show_only_added ||= params.dig(:filter, :addition_type) == "added" %>
+<%= card_for project, render_extra_data: true, link_whole_card: false, wrapper_class: "project-item", show_only_added: %>

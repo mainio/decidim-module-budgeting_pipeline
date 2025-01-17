@@ -75,38 +75,124 @@ module Decidim
         validates_upload :main_image, uploader: Decidim::Budgets::ProjectImageUploader
         has_one_attached :main_image
 
-        scope :order_by_most_voted, lambda { |only_voted: false|
-          scope = joins(
+        # Searches through the plan type linked resources in order for users
+        # to discover budgeting projects or plans that match a specific text.
+        #
+        # Implemented as its own scope because the linked resource search is
+        # difficult to implement in a performant way through ransack directly.
+        scope :matching_id_or_text_with_linked_plans, lambda { |text, locales = []|
+          id_match = text.match(/\A([0-9]+)\z/)
+
+          query =
+            if id_match
+              where(id: text)
+            else
+              ransack(search_text_cont: text).result
+            end
+          return query if locales.empty?
+
+          # Find with linked plans, this is the complex part as the plans
+          # separate the content into different sections.
+          plan_links = Decidim::ResourceLink.joins(
+            "INNER JOIN decidim_budgets_projects ON decidim_budgets_projects.id = decidim_resource_links.from_id"
+          ).where(
+            from_type: name,
+            to_type: "Decidim::Plans::Plan",
+            decidim_budgets_projects: { id: self }
+          ).distinct.pluck(:to_id)
+          if plan_links.any?
+            plan_components = Decidim::Plans::Plan.where(id: plan_links).distinct.pluck(:decidim_component_id)
+            if plan_components.any?
+              searchable_sections = Decidim::Plans::Section.where(component: plan_components, searchable: true)
+              matching_plans =
+                if id_match
+                  Decidim::Plans::Plan.where(id: text)
+                else
+                  Decidim::Plans::Plan.containing_text(text, searchable_sections, locales)
+                end
+              query = query.or(
+                where(
+                  id: joins(:resource_links_from).joins(
+                    "INNER JOIN decidim_plans_plans ON decidim_plans_plans.id = decidim_resource_links.to_id"
+                  ).where(
+                    decidim_resource_links: {
+                      from_type: name,
+                      to_type: "Decidim::Plans::Plan"
+                    },
+                    decidim_plans_plans: { id: matching_plans }
+                  )
+                )
+              )
+            end
+          end
+
+          query
+        }
+
+        scope :voted_by, lambda { |user|
+          joins(:orders).where(decidim_budgets_orders: { decidim_user_id: user })
+        }
+
+        # Adds a new join table `decidim_budgets_projects_with_votes` that
+        # contains the amount of votes for each project.
+        scope :with_votes, lambda {
+          scope = klass.joins(
             <<~SQLJOIN.squish
-              LEFT JOIN decidim_budgets_line_items
+              LEFT OUTER JOIN decidim_budgets_line_items
                 ON decidim_budgets_line_items.decidim_project_id = decidim_budgets_projects.id
             SQLJOIN
           ).joins(
             <<~SQLJOIN.squish
-              LEFT JOIN decidim_budgets_orders
+              LEFT OUTER JOIN decidim_budgets_orders
                 ON decidim_budgets_orders.id = decidim_budgets_line_items.decidim_order_id
                 AND decidim_budgets_orders.checked_out_at IS NOT NULL
             SQLJOIN
           ).select(
-            [
-              "decidim_budgets_projects.*",
-              "COUNT(decidim_budgets_orders.id) + decidim_budgets_projects.paper_orders_count AS votes_count",
-              "CASE #{Arel.sql locale_case("decidim_budgets_projects.title")} END AS localized_title"
-            ].join(", ")
+            "decidim_budgets_projects.id",
+            "COUNT(decidim_budgets_orders.id) + decidim_budgets_projects.paper_orders_count AS votes_count",
+            "CASE #{Arel.sql locale_case("decidim_budgets_projects.title")} END AS localized_title"
           ).group("decidim_budgets_projects.id")
 
-          if only_voted
-            voted_ids = joins(
-              Arel.sql("LEFT JOIN (#{scope.to_sql}) AS with_votes ON with_votes.id = decidim_budgets_projects.id")
-            ).where("with_votes.votes_count > 0").pluck(:id)
-            scope = scope.where(id: voted_ids)
-          end
-
-          scope.order(
-            votes_count: :desc,
-            localized_title: :asc
+          joins(
+            Arel.sql(
+              <<~SQLJOIN.squish
+                LEFT OUTER JOIN (#{scope.to_sql}) AS decidim_budgets_projects_with_votes
+                  ON decidim_budgets_projects_with_votes.id = decidim_budgets_projects.id
+              SQLJOIN
+            )
           )
         }
+
+        scope :order_by_most_voted, lambda { |only_voted: false|
+          scope = with_votes.order(
+            "decidim_budgets_projects_with_votes.votes_count DESC",
+            "decidim_budgets_projects_with_votes.localized_title"
+          )
+          scope = scope.where("decidim_budgets_projects_with_votes.votes_count > 0") if only_voted
+
+          scope
+        }
+
+        # Create i18n ransackers for :title, :summary and :description.
+        # Create the :search_text ransacker alias for searching from both of these.
+        ransacker_i18n_multi :search_text, [:title, :summary, :description]
+
+        # Replicates the same data for a single project as returned for a
+        # collection through the `#geocoded_data_for` method.
+        def geocoded_data
+          locale = I18n.locale.to_s
+          default_locale = I18n.default_locale.to_s
+
+          [
+            id,
+            (title.present? ? title[locale] || title[default_locale] : ""),
+            (summary.present? ? summary[locale] || summary[default_locale] : ""),
+            (description.present? ? description[locale] || description[default_locale] : ""),
+            address,
+            latitude,
+            longitude
+          ]
+        end
 
         # Public: Returns the number of times an specific project have been checked out.
         def confirmed_orders_count

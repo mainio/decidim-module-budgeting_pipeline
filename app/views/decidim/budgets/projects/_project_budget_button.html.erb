@@ -1,6 +1,6 @@
 <% style ||= :button %>
 
-<div id="project-<%= project.id %>-budget-button<%= id_suffix if defined?(id_suffix) %>">
+<div id="project-<%= project.id %>-budget-button<%= id_suffix if defined?(id_suffix) %>" class="project-cart-button">
   <% if voted_for?(project) %>
     <%= action_authorized_button_to(
           "vote",
@@ -15,8 +15,8 @@
           class: style == :link ? "link" : "button small expanded primary hollow",
           "aria-label": t("decidim.budgets.projects.project_budget_button.remove_descriptive", resource_name: translated_attribute(project.title))
         ) do %>
-          <%= icon("trash", role: "img", "aria-hidden": true) %>
-          <%= t("decidim.budgets.projects.project_budget_button.remove_from_vote") %>
+          <%= icon("close-circle-line", role: "img", "aria-hidden": true) %>
+          <span class="show-for-sr"><%= t("decidim.budgets.projects.project_budget_button.remove_from_vote") %></span>
         <% end %>
   <% elsif current_user.present? %>
     <%= action_authorized_button_to(
@@ -33,7 +33,7 @@
           class: style == :link ? "link" : "button small expanded primary",
           "aria-label": t("decidim.budgets.projects.project_budget_button.add_descriptive", resource_name: translated_attribute(project.title))
         ) do %>
-          <%= icon("plus", role: "img", "aria-hidden": true) %>
+          <%= icon("add-line", role: "img", "aria-hidden": true) %>
           <%= t("decidim.budgets.projects.project_budget_button.add_to_vote") %>
         <% end %>
   <% end %>

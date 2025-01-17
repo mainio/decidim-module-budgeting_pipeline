@@ -1,55 +1,20 @@
 <div id="order-progress-<%= order.budget.id %><%= id_suffix if defined?(id_suffix) %>" class="order-progress" data-valid="<%= order.valid_for_checkout?.to_json %>">
-  <div class="row">
-    <div class="columns large-6">
-      <table class="transparent mb-0">
-        <tbody>
-          <tr>
-            <td><%= t(".selected_projects") %></td>
-            <td class="text-right"><%= nonbreaking_text(t(".selected_projects_count", count: order.total_projects)) %></td>
-          </tr>
-          <% if order.projects_rule? %>
-            <tr>
-              <td><%= t(".available_projects") %></td>
-              <td class="text-right"><%= order.available_allocation %></td>
-            </tr>
-            <tr>
-              <td><%= t(".allocated_projects") %></td>
-              <td class="text-right"><%= order.total %></td>
-            </tr>
+  <div class="voting-progress">
+    <% if order.projects_rule? %>
+      <div class="voting-progress__indicator">
+        <% allocated_amount = order.total_projects %>
+        <% order.available_allocation.times do |idx| %>
+          <% if idx < allocated_amount %>
+            <%= icon "checkbox-circle-line", role: "img", "aria-hidden": true %>
           <% else %>
-            <tr>
-              <td><%= t(".available_budget") %></td>
-              <td class="text-right"><%= nonbreaking_text(budget_to_currency(order.available_allocation)) %></td>
-            </tr>
-            <tr>
-              <td><%= t(".allocated_budget") %></td>
-              <td class="text-right"><%= nonbreaking_text(budget_to_currency(order.total)) %></td>
-            </tr>
+            <%= icon "checkbox-blank-circle-line", role: "img", "aria-hidden": true %>
           <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="columns large-6">
-      <table class="transparent">
-        <tbody>
-          <% if order.projects_rule? %>
-            <tr class="lead">
-              <td><strong><%= t(".unused_projects") %></strong></td>
-              <td class="text-right"><strong><%= order.unused_allocation %></strong></td>
-            </tr>
-          <% else %>
-            <tr class="lead">
-              <td><strong><%= t(".unused_budget") %></strong></td>
-              <td class="text-right"><strong><%= nonbreaking_text(budget_to_currency(order.unused_allocation)) %></strong></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-    <div class="columns large-6">
+        <% end %>
+      </div>
+      <div class="voting-progress__explanation" aria-live="polite">
+        <%= t(".remaining_votes", count: order.unused_allocation) %>
+      </div>
+    <% else %>
       <div class="budget-summary__progressbox" data-current-allocation="<%= order ? order.total : 0 %>">
         <div class="progress<%= " alert" if order.allocation_exceeded? %> budget-progress"
           role="progressbar"
@@ -62,6 +27,7 @@
           </div>
         </div>
       </div>
-    </div>
+      <span aria-live="polite"><%= t(".remaining_budget", amount: budget_to_currency(order.unused_allocation)) %></span>
+    <% end %>
   </div>
 </div>
