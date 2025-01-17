@@ -10,7 +10,6 @@
   <div class="columns mediumlarge-10 large-8">
     <div class="static__content text-center">
       <%== t(".description_html") %>
-
       <% if current_settings.show_votes? %>
         <p>
           <%= link_to voting_finished? ? t(".see_results") : t(".follow_voting"), results_path, class: "button primary" %>

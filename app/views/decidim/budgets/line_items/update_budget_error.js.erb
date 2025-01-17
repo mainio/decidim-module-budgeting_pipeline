@@ -1,4 +1,4 @@
-let $modal = $("#order-update-error");
+let $modal = $("#order-update-error-modal");
 
 if ($modal.length < 1) {
   $modal = $('<%= j(render partial: "error_modal").strip.html_safe %>');
