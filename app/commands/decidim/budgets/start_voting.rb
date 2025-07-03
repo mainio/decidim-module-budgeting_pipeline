@@ -16,8 +16,14 @@ module Decidim
       def call
         return broadcast(:invalid) if form.invalid?
 
-        destroy_previous_orders!
-        create_orders!
+        # The user lock ensures that two orders are not created simultaneously
+        # in case the user happens to start voting twice in a row concecutively
+        # when served from different machines. This edge case can happen when
+        # running under high concurrency and multiple machines at the same time.
+        user.with_lock do
+          destroy_previous_orders!
+          create_orders!
+        end
 
         broadcast(:ok, orders)
       end
@@ -33,16 +39,9 @@ module Decidim
       end
 
       def create_orders!
-        @orders = [].tap do |ords|
-          selected_budgets.each do |budget|
-            ords << order_for(budget)
-          end
+        @orders = selected_budgets.map do |budget|
+          Decidim::Budgets::Order.find_or_create_by!(user: user, budget: budget)
         end
-      end
-
-      def order_for(budget)
-        Decidim::Budgets::Order.find_by(user: user, budget: budget) ||
-          Decidim::Budgets::Order.create!(user: user, budget: budget)
       end
 
       def selected_budgets

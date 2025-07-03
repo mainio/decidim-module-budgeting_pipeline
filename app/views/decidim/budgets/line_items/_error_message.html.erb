@@ -4,12 +4,4 @@
     <%= t(".error.#{@error_reason}.title") %>
   </p>
   <p><%= t(".error.#{@error_reason}.description") %></p>
-  <p>
-    <%= link_to "#orders", data: { close: "order-update-error" }, aria: {
-      label: t("decidim.budgets.projects.projects.show_orders")
-    } do %>
-      <%= icon "cart", role: "img", "aria-hidden": true %>
-      <%= t("decidim.budgets.projects.projects.show_orders") %>&nbsp;&raquo;
-    <% end %>
-  </p>
 </div>

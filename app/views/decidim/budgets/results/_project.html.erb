@@ -1,0 +1,16 @@
+<%= content_tag :tr, class: (winning ? "row--highlight" : nil) do %>
+  <td><%= first_index + project_counter %>.</td>
+  <td><%= link_to translated_attribute(project.title), budget_project_path(budget, project) %></td>
+  <% if display_amounts_for?(budget) %>
+    <td class="medium-text-center">
+      <% if project.budget_amount > 0 %>
+        <strong class="hide-for-medium"><%= t("decidim.budgets.results.projects_table.project_budget") %>:</strong>
+        <%= nonbreaking_text(budget_to_currency(project.budget_amount)) %>
+      <% end %>
+    </td>
+  <% end %>
+  <td class="medium-text-center">
+    <strong class="hide-for-medium"><%= t("decidim.budgets.results.projects_table.project_votes") %>:</strong>
+    <%= t("decidim.budgets.results.projects_table.amount", count: number_with_delimiter(project.votes_count)) %>
+  </td>
+<% end %>

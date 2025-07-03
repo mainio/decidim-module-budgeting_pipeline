@@ -1,0 +1,10 @@
+<% if component_settings.geocoding_enabled? && project.address.present? && project.latitude.present? && project.longitude.present? %>
+  <div id="project_map" class="margin-top-3">
+    <h2><%= t(".title") %></h2>
+    <p><%= t(".note") %></p>
+
+    <%= projects_map projects_data_for_map([project.geocoded_data]), type: "resource-markers" do %>
+      <%= render partial: "map_template" %>
+    <% end %>
+  </div>
+<% end %>

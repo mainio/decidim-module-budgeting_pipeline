@@ -1,0 +1,10 @@
+var $modal = $("#linked-resource-details");
+if ($modal.length > 0) {
+  $modal.remove();
+}
+
+$modal = $('<%= j(render partial: "resource_modal").strip.html_safe %>');
+$("body").append($modal);
+
+$modal.foundation();
+$modal.foundation("open");

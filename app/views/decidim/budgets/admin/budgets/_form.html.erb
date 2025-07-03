@@ -11,6 +11,10 @@
 
       <%= form.translated :editor, :description %>
 
+      <div class="row column">
+        <%= form.upload :list_image %>
+      </div>
+
       <%= form.number_field :total_budget %>
 
       <% if current_component.settings.geocoding_enabled %>

@@ -17,8 +17,6 @@ FactoryBot.define do
         }
       end
 
-      vote_projects_per_page { 6 }
-      more_information_modal_label { generate_localized_title }
       geocoding_enabled { true }
       default_map_center_coordinates { "60.1674881,24.9427473" }
       vote_identify_page_content { Decidim::Faker::Localized.wrapped("<p>", "</p>") { generate_localized_title } }
@@ -35,8 +33,6 @@ FactoryBot.define do
     settings do
       vote_rule_settings.merge(
         # Pipeline settings
-        vote_projects_per_page: vote_projects_per_page,
-        more_information_modal_label: more_information_modal_label,
         geocoding_enabled: geocoding_enabled,
         default_map_center_coordinates: default_map_center_coordinates,
         vote_identify_page_content: vote_identify_page_content,
@@ -63,6 +59,7 @@ FactoryBot.define do
     address { "#{Faker::Address.street_address} #{Faker::Address.zip} #{Faker::Address.city}" }
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
+    budget_amount_min { Faker::Boolean.boolean ? Faker::Number.number(digits: 5) : nil }
     paper_orders_count { rand(0..10) }
   end
 

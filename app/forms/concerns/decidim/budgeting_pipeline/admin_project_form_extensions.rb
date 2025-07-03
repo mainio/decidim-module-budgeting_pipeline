@@ -20,6 +20,7 @@ module Decidim
         alias_method :map_model_orig_budgeting_pipeline, :map_model unless method_defined?(:map_model_orig_budgeting_pipeline)
 
         translatable_attribute :summary, String
+        attribute :budget_amount_min, Integer
         attribute :address, String
         attribute :latitude, Float
         attribute :longitude, Float
@@ -33,12 +34,21 @@ module Decidim
         remove_budget_amount_validation!
 
         validates :budget_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
+        validates :budget_amount_min, numericality: { greater_than_or_equal_to: 0 }, if: ->(form) { form.budget_amount_min.present? }
         validates :address, geocoding: true, if: ->(form) { form.has_address? && !form.geocoded? }
         validates :main_image, passthru: {
           to: Decidim::Budgets::Project,
           with: {
-            budget: ->(form) { form.budget },
-            component: ->(form) { form.current_component }
+            # When the image validations are done through the validation
+            # endpoint, the component is unknown and would cause the
+            # validations to fail because the component would not exist.
+            component: lambda do |form|
+              Decidim::Component.new(
+                participatory_space: Decidim::ParticipatoryProcess.new(
+                  organization: form.current_organization
+                )
+              )
+            end
           }
         }
 

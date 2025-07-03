@@ -9,7 +9,8 @@ module Decidim
     class Vote < ApplicationRecord
       include Decidim::HasComponent
 
-      belongs_to :user, class_name: "Decidim::User", foreign_key: "decidim_user_id"
+      # Make it work with the privacy module by fetching the users from the entire collection.
+      belongs_to :user, -> { respond_to?(:entire_collection) ? entire_collection : self }, class_name: "Decidim::User", foreign_key: "decidim_user_id"
       has_many :orders, class_name: "Decidim::Budgets::Order", foreign_key: "decidim_budgets_vote_id", dependent: :destroy
     end
   end

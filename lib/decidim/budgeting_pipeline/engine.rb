@@ -19,26 +19,27 @@ module Decidim
             more_information.editor = true
 
             # Add extra attributes
-            settings.attribute :vote_projects_per_page, type: :integer, default: 6
             settings.attribute :more_information_modal_label, type: :string, translated: true
-            settings.attribute :geocoding_enabled, type: :boolean
             settings.attribute :default_map_center_coordinates, type: :string
+            settings.attribute :help_page_url, type: :string
             settings.attribute :vote_identify_page_content, type: :text, translated: true, editor: true
-            settings.attribute :vote_identify_page_more_information, type: :text, translated: true, editor: true
             settings.attribute :vote_identify_invalid_authorization_title, type: :string, translated: true
             settings.attribute :vote_identify_invalid_authorization_content, type: :text, translated: true, editor: true
             settings.attribute :vote_budgets_page_content, type: :text, translated: true, editor: true
+            settings.attribute :vote_choose_budget_note_content, type: :text, translated: true, editor: true
             settings.attribute :vote_projects_page_content, type: :text, translated: true, editor: true
+            settings.attribute :vote_projects_voting_info_content, type: :text, translated: true, editor: true
             settings.attribute :vote_preview_page_content, type: :text, translated: true, editor: true
             settings.attribute :vote_success_content, type: :text, translated: true, editor: true
+            settings.attribute :feedback_url, type: :string, translated: true
+            settings.attribute :results_page_title, type: :string, translated: true
             settings.attribute :results_page_content, type: :text, translated: true, editor: true
+            settings.attribute :results_page_budget_content, type: :text, translated: true, editor: true
+            settings.attribute :project_selected_content, type: :text, translated: true, editor: true
+            settings.attribute :project_not_selected_content, type: :text, translated: true, editor: true
 
             # Create the settings manipulator for moving the attributes
             m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
-
-            # Move the voting projects per page after the default projects per
-            # page setting so it is in a logic position.
-            m.move_attribute_after(:vote_projects_per_page, :projects_per_page)
 
             # Move the more information modal label before the modal content so
             # it is in a logic position.
@@ -49,19 +50,32 @@ module Decidim
             # Remove the more information modal from the step settings as it is
             # not needed there.
             settings.attributes.delete(:more_information_modal)
+
+            # Add setting to display the statuses
+            settings.attribute :show_selected_status, type: :boolean, default: false
+
+            # Create the settings manipulator for moving the attributes
+            m = Decidim::BudgetingPipeline::SettingsManipulator.new(settings)
+
+            # Move the show selected status before the show votes configuration
+            # so it is in a logic position.
+            m.move_attribute_after(:show_selected_status, :show_votes)
           end
         end
       end
 
       initializer "decidim_budgeting_pipeline.mount_routes" do
         Decidim::Budgets::Engine.routes.prepend do
-          resources :projects, only: [:index, :show]
+          resources :projects, only: [:index, :show] do
+            resources :linked_resources, only: [:show]
+          end
 
           resource :vote, only: [:show, :create] do
             get :budgets
             post :start
             get :projects
             get :preview
+            get :finished
           end
 
           resources :orders, only: [:index]
@@ -103,6 +117,10 @@ module Decidim
         )
       end
 
+      initializer "decidim_budgeting_pipeline.mutation_extensions", after: "decidim-api.graphiql" do
+        Decidim::Api::MutationType.include(Decidim::BudgetingPipeline::MutationExtensions)
+      end
+
       # Needed for the 0.25 active storage migration
       initializer "decidim_budgeting_pipeline.activestorage_migration" do
         next unless Decidim.const_defined?("CarrierWaveMigratorService")
@@ -141,6 +159,9 @@ module Decidim
           )
           Decidim::Budgets::Admin::BudgetsController.include(
             Decidim::BudgetingPipeline::Admin::BudgetsControllerExtensions
+          )
+          Decidim::Budgets::Admin::ProjectsController.include(
+            Decidim::BudgetingPipeline::Admin::ProjectsControllerExtensions
           )
 
           # Cell extensions
@@ -184,7 +205,7 @@ module Decidim
             Decidim::BudgetingPipeline::ActionLogExtensions
           )
           Decidim::Budgets::Budget.include(
-            Decidim::Stats::Measurable
+            Decidim::BudgetingPipeline::BudgetExtensions
           )
           Decidim::Budgets::Project.include(
             Decidim::BudgetingPipeline::ProjectExtensions

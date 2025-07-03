@@ -26,7 +26,11 @@
       <%= form.number_field :budget_amount %>
     </div>
 
-    <% if component_settings.geocoding_enabled? %>
+    <div class="row column">
+      <%= form.number_field :budget_amount_min %>
+    </div>
+
+    <% if @form.geocoding_enabled? %>
       <div class="row column">
         <%= form.geocoding_field :address %>
       </div>

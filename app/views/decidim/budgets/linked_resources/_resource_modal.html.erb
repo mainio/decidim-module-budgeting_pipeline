@@ -1,0 +1,16 @@
+<div class="reveal" data-reveal id="linked-resource-details" role="dialog" aria-modal="true" aria-labelledby="linked-resource-details-label" aria-live="polite">
+  <div class="reveal__header">
+    <h2 id="linked-resource-details-label" class="reveal__title"><%= present(resource).title %></h2>
+    <button class="close-button" data-close aria-label="<%= t(".close_modal") %>" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="reveal__content">
+    <%= render(partial: @template, locals: { resource: resource }) %>
+  </div>
+
+  <div class="buttons buttons-row">
+    <button class="button" data-close type="button"><%= t(".close") %></button>
+  </div>
+</div>

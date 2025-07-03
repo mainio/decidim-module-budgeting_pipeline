@@ -108,8 +108,8 @@ module Decidim
             image = original_project&.main_image
             image ||= original_project.photos.first&.file
             if image
-              extra[:main_image] = image
-              extra[:list_image] = image
+              extra[:main_image] = image.blob
+              extra[:list_image] = image.blob
             end
           end
 

@@ -11,6 +11,7 @@ module Decidim
   module BudgetingPipeline
     autoload :HelpContainer, "decidim/budgeting_pipeline/help_container"
     autoload :SettingsManipulator, "decidim/budgeting_pipeline/settings_manipulator"
+    autoload :MutationExtensions, "decidim/budgeting_pipeline/mutation_extensions"
 
     include ActiveSupport::Configurable
 

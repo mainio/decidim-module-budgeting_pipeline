@@ -6,6 +6,8 @@ module Decidim
     module AdminUpdateBudgetExtensions
       extend ActiveSupport::Concern
 
+      include Decidim::AttachmentAttributesMethods
+
       included do
         def update_budget!
           attributes = {
@@ -16,7 +18,7 @@ module Decidim
             total_budget: form.total_budget,
             center_latitude: form.center_latitude,
             center_longitude: form.center_longitude
-          }
+          }.merge(attachment_attributes(:list_image))
 
           Decidim.traceability.update!(
             budget,
