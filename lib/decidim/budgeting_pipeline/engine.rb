@@ -78,7 +78,12 @@ module Decidim
             get :finished
           end
 
-          resources :orders, only: [:index]
+          resources :orders, only: [:index] do
+            collection do
+              get :cancel, to: "cancel#index"
+              delete :cancel, to: "cancel#destroy"
+            end
+          end
 
           resources :budgets, only: [] do
             resource :order, only: [] do

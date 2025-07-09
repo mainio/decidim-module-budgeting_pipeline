@@ -75,6 +75,12 @@ en:
             title: Exports proposals to results
       budget_information_modal:
         continue: Close
+      cancel:
+        index:
+          are_you_sure: Are you sure you want to cancel your vote?
+          back: Show proposals
+          cancel_order: Cancel your vote
+          title: Cancel your vote
       last_activity:
         show_vote_at: Show my vote at %{name}
         voted_at_html: "<span>You voted at %{link}</span>"
@@ -510,6 +516,11 @@ en:
       component_order_selector:
         order:
           vote: Vote
+    orders:
+      checkout:
+        success: Your vote has been successfully received.
+      destroy:
+        success: Your vote has been successfully cancelled.
     statistics:
       orders_count: Votes
       projects_count: Proposals

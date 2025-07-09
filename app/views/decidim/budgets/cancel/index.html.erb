@@ -1,0 +1,30 @@
+<% add_decidim_meta_tags(title: t(".title")) %>
+
+<div class="row columns">
+  <div class="page-title">
+    <h1 class="heading1"><%= t(".title") %></h1>
+  </div>
+</div>
+
+<div class="row margin-top-3 margin-bottom-3 align-center">
+  <div class="columns mediumlarge-10 large-8">
+    <%= render partial: "decidim/budgets/orders/orders_info" %>
+
+    <div class="margin-bottom-3">
+      <%= link_to(
+        t(".cancel_order"),
+        cancel_orders_path,
+        method: :delete,
+        class: "button button-primary",
+        data: { confirm: t(".are_you_sure") }
+      ) %>
+    </div>
+  </div>
+</div>
+
+<div class="row column margin-bottom-3">
+  <%= link_to projects_path, class: "action-link" do %>
+    <%= icon "arrow-left", class: "icon--small", "aria-hidden": true %>
+    <%= t(".back") %>
+  <% end %>
+</div>

@@ -75,6 +75,12 @@ sv:
             title: Exporterar förslag till resultat
       budget_information_modal:
         continue: Stäng
+      cancel:
+        index:
+          are_you_sure: Är du säker på att du vill avbryta din röst?
+          back: Visa förslag
+          cancel_order: Avbryt din röst
+          title: Avbryt din röst
       last_activity:
         show_vote_at: Visa min röst på %{name}
         voted_at_html: "<span>Du röstade på %{link}</span>"
@@ -515,6 +521,11 @@ sv:
       component_order_selector:
         order:
           vote: Röst
+    orders:
+      checkout:
+        success: Din röst har tagits emot.
+      destroy:
+        success: Din röst har dragits tillbaka.
     statistics:
       orders_count: Röster
       projects_count: Förslag

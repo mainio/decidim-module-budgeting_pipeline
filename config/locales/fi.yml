@@ -75,6 +75,12 @@ fi:
             title: Vie ehdotuksia tuloksiksi
       budget_information_modal:
         continue: Sulje
+      cancel:
+        index:
+          are_you_sure: Haluatko varmasti peruuttaa äänesi?
+          back: Näytä ehdotukset
+          cancel_order: Peruuta äänesi
+          title: Peruuta äänesi
       last_activity:
         show_vote_at: Näytä ääneni osallistumistilassa %{name}
         voted_at_html: "<span>Äänestit osoitteessa %{link}</span>"
@@ -510,6 +516,11 @@ fi:
       component_order_selector:
         order:
           vote: Ääni
+    orders:
+      checkout:
+        success: Äänesi kirjaaminen onnistui.
+      destroy:
+        success: Äänesi peruminen onnistui.
     statistics:
       orders_count: Ääntä
       projects_count: Ehdotusta
