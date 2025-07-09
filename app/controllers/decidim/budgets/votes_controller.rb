@@ -84,21 +84,11 @@ module Decidim
       def create
         CheckoutOrders.call(current_orders, current_user) do
           on(:ok) do
-            # Do not display a flash message with a successful vote because it
-            # would force the focus within the flash message instead of the
-            # popup which is displayed after a successful vote. This is
-            # important for screen reader users who need to hear the modal
-            # content when it is displayed.
-            # session["decidim-budgets.voted"] = true
-            if current_settings.show_votes?
-              redirect_to routes_proxy.results_path
-            else
-              redirect_to routes_proxy.finished_vote_path
-            end
+            redirect_to routes_proxy.finished_vote_path
           end
 
           on(:invalid) do
-            flash.now[:alert] = I18n.t("decidim.budgets.votes.create.error")
+            flash[:alert] = I18n.t("decidim.budgets.votes.create.error")
             redirect_to projects_vote_path
           end
         end
