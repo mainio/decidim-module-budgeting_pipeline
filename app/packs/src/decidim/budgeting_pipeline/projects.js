@@ -17,17 +17,15 @@
     // placeHolder.style.height = `${ordersSummary.offsetHeight}px`;
     // console.log(ordersSummary.offsetHeight);
 
-    document.addEventListener("scroll", (event) => {
+    document.addEventListener("scroll", () => {
       if (window.scrollY > stickPosition.offsetTop) {
         if (!ordersSummary.classList.contains("is-stuck")) {
           placeHolder.style.height = `${ordersSummary.offsetHeight}px`;
           ordersSummary.classList.add("is-stuck");
         }
-      } else {
-        if (ordersSummary.classList.contains("is-stuck")) {
-          ordersSummary.classList.remove("is-stuck");
-          placeHolder.style.height = 0;
-        }
+      } else if (ordersSummary.classList.contains("is-stuck")) {
+        ordersSummary.classList.remove("is-stuck");
+        placeHolder.style.height = 0;
       }
     });
   };
@@ -56,6 +54,7 @@
         document.body.classList.add("loading");
         Rails.ajax({
           url: el.dataset.selectUrl,
+          // eslint-disable-next-line no-ternary ,multiline-ternary
           type: el.checked ? "POST" : "DELETE",
           success: () => {
             loadingProjects.shift();
@@ -91,7 +90,7 @@
       clickableArea.addEventListener("click", clickHandler);
       button.addEventListener("keydown", (ev) => {
         if (ev.code === "Enter" || ev.code === "Space") {
-          buttonClickHandler(ev);
+          clickHandler(ev);
         }
       });
     });
