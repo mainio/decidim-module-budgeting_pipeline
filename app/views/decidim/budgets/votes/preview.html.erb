@@ -1,3 +1,5 @@
+<% add_decidim_meta_tags(title: t(".title")) %>
+
 <% empty_vote = current_orders.all? { |o| o.line_items.empty? } %>
 
 <%= render partial: "top" %>
