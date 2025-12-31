@@ -1,10 +1,24 @@
 <% if component_settings.geocoding_enabled? && project.address.present? && project.latitude.present? && project.longitude.present? %>
-  <div id="project_map" class="margin-top-3">
-    <h2><%= t(".title") %></h2>
-    <p><%= t(".note") %></p>
+  <div class="accordion accordion--large" data-accordion data-multi-expand="true" data-allow-all-closed="true">
+    <div class="accordion-item" data-accordion-item>
+      <a role="button" class="accordion-title" href="#" aria-expanded="false">
+        <span class="accordion-title__text"><%= t(".title") %></span>
+        <span class="accordion-title__icon">
+          <span class="accordion--inactive">
+            <%= icon("chevron-bottom", role: "img", "aria-hidden": true) %>
+          </span>
+          <span class="accordion--active">
+            <%= icon("chevron-top", role: "img", "aria-hidden": true) %>
+          </span>
+        </span>
+      </a>
+      <div class="accordion-content" data-tab-content="" role="region" aria-hidden="true">
+        <p><%= t(".note") %></p>
 
-    <%= projects_map projects_data_for_map([project.geocoded_data]), type: "resource-markers" do %>
-      <%= render partial: "map_template" %>
-    <% end %>
+        <%= projects_map projects_data_for_map([project.geocoded_data]), type: "resource-markers" do %>
+          <%= render partial: "map_template" %>
+        <% end %>
+      </div>
+    </div>
   </div>
 <% end %>
