@@ -81,11 +81,11 @@ module Decidim
         # Implemented as its own scope because the linked resource search is
         # difficult to implement in a performant way through ransack directly.
         scope :matching_id_or_text_with_linked_plans, lambda { |text, locales = []|
-          id_match = text.match(/\A([0-9]+)\z/)
+          id_match = text.match(/\A#?([0-9]+)\z/)
 
           query =
             if id_match
-              where(id: text)
+              where(id: id_match[1])
             else
               ransack(search_text_cont: text).result
             end
@@ -106,7 +106,7 @@ module Decidim
               searchable_sections = Decidim::Plans::Section.where(component: plan_components, searchable: true)
               matching_plans =
                 if id_match
-                  Decidim::Plans::Plan.where(id: text)
+                  Decidim::Plans::Plan.where(id: id_match[1])
                 else
                   Decidim::Plans::Plan.containing_text(text, searchable_sections, locales)
                 end
