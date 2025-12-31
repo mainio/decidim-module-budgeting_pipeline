@@ -1,5 +1,5 @@
 <% if component_settings.geocoding_enabled? && project.address.present? && project.latitude.present? && project.longitude.present? %>
-  <div class="accordion accordion--large" data-accordion data-multi-expand="true" data-allow-all-closed="true">
+  <div id="project_map" class="accordion accordion--large" data-accordion data-multi-expand="true" data-allow-all-closed="true">
     <div class="accordion-item" data-accordion-item>
       <a role="button" class="accordion-title" href="#" aria-expanded="false">
         <span class="accordion-title__text"><%= t(".title") %></span>
