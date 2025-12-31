@@ -148,7 +148,7 @@ en:
           empty_order: You did not choose any proposals from area %{name}.
           title: Preview and voting
           total_budget: Budget for the area
-          total_projects: Number of proposals available in the area
+          total_projects: Maximum amount of proposals to be selected
           vote: Vote
         orders_modal:
           close: Back to proposal selection
@@ -193,17 +193,17 @@ en:
           order: Order
           reset: Clear filters
           search: Search
-          selected: Show my voted proposals
+          selected: Show my selected proposals
           status_values:
             not_selected: Will not proceed to implementation
             selected: Proceeds to implementation
           term: Keyword
           title: Search proposals
         index:
-          breadcrumb: Browse proposals
+          breadcrumb: Votable proposals
           show_list: Show results as list
           show_map: Show results on map
-          title: Browse proposals
+          title: Votable proposals
           view_project_detailed: "Show proposal: %{name}"
         map_template:
           view_project: Show proposal
@@ -430,7 +430,7 @@ en:
             title: You have not selected any proposals to vote on!
           title: Preview and vote
           total_budget: Budget for the area
-          total_projects: Maximum amount of proposals to be selected in the area
+          total_projects: Maximum amount of proposals to be selected
         preview_modal:
           buttons:
             vote: Yes, confirm my vote

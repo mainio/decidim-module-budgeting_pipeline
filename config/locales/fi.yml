@@ -148,7 +148,7 @@ fi:
           empty_order: Et valinnut yhtään ehdotusta alueelta %{name}.
           title: Esikatselu ja äänestys
           total_budget: Alueen budjetti
-          total_projects: Alueen valittavien ehdotusten määrä
+          total_projects: Valittavien ehdotusten enimmäismäärä
           vote: Äänestä
         orders_modal:
           close: Takaisin ehdotusten valintaan
@@ -193,17 +193,17 @@ fi:
           order: Järjestys
           reset: Tyhjennä rajaukset
           search: Hae
-          selected: Näytä äänestämäni ehdotukset
+          selected: Näytä valitsemani ehdotukset
           status_values:
             not_selected: Ei etene toteutukseen
             selected: Etenee toteutukseen
           term: Hakusana
           title: Etsi ehdotuksista
         index:
-          breadcrumb: Tutustu ehdotuksiin
+          breadcrumb: Äänestettävät ehdotukset
           show_list: Näytä tulokset listana
           show_map: Näytä tulokset kartalla
-          title: Tutustu ehdotuksiin
+          title: Äänestettävät ehdotukset
           view_project_detailed: "Näytä ehdotus: %{name}"
         map_template:
           view_project: Näytä ehdotus
@@ -430,7 +430,7 @@ fi:
             title: Et ole valinnut yhtään äänestettäviä ehdotuksia!
           title: Esikatselu ja äänestys
           total_budget: Alueen budjetti
-          total_projects: Alueen valittavien ehdotusten enimmäismäärä
+          total_projects: Valittavien ehdotusten enimmäismäärä
         preview_modal:
           buttons:
             vote: Kyllä, vahvista ääneni

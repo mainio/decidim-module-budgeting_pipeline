@@ -148,7 +148,7 @@ sv:
           empty_order: Du valde inga förslag från område %{name}.
           title: Förhandsvisning och omröstning
           total_budget: Budget för området
-          total_projects: Antal förslag som ska väljas i området
+          total_projects: Maximalt antal förslag som ska väljas ut
           vote: Rösta
         orders_modal:
           close: Tillbaka till val av förslag
@@ -198,17 +198,17 @@ sv:
           order: Sortering
           reset: Rensa filter
           search: Sök
-          selected: Visa mina röstade förslag
+          selected: Visa mina valda förslag
           status_values:
             not_selected: Går inte vidare till genomförande
             selected: Fortsätter till genomförande
           term: Nyckelord
           title: Sök förslag
         index:
-          breadcrumb: Bekanta dig med förslag
+          breadcrumb: Röstbara förslag
           show_list: Visa resultat som lista
           show_map: Visa resultat på kartan
-          title: Bekanta dig med förslag
+          title: Röstbara förslag
           view_project_detailed: "Visa förslag: %{name}"
         map_template:
           view_project: Visa förslag
@@ -435,7 +435,7 @@ sv:
             title: Du har inte valt några förslag att rösta om!
           title: Förhandsvisning och omröstning
           total_budget: Budget för området
-          total_projects: Maximalt antal förslag som ska väljas i området
+          total_projects: Maximalt antal förslag som ska väljas ut
         preview_modal:
           buttons:
             vote: Ja, bekräfta min röst
