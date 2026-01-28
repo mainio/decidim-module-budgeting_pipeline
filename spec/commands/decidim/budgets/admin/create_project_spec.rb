@@ -38,6 +38,7 @@ module Decidim::Budgets
         title: { en: "title" },
         summary: { en: "Summary for the project" },
         description: { en: "description" },
+        answer: { en: "answer" },
         budget_amount: 10_000_000,
         address: address,
         latitude: latitude,
@@ -79,9 +80,14 @@ module Decidim::Budgets
         expect(project.budget).to eq budget
       end
 
-      it "sets the budget summary" do
+      it "sets the project summary" do
         subject.call
         expect(project.summary).to eq({ "en" => "Summary for the project" })
+      end
+
+      it "sets the project answer" do
+        subject.call
+        expect(project.answer).to eq({ "en" => "answer" })
       end
 
       it "traces the action", versioning: true do

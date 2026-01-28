@@ -20,6 +20,7 @@ module Decidim
         alias_method :map_model_orig_budgeting_pipeline, :map_model unless method_defined?(:map_model_orig_budgeting_pipeline)
 
         translatable_attribute :summary, String
+        translatable_attribute :answer, String
         attribute :budget_amount_min, Integer
         attribute :address, String
         attribute :latitude, Float

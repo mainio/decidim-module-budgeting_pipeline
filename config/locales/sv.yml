@@ -17,6 +17,7 @@ sv:
         weight: Ordning nummer
       project:
         address: Adress
+        answer: Utvärdering
         budget_amount: Högsta budgetbelopp
         budget_amount_min: Minsta budgetbelopp
         main_image: Primär bild

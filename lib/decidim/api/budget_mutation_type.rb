@@ -105,12 +105,13 @@ module Decidim
         )
       end
 
-      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/PreferredHashMethods
       def project_params(attributes, project = nil)
         {
           "title" => attributes.title,
           "summary" => attributes.summary,
           "description" => attributes.description,
+          "answer" => attributes.key?(:answer) ? attributes.answer : project&.answer,
           "budget_amount" => attributes.budget_amount,
           "budget_amount_min" => attributes.budget_amount_min,
           "address" => attributes&.location&.address,
@@ -126,7 +127,7 @@ module Decidim
           attrs.merge!(attributes.main_image_attributes) if attributes.main_image_attributes
         end
       end
-      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+      # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Style/PreferredHashMethods
 
       def related_ids_for(project, resource)
         return [] unless project

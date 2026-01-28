@@ -18,6 +18,7 @@ module Decidim
               category: form.category,
               title: form.title,
               summary: form.summary,
+              answer: form.answer,
               description: form.description,
               budget_amount: form.budget_amount,
               budget_amount_min: form.budget_amount_min,

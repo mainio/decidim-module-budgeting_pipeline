@@ -27,6 +27,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
         title: { en: "New project" },
         summary: { en: "Project summary" },
         description: { en: "<p>Project description</p>" },
+        answer: { en: "<p>Project answer</p>" },
         budgetAmount: 50_000,
         budgetAmountMin: 20_000,
         location: {
@@ -68,6 +69,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
         expect(project.title).to match(attributes[:title].stringify_keys)
         expect(project.summary).to match(attributes[:summary].stringify_keys)
         expect(project.description).to match(attributes[:description].stringify_keys)
+        expect(project.answer).to match(attributes[:answer].stringify_keys)
         expect(project.budget_amount).to eq(attributes[:budgetAmount])
         expect(project.budget_amount_min).to eq(attributes[:budgetAmountMin])
         expect(project.address).to eq(attributes[:location][:address])
@@ -122,6 +124,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
         title: { en: "Updated project" },
         summary: { en: "Project summary" },
         description: { en: "<p>Project description</p>" },
+        answer: { en: "<p>Project answer</p>" },
         budgetAmount: 50_000,
         budgetAmountMin: 20_000,
         location: {
@@ -163,6 +166,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
         expect(project.title["en"]).to match(attributes[:title][:en])
         expect(project.summary["en"]).to match(attributes[:summary][:en])
         expect(project.description["en"]).to match(attributes[:description][:en])
+        expect(project.answer["en"]).to match(attributes[:answer][:en])
         expect(project.budget_amount).to eq(attributes[:budgetAmount])
         expect(project.budget_amount_min).to eq(attributes[:budgetAmountMin])
         expect(project.address).to eq(attributes[:location][:address])

@@ -17,6 +17,7 @@ en:
         weight: Order number
       project:
         address: Address
+        answer: Evaluation
         budget_amount: Maximum budget amount
         budget_amount_min: Minimum budget amount
         main_image: Primary image

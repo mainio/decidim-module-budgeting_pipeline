@@ -8,6 +8,9 @@ module Decidim
       argument :title, GraphQL::Types::JSON, description: "The project title localized hash, e.g. {\"en\": \"English title\"}", required: true
       argument :summary, GraphQL::Types::JSON, description: "The project summary for the cards, e.g. {\"en\": \"English summary\"}", required: true
       argument :description, GraphQL::Types::JSON, description: "The project description localized hash (HTML), e.g. {\"en\": \"<p>English description</p>\"}", required: true
+      argument :answer, GraphQL::Types::JSON,
+               description: "The project answer or evaluation localized hash (HTML), e.g. {\"en\": \"<p>English answer or evaluation</p>\"}",
+               required: false
       argument :budget_amount, GraphQL::Types::Int, description: "The budget amount of the project (maximum)", required: true
       argument :budget_amount_min, GraphQL::Types::Int, description: "The minimum budget amount of the project", required: false
 

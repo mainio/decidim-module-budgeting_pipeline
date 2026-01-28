@@ -17,6 +17,7 @@ fi:
         weight: Järjestysnumero
       project:
         address: Osoite
+        answer: Arviointi
         budget_amount: Enimmäisbudjetti
         budget_amount_min: Vähimmäisbudjetti
         main_image: Ensisijainen kuva
