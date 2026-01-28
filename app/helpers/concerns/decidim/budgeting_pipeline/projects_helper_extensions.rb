@@ -85,13 +85,6 @@ module Decidim
         end
       end
 
-      def filter_activity_values
-        [
-          [t("decidim.budgets.projects.filters.activity_values.all"), "all"],
-          [t("decidim.budgets.projects.filters.activity_values.favorites"), "favorites"]
-        ]
-      end
-
       def display_budgets_filter?
         budgets.count > 1
       end
