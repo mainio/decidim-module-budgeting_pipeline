@@ -28,6 +28,24 @@ describe Decidim::Budgets::ProjectType do
     end
   end
 
+  describe "answer" do
+    let(:answer) { Decidim::Faker::Localized.wrapped("<p>", "</p>") { generate_localized_title } }
+    let(:model) { create(:budgeting_pipeline_project, component: component, answer: answer) }
+    let(:query) { "{ answer { translations { text locale } } }" }
+
+    let(:response_answer) do
+      response["answer"]["translations"].to_h do |value|
+        [value["locale"], value["text"]]
+      end
+    end
+
+    it "returns the project answer" do
+      actual_answer = model.answer.except("machine_translations")
+      machine_translations = model.answer["machine_translations"]
+      expect(response_answer).to match(actual_answer.merge(machine_translations))
+    end
+  end
+
   describe "mainImage" do
     let(:query) { "{ mainImage }" }
 

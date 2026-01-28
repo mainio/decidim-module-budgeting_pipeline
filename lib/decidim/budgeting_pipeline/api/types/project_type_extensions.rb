@@ -13,6 +13,7 @@ module Decidim
           type.field :main_image, GraphQL::Types::String, "The main image URL for this project", null: true
           type.field :main_image_blob, Decidim::Apifiles::BlobType, "The main image file blob for the project", null: true
           type.field :summary, Decidim::Core::TranslatedFieldType, "The summary for this project", null: true
+          type.field :answer, Decidim::Core::TranslatedFieldType, "The answer or evaluation for this project", null: true
           type.field :budget_amount, GraphQL::Types::Int, "The budget amount (maximum) for this project", null: true
           type.field :budget_amount, GraphQL::Types::Int, "DEPRECATED: (same as `budgetAmount`), use `budgetAmount` instead", null: true, camelize: false
           type.field :budget_amount_min, GraphQL::Types::Int, "The minimum budget amount for this project", null: true
