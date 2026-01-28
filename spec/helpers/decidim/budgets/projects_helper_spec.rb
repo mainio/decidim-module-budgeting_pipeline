@@ -41,14 +41,6 @@ module Decidim
           expect(subject).to eq("Both areas")
         end
       end
-
-      describe "#filter_activity_values" do
-        subject { helper.filter_activity_values }
-
-        it "returns correct translation" do
-          expect(subject).to eq([%w(All all), ["My favorites", "favorites"]])
-        end
-      end
     end
   end
 end

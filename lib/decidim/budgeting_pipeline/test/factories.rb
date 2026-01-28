@@ -20,7 +20,6 @@ FactoryBot.define do
       geocoding_enabled { true }
       default_map_center_coordinates { "60.1674881,24.9427473" }
       vote_identify_page_content { Decidim::Faker::Localized.wrapped("<p>", "</p>") { generate_localized_title } }
-      vote_identify_page_more_information { Decidim::Faker::Localized.wrapped("<p>", "</p>") { generate_localized_title } }
       vote_identify_invalid_authorization_title { generate_localized_title }
       vote_identify_invalid_authorization_content { Decidim::Faker::Localized.wrapped("<p>", "</p>") { generate_localized_title } }
       vote_budgets_page_content { Decidim::Faker::Localized.wrapped("<p>", "</p>") { generate_localized_title } }
@@ -36,7 +35,6 @@ FactoryBot.define do
         geocoding_enabled: geocoding_enabled,
         default_map_center_coordinates: default_map_center_coordinates,
         vote_identify_page_content: vote_identify_page_content,
-        vote_identify_page_more_information: vote_identify_page_more_information,
         vote_identify_invalid_authorization_title: vote_identify_invalid_authorization_title,
         vote_identify_invalid_authorization_content: vote_identify_invalid_authorization_content,
         vote_budgets_page_content: vote_budgets_page_content,

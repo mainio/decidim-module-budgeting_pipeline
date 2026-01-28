@@ -10,14 +10,11 @@ describe "Voting", type: :system do
       it "displays the sign in page" do
         visit_voting
 
-        page.scroll_to find("h2", text: "Strong identification")
+        page.scroll_to find("h2", text: "Log in to the service to vote")
 
         contents = all(".wrapper .static__content")
         within contents[0] do
           expect(page).to have_content(strip_tags(translated(component.settings.vote_identify_page_content)))
-        end
-        within contents[1] do
-          expect(page).to have_content(strip_tags(translated(component.settings.vote_identify_page_more_information)))
         end
 
         within ".voting-identity" do
@@ -37,8 +34,8 @@ describe "Voting", type: :system do
         it "displays the authorization options" do
           visit_voting
 
-          expect(page).to have_content("Strong identification")
-          page.scroll_to find("h2", text: "Strong identification")
+          expect(page).to have_content("Log in to the service to")
+          page.scroll_to find("h2", text: "Log in to the service to")
 
           within ".voting-identity" do
             expect(page).to have_link("Example authorization")
@@ -50,7 +47,7 @@ describe "Voting", type: :system do
         it "redirects to the budgets selection and allows selecting a budget" do
           visit_voting
 
-          expect(page).to have_content("Select voting area")
+          expect(page).to have_content("Select the area where you want to vote")
         end
       end
     end
@@ -62,11 +59,11 @@ describe "Voting", type: :system do
     it "lists all available budgets" do
       visit_voting
 
-      page.scroll_to find("h2", text: "Select voting area")
+      page.scroll_to find("h2", text: "Select the area where you want to vote")
 
-      within "form#new_budget_select_" do
+      within ".voting-wrapper" do
         budgets.each do |budget|
-          expect(find("label", text: decidim_sanitize(translated(budget.title)))).not_to be_nil
+          expect(find("h2", text: translated(budget.title))).not_to be_nil
         end
       end
     end
@@ -78,12 +75,13 @@ describe "Voting", type: :system do
     it "allows selecting a budget" do
       visit_voting
 
-      page.scroll_to find("h2", text: "Select voting area")
+      page.scroll_to find("h2", text: "Select the area where you want to vote")
 
-      find("label", text: decidim_sanitize(translated(budget1.title))).click
-      click_button "Select proposals"
+      within ".voting-wrapper" do
+        find("h2", text: translated(budget1.title)).find(:xpath, "ancestor::a").click
+      end
 
-      expect(find("h2", text: "Select proposals")).not_to be_nil
+      expect(page).to have_content("You have not selected any proposals from this area.")
     end
   end
 
@@ -94,54 +92,47 @@ describe "Voting", type: :system do
       login_as user, scope: :user
 
       visit_voting
-      find("label", text: decidim_sanitize(translated(budget.title))).click
-      click_button "Select proposals"
+      within ".voting-wrapper" do
+        find("h2", text: translated(budget1.title)).find(:xpath, "ancestor::a").click
+      end
 
-      page.scroll_to find("h2", text: "Select proposals")
+      page.scroll_to find("#projects_table")
     end
 
     it "lists the projects for the selected budget" do
-      expect(page).to have_content("FOUND 10 PROPOSALS")
+      expect(page).to have_content("Found 10 proposals")
     end
 
     it "allows selecting projects" do
-      page.scroll_to find("#projects-count")
-
-      within all(".card form.button_to")[0] do
-        click_button "Add to voting cart"
+      within all(".projects-table__row")[0] do
+        find("input[type=checkbox]").click
       end
 
-      # May be different element when the cart is updated
-      expect(page).to have_button("Remove from voting cart")
+      expect(page).to have_content("4 votes remaining")
     end
 
     context "when project is selected" do
       it "does not allow exceeding the budget" do
-        page.scroll_to find("#projects-count")
-
-        all(".card form.button_to")[0..4].each do |button|
-          within button do
-            click_button "Add to voting cart"
+        all(".projects-table__row")[0..4].each do |row|
+          within row do
+            find("input[type=checkbox]").click
           end
         end
 
-        within all(".card")[5] do
-          expect(page).to have_css("button[disabled]")
+        within all(".projects-table__row")[5] do
+          expect(page).to have_css("input[type=checkbox][disabled]")
         end
       end
 
       it "shows progress correctly" do
-        within all(".card form.button_to")[0] do
-          click_button "Add to voting cart"
+        within all(".projects-table__row")[0] do
+          find("input[type=checkbox]").click
         end
 
-        page.scroll_to find("#orders")
+        page.scroll_to find("#orders-summary")
 
-        within "#orders" do
-          expect(page).to have_content("Proposals in the cart 1 pcs")
-          expect(page).to have_content("Maximum amount of proposals to be selected 5")
-          expect(page).to have_content("Number of selected proposals 1")
-          expect(page).to have_content("Remaining proposals to select 4")
+        within "#orders-summary" do
+          expect(page).to have_content("4 votes remaining")
         end
       end
     end
@@ -158,13 +149,13 @@ describe "Voting", type: :system do
       login_as user, scope: :user
 
       visit_voting_preview
-
-      page.scroll_to find("h2", text: "Preview and vote")
     end
 
     it "shows the vote preview page" do
-      expect(page).to have_content("Maximum amount of proposals to be selected in the area: 5")
-      expect(page).to have_content(translated(budget1_projects.first.title))
+      within ".reveal" do
+        expect(page).to have_content("Proposals you selected")
+        expect(page).to have_content(translated(budget1_projects.first.title))
+      end
     end
   end
 
@@ -179,16 +170,14 @@ describe "Voting", type: :system do
       login_as user, scope: :user
 
       visit_voting_preview
-
-      page.scroll_to find("h2", text: "Preview and vote")
     end
 
     it "can cast the vote" do
-      click_button "Vote"
-
-      within "#vote-finished-modal" do
-        expect(page).to have_content("Thank you for your vote!")
+      within ".reveal" do
+        click_button "Yes, confirm my vote"
       end
+
+      expect(page).to have_css("h1", text: "Your vote is registered")
     end
   end
 end

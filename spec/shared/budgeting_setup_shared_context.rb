@@ -82,7 +82,12 @@ shared_context "with budgeting setup" do
   end
 
   def visit_voting_preview
-    page.visit decidim_budgets.preview_vote_path
+    page.visit decidim_budgets.projects_vote_path
+    expect(page).to have_content("votes remaining")
+    within "#orders-summary" do
+      click_link "Confirm your vote"
+    end
+    expect(page).to have_content("You are confirming your votes for")
   end
 
   def decidim_budgets

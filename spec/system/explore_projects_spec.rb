@@ -20,7 +20,7 @@ describe "Explore projects", type: :system do
 
       it "can filter based on keywords" do
         within "form.new_filter" do
-          find(%(input[aria-label="Keyword"])).set(translated(budget1_projects.first.title))
+          find(%(input[name="filter[search_text_cont]"])).set(translated(budget1_projects.first.title))
           click_button "Search"
         end
 
@@ -29,7 +29,7 @@ describe "Explore projects", type: :system do
 
       it "can filter based on the area" do
         within "form.new_filter" do
-          find(%(select[aria-label="Area"])).find(%(option[value="#{budget1.id}"])).select_option
+          find(%(select[name="filter[decidim_budgets_budget_id_eq]"])).find(%(option[value="#{budget1.id}"])).select_option
           click_button "Search"
         end
 
@@ -41,8 +41,8 @@ describe "Explore projects", type: :system do
           click_button "Show more search criteria"
           scroll_to find("#additional_search")
 
-          find(%(input[aria-label="Minimum budget"])).set(16_000)
-          find(%(input[aria-label="Maximum budget"])).set(20_000)
+          find(%(input[name="filter[budget_amount_gteq]")).set(16_000)
+          find(%(input[name="filter[budget_amount_lteq]"])).set(20_000)
           click_button "Search"
         end
 
@@ -61,9 +61,7 @@ describe "Explore projects", type: :system do
     it "shows the project details" do
       scroll_to find(".resource__details")
 
-      expect(page).to have_content("##{project.id}")
-      expect(page).to have_content(decidim_sanitize(translated(project.budget.title)))
-      expect(page).to have_content(project.address)
+      expect(page).to have_content(translated(project.budget.title))
       expect(page).to have_content(translated(project.title))
       expect(page).to have_content(strip_tags(translated(project.description)))
     end
@@ -84,7 +82,13 @@ describe "Explore projects", type: :system do
 
     context "when voting finished" do
       before do
-        component.step_settings = { component.participatory_space.active_step.id => { votes: "finished", show_votes: true } }
+        component.step_settings = {
+          component.participatory_space.active_step.id => {
+            votes: "finished",
+            show_votes: true,
+            show_selected_status: true
+          }
+        }
         component.save
         budget1_projects.first.update(selected_at: Time.current)
       end

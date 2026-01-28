@@ -252,7 +252,7 @@ describe Decidim::Budgets::VotesController, type: :controller do
       it "redirects to projects" do
         post :create
 
-        expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/projects")
+        expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/vote/finished")
       end
 
       it "checks out the orders" do

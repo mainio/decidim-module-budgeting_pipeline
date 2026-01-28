@@ -94,6 +94,7 @@ describe "Admin exports projects to accountability", type: :system do
       select translated(accountability_component.name), from: :accountability_export_target_component_id
       check :accountability_export_export_all_selected_projects
       click_button "Export to results"
+      expect(page).to have_content("Proposals successfully exported to results")
     end
   end
 end
