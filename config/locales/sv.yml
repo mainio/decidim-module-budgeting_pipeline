@@ -175,11 +175,6 @@ sv:
           category_name: Tema
           vote_count: Röster
         filters:
-          activity: Min aktivitet
-          activity_values:
-            all: Alla
-            authored: Mina förslag
-            favorites: Mina favoriter
           budget: Område
           budget_amount_max: Maximal budget
           budget_amount_min: Minsta budget
