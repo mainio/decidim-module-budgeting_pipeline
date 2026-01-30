@@ -252,7 +252,7 @@ en:
             other: There are %{count} proposals in your vote
           show_orders: Show vote
         shared:
-          project_note: Proposals may be refined by the city after the vote, for example in terms of location or method of implementation.
+          project_note: The proposals may be refined by the city after the vote, for example regarding location or method of implementation. Similar proposals are consolidated into a single proposal.
         show:
           close: Close
           description: Proposal description

@@ -252,7 +252,7 @@ fi:
             other: Äänessäsi on %{count} ehdotusta
           show_orders: Näytä ääni
         shared:
-          project_note: Ehdotuksia saatetaan tarkentaa äänestyksen jälkeen kaupungin toimesta esimerkiksi sijainnin tai toteutustavan osalta.
+          project_note: Ehdotuksia saatetaan tarkentaa äänestyksen jälkeen kaupungin toimesta esimerkiksi sijainnin tai toteutustavan osalta. Kaupunki on yhdistänyt samankaltaiset ehdotukset.
         show:
           close: Sulje
           description: Ehdotuksen kuvaus

@@ -252,7 +252,7 @@ sv:
             other: Det finns %{count} förslag i din röst
           show_orders: Visa röst
         shared:
-          project_note: Förslagen kan förtydligas och vidareutvecklas omröstningen, till exempel gällande plats och hur förslagen genomförs.
+          project_note: Förslagen preciseras av staden efter omröstningen, till exempel vad gäller plats eller genomförandesätt. Staden sammanför liknande förslag.
         show:
           close: Stänga
           description: Förslagsbeskrivning
