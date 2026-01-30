@@ -73,8 +73,6 @@ summary = translated_attribute(project.summary)
 
         <%= render partial: "project_answer", locals: { project: project } %>
 
-        <%= render partial: "project_map", locals: { project: project } %>
-
         <% if respond_to?(:linked_resources_group_for) %>
           <div class="linked-resources">
             <%= linked_resources_group_for(project, {
@@ -83,6 +81,8 @@ summary = translated_attribute(project.summary)
             }) %>
           </div>
         <% end %>
+
+        <%= render partial: "project_map", locals: { project: project } %>
       </div>
 
       <div class="resource__details">
