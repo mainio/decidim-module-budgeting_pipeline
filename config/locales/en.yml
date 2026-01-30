@@ -149,7 +149,7 @@ en:
           empty_order: You did not choose any proposals from area %{name}.
           title: Preview and voting
           total_budget: Budget for the area
-          total_projects: Maximum amount of proposals to be selected
+          total_projects: Amount of proposals to be selected
           vote: Vote
         orders_modal:
           close: Back to proposal selection
@@ -437,9 +437,6 @@ en:
             vote: Yes, confirm my vote
             cancel: No, cancel and make changes
           lead: You are confirming your votes for Helsinki's participatory budgeting proposals.
-          notes_html: |
-            <p>If you are happy with your choices, confirm your vote below. You can also go back to make changes.</p>
-            <p>Do you want to confirm your votes?</p>
           notice: You can only vote once. Once confirmed, the votes cannot be changed.
           selected_proposals: "Proposals you selected:"
           title: "%{service_name} voting"

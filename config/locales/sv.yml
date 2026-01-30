@@ -149,7 +149,7 @@ sv:
           empty_order: Du valde inga förslag från område %{name}.
           title: Förhandsvisning och omröstning
           total_budget: Budget för området
-          total_projects: Maximalt antal förslag som ska väljas ut
+          total_projects: Antal förslag som ska väljas ut
           vote: Rösta
         orders_modal:
           close: Tillbaka till val av förslag
@@ -437,9 +437,6 @@ sv:
             vote: Ja, bekräfta min röst
             cancel: Nej, avbryt och gör ändringar
           lead: Du bekräftar dina röster för Helsingfors deltagande budgetförslag.
-          notes_html: |
-            <p>Om du är nöjd med dina val, bekräfta din röst nedan. Du kan också gå tillbaka för att göra ändringar.</p>
-            <p>Vill du bekräfta dina röster?</p>
           notice: Du kan rösta bara en gång. När de har bekräftats kan rösterna inte ändras.
           selected_proposals: "Förslag du valde:"
           title: "%{service_name} omröstning"

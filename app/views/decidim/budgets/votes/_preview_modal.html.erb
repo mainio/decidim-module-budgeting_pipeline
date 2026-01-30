@@ -30,7 +30,6 @@
       <% end %>
     </div>
     <p><%= t(".total_budget_html", amount: budget_to_currency(current_orders.sum(&:total_budget))) %></p>
-    <%= t(".notes_html") %>
   </div>
 
   <div class="buttons buttons-row">

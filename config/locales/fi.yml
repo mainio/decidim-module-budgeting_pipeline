@@ -131,7 +131,7 @@ fi:
           selected_projects: 'Ehdotukset, jotka valitsit:'
           subject: Äänestit alueilla %{budget_names}
           voted_on_budgets: Äänestit alueilla %{budget_names}.
-          votes_summary: Alta löydät yhteenvedon äänestäsi.
+          votes_summary: Alta löydät äänestysyhteenvedon.
       orders:
         continue_button:
           label: Esikatselu ja äänestys
@@ -149,7 +149,7 @@ fi:
           empty_order: Et valinnut yhtään ehdotusta alueelta %{name}.
           title: Esikatselu ja äänestys
           total_budget: Alueen budjetti
-          total_projects: Valittavien ehdotusten enimmäismäärä
+          total_projects: Valittavien ehdotusten määrä
           vote: Äänestä
         orders_modal:
           close: Takaisin ehdotusten valintaan
@@ -437,9 +437,6 @@ fi:
             vote: Kyllä, vahvista ääneni
             cancel: Ei, peruuta ja tee muutoksia
           lead: Olet vahvistamassa antamasi äänet Helsingin osallistuvan budjetoinnin ehdotuksille.
-          notes_html: |
-            <p>Jos olet tyytyväinen valintoihisi, vahvista äänesi alta. Voit myös palata tekemään muutoksia.</p>
-            <p>Vahvistetaanko antamasi äänet?</p>
           notice: Voit äänestää vain kerran. Äänestämisen jälkeen et voi enää muuttaa äänestysvalintojasi.
           selected_proposals: "Valitsemasi ehdotukset:"
           title: "%{service_name}-äänestys"
