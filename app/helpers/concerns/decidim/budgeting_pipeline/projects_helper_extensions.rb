@@ -106,7 +106,7 @@ module Decidim
         return unless category
         return unless category.respond_to?(:category_image_url)
 
-        category.category_image_url
+        category.category_image_url(:default)
       end
 
       def project_map_link(resource, options = {})
