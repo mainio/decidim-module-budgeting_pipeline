@@ -198,9 +198,9 @@ module Decidim
       end
 
       def category_image_path(cat)
-        return unless cat.respond_to?(:category_image_url)
+        return unless cat.respond_to?(:category_image_url_for)
 
-        cat.category_image_url(category_image_variant)
+        cat.category_image_url_for(model, category_image_variant)
       end
 
       def category_image_variant
