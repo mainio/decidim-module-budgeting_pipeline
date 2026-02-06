@@ -13,6 +13,8 @@ module Decidim
       included do
         helper Decidim::Budgets::VotesHelper
 
+        before_action :ensure_not_voted!
+
         def create
           enforce_permission_to :vote, :project, project: project, budget: budget, workflow: current_workflow
 
@@ -79,6 +81,19 @@ module Decidim
           # checkout.
           @current_orders = nil
           @current_workflow = nil
+        end
+
+        def ensure_not_voted!
+          return unless persisted_current_order
+          return unless persisted_current_order.checked_out?
+
+          flash[:warning] = I18n.t("decidim.budgets.votes.general.already_voted")
+          @redirect_url = orders_path
+
+          respond_to do |format|
+            format.html { redirect_to @redirect_url }
+            format.js { render "already_voted" }
+          end
         end
       end
     end

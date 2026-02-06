@@ -35,7 +35,7 @@ module Decidim
 
       before_action :ensure_voting_open!
       before_action :ensure_authorized!
-      before_action :ensure_not_voted!, except: [:finished]
+      before_action :ensure_not_voted!, except: [:preview, :finished]
       before_action :ensure_orders!, only: [:projects, :preview, :create]
       before_action :ensure_orders_valid!, only: [:preview, :create]
       before_action :set_current_step
@@ -79,6 +79,18 @@ module Decidim
       def projects
         @total_projects = search.result.count
         @projects = reorder(search.result)
+      end
+
+      def preview
+        return unless user_voted?
+
+        flash[:warning] = I18n.t("decidim.budgets.votes.general.already_voted")
+        @redirect_url = routes_proxy.orders_path
+
+        respond_to do |format|
+          format.html { redirect_to @redirect_url }
+          format.js { render "already_voted" }
+        end
       end
 
       def create
