@@ -221,6 +221,11 @@ module Decidim
           Decidim::Budgets::LineItem.include(
             Decidim::BudgetingPipeline::LineItemExtensions
           )
+
+          # Serializer extensions
+          Decidim::Budgets::ProjectSerializer.include(
+            Decidim::BudgetingPipeline::ProjectSerializerExtensions
+          )
         end
       end
     end
