@@ -43,7 +43,24 @@ module Decidim
               projects
             end
           when "alphabetical"
-            projects.order(Arel.sql("decidim_budgets_projects.title->>'#{current_locale}'"))
+            # The alphabetic order takes into account that the title can be
+            # undefined/empty for the current locale. E.g. if the user is
+            # browsing the website with English language but the title is is not
+            # defined for English, the sort order could seem broken to the end
+            # user. This fixes the issue by selecting the correct language title
+            # for the sort order.
+            column = "decidim_budgets_projects.title"
+
+            projects.order(
+              Arel.sql(
+                <<~SQL.squish
+                  CASE
+                    WHEN CHAR_LENGTH(TRIM((#{column}->>'#{current_locale}')::text)) > 0 THEN #{column}->>'#{current_locale}'
+                    ELSE #{column}->>'#{default_locale}'
+                  END
+                SQL
+              )
+            )
           when "category"
             projects.left_joins(:category).order(
               Arel.sql(
