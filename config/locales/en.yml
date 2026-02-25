@@ -335,7 +335,8 @@ en:
           title: Exit notification
         finished:
           breadcrumb: Your vote is registered
-          feedback_link: If you wish, you can give more extensive feedback using the feedback form
+          feedback_link: Respond to the feedback survey
+          feedback_link_title: How would you rate the service as a whole?
           feedback_title: How would you rate the voting process on the site?
           sign_out: Sign out
           sign_out_info: Sign out in order to keep your information private. When using a shared computer, for example in the library, also clear the browser's cache and cookies. After this, sign out of the computer.

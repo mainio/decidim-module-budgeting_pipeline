@@ -335,7 +335,8 @@ fi:
           title: Poistumishuomautus
         finished:
           breadcrumb: Äänesi on rekisteröity
-          feedback_link: Voit halutessasi antaa laajempaa palautetta palautelomakkeella
+          feedback_link: Vastaa palautekyselyyn
+          feedback_link_title: Miten arvioisit palvelua kokonaisuutena?
           feedback_title: Miten arvioisit äänestämistä sivustolla?
           sign_out: Kirjaudu ulos
           sign_out_info: Kirjaudu ulos, jotta tietosi eivät jää tietokoneelle näkyviin. Käyttäessäsi yhteiskäyttöistä tietokonetta esimerkiksi kirjastossa, tyhjennä myös selaimen välimuisti ja evästeet. Kirjaudu tämän jälkeen ulos tietokoneelta.

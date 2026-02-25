@@ -24,8 +24,10 @@
     <%= cell("decidim/feedback/feedback_inline", current_component, title: t(".feedback_title"), metadata: { context: "budgets", action: "vote" }) %>
 
     <% if feedback_url.present? %>
-      <div class="static__content text-center">
-        <p><%= link_to t(".feedback_link"), feedback_url, target: "_blank" %></p>
+      <div class="static__content text-center margin-top-2">
+        <h2 class="h4 margin-bottom-2"><%= t(".feedback_link_title") %></h2>
+
+        <p><%= link_to t(".feedback_link"), feedback_url, target: "_blank", class: "button hollow" %></p>
       </div>
     <% end %>
   </div>

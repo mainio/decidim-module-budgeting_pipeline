@@ -335,7 +335,8 @@ sv:
           title: Avsluta meddelandet
         finished:
           breadcrumb: Din röst är registrerad
-          feedback_link: Om du vill kan du ge mer omfattande feedback genom att använda feedbackformuläret
+          feedback_link: Svara på feedbackundersökningen
+          feedback_link_title: Hur skulle du betygsätta tjänsten som helhet?
           feedback_title: Hur upplevde du röstningen på webbsidan?
           sign_out: Logga ut
           sign_out_info: Logga ut för att hålla din information privat. När du använder en delad dator, till exempel i biblioteket, rensa även webbläsarens cache och cookies. Efter detta loggar du ut från datorn.
