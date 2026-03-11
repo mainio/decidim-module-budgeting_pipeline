@@ -79,9 +79,10 @@ show_categories = params[:order] == "category"
               <% if (summary = translated_attribute(project.summary))&.strip.present? %>
                 <p class="h5"><%= t(".summary") %></p>
                 <p><%= translated_attribute(summary) %></p>
+              <% else %>
+                <p class="h5"><%= t(".description") %></p>
+                <%= decidim_sanitize_admin(translated_attribute(project.description)) %>
               <% end %>
-              <p class="h5"><%= t(".description") %></p>
-              <%= decidim_sanitize_admin(translated_attribute(project.description)) %>
 
               <%= render partial: "project_linked_resources", locals: { resource: project, type: :plans, link_name: "included_plans" } %>
             </div>
