@@ -38,7 +38,7 @@ describe Decidim::Budgets::LineItemsController, type: :controller do
       it "redirects the user" do
         post :create, params: { budget_id: budget.id, project_id: project.id }
 
-        expect(response).to redirect_to("/")
+        expect(response).to redirect_to("/orders")
       end
     end
 

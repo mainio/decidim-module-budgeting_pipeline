@@ -41,6 +41,7 @@ module Decidim::Budgets
         answer: { en: "answer" },
         budget_amount: 10_000_000,
         budget_amount_min: nil,
+        maintenance_budget_amount: nil,
         address: address,
         latitude: latitude,
         longitude: longitude,
