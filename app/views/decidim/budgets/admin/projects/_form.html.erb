@@ -34,6 +34,10 @@
       <%= form.number_field :budget_amount_min %>
     </div>
 
+    <div class="row column">
+      <%= form.number_field :maintenance_budget_amount %>
+    </div>
+
     <% if @form.geocoding_enabled? %>
       <div class="row column">
         <%= form.geocoding_field :address %>

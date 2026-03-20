@@ -20,6 +20,7 @@ module Decidim
             description: form.description,
             budget_amount: form.budget_amount,
             budget_amount_min: form.budget_amount_min,
+            maintenance_budget_amount: form.maintenance_budget_amount,
             address: form.address,
             latitude: form.latitude,
             longitude: form.longitude

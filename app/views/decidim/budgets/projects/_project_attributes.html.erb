@@ -26,6 +26,12 @@
       <div class="attributes__item__value"><%= budget_to_currency(project.budget_amount) %></div>
     </div>
   <% end %>
+  <% if project.maintenance_budget_amount.present? && project.maintenance_budget_amount > 0 %>
+    <div class="attributes__item">
+      <h3 class="attributes__item__name"><%= t(".attributes.maintenance_budget_amount") %></h3>
+      <div class="attributes__item__value"><%= budget_to_currency(project.maintenance_budget_amount) %></div>
+    </div>
+  <% end %>
   <% if voting_finished? && current_settings.show_votes? %>
     <div class="attributes__item">
       <h3 class="attributes__item__name"><%= t(".attributes.votes_amount") %></h3>

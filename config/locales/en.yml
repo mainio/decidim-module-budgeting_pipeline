@@ -8,6 +8,7 @@ en:
         center_latitude: Center latitude
         center_longitude: Center longitude
         list_image: List image
+        result_page_content: Result page content
       help_section:
         description: Description
         image: Image
@@ -21,6 +22,7 @@ en:
         budget_amount: Maximum budget amount
         budget_amount_min: Minimum budget amount
         main_image: Primary image
+        maintenance_budget_amount: Maintenance costs amount
         summary: Summary for cards
   activerecord:
     models:
@@ -231,6 +233,7 @@ en:
             category: Theme
             created_at: Creation time
             id: Number (ID)
+            maintenance_budget_amount: Maintenance costs
             votes_amount: Amount of votes
           title: Information
         project_budget_button:
@@ -498,7 +501,7 @@ en:
             project_not_selected_content: Proposal answer content for those not selected for implementation
             project_selected_content: Proposal answer content for those selected for implementation
             projects_per_page: Proposals per page
-            results_page_budget_content: Results page content for budget sections
+            results_page_budget_content: Results page content for budget sections (if not defined for budget)
             results_page_content: Results page content
             results_page_title: Results page title
             vote_budgets_page_content: Area selection page main content

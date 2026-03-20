@@ -22,6 +22,7 @@ module Decidim
         translatable_attribute :summary, String
         translatable_attribute :answer, String
         attribute :budget_amount_min, Integer
+        attribute :maintenance_budget_amount, Integer
         attribute :address, String
         attribute :latitude, Float
         attribute :longitude, Float
@@ -36,6 +37,7 @@ module Decidim
 
         validates :budget_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
         validates :budget_amount_min, numericality: { greater_than_or_equal_to: 0 }, if: ->(form) { form.budget_amount_min.present? }
+        validates :maintenance_budget_amount, numericality: { greater_than_or_equal_to: 0 }, if: ->(form) { form.maintenance_budget_amount.present? }
         validates :address, geocoding: true, if: ->(form) { form.has_address? && !form.geocoded? }
         validates :main_image, passthru: {
           to: Decidim::Budgets::Project,

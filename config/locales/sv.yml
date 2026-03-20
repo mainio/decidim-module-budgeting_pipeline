@@ -8,6 +8,7 @@ sv:
         center_latitude: Centrumets latitud
         center_longitude: Centrumets längd
         list_image: Listbild
+        result_page_content: Resultatsidans innehåll
       help_section:
         description: Beskrivning
         image: Bild
@@ -21,6 +22,7 @@ sv:
         budget_amount: Högsta budgetbelopp
         budget_amount_min: Minsta budgetbelopp
         main_image: Primär bild
+        maintenance_budget_amount: Underhållskostnader
         summary: Sammanfattning för kort
   activerecord:
     models:
@@ -231,6 +233,7 @@ sv:
             category: Tema
             created_at: Skapande tid
             id: Nummer (ID)
+            maintenance_budget_amount: Underhållskostnader
             votes_amount: Antal röster
           title: Information
         project_budget_button:
@@ -498,7 +501,7 @@ sv:
             project_not_selected_content: Förslagets svarsinnehåll för de som inte valts ut för implementering
             project_selected_content: Förslagets svarsinnehåll för de utvalda för implementering
             projects_per_page: Förslag per sida
-            results_page_budget_content: Resultatsidans innehåll för budgetsektioner
+            results_page_budget_content: Resultatsidans innehåll för budgetsektioner (om inte definierad för budget)
             results_page_content: Resultatsidans innehåll
             results_page_title: Resultatsidans titel
             vote_budgets_page_content: Områdesvalssida huvudinnehåll

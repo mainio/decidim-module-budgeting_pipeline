@@ -17,6 +17,7 @@ module Decidim
           type.field :budget_amount, GraphQL::Types::Int, "The budget amount (maximum) for this project", null: true
           type.field :budget_amount, GraphQL::Types::Int, "DEPRECATED: (same as `budgetAmount`), use `budgetAmount` instead", null: true, camelize: false
           type.field :budget_amount_min, GraphQL::Types::Int, "The minimum budget amount for this project", null: true
+          type.field :maintenance_budget_amount, GraphQL::Types::Int, "The minimum budget amount for this project", null: true
 
           return unless Decidim::BudgetingPipeline.possible_project_linked_resources.any?
 

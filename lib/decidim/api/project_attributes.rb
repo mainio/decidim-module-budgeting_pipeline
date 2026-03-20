@@ -13,6 +13,7 @@ module Decidim
                required: false
       argument :budget_amount, GraphQL::Types::Int, description: "The budget amount of the project (maximum)", required: true
       argument :budget_amount_min, GraphQL::Types::Int, description: "The minimum budget amount of the project", required: false
+      argument :maintenance_budget_amount, GraphQL::Types::Int, description: "The maintenance budget amount of the project", required: false
 
       argument :category_id, GraphQL::Types::Int, description: "The project category ID", required: false
       argument :scope_id, GraphQL::Types::Int, description: "The project scope ID", required: false

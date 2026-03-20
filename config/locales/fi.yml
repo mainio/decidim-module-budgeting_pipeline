@@ -8,6 +8,7 @@ fi:
         center_latitude: Keskipisteen leveysaste (latitude)
         center_longitude: Keskipisteen pituusaste (longitude)
         list_image: Listauksen kuva
+        result_page_content: Tulossivun sisältö
       help_section:
         description: Kuvaus
         image: Kuva
@@ -21,6 +22,7 @@ fi:
         budget_amount: Enimmäisbudjetti
         budget_amount_min: Vähimmäisbudjetti
         main_image: Ensisijainen kuva
+        maintenance_budget_amount: Ylläpitokustannusten budjetti
         summary: Tiivistelmä kortteihin
   activerecord:
     models:
@@ -231,6 +233,7 @@ fi:
             category: Teema
             created_at: Luontiaika
             id: Numero (ID)
+            maintenance_budget_amount: Ylläpitokustannukset
             votes_amount: Äänten määrä
           title: Tiedot
         project_budget_button:
@@ -498,7 +501,7 @@ fi:
             project_not_selected_content: Ehdotusten vastauksen sisältö niille, joita ei ole valittu toteutukseen
             project_selected_content: Ehdotusten vastauksen sisältö niille, jotka on valittu toteutukseen
             projects_per_page: Ehdotukset sivua kohden
-            results_page_budget_content: Tulossivun budjettien yhteydessä näytettävä sisältö
+            results_page_budget_content: Tulossivun budjettien yhteydessä näytettävä sisältö (jos ei määritetty budjetille)
             results_page_content: Tulossivun sisältö
             results_page_title: Tulossivun otsikko
             vote_budgets_page_content: Alueen valintasivun pääsisältö

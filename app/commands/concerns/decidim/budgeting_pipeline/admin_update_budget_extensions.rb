@@ -15,6 +15,7 @@ module Decidim
             title: form.title,
             weight: form.weight,
             description: form.description,
+            result_page_content: form.result_page_content,
             total_budget: form.total_budget,
             center_latitude: form.center_latitude,
             center_longitude: form.center_longitude

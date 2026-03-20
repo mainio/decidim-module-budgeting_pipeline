@@ -10,6 +10,7 @@ module Decidim
         attribute :center_latitude, Float
         attribute :center_longitude, Float
         attribute :list_image, Decidim::Attributes::Blob
+        translatable_attribute :result_page_content, String
 
         validates :list_image, passthru: {
           to: Decidim::Budgets::Budget,

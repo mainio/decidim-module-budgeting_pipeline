@@ -114,6 +114,7 @@ module Decidim
           "answer" => attributes.key?(:answer) ? attributes.answer : project&.answer,
           "budget_amount" => attributes.budget_amount,
           "budget_amount_min" => attributes.budget_amount_min,
+          "maintenance_budget_amount" => attributes.key?(:maintenance_budget_amount) ? attributes.maintenance_budget_amount : project&.maintenance_budget_amount,
           "address" => attributes&.location&.address,
           "latitude" => attributes&.location&.latitude,
           "longitude" => attributes&.location&.longitude,
