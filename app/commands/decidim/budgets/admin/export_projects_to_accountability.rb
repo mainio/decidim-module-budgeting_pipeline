@@ -96,6 +96,7 @@ module Decidim
           end
         end
 
+        # rubocop:disable Metrics/CyclomaticComplexity
         def extra_result_attributes_from(original_project)
           extra = {}
 
@@ -115,9 +116,13 @@ module Decidim
 
           # Extra fields that may be available
           extra[:budget_amount] = original_project.budget_amount if Decidim::Accountability::Result.column_names.include?("budget_amount")
+          if Decidim::Accountability::Result.column_names.include?("maintenance_budget_amount") && original_project.respond_to?(:maintenance_budget_amount)
+            extra[:maintenance_budget_amount] = original_project.maintenance_budget_amount
+          end
 
           extra
         end
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         def budgets
           @budgets ||= Decidim::Budgets::Budget.where(component: origin_component).order(:weight)
