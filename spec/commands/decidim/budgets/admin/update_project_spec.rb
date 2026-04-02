@@ -82,7 +82,7 @@ module Decidim::Budgets
         expect(project.summary).to eq({ "en" => "Summary for the project" })
       end
 
-      it "traces the action", versioning: true do
+      it "traces the action", :versioning do
         expect(Decidim.traceability)
           .to receive(:update!)
           .with(

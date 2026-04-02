@@ -163,7 +163,18 @@ module Decidim
           )
         }
 
-        scope :order_by_most_voted, lambda { |only_voted: false|
+        # scope :order_by_most_voted, lambda { |only_voted: false|
+        #   scope = with_votes.order(
+        #     "decidim_budgets_projects_with_votes.votes_count DESC",
+        #     "decidim_budgets_projects_with_votes.localized_title"
+        #   )
+        #   scope = scope.where("decidim_budgets_projects_with_votes.votes_count > 0") if only_voted
+
+        #   scope
+        # }
+        scope :order_by_most_voted, lambda { |options = {}|
+          only_voted = options[:only_voted] || false
+
           scope = with_votes.order(
             "decidim_budgets_projects_with_votes.votes_count DESC",
             "decidim_budgets_projects_with_votes.localized_title"

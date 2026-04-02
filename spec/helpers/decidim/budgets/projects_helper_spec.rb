@@ -19,9 +19,7 @@ module Decidim
       let(:longitude) { 2.1234 }
 
       before do
-        allow(helper).to receive(:current_participatory_space).and_return(budgets_component.participatory_space)
-        allow(helper).to receive(:current_component).and_return(budgets_component)
-        allow(helper).to receive(:budgets).and_return(budgets)
+        allow(helper).to receive_messages(current_participatory_space: budgets_component.participatory_space, current_component: budgets_component, budgets:)
       end
 
       describe "#filter_categories_values" do

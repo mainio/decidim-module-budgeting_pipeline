@@ -124,7 +124,9 @@ describe "AdminManagesHelpSections" do
             accept_confirm { click_on "Delete" }
           end
         end
-      end.to change(Decidim::Budgets::HelpSection, :count).by(-1)
+      expect(page).to have_content("Help section successfully deleted")  
+      expect(Decidim::Budgets::HelpSection.where(id: section.id)).not_to exist
+      end
     end
   end
 

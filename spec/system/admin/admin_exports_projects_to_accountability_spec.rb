@@ -32,13 +32,14 @@ describe "AdminExportsProjectsToAccountability" do
     let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current) }
     let(:project) { selected_projects.first }
 
-    let(:result) { Decidim::Accountability::Result.order(:id).last }
+    let(:result) { Decidim::Accountability::Result.last }
 
     it "they match with the original projects" do
       perform_export
-
+      # sleep 1
+      # raise result.component.inspect
       expect(result.component).to eq(accountability_component)
-      expect(translated(result.title)).to eq(decidim_sanitize(translated(project.title)))
+      expect(translated(result.title["en"])).to eq(sanitize(translated(project.title["en"])))
       expect(result.description).to eq(project.description)
       expect(result.progress).to eq(0)
       expect(result.status).to be_nil
@@ -92,8 +93,11 @@ describe "AdminExportsProjectsToAccountability" do
 
     def perform_export
       select translated(accountability_component.name), from: :accountability_export_target_component_id
-      check :accountability_export_export_all_selected_projects
+      check :accountability_export
+      _export_all_selected_projects
       click_on "Export to results"
+      take_screenshot
+      # expect(page).to have_content("Proposals successfully exported to results")
     end
   end
 end
