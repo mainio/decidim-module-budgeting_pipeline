@@ -38,7 +38,7 @@ module Decidim
           on(:ok) do
             # The command does not broadcast the project so we need to fetch it
             # from a private method within the command itself.
-            return project
+            return resource
           end
           on(:invalid) do
             return GraphQL::ExecutionError.new(
@@ -81,7 +81,7 @@ module Decidim
 
         enforce_permission_to(:destroy, :project, project:)
 
-        Decidim::Budgets::Admin::DestroyProject.call(project, current_user) do
+        Decidim::Commands::DestroyResource.call(project, current_user) do
           on(:ok) do
             return project
           end

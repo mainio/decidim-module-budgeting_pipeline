@@ -2,10 +2,9 @@
 
 require "spec_helper"
 
-module Decidim::Budgets
-  describe Admin::CreateProject do
-    include Decidim::BudgetingPipeline::AdminCreateProjectExtensions
-    subject { described_class.new(form) }
+module Decidim::BudgetingPipeline
+  describe AdminCreateProjectExtensions do
+    subject { Decidim::Budgets::Admin::CreateProject.new(form) }
 
     let(:organization) { create(:organization, available_locales: [:en]) }
     let(:current_user) { create(:user, :admin, :confirmed, organization:) }
@@ -59,10 +58,10 @@ module Decidim::Budgets
     let(:invalid) { false }
 
     context "when everything is ok" do
-      let(:project) { Project.last }
+      let(:project) { Decidim::Budgets::Project.last }
 
       it "creates the project" do
-        expect { subject.call }.to change(Project, :count).by(1)
+        expect { subject.call }.to change(Decidim::Budgets::Project, :count).by(1)
       end
 
       it "sets the scope" do

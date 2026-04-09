@@ -9,24 +9,12 @@ module Decidim
       include Decidim::AttachmentAttributesMethods
 
       included do
-        def update_project
-          Decidim.traceability.update!(
-            project,
-            form.current_user,
-            {
-              scope: form.scope,
-              category: form.category,
-              title: form.title,
-              summary: form.summary,
-              description: form.description,
-              budget_amount: form.budget_amount,
-              budget_amount_min: form.budget_amount_min,
-              selected_at:,
-              address: form.address,
-              latitude: form.latitude,
-              longitude: form.longitude
-            }
-          )
+        fetch_form_attributes :scope, :category, :title, :description, :budget_amount, :address, :latitude, :longitude, :summary, :budget_amount_min
+
+        def run_after_hooks
+          link_proposals
+          create_gallery if process_gallery?
+          photo_cleanup!
 
           link_ideas
           link_plans
@@ -38,26 +26,26 @@ module Decidim
         def photo_cleanup!
           super
 
-          project.update!(attachment_attributes(:main_image))
+          resource.update!(attachment_attributes(:main_image))
         end
       end
 
       private
 
       def ideas
-        @ideas ||= project.sibling_scope(:ideas).where(id: form.idea_ids)
+        @ideas ||= resource.sibling_scope(:ideas).where(id: form.idea_ids)
       end
 
       def link_ideas
-        project.link_resources(ideas, "included_ideas")
+        resource.link_resources(ideas, "included_ideas")
       end
 
       def plans
-        @plans ||= project.sibling_scope(:plans).where(id: form.plan_ids)
+        @plans ||= resource.sibling_scope(:plans).where(id: form.plan_ids)
       end
 
       def link_plans
-        project.link_resources(plans, "included_plans")
+        resource.link_resources(plans, "included_plans")
       end
     end
   end

@@ -13,7 +13,7 @@ module Decidim
         unless method_defined?(:projects_rule?)
           # Public: Returns true if the project voting rule is enabled
           def projects_rule?
-            return unless budget
+            return false unless budget
 
             false
           end

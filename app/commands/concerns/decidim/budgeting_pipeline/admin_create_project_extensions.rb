@@ -9,50 +9,40 @@ module Decidim
       include Decidim::AttachmentAttributesMethods
 
       included do
-        def create_project!
-          attributes = {
-            budget: form.budget,
-            scope: form.scope,
-            category: form.category,
-            title: form.title,
-            summary: form.summary,
-            description: form.description,
-            budget_amount: form.budget_amount,
-            budget_amount_min: form.budget_amount_min,
-            address: form.address,
-            latitude: form.latitude,
-            longitude: form.longitude
-          }.merge(attachment_attributes(:main_image))
+        fetch_form_attributes :budget, :scope, :category, :title, :description, :budget_amount, :address, :latitude, :longitude, :summary, :budget_amount_min
 
-          @project = Decidim.traceability.create!(
-            Decidim::Budgets::Project,
-            form.current_user,
-            attributes,
-            visibility: "all"
-          )
-          @attached_to = @project
+        def run_after_hooks
+          @attached_to = resource
+          link_proposals
+          create_gallery if process_gallery?
 
           link_ideas
           link_plans
+        end
+
+        def attributes
+          super.merge(
+            attachment_attributes(:main_image)
+          )
         end
       end
 
       private
 
       def ideas
-        @ideas ||= project.sibling_scope(:ideas).where(id: form.idea_ids)
+        @ideas ||= resource.sibling_scope(:ideas).where(id: form.idea_ids)
       end
 
       def link_ideas
-        project.link_resources(ideas, "included_ideas")
+        resource.link_resources(ideas, "included_ideas")
       end
 
       def plans
-        @plans ||= project.sibling_scope(:plans).where(id: form.plan_ids)
+        @plans ||= resource.sibling_scope(:plans).where(id: form.plan_ids)
       end
 
       def link_plans
-        project.link_resources(plans, "included_plans")
+        resource.link_resources(plans, "included_plans")
       end
     end
   end

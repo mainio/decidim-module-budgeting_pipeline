@@ -26,8 +26,8 @@ module Decidim
         attribute :longitude, Float
         attribute :main_image, Decidim::Attributes::Blob
         attribute :remove_main_image, Decidim::AttributeObject::Model::Boolean, default: false
-        attribute :idea_ids, Array[Integer]
-        attribute :plan_ids, Array[Integer]
+        attribute :idea_ids, [Integer]
+        attribute :plan_ids, [Integer]
 
         alias_method :component, :current_component
 
@@ -78,16 +78,16 @@ module Decidim
         return [] unless defined?(Decidim::Ideas::Idea)
 
         @ideas ||= Decidim.find_resource_manifest(:ideas).try(:resource_scope, current_component)
-                       &.where(id: idea_ids)
-                       &.order(title: :asc)
+                          &.where(id: idea_ids)
+                          &.order(title: :asc)
       end
 
       def plans
         return [] unless defined?(Decidim::Plans::Plan)
 
         @plans ||= Decidim.find_resource_manifest(:plans).try(:resource_scope, current_component)
-                       &.where(id: plan_ids)
-                       &.order(title: :asc)
+                          &.where(id: plan_ids)
+                          &.order(title: :asc)
       end
     end
   end

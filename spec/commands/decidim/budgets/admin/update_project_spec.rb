@@ -2,10 +2,9 @@
 
 require "spec_helper"
 
-module Decidim::Budgets
-  describe Admin::UpdateProject do
-    include Decidim::BudgetingPipeline::AdminUpdateProjectExtensions
-    subject { described_class.new(form, project) }
+module Decidim::BudgetingPipeline
+  describe AdminUpdateProjectExtensions do
+    subject { Decidim::Budgets::Admin::UpdateProject.new(form, project) }
 
     let!(:project) { create(:project, budget:) }
     let(:organization) { create(:organization, available_locales: [:en]) }
