@@ -15,10 +15,10 @@ DECIDIM_VERSION = Decidim::BudgetingPipeline.decidim_version
 gem "decidim", DECIDIM_VERSION
 gem "decidim-budgeting_pipeline", path: "."
 
-gem "decidim-apifiles", github: "mainio/decidim-module-apifiles"
-gem "decidim-favorites", github: "mainio/decidim-module-favorites"
-gem "decidim-feedback", github: "mainio/decidim-module-feedback"
-gem "decidim-stats", github: "mainio/decidim-module-stats"
+gem "decidim-apifiles", github: "mainio/decidim-module-apifiles", branch: "release/0.29-stable"
+gem "decidim-favorites", github: "mainio/decidim-module-favorites", branch: "release/0.29-stable"
+gem "decidim-feedback", github: "mainio/decidim-module-feedback", branch: "release/0.29-stable"
+gem "decidim-stats", github: "mainio/decidim-module-stats", branch: "release/0.29-stable"
 
 gem "bootsnap", "~> 1.4"
 
@@ -45,7 +45,7 @@ group :test do
   gem "decidim-accountability", DECIDIM_VERSION
   gem "decidim-proposals", DECIDIM_VERSION
 
-  gem "decidim-ideas", github: "mainio/decidim-module-ideas"
-  gem "decidim-plans", github: "mainio/decidim-module-plans"
-  gem "decidim-tags", github: "mainio/decidim-module-tags"
+  gem "decidim-ideas", github: "mainio/decidim-module-ideas", branch: "release/0.29-stable"
+  gem "decidim-plans", github: "mainio/decidim-module-plans", branch: "release/0.29-stable"
+  gem "decidim-tags", github: "mainio/decidim-module-tags", branch: "release/0.29-stable"
 end
