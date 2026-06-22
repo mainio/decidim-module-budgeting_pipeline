@@ -1,6 +1,7 @@
 GIT
   remote: https://github.com/mainio/decidim-module-apifiles.git
-  revision: 6633a8bfdda14d3c4d53d9fd649e3d472e3165ee
+  revision: e6a105992ca972f6b9095f04d896842df053775f
+  branch: release/0.29-stable
   specs:
     decidim-apifiles (0.29.0)
       decidim-api (~> 0.29.0)
@@ -9,6 +10,7 @@ GIT
 GIT
   remote: https://github.com/mainio/decidim-module-favorites.git
   revision: ec98fcfa06b21160abd5b6a68325e5c0d4c398b3
+  branch: release/0.29-stable
   specs:
     decidim-favorites (0.29.0)
       decidim-core (~> 0.29.0)
@@ -17,6 +19,7 @@ GIT
 GIT
   remote: https://github.com/mainio/decidim-module-feedback.git
   revision: a036a4d9a2beda01c5279e57a7e525eba995b0c8
+  branch: release/0.29-stable
   specs:
     decidim-feedback (0.29.0)
       decidim-admin (~> 0.29.0)
@@ -24,7 +27,8 @@ GIT
 
 GIT
   remote: https://github.com/mainio/decidim-module-ideas.git
-  revision: 2974cd84760a2bb06b02a5b4131eb618dd91b658
+  revision: 497adfe5db7af5ade670bf0c74014581c731eea3
+  branch: release/0.29-stable
   specs:
     decidim-ideas (0.29.0)
       decidim-core (~> 0.29.0)
@@ -33,7 +37,8 @@ GIT
 
 GIT
   remote: https://github.com/mainio/decidim-module-plans.git
-  revision: fc4f166e07da11b264efd7012e6e5c93285ed7d6
+  revision: a3698fc2d16b58fb5b32f7cad2960c19f1bcf259
+  branch: release/0.29-stable
   specs:
     decidim-plans (0.29.0)
       decidim-core (~> 0.29.0)
@@ -45,6 +50,7 @@ GIT
 GIT
   remote: https://github.com/mainio/decidim-module-stats.git
   revision: a6b711e001b48f17f418c25881a9978703da290d
+  branch: release/0.29-stable
   specs:
     decidim-stats (0.29.0)
       decidim-core (~> 0.29.0)
@@ -52,6 +58,7 @@ GIT
 GIT
   remote: https://github.com/mainio/decidim-module-tags.git
   revision: 3f5a9ad814067cf0f50cffc27b13d09b07c7dcc0
+  branch: release/0.29-stable
   specs:
     decidim-tags (0.29.0)
       decidim-core (~> 0.29.0)
@@ -152,6 +159,8 @@ GEM
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
+    auth-sanitizer (0.2.1)
+      version_gem (~> 1.1, >= 1.1.10)
     base64 (0.3.0)
     batch-loader (1.5.0)
     bcrypt (3.1.22)
@@ -163,9 +172,9 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (4.1.1)
+    bigdecimal (4.1.2)
     bindex (0.8.1)
-    bootsnap (1.23.0)
+    bootsnap (1.24.6)
       msgpack (~> 1.2)
     browser (2.7.1)
     builder (3.3.0)
@@ -197,12 +206,12 @@ GEM
     childprocess (5.1.0)
       logger (~> 1.5)
     commonmarker (0.23.12)
-    concurrent-ruby (1.3.4)
+    concurrent-ruby (1.3.7)
     crack (1.0.1)
       bigdecimal
       rexml
     crass (1.0.6)
-    css_parser (1.21.1)
+    css_parser (1.22.0)
       addressable
     csv (3.3.5)
     dartsass (1.49.8)
@@ -210,53 +219,53 @@ GEM
     date_validator (0.12.0)
       activemodel (>= 3)
       activesupport (>= 3)
-    decidim (0.29.7)
-      decidim-accountability (= 0.29.7)
-      decidim-admin (= 0.29.7)
-      decidim-api (= 0.29.7)
-      decidim-assemblies (= 0.29.7)
-      decidim-blogs (= 0.29.7)
-      decidim-budgets (= 0.29.7)
-      decidim-comments (= 0.29.7)
-      decidim-core (= 0.29.7)
-      decidim-debates (= 0.29.7)
-      decidim-forms (= 0.29.7)
-      decidim-generators (= 0.29.7)
-      decidim-meetings (= 0.29.7)
-      decidim-pages (= 0.29.7)
-      decidim-participatory_processes (= 0.29.7)
-      decidim-proposals (= 0.29.7)
-      decidim-sortitions (= 0.29.7)
-      decidim-surveys (= 0.29.7)
-      decidim-system (= 0.29.7)
-      decidim-verifications (= 0.29.7)
-    decidim-accountability (0.29.7)
-      decidim-comments (= 0.29.7)
-      decidim-core (= 0.29.7)
-    decidim-admin (0.29.7)
+    decidim (0.29.1)
+      decidim-accountability (= 0.29.1)
+      decidim-admin (= 0.29.1)
+      decidim-api (= 0.29.1)
+      decidim-assemblies (= 0.29.1)
+      decidim-blogs (= 0.29.1)
+      decidim-budgets (= 0.29.1)
+      decidim-comments (= 0.29.1)
+      decidim-core (= 0.29.1)
+      decidim-debates (= 0.29.1)
+      decidim-forms (= 0.29.1)
+      decidim-generators (= 0.29.1)
+      decidim-meetings (= 0.29.1)
+      decidim-pages (= 0.29.1)
+      decidim-participatory_processes (= 0.29.1)
+      decidim-proposals (= 0.29.1)
+      decidim-sortitions (= 0.29.1)
+      decidim-surveys (= 0.29.1)
+      decidim-system (= 0.29.1)
+      decidim-verifications (= 0.29.1)
+    decidim-accountability (0.29.1)
+      decidim-comments (= 0.29.1)
+      decidim-core (= 0.29.1)
+    decidim-admin (0.29.1)
       active_link_to (~> 1.0)
-      decidim-core (= 0.29.7)
+      decidim-core (= 0.29.1)
       devise (~> 4.7)
       devise-i18n (~> 1.2)
       devise_invitable (~> 2.0, >= 2.0.9)
-    decidim-api (0.29.7)
-      decidim-core (= 0.29.7)
+    decidim-api (0.29.1)
+      decidim-core (= 0.29.1)
       graphql (~> 2.2.6)
       graphql-docs (~> 4.0)
       rack-cors (~> 1.0)
-    decidim-assemblies (0.29.7)
-      decidim-core (= 0.29.7)
-    decidim-blogs (0.29.7)
-      decidim-admin (= 0.29.7)
-      decidim-comments (= 0.29.7)
-      decidim-core (= 0.29.7)
-    decidim-budgets (0.29.7)
-      decidim-comments (= 0.29.7)
-      decidim-core (= 0.29.7)
-    decidim-comments (0.29.7)
-      decidim-core (= 0.29.7)
+    decidim-assemblies (0.29.1)
+      decidim-core (= 0.29.1)
+    decidim-blogs (0.29.1)
+      decidim-admin (= 0.29.1)
+      decidim-comments (= 0.29.1)
+      decidim-core (= 0.29.1)
+    decidim-budgets (0.29.1)
+      decidim-comments (= 0.29.1)
+      decidim-core (= 0.29.1)
+    decidim-comments (0.29.1)
+      decidim-core (= 0.29.1)
       redcarpet (~> 3.5, >= 3.5.1)
-    decidim-core (0.29.7)
+    decidim-core (0.29.1)
       active_link_to (~> 1.0)
       acts_as_list (~> 1.0)
       batch-loader (~> 1.2)
@@ -264,7 +273,6 @@ GEM
       cells-erb (~> 0.1.0)
       cells-rails (~> 0.1.3)
       charlock_holmes (~> 0.7)
-      concurrent-ruby (= 1.3.4)
       date_validator (~> 0.12.0)
       devise (~> 4.7)
       devise-i18n (~> 1.2, < 1.11.1)
@@ -307,14 +315,14 @@ GEM
       valid_email2 (~> 4.0)
       web-push (~> 3.0)
       wisper (~> 2.0)
-    decidim-debates (0.29.7)
-      decidim-comments (= 0.29.7)
-      decidim-core (= 0.29.7)
-    decidim-dev (0.29.7)
+    decidim-debates (0.29.1)
+      decidim-comments (= 0.29.1)
+      decidim-core (= 0.29.1)
+    decidim-dev (0.29.1)
       bullet (~> 7.1.6)
       byebug (~> 11.0)
       capybara (~> 3.39)
-      decidim (= 0.29.7)
+      decidim (= 0.29.1)
       erb_lint (~> 0.4.0)
       factory_bot_rails (~> 6.2)
       faker (~> 3.2)
@@ -346,40 +354,41 @@ GEM
       w3c_rspec_validators (~> 0.3.0)
       webmock (~> 3.18)
       wisper-rspec (~> 1.0)
-    decidim-forms (0.29.7)
-      decidim-core (= 0.29.7)
+    decidim-forms (0.29.1)
+      decidim-core (= 0.29.1)
       wicked_pdf (~> 2.1)
-    decidim-generators (0.29.7)
-      decidim-core (= 0.29.7)
-    decidim-meetings (0.29.7)
-      decidim-core (= 0.29.7)
-      decidim-forms (= 0.29.7)
+      wkhtmltopdf-binary (= 0.12.6.6)
+    decidim-generators (0.29.1)
+      decidim-core (= 0.29.1)
+    decidim-meetings (0.29.1)
+      decidim-core (= 0.29.1)
+      decidim-forms (= 0.29.1)
       icalendar (~> 2.5)
-    decidim-pages (0.29.7)
-      decidim-core (= 0.29.7)
-    decidim-participatory_processes (0.29.7)
-      decidim-core (= 0.29.7)
-    decidim-proposals (0.29.7)
-      decidim-comments (= 0.29.7)
-      decidim-core (= 0.29.7)
+    decidim-pages (0.29.1)
+      decidim-core (= 0.29.1)
+    decidim-participatory_processes (0.29.1)
+      decidim-core (= 0.29.1)
+    decidim-proposals (0.29.1)
+      decidim-comments (= 0.29.1)
+      decidim-core (= 0.29.1)
       doc2text (~> 0.4.7)
       redcarpet (~> 3.5, >= 3.5.1)
-    decidim-sortitions (0.29.7)
-      decidim-admin (= 0.29.7)
-      decidim-comments (= 0.29.7)
-      decidim-core (= 0.29.7)
-      decidim-proposals (= 0.29.7)
-    decidim-surveys (0.29.7)
-      decidim-core (= 0.29.7)
-      decidim-forms (= 0.29.7)
-    decidim-system (0.29.7)
+    decidim-sortitions (0.29.1)
+      decidim-admin (= 0.29.1)
+      decidim-comments (= 0.29.1)
+      decidim-core (= 0.29.1)
+      decidim-proposals (= 0.29.1)
+    decidim-surveys (0.29.1)
+      decidim-core (= 0.29.1)
+      decidim-forms (= 0.29.1)
+    decidim-system (0.29.1)
       active_link_to (~> 1.0)
-      decidim-core (= 0.29.7)
+      decidim-core (= 0.29.1)
       devise (~> 4.7)
       devise-i18n (~> 1.2)
       devise_invitable (~> 2.0, >= 2.0.9)
-    decidim-verifications (0.29.7)
-      decidim-core (= 0.29.7)
+    decidim-verifications (0.29.1)
+      decidim-core (= 0.29.1)
     declarative-builder (0.2.0)
       trailblazer-option (~> 0.1.0)
     declarative-option (0.1.0)
@@ -391,7 +400,7 @@ GEM
       warden (~> 1.2.3)
     devise-i18n (1.11.0)
       devise (>= 4.9.0)
-    devise_invitable (2.0.11)
+    devise_invitable (2.0.12)
       actionmailer (>= 5.0)
       devise (>= 4.6)
     diff-lcs (1.6.2)
@@ -400,7 +409,7 @@ GEM
       nokogiri (>= 1.18.2)
       rubyzip (~> 2.3.0)
     docile (1.4.1)
-    doorkeeper (5.9.0)
+    doorkeeper (5.9.3)
       railties (>= 5)
     doorkeeper-i18n (4.0.1)
     drb (2.2.3)
@@ -415,22 +424,22 @@ GEM
       temple
     erubi (1.13.1)
     escape_utils (1.3.0)
-    excon (1.4.2)
+    excon (1.5.0)
       logger
     extended-markdown-filter (0.7.0)
       html-pipeline (~> 2.9)
-    factory_bot (6.5.6)
+    factory_bot (6.6.0)
       activesupport (>= 6.1.0)
     factory_bot_rails (6.5.1)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
-    faker (3.2.3)
+    faker (3.8.0)
       i18n (>= 1.8.11, < 2)
-    faraday (2.14.1)
+    faraday (2.14.3)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.4.2)
+    faraday-net_http (3.4.4)
       net-http (~> 0.5)
     ffi (1.17.4-x86_64-linux-gnu)
     file_validators (3.0.0)
@@ -475,7 +484,7 @@ GEM
       activesupport (>= 2)
       nokogiri (>= 1.4)
     htmlentities (4.4.2)
-    i18n (1.14.8)
+    i18n (1.15.1)
       concurrent-ruby (~> 1.0)
     i18n-tasks (1.1.2)
       activesupport (>= 4.0.2)
@@ -489,7 +498,7 @@ GEM
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.8, >= 1.8.1)
       terminal-table (>= 1.5.1)
-    icalendar (2.12.2)
+    icalendar (2.12.3)
       base64
       ice_cube (~> 0.16)
       logger
@@ -501,8 +510,8 @@ GEM
     invisible_captcha (0.13.0)
       rails (>= 3.2.0)
     io-console (0.8.2)
-    json (2.19.3)
-    jwt (3.1.2)
+    json (2.19.9)
+    jwt (3.2.0)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -542,25 +551,25 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marcel (1.1.0)
+    marcel (1.2.1)
     matrix (0.4.3)
     method_source (1.1.0)
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2026.0407)
+    mime-types-data (3.2026.0414)
     mini_magick (4.13.2)
     mini_mime (1.1.5)
-    minitest (6.0.3)
+    minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.0)
-    multi_xml (0.8.1)
+    msgpack (1.8.3)
+    multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
     net-http (0.9.1)
       uri (>= 0.11.1)
-    net-imap (0.6.3)
+    net-imap (0.6.4.1)
       date
       net-protocol
     net-pop (0.1.2)
@@ -570,23 +579,26 @@ GEM
     net-smtp (0.3.4)
       net-protocol
     nio4r (2.7.5)
-    nokogiri (1.19.2-x86_64-linux-gnu)
+    nokogiri (1.19.3-x86_64-linux-gnu)
       racc (~> 1.4)
-    oauth (1.1.3)
+    oauth (1.1.7)
+      auth-sanitizer (~> 0.2, >= 0.2.1)
       base64 (~> 0.1)
-      oauth-tty (~> 1.0, >= 1.0.6)
-      snaky_hash (~> 2.0)
-      version_gem (~> 1.1, >= 1.1.9)
-    oauth-tty (1.0.6)
-      version_gem (~> 1.1, >= 1.1.9)
-    oauth2 (2.0.18)
+      oauth-tty (~> 1.0, >= 1.0.10)
+      snaky_hash (~> 2.0, >= 2.0.5)
+      version_gem (~> 1.1, >= 1.1.12)
+    oauth-tty (1.0.10)
+      auth-sanitizer (~> 0.2, >= 0.2.1)
+      version_gem (~> 1.1, >= 1.1.12)
+    oauth2 (2.0.23)
+      auth-sanitizer (~> 0.2, >= 0.2.1)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
       logger (~> 1.2)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 4)
-      snaky_hash (~> 2.0, >= 2.0.3)
-      version_gem (~> 1.1, >= 1.1.9)
+      snaky_hash (~> 2.0, >= 2.0.6)
+      version_gem (~> 1.1, >= 1.1.11)
     omniauth (2.1.4)
       hashie (>= 3.4.6)
       logger
@@ -612,7 +624,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
-    openssl (4.0.1)
+    openssl (4.0.2)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
     paper_trail (12.3.0)
@@ -653,7 +665,7 @@ GEM
     rack-protection (3.2.0)
       base64 (>= 0.1.0)
       rack (~> 2.2, >= 2.2.4)
-    rack-proxy (0.7.7)
+    rack-proxy (0.8.2)
       rack
     rack-test (2.2.0)
       rack (>= 1.3)
@@ -693,7 +705,7 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rainbow (3.1.1)
-    rake (13.3.1)
+    rake (13.4.2)
     ransack (3.2.1)
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
@@ -788,7 +800,7 @@ GEM
       rubyzip (>= 1.3.0)
     rubyzip (2.3.2)
     securerandom (0.4.1)
-    selenium-webdriver (4.41.0)
+    selenium-webdriver (4.44.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -810,10 +822,10 @@ GEM
     simplecov-html (0.13.2)
     simplecov_json_formatter (0.1.4)
     smart_properties (1.17.0)
-    snaky_hash (2.0.3)
+    snaky_hash (2.0.6)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
-    spring (4.4.2)
+    spring (4.6.0)
     spring-watcher-listen (2.1.0)
       listen (>= 2.7, < 4.0)
       spring (>= 4)
@@ -834,7 +846,7 @@ GEM
     valid_email2 (4.0.6)
       activemodel (>= 3.2)
       mail (~> 2.5)
-    version_gem (1.1.9)
+    version_gem (1.1.12)
     w3c_rspec_validators (0.3.0)
       rails
       rspec
@@ -858,7 +870,7 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket (1.2.11)
-    websocket-driver (0.8.0)
+    websocket-driver (0.8.1)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -867,9 +879,10 @@ GEM
       ostruct
     wisper (2.0.1)
     wisper-rspec (1.1.0)
+    wkhtmltopdf-binary (0.12.6.6)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.7.5)
+    zeitwerk (2.8.2)
 
 PLATFORMS
   x86_64-linux
@@ -889,7 +902,7 @@ DEPENDENCIES
   decidim-proposals (~> 0.29.0)
   decidim-stats!
   decidim-tags!
-  faker (~> 3.2.2)
+  faker (~> 3.2)
   letter_opener_web (~> 2.0)
   listen (~> 3.8)
   puma (>= 6.4.2)
@@ -900,4 +913,4 @@ RUBY VERSION
    ruby 3.2.2p53
 
 BUNDLED WITH
-   2.6.9
+   2.4.10
