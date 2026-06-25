@@ -198,4 +198,32 @@ describe "Voting" do
       end
     end
   end
+
+  describe "activity" do
+    let(:budget) { budget_one }
+    let!(:order) { create(:order, budget: budget_one, user:) }
+
+    before do
+      order.projects << budget_one_projects.first
+      order.save!
+
+      login_as user, scope: :user
+
+      visit_voting_preview
+      page.scroll_to find("h2", text: "Preview and vote")
+      click_on "Vote"
+
+      within "#vote-finished-modal" do
+        expect(page).to have_content("Thank you for your vote!")
+      end
+
+      visit decidim.profile_activity_path(nickname: user.nickname)
+    end
+
+    it "shows the vote in the user activity feed" do
+      orders_url = Decidim::EngineRouter.main_proxy(component).orders_path
+
+      expect(page).to have_link(href: orders_url)
+    end
+  end
 end
