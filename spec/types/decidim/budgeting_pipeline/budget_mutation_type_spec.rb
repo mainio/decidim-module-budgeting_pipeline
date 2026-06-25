@@ -12,7 +12,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
 
   let(:root_taxonomy) { create(:taxonomy, organization: current_organization) }
   let(:taxonomy) { create(:taxonomy, parent: root_taxonomy, organization: current_organization) }
-  let(:another_taxonomy) { create(:taxonomy, parent: root_taxonomy, organization: current_organization)}
+  let(:another_taxonomy) { create(:taxonomy, parent: root_taxonomy, organization: current_organization) }
 
   let(:proposals) { create_list(:proposal, 3, component: proposals_component) }
   let(:proposals_component) { create(:proposal_component, participatory_space:) }
@@ -116,7 +116,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
   describe "updateProject" do
     let!(:project) { create(:budgeting_pipeline_project, budget: model) }
     let(:query) { "{ updateProject(id: #{project.id}, attributes: #{attributes_to_graphql(attributes)}) { id } }" }
-    let!(:taxonomization) { create(:taxonomization, taxonomy: taxonomy, taxonomizable: project)}
+    let!(:taxonomization) { create(:taxonomization, taxonomy: taxonomy, taxonomizable: project) }
     let(:attributes) do
       {
         title: { en: "Updated project" },

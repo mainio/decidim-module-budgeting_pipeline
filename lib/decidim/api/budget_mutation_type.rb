@@ -13,25 +13,25 @@ module Decidim
       field :create_project, Decidim::Budgets::ProjectType, null: false do
         description "A mutation to create a project within a budget."
 
-        argument :attributes, ProjectAttributes, required: true
+        argument :attributes, ProjectAttributes, "Attributes of a project", required: true
       end
 
       field :update_project, Decidim::Budgets::ProjectType, null: true do
         description "A mutation to update a project within a budget."
 
-        argument :id, GraphQL::Types::ID, required: true
-        argument :attributes, ProjectAttributes, required: true
+        argument :attributes, ProjectAttributes, "Attributes of the project that needs to be updated", required: true
+        argument :id, GraphQL::Types::ID, "ID of the project", required: true
       end
 
       field :soft_delete_project, Decidim::Budgets::ProjectType, null: true do
         description "A mutation to soft delete a project within a budget."
 
-        argument :id, GraphQL::Types::ID, required: true
+        argument :id, GraphQL::Types::ID, "The ID of the project to soft delete.", required: true
       end
 
       field :restore_project, Decidim::Budgets::ProjectType, null: true do
         description "A mutation to restore a soft deleted project within a budget."
-        argument :id, GraphQL::Types::ID, required: true
+        argument :id, GraphQL::Types::ID, "The ID of the project to restore", required: true
       end
 
       def create_project(attributes:)
@@ -87,10 +87,10 @@ module Decidim
         enforce_permission_to(:soft_delete, :project, trashable_deleted_resource: project)
 
         Decidim::Commands::SoftDeleteResource.call(project, current_user) do
-            on(:ok) do
-              return project
-            end
+          on(:ok) do
+            return project
           end
+        end
 
         GraphQL::ExecutionError.new(
           I18n.t("decidim.budgets.admin.projects.soft_delete.invalid")

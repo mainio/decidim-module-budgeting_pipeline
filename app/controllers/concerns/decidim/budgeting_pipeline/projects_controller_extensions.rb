@@ -44,7 +44,7 @@ module Decidim
         def search_collection
           Decidim::Budgets::Project.joins(:budget).where(
             decidim_budgets_budgets: { decidim_component_id: current_component.id }
-          ).includes([:component, taxonomies: [:parent]])
+          ).includes([:component, { taxonomies: [:parent] }])
         end
 
         def project

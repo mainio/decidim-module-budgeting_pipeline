@@ -100,7 +100,7 @@ module Decidim
       def taxonomy_image_path(project)
         taxonomies = project.taxonomies
         return unless taxonomies.any?
-        
+
         taxonomy = taxonomies.find { |t| t.respond_to?(:taxonomy_image) && t.taxonomy_image&.attached? }
         return unless taxonomy
 

@@ -29,19 +29,19 @@ describe "AdminExportsProjectsToAccountability" do
   end
 
   context "when some selected projects are soft deleted" do
-      before do
-        selected_projects.first(2).each(&:destroy!)
-      end
-
-      it "only exports non-deleted selected projects" do
-        select translated(accountability_component.name), from: :accountability_export_target_component_id
-        check :accountability_export_export_all_selected_projects
-
-        expect { click_on "Export to results" }.to change(Decidim::Accountability::Result, :count).by(selected_projects.count - 2)
-
-        expect(page).to have_content("Proposals successfully exported to results")
-      end
+    before do
+      selected_projects.first(2).each(&:destroy!)
     end
+
+    it "only exports non-deleted selected projects" do
+      select translated(accountability_component.name), from: :accountability_export_target_component_id
+      check :accountability_export_export_all_selected_projects
+
+      expect { click_on "Export to results" }.to change(Decidim::Accountability::Result, :count).by(selected_projects.count - 2)
+
+      expect(page).to have_content("Proposals successfully exported to results")
+    end
+  end
 
   context "when checking the exported details" do
     let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current) }
@@ -96,7 +96,7 @@ describe "AdminExportsProjectsToAccountability" do
       end
 
       it "does not export the soft deleted project" do
-        expect { perform_export }.to change(Decidim::Accountability::Result, :count).by(0)
+        expect { perform_export }.not_to change(Decidim::Accountability::Result, :count)
       end
     end
 

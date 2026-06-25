@@ -225,7 +225,7 @@ module Decidim
 
         context "when all projects have zero budget amount" do
           before do
-            Decidim::Budgets::Project.where(budget: budgets).update_all(budget_amount: 0)
+            Decidim::Budgets::Project.where(budget: budgets).update_all(budget_amount: 0) # rubocop:disable Rails/SkipsModelValidations
           end
 
           it { is_expected.to be(false) }

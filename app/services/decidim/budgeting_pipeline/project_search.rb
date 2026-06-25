@@ -26,7 +26,7 @@ module Decidim
           end
         end
 
-        super(params)
+        super
       end
     end
   end
