@@ -4,14 +4,14 @@
       <th class="text-left"><%= t(".budget_name") %></th>
       <td><%= decidim_sanitize(translated_attribute(project.budget.title)) %></td>
     </tr>
-    <% if project.category %>
+    <% project.taxonomies.each do |taxonomy| %>
       <tr>
-        <th class="text-left"><%= t(".category_name") %></th>
+        <th class="text-left"><%= t(".taxonomy_name") %></th>
         <td>
-          <% if project.category.parent %>
-            <%= translated_attribute(project.category.parent.name) %> -
+          <% if taxonomy.parent %>
+            <%= decidim_escape_translated(taxonomy.parent.name) %> -
           <% end %>
-          <%= translated_attribute(project.category.name) %>
+          <%= decidim_escape_translated(taxonomy.name) %>
         </td>
       </tr>
     <% end %>

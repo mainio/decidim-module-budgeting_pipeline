@@ -12,7 +12,7 @@ module Decidim
         def create_budget!
           attributes = {
             component: form.current_component,
-            scope: form.scope,
+            taxonomizations: form.taxonomizations,
             title: form.title,
             weight: form.weight,
             description: form.description,

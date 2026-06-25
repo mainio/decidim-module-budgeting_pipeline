@@ -18,12 +18,19 @@ type_suffix = defined?(type) ? "_#{type}" : ""
       </div>
     <% end %>
 
-    <% if display_category_filter? %>
-      <div class="columns">
-        <div class="filters__control category_id_filter">
-          <%= form.select(:with_any_category, filter_categories_values, { label: t(".category"), include_blank: t(".categories_values.all") }, data: { disable_dynamic_change: true }) %>
+    <% current_component.available_taxonomy_filters.each do |taxonomy_filter| %>
+      <% if display_taxonomy_filter?(taxonomy_filter) %>
+        <div class="columns">
+          <div class="filters__control taxonomy_filter">
+            <%= form.select(
+              "with_any_taxonomies[#{taxonomy_filter.root_taxonomy_id}]",
+              filter_taxonomy_values(taxonomy_filter),
+              { label: decidim_sanitize_translated(taxonomy_filter.name), include_blank: t(".taxonomy_values.all", taxonomy: decidim_sanitize_translated(taxonomy_filter.root_taxonomy.name)) },
+              data: { disable_dynamic_change: true }
+            ) %>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
 
     <% if display_status_filter? %>

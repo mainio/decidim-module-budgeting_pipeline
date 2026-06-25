@@ -12,8 +12,9 @@ module Decidim::BudgetingPipeline
     let(:participatory_process) { create(:participatory_process, organization:) }
     let(:current_component) { create(:component, manifest_name: :budgets, participatory_space: participatory_process) }
     let(:budget) { create(:budget, component: current_component) }
-    let(:scope) { create(:scope, organization:) }
-    let(:category) { create(:category, participatory_space: participatory_process) }
+    let(:taxonomizations) do
+      2.times.map { build(:taxonomization, taxonomy: create(:taxonomy, :with_parent, organization:), taxonomizable: nil) }
+    end
     let(:uploaded_photos) { [] }
     let(:main_image) { nil }
     let(:photos) { [] }
@@ -46,14 +47,13 @@ module Decidim::BudgetingPipeline
         longitude:,
         proposal_ids: proposals.map(&:id),
         selected:,
-        scope:,
-        category:,
         photos:,
         add_photos: uploaded_photos,
         budget:,
         idea_ids:,
         plan_ids:,
-        main_image:
+        main_image:,
+        taxonomizations:
       )
     end
     let(:idea_ids) { [] }
@@ -61,14 +61,9 @@ module Decidim::BudgetingPipeline
     let(:invalid) { false }
 
     context "when everything is ok" do
-      it "sets the scope" do
+      it "sets the taxonomies" do
         subject.call
-        expect(project.scope).to eq scope
-      end
-
-      it "sets the category" do
-        subject.call
-        expect(project.category).to eq category
+        expect(project.reload.taxonomies).to match_array(taxonomizations.map(&:taxonomy))
       end
 
       it "sets the budget resource" do
@@ -87,7 +82,7 @@ module Decidim::BudgetingPipeline
           .with(
             project,
             current_user,
-            hash_including(:scope, :category, :title, :summary, :description, :budget_amount, :selected_at, :address, :latitude, :longitude)
+            hash_including(:taxonomizations, :title, :summary, :description, :budget_amount, :selected_at, :address, :latitude, :longitude)
           )
           .and_call_original
 

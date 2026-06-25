@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Adds the extra fields to the admin categories form.
+# Extends the project search with additional filtering options.
 module Decidim
   module BudgetingPipeline
     class ProjectSearch < ResourceSearch
@@ -18,6 +18,12 @@ module Decidim
         if organization
           search_text = params.delete(:search_text_cont)
           add_scope(:matching_id_or_text_with_linked_plans, [search_text, organization.available_locales]) if search_text
+        end
+
+        if params[:with_any_taxonomies].is_a?(Hash)
+          params[:with_any_taxonomies] = params[:with_any_taxonomies].transform_values do |v|
+            Array(v).compact_blank
+          end
         end
 
         super(params)

@@ -32,8 +32,7 @@ module Decidim
           {
             search_text_cont: "",
             with_any_status: %w(all),
-            with_any_scope: nil,
-            with_any_category: "all",
+            with_any_taxonomies: nil,
             decidim_budgets_budget_id_eq: nil,
             budget_amount_gteq: 0,
             budget_amount_lteq: maximum_project_budget,
@@ -45,7 +44,7 @@ module Decidim
         def search_collection
           Decidim::Budgets::Project.joins(:budget).where(
             decidim_budgets_budgets: { decidim_component_id: current_component.id }
-          ).includes([:scope, :component, :category])
+          ).includes([:component, taxonomies: [:parent]])
         end
 
         def project

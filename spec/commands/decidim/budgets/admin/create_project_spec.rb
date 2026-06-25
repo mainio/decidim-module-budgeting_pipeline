@@ -11,14 +11,15 @@ module Decidim::BudgetingPipeline
     let(:participatory_process) { create(:participatory_process, organization:) }
     let(:current_component) { create(:component, manifest_name: :budgets, participatory_space: participatory_process) }
     let(:budget) { create(:budget, component: current_component) }
-    let(:scope) { create(:scope, organization:) }
-    let(:category) { create(:category, participatory_space: participatory_process) }
     let(:uploaded_photos) { [] }
     let(:main_image) { nil }
     let(:photos) { [] }
     let(:address) { nil }
     let(:latitude) { 40.1234 }
     let(:longitude) { 2.1234 }
+    let(:taxonomizations) do
+      2.times.map { build(:taxonomization, taxonomy: create(:taxonomy, :with_parent, organization:), taxonomizable: nil) }
+    end
     let(:proposal_component) do
       create(:component, manifest_name: :proposals, participatory_space: participatory_process)
     end
@@ -43,14 +44,13 @@ module Decidim::BudgetingPipeline
         latitude:,
         longitude:,
         proposal_ids: proposals.map(&:id),
-        scope:,
-        category:,
         photos:,
         add_photos: uploaded_photos,
         budget:,
         idea_ids:,
         plan_ids:,
-        main_image:
+        main_image:,
+        taxonomizations:
       )
     end
     let(:idea_ids) { [] }
@@ -64,16 +64,6 @@ module Decidim::BudgetingPipeline
         expect { subject.call }.to change(Decidim::Budgets::Project, :count).by(1)
       end
 
-      it "sets the scope" do
-        subject.call
-        expect(project.scope).to eq scope
-      end
-
-      it "sets the category" do
-        subject.call
-        expect(project.category).to eq category
-      end
-
       it "sets the budget resource" do
         subject.call
         expect(project.budget).to eq budget
@@ -84,13 +74,18 @@ module Decidim::BudgetingPipeline
         expect(project.summary).to eq({ "en" => "Summary for the project" })
       end
 
+      it "sets the taxonomies" do
+        subject.call
+        expect(project.taxonomizations).to match_array(taxonomizations)
+      end
+
       it "traces the action", versioning: true do
         expect(Decidim.traceability)
           .to receive(:create!)
           .with(
             Decidim::Budgets::Project,
             current_user,
-            hash_including(:scope, :category, :budget, :title, :description, :budget_amount),
+            hash_including(:taxonomizations, :budget, :title, :description, :budget_amount),
             visibility: "all"
           )
           .and_call_original
@@ -147,6 +142,16 @@ module Decidim::BudgetingPipeline
           linked_plans = project.linked_resources(:plans, "included_plans")
 
           expect(linked_plans).to contain_exactly(plan1)
+        end
+      end
+
+      context "when no taxonomizations are set" do
+        let(:taxonomizations) { [] }
+
+        it "taxonomizations are empty" do
+          subject.call
+
+          expect(project.taxonomizations).to be_empty
         end
       end
     end

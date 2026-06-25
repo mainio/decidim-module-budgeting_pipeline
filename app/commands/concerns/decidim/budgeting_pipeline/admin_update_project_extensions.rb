@@ -9,7 +9,7 @@ module Decidim
       include Decidim::AttachmentAttributesMethods
 
       included do
-        fetch_form_attributes :scope, :category, :title, :description, :budget_amount, :address, :latitude, :longitude, :summary, :budget_amount_min
+        fetch_form_attributes :taxonomizations, :title, :description, :budget_amount, :address, :latitude, :longitude, :summary, :budget_amount_min
 
         def run_after_hooks
           link_proposals

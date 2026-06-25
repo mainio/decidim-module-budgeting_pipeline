@@ -9,14 +9,14 @@
     <h3 class="attributes__item__name"><%= t(".attributes.budget") %></h3>
     <div class="attributes__item__value"><%= translated_attribute(project.budget.title) %></div>
   </div>
-  <% if project.category.present? %>
+  <% project.taxonomies.each do |taxonomy| %>
     <div class="attributes__item">
-      <h3 class="attributes__item__name"><%= t(".attributes.category") %></h3>
+      <h3 class="attributes__item__name"><%= decidim_escape_translated(taxonomy.root_taxonomy.name) %></h3>
       <div class="attributes__item__value">
-        <% if project.category.parent %>
-          <%= translated_attribute(project.category.parent.name) %> -
+        <% if taxonomy.parent %>
+          <%= decidim_escape_translated(taxonomy.parent.name) %> -
         <% end %>
-        <%= translated_attribute(project.category.name) %>
+        <%= decidim_escape_translated(taxonomy.name) %>
       </div>
     </div>
   <% end %>

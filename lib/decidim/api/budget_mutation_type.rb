@@ -23,9 +23,14 @@ module Decidim
         argument :attributes, ProjectAttributes, required: true
       end
 
-      field :delete_project, Decidim::Budgets::ProjectType, null: true do
-        description "A mutation to delete a project within a budget."
+      field :soft_delete_project, Decidim::Budgets::ProjectType, null: true do
+        description "A mutation to soft delete a project within a budget."
 
+        argument :id, GraphQL::Types::ID, required: true
+      end
+
+      field :restore_project, Decidim::Budgets::ProjectType, null: true do
+        description "A mutation to restore a soft deleted project within a budget."
         argument :id, GraphQL::Types::ID, required: true
       end
 
@@ -75,20 +80,37 @@ module Decidim
         )
       end
 
-      def delete_project(id:)
+      def soft_delete_project(id:)
         project = object.projects.find_by(id:)
         return unless project
 
-        enforce_permission_to(:destroy, :project, project:)
+        enforce_permission_to(:soft_delete, :project, trashable_deleted_resource: project)
 
-        Decidim::Commands::DestroyResource.call(project, current_user) do
+        Decidim::Commands::SoftDeleteResource.call(project, current_user) do
+            on(:ok) do
+              return project
+            end
+          end
+
+        GraphQL::ExecutionError.new(
+          I18n.t("decidim.budgets.admin.projects.soft_delete.invalid")
+        )
+      end
+
+      def restore_project(id:)
+        project = object.projects.with_deleted.find_by(id:)
+        return unless project
+
+        enforce_permission_to(:restore, :project, trashable_deleted_resource: project)
+
+        Decidim::Commands::RestoreResource.call(project, current_user) do
           on(:ok) do
             return project
           end
         end
 
         GraphQL::ExecutionError.new(
-          I18n.t("decidim.budgets.admin.projects.destroy.invalid")
+          I18n.t("decidim.budgets.admin.projects.restore.invalid")
         )
       end
 
@@ -116,8 +138,7 @@ module Decidim
           "address" => attributes&.location&.address,
           "latitude" => attributes&.location&.latitude,
           "longitude" => attributes&.location&.longitude,
-          "decidim_category_id" => attributes.category_id,
-          "decidim_scope_id" => attributes.scope_id,
+          "taxonomies" => attributes.taxonomy_ids || [],
           "proposal_ids" => attributes.proposal_ids || related_ids_for(project, :proposals),
           "idea_ids" => attributes.idea_ids || related_ids_for(project, :ideas),
           "plan_ids" => attributes.plan_ids || related_ids_for(project, :plans)

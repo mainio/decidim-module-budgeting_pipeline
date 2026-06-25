@@ -52,8 +52,12 @@ module Decidim
         !context[:disable_favorite].presence
       end
 
-      def has_category?
-        model.category.present?
+      def taxonomies
+        @taxonomies ||= model.taxonomies
+      end
+
+      def has_taxonomies?
+        taxonomies.any?
       end
 
       def has_image?
@@ -152,58 +156,63 @@ module Decidim
         render_comments_count
       end
 
-      def category_icon
-        return unless has_category?
-        return unless model.category.respond_to?(:category_icon_url)
+      def taxonomy_icons
+        return [] unless has_taxonomies?
 
-        icon_url = model.category.category_icon_url
-        return unless icon_url
+        taxonomies.filter_map do |t|
+          next unless t.respond_to?(:taxonomy_icon) && t.taxonomy_icon&.attached?
 
-        content_tag(:span, class: "card__category__icon", "aria-hidden": true) do
-          image_tag(icon_url, alt: full_category.join(" - "))
+          {
+            taxonomy: t,
+            icon: content_tag(:span, class: "card__taxonomy__icon", "aria-hidden": true) do
+              image_tag(t.attached_uploader(:taxonomy_icon).url, alt: translated_attribute(t.name))
+            end
+          }
         end
       end
 
-      def category_style
-        return unless has_category?
-        return unless model.category.respond_to?(:color)
+      # Returns an array of style hashes for taxonomies that have a color defined.
+      # Each hash contains :taxonomy (the taxonomy object) and :style (the inline CSS string).
+      def taxonomy_styles
+        return [] unless has_taxonomies?
 
-        color = model.category.color
-        return unless color
+        taxonomies.filter_map do |t|
+          next unless t.respond_to?(:color) && t.color.present?
 
-        "background-color:#{color};"
+          { taxonomy: t, style: "background-color:#{t.color};" }
+        end
       end
 
-      def resource_image_path
+      def resource_image_path(project)
         return model.attached_uploader(:main_image).variant_url(resource_image_variant) if has_image?
-        return unless has_category?
+        return unless has_taxonomies?
 
-        category_image_path(model.category)
+        taxonomy_image_path
       end
 
       def resource_image_variant
         :thumbnail
       end
 
-      def category
-        translated_attribute(model.category.name) if has_category?
-      end
+      # Returns an array of CSS class strings, one per taxonomy.
+      def taxonomy_classes
+        return [] unless has_taxonomies?
 
-      def category_class
-        "card__category--#{model.category.id}" if has_category?
+        taxonomies.map { |t| "card__taxonomy--#{t.id}" }
       end
 
       def description
         project_summary_for(model)
       end
 
-      def category_image_path(cat)
-        return unless cat.respond_to?(:category_image_url)
+      def taxonomy_image_path
+        taxonomy = taxonomies.find { |t| t.respond_to?(:taxonomy_image) && t.taxonomy_image&.attached? }
+        return unless taxonomy
 
-        cat.category_image_url(category_image_variant)
+        taxonomy.attached_uploader(:taxonomy_image).variant_url(taxonomy_image_variant)
       end
 
-      def category_image_variant
+      def taxonomy_image_variant
         :card
       end
     end

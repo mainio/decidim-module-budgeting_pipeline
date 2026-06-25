@@ -34,8 +34,8 @@ summary = translated_attribute(project.summary)
 
         <% if project.main_image && project.main_image.attached? %>
           <%= image_tag project.attached_uploader(:main_image).variant_url(:main), class:"resource__image", alt: strip_tags(translated_attribute(project.title)) %>
-        <% elsif category_image_path(project.category) %>
-          <%= image_tag category_image_path(project.category), class:"resource__image", alt: strip_tags(translated_attribute(project.title)) %>
+        <% elsif taxonomy_image_path(project) %>
+          <%= image_tag taxonomy_image_path(project), class:"resource__image", alt: strip_tags(translated_attribute(project.title)) %>
         <% else %>
           <%= image_tag asset_pack_path("media/images/budgets-project-default.jpg"), class:"resource__image", alt: strip_tags(translated_attribute(project.title)) %>
         <% end %>

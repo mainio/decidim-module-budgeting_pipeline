@@ -78,8 +78,7 @@ module Decidim
         def result_attributes_from(original_project, weight: 0)
           {
             component: target_component,
-            scope: original_project.scope || original_project.budget.scope,
-            category: original_project.category,
+            taxonomizations: original_project.taxonomizations,
             title: sanitize_localized(original_project.title),
             description: original_project.description,
             progress: statuses.first&.progress || 0,

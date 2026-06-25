@@ -59,8 +59,8 @@ describe Decidim::Budgets::ProjectType do
           )
         end
 
-        it "returns nil" do
-          expect(response["mainImageBlob"]).to be_nil
+        it "returns nothing" do
+          expect(response).to be_nil
         end
       end
     end

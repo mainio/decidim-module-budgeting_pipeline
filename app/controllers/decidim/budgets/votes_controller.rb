@@ -288,15 +288,14 @@ module Decidim
       def search_collection
         Decidim::Budgets::Project.joins(:budget).where(
           budget: selected_budgets
-        ).includes([:scope, :component, :attachments, :category])
+        ).includes([:component, :attachments, :taxonomies])
       end
 
       def default_filter_params
         {
           search_text_cont: "",
           with_any_status: %w(all),
-          with_any_scope: nil,
-          with_any_category: "all",
+          with_any_taxonomies: nil,
           decidim_budgets_budget_id_eq: nil,
           budget_amount_gteq: 0,
           budget_amount_lteq: maximum_project_budget,

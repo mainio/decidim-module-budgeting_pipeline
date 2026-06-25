@@ -28,8 +28,9 @@
   </button>
 </div>
 
-<%= render partial: "decidim/shared/share_modal" %>
-
+<div class="ml-auto lg:ml-0">
+  <%= cell "decidim/share_widget", project %>
+</div>
 <% if false %>
   <div class="actions-panel bg-secondary">
     <button type="button" class="link action-link">

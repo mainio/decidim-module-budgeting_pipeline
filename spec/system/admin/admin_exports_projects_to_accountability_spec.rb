@@ -28,6 +28,21 @@ describe "AdminExportsProjectsToAccountability" do
     expect(page).to have_content("Proposals successfully exported to results")
   end
 
+  context "when some selected projects are soft deleted" do
+      before do
+        selected_projects.first(2).each(&:destroy!)
+      end
+
+      it "only exports non-deleted selected projects" do
+        select translated(accountability_component.name), from: :accountability_export_target_component_id
+        check :accountability_export_export_all_selected_projects
+
+        expect { click_on "Export to results" }.to change(Decidim::Accountability::Result, :count).by(selected_projects.count - 2)
+
+        expect(page).to have_content("Proposals successfully exported to results")
+      end
+    end
+
   context "when checking the exported details" do
     let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current) }
     let(:project) { selected_projects.first }
@@ -45,39 +60,6 @@ describe "AdminExportsProjectsToAccountability" do
       expect(result.weight).to eq(0)
     end
 
-    context "with scope" do
-      let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current, scope:) }
-      let(:scope) { create(:scope, organization: current_component.organization) }
-
-      it "sets the correct scope" do
-        perform_export
-
-        expect(result.scope).to eq(scope)
-      end
-
-      context "when defined by budget" do
-        let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current) }
-        let(:budget) { create(:budgeting_pipeline_budget, component: current_component, scope:) }
-
-        it "sets the correct scope" do
-          perform_export
-
-          expect(result.scope).to eq(scope)
-        end
-      end
-    end
-
-    context "with category" do
-      let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current, category:) }
-      let(:category) { create(:category, participatory_space: current_component.participatory_space) }
-
-      it "sets the correct category" do
-        perform_export
-
-        expect(result.category).to eq(category)
-      end
-    end
-
     context "with statuses" do
       let!(:status_one) { create(:status, component: accountability_component, progress: 10) }
       let!(:status_two) { create(:status, component: accountability_component, progress: 50) }
@@ -87,6 +69,34 @@ describe "AdminExportsProjectsToAccountability" do
 
         expect(result.progress).to eq(10)
         expect(result.status).to eq(status_one)
+      end
+    end
+
+    context "with taxonomies" do
+      let(:root_taxonomy) { create(:taxonomy, organization: current_component.organization, name: { "en" => "Root taxonomy" }) }
+      let(:taxonomy) { create(:taxonomy, parent: root_taxonomy, organization: current_component.organization, name: { "en" => "Test taxonomy" }) }
+      let!(:selected_projects) { create_list(:budgeting_pipeline_project, 1, budget:, selected_at: Time.current) }
+      let(:project) { selected_projects.first }
+
+      before do
+        create(:taxonomization, taxonomy: taxonomy, taxonomizable: project)
+      end
+
+      it "sets the correct taxonomies" do
+        perform_export
+
+        expect(result.taxonomies).to include(taxonomy)
+        expect(result.taxonomies).not_to include(root_taxonomy)
+      end
+    end
+
+    context "when a selected project is soft deleted" do
+      before do
+        selected_projects.first.destroy!
+      end
+
+      it "does not export the soft deleted project" do
+        expect { perform_export }.to change(Decidim::Accountability::Result, :count).by(0)
       end
     end
 

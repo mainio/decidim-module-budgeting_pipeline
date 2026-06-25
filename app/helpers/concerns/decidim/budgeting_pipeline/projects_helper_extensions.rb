@@ -73,18 +73,6 @@ module Decidim
         end
       end
 
-      def filter_categories_values
-        organization = current_component.participatory_space.organization
-
-        sorted_main_categories = current_component.participatory_space.categories.first_class.includes(:subcategories).sort_by do |category|
-          [category.weight, translated_attribute(category.name, organization)]
-        end
-
-        sorted_main_categories.map do |category|
-          [translated_attribute(category.name, organization), category.id]
-        end
-      end
-
       def filter_activity_values
         [
           [t("decidim.budgets.projects.filters.activity_values.all"), "all"],
@@ -100,8 +88,8 @@ module Decidim
         voting_finished? && current_settings.show_selected_status?
       end
 
-      def display_category_filter?
-        current_component.categories.any?
+      def display_taxonomy_filter?(taxonomy_filter)
+        taxonomy_filter.filter_items.any?
       end
 
       def display_budget_amount_filters?
@@ -109,11 +97,14 @@ module Decidim
         max && max.positive?
       end
 
-      def category_image_path(category)
-        return unless category
-        return unless category.respond_to?(:category_image_url)
+      def taxonomy_image_path(project)
+        taxonomies = project.taxonomies
+        return unless taxonomies.any?
+        
+        taxonomy = taxonomies.find { |t| t.respond_to?(:taxonomy_image) && t.taxonomy_image&.attached? }
+        return unless taxonomy
 
-        category.category_image_url
+        taxonomy.attached_uploader(:taxonomy_image).variant_url(taxonomy_image_variant)
       end
 
       def project_map_link(resource, options = {})
@@ -152,6 +143,14 @@ module Decidim
 
       def display_cart_button?
         controller.is_a?(Decidim::Budgets::VotesController)
+      end
+
+      def taxonomy_image_variant
+        :card
+      end
+
+      def project_taxonomy_names(project)
+        project.taxonomies.map { |taxonomy| decidim_escape_translated(taxonomy.name) }.join(", ")
       end
     end
   end

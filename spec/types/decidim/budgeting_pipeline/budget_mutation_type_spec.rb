@@ -10,8 +10,9 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
   let(:participatory_space) { create(:participatory_process, organization: current_organization) }
   let(:component) { create(:budgeting_pipeline_component, participatory_space:) }
 
-  let(:category) { create(:category, participatory_space:) }
-  let(:scope) { create(:scope, organization: current_organization) }
+  let(:root_taxonomy) { create(:taxonomy, organization: current_organization) }
+  let(:taxonomy) { create(:taxonomy, parent: root_taxonomy, organization: current_organization) }
+  let(:another_taxonomy) { create(:taxonomy, parent: root_taxonomy, organization: current_organization)}
 
   let(:proposals) { create_list(:proposal, 3, component: proposals_component) }
   let(:proposals_component) { create(:proposal_component, participatory_space:) }
@@ -34,8 +35,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
           latitude: 60.149792,
           longitude: 24.887430
         },
-        categoryId: category.id,
-        scopeId: scope.id,
+        taxonomyIds: [taxonomy.id],
         proposalIds: proposals.map(&:id),
         ideaIds: ideas.map(&:id),
         planIds: plans.map(&:id)
@@ -73,8 +73,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
         expect(project.address).to eq(attributes[:location][:address])
         expect(project.latitude).to eq(attributes[:location][:latitude])
         expect(project.longitude).to eq(attributes[:location][:longitude])
-        expect(project.category.id).to eq(category.id)
-        expect(project.scope.id).to eq(scope.id)
+        expect(project.taxonomies).to match([taxonomy])
         expect(project.linked_resources(:proposals, "included_proposals").map(&:id)).to match_array(proposals.map(&:id))
         expect(project.linked_resources(:ideas, "included_ideas").map(&:id)).to match_array(ideas.map(&:id))
         expect(project.linked_resources(:plans, "included_plans").map(&:id)).to match_array(plans.map(&:id))
@@ -117,6 +116,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
   describe "updateProject" do
     let!(:project) { create(:budgeting_pipeline_project, budget: model) }
     let(:query) { "{ updateProject(id: #{project.id}, attributes: #{attributes_to_graphql(attributes)}) { id } }" }
+    let!(:taxonomization) { create(:taxonomization, taxonomy: taxonomy, taxonomizable: project)}
     let(:attributes) do
       {
         title: { en: "Updated project" },
@@ -129,8 +129,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
           latitude: 60.149792,
           longitude: 24.887430
         },
-        categoryId: category.id,
-        scopeId: scope.id,
+        taxonomyIds: [another_taxonomy.id],
         proposalIds: proposals.map(&:id),
         ideaIds: ideas.map(&:id),
         planIds: plans.map(&:id)
@@ -168,13 +167,19 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
         expect(project.address).to eq(attributes[:location][:address])
         expect(project.latitude).to eq(attributes[:location][:latitude])
         expect(project.longitude).to eq(attributes[:location][:longitude])
-        expect(project.category.id).to eq(category.id)
-        expect(project.scope.id).to eq(scope.id)
+        expect(project.taxonomies).to match([another_taxonomy])
         expect(project.linked_resources(:proposals, "included_proposals").map(&:id)).to match_array(proposals.map(&:id))
         expect(project.linked_resources(:ideas, "included_ideas").map(&:id)).to match_array(ideas.map(&:id))
         expect(project.linked_resources(:plans, "included_plans").map(&:id)).to match_array(plans.map(&:id))
 
         expect(project.selected?).to be(false)
+      end
+
+      it "replaces existing taxonomies" do
+        expect { response }.not_to change(Decidim::Budgets::Project, :count)
+        project.reload
+        expect(project.taxonomies).to match([another_taxonomy])
+        expect(project.taxonomies).not_to include(taxonomy)
       end
 
       context "when the project is selected" do
@@ -222,14 +227,14 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
     end
   end
 
-  describe "deleteProject" do
+  describe "softDeleteProject" do
     let!(:project) { create(:budgeting_pipeline_project, budget: model) }
-    let(:query) { "{ deleteProject(id: #{project.id}) { id } }" }
+    let(:query) { "{ softDeleteProject(id: #{project.id}) { id } }" }
 
     context "with no user" do
       let!(:current_user) { nil }
 
-      it "does not allow deleting the project" do
+      it "does not allow soft deleting the project" do
         expect do
           expect { response }.to raise_error(Decidim::BudgetingPipeline::ActionForbidden)
         end.not_to change(Decidim::Budgets::Project, :count)
@@ -237,7 +242,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
     end
 
     context "with a participant user" do
-      it "does not allow deleting the project" do
+      it "does not allow soft deleting the project" do
         expect do
           expect { response }.to raise_error(Decidim::BudgetingPipeline::ActionForbidden)
         end.not_to change(Decidim::Budgets::Project, :count)
@@ -247,10 +252,56 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
     context "with an admin user" do
       let!(:current_user) { create(:user, :confirmed, :admin, organization: current_organization) }
 
-      it "deletes the project" do
-        expect { response }.to change(Decidim::Budgets::Project, :count).by(-1)
+      it "soft deletes the project" do
+        expect { response }.not_to change(Decidim::Budgets::Project.with_deleted, :count)
 
-        expect(response["deleteProject"]).to eq("id" => project.id.to_s)
+        expect(response["softDeleteProject"]).to eq("id" => project.id.to_s)
+        expect(project.reload.deleted?).to be(true)
+        expect(project.deleted_at).not_to be_nil
+      end
+    end
+  end
+
+  describe "restoreProject" do
+    let!(:project) { create(:budgeting_pipeline_project, budget: model) }
+    let(:query) { "{ restoreProject(id: #{project.id}) { id } }" }
+
+    before { project.destroy! }
+
+    context "with no user" do
+      let!(:current_user) { nil }
+
+      it "does not allow restoring the project" do
+        expect do
+          expect { response }.to raise_error(Decidim::BudgetingPipeline::ActionForbidden)
+        end.not_to change(Decidim::Budgets::Project.with_deleted, :count)
+      end
+    end
+
+    context "with a participant user" do
+      it "does not allow restoring the project" do
+        expect do
+          expect { response }.to raise_error(Decidim::BudgetingPipeline::ActionForbidden)
+        end.not_to change(Decidim::Budgets::Project.with_deleted, :count)
+      end
+    end
+
+    context "with an admin user" do
+      let!(:current_user) { create(:user, :confirmed, :admin, organization: current_organization) }
+
+      it "restores the project" do
+        expect { response }.to change(Decidim::Budgets::Project, :count).by(1)
+
+        expect(response["restoreProject"]).to eq("id" => project.id.to_s)
+        expect(project.reload.deleted?).to be(false)
+      end
+
+      context "when the project is not deleted" do
+        before { project.restore }
+
+        it "does not allow restoring a non-deleted project" do
+          expect { response }.to raise_error(Decidim::BudgetingPipeline::ActionForbidden)
+        end
       end
     end
   end

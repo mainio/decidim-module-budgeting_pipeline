@@ -1,9 +1,9 @@
 <% add_decidim_page_title(t(".title")) %>
 <div class="card">
-  <div class="item_show__header">
+  <div class="item_show__header item_show__header--with-action-options">
     <h1 class="item_show__header-title">
       <div>
-        <%= link_to decidim_sanitize(translated_attribute(budget.title)), budgets_path %> &gt;
+        <%= link_to decidim_sanitize_translated(budget.title), budgets_path %> &gt;
         <%= t(".title") %>
       </div>
       <div class="flex items-center gap-x-4">
@@ -14,71 +14,25 @@
   </div>
   <div class="table-scroll">
     <table class="table-list">
-      <thead>
-        <tr>
-          <th><%= t("models.project.fields.title", scope: "decidim.budgets") %></th>
-          <th><%= t("index.confirmed_orders_count") %></th>
-          <th><%= t(".selected") %></th>
-          <% if component_settings.geocoding_enabled? %>
-            <th><%= t("models.project.fields.address", scope: "decidim.budgets") %></th>
-          <% end %>
-          <%= th_resource_scope_label %>
-          <th class="actions"><%= t("actions.title", scope: "decidim.budgets") %></th>
-        </tr>
-      </thead>
+      <%= render partial: "projects-thead" %>
       <tbody>
-        <% projects.each do |project| %>
-          <tr data-id="<%= project.id %>">
-            <td class="!text-left">
-              <% if allowed_to? :update, :project, project: project %>
-                <%= link_to translated_attribute(project.title), resource_locator([budget, project]).edit %><br>
-              <% else %>
-                <%= translated_attribute(project.title) %><br>
-              <% end %>
-            </td>
-            <td>
-              <%= project.confirmed_orders_count %>
-            </td>
-            <td>
-              <% if project.selected? %>
-                <%= content_tag :strong, t(".selected"), class: "text-success" %>
-              <% else %>
-                <%= content_tag :span, "×", class: "text-muted" %>
-              <% end %>
-            </td>
-            <% if component_settings.geocoding_enabled? %>
-              <td class="map-column">
-                <%= static_map_link(project) if project.latitude.present? && project.longitude.present? %>
-              </td>
-            <% end %>
-            <%= td_resource_scope_for(project.scope) %>
-            <td class="table-list__actions">
-              <%= icon_link_to "eye-line", resource_locator([budget, project]).path, t("actions.preview", scope: "decidim.budgets"), target: :blank, class: "action-icon--preview", data: { "external-link": false } %>
-
-              <% if allowed_to? :update, :project, project: project %>
-                <%= icon_link_to "pencil-line", resource_locator([budget, project]).edit, t("actions.edit", scope: "decidim.budgets"), class: "action-icon--edit" %>
-              <% end %>
-
-              <% if allowed_to? :update, :project, project: project %>
-                <%= icon_link_to "folder-line", project_attachment_collections_path(project), t("actions.attachment_collections", scope: "decidim.budgets"), class: "action-icon--attachment_collections" %>
-              <% end %>
-
-              <% if allowed_to? :update, :project, project: project %>
-                <%= icon_link_to "attachment-line", project_attachments_path(project), t("actions.attachments", scope: "decidim.budgets"), class: "action-icon--attachments" %>
-              <% end %>
-
-              <%= resource_permissions_link(project) %>
-
-              <% if allowed_to? :destroy, :project, project: project %>
-                <%= icon_link_to "delete-bin-line", resource_locator([budget, project]).show, t("actions.destroy", scope: "decidim.budgets"), method: :delete, class: "action-icon--remove", data: { confirm: t("actions.confirm_destroy", scope: "decidim.budgets") } %>
-              <% else %>
-                <%= icon "delete-bin-line", class: "action-icon action-icon--disabled", role: "img", aria_label: t("actions.destroy", scope: "decidim.budgets") %>
-              <% end %>
-            </td>
-          </tr>
-        <% end %>
+        <%= render partial: "project-tr",
+                   collection: projects,
+                   as: :project,
+                   locals: { view: :index } %>
       </tbody>
     </table>
+    <% if allowed_to? :manage_trash, :project, participatory_space: current_participatory_space %>
+      <div class="card mt-4">
+        <%= link_to manage_trash_budget_projects_path(budget), class: "flex items-center underline text-secondary" do %>
+          <%= icon "delete-bin-2-line", class: "mr-2 fill-current text-secondary", role: "img" %>
+          <%= t("actions.view_deleted_projects", scope: "decidim.budgets") %>
+          <span class="ml-2">
+            <%= icon_with_tooltip("information-line", t("actions.deleted_budgets_info", scope: "decidim.budgets")) %>
+          </span>
+        <% end %>
+      </div>
+    <% end %>
     <%= decidim_paginate projects %>
   </div>
   <div class="card-divider">

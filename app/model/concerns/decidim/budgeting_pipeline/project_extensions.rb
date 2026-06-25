@@ -202,6 +202,14 @@ module Decidim
         def self.ransack(params = {}, options = {})
           ProjectSearch.new(self, params, options)
         end
+
+        def self.ransackable_attributes(auth_object = nil)
+          base = %w(id_string id search_text description title decidim_budgets_budget_id budget_amount)
+
+          return base unless auth_object&.admin?
+
+          base + %w(selected selected_at confirmed_orders_count)
+        end
       end
     end
   end

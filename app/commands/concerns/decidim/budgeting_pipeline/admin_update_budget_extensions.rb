@@ -11,7 +11,6 @@ module Decidim
       included do
         def update_budget!
           attributes = {
-            scope: form.scope,
             title: form.title,
             weight: form.weight,
             description: form.description,

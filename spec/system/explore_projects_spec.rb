@@ -65,15 +65,18 @@ describe "ExploreProjects" do
       expect(page).to have_content(strip_tags(translated(project.description)))
     end
 
-    context "when the project has a category with a parent category" do
-      let(:category) { create(:category, participatory_space: component.participatory_space, parent: parent_category) }
-      let(:parent_category) { create(:category, participatory_space: component.participatory_space) }
+    context "when the project has a taxonomy with a parent taxonomy" do
+      let(:root_taxonomy) { create(:taxonomy, organization:, name: { "en" => "Root taxonomy" }) }
+      let(:taxonomy) { create(:taxonomy, parent: root_taxonomy, organization:, name: { "en" => "Test taxonomy" }) }
 
-      let!(:project) { create(:budgeting_pipeline_project, budget: budget_one, category:) }
+      before do
+        create(:taxonomization, taxonomy: taxonomy, taxonomizable: project)
+        visit_project(project)
+      end
 
-      it "displays the category and its parent category" do
-        expect(page).to have_content(translated(parent_category.name))
-        expect(page).to have_content(translated(category.name))
+      it "displays the taxonomy and its root taxonomy" do
+        expect(page).to have_content(translated(root_taxonomy.name))
+        expect(page).to have_content(translated(taxonomy.name))
       end
     end
 
@@ -99,14 +102,15 @@ describe "ExploreProjects" do
       end
     end
 
-    context "when categories exist" do
-      let!(:categories) { create_list(:category, 2, participatory_space: component.participatory_space) }
+    context "when taxonomies exist" do
+      include_context "with budget taxonomy filter"
 
-      it "shows the categories" do
+      it "shows the taxonomies" do
         visit_component
-        select_element = find("select[name='filter[with_any_category]']")
-        expect(select_element).to have_css("option", text: translated(categories.first.name))
-        expect(select_element).to have_css("option", text: translated(categories.last.name))
+        select_element = find("select[name='filter[with_any_taxonomies[#{root_taxonomy.id}]]']")
+        expect(select_element).to have_css("option", text: translated(taxonomy_filter_item.taxonomy_item.name))
+        expect(select_element).to have_css("option", text: translated(other_taxonomy_filter_item.taxonomy_item.name))
+        expect(select_element).to have_css("option", text: translated(another_taxonomy_filter_item.taxonomy_item.name))
       end
     end
   end
