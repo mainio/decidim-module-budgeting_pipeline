@@ -3,7 +3,7 @@
     <th><%= t("models.project.fields.title", scope: "decidim.budgets") %></th>
     <th><%= t("models.project.fields.taxonomies", scope: "decidim.budgets") %></th>
     <th><%= t("index.confirmed_orders_count") %></th>
-    <th><%= t(".selected") %></th>
+    <th><%= t("projects.index.selected", scope: "decidim.budgets.admin") %></th>
     <% if component_settings.geocoding_enabled? %>
       <th><%= t("models.project.fields.address", scope: "decidim.budgets") %></th>
     <% end %>
