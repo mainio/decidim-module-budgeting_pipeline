@@ -7,7 +7,6 @@ module Decidim
       extend ActiveSupport::Concern
 
       included do
-
         def self.private_resource_types
           @private_resource_types ||= %w(
             Decidim::Budgets::Order

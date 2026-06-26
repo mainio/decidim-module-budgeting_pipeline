@@ -11,7 +11,6 @@ describe Decidim::Budgets::ProjectPresenter do
   let(:budget) { create(:budgeting_pipeline_budget, component:) }
   let(:project) { create(:budgeting_pipeline_project, budget:) }
 
-
   describe "#project" do
     it "returns the project" do
       expect(subject.project).to eq(project)
