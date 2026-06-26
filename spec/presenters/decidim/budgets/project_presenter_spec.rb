@@ -3,13 +3,14 @@
 require "spec_helper"
 
 describe Decidim::Budgets::ProjectPresenter do
+  subject { described_class.new(project) }
+
   let(:organization) { create(:organization) }
   let(:participatory_process) { create(:participatory_process, organization:) }
   let(:component) { create(:budgeting_pipeline_component, participatory_space: participatory_process) }
   let(:budget) { create(:budgeting_pipeline_budget, component:) }
   let(:project) { create(:budgeting_pipeline_project, budget:) }
 
-  subject { described_class.new(project) }
 
   describe "#project" do
     it "returns the project" do
