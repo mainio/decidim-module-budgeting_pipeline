@@ -124,6 +124,7 @@ describe "AdminManagesHelpSections" do
             accept_confirm { click_on "Delete" }
           end
         end
+        expect(page).to have_no_css("tr[data-id='#{section.id}']")
       end.to change(Decidim::Budgets::HelpSection, :count).by(-1)
     end
   end
