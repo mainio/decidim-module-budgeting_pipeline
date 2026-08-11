@@ -17,9 +17,7 @@ describe "Voting" do
         end
 
         within ".voting-identity" do
-          expect(page).to have_link("Sign in with Facebook")
-          expect(page).to have_link("Sign in with Twitter")
-          expect(page).to have_link("Sign in with Google")
+          expect(page).to have_link("Sign in with Developer")
         end
       end
     end

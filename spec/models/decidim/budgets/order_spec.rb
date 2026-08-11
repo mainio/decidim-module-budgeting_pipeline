@@ -6,11 +6,9 @@ describe Decidim::Budgets::Order do
   let(:component) { create(:budgeting_pipeline_component, vote_rule_settings:) }
   let(:vote_rule_settings) do
     {
-      vote_rule_threshold_percent_enabled: true,
+      voting_rule: "threshold_percent",
       vote_threshold_percent: 70,
-      vote_rule_minimum_budget_projects_enabled: false,
       vote_minimum_budget_projects_number: 0,
-      vote_rule_selected_projects_enabled: false,
       vote_selected_projects_minimum: 0,
       vote_selected_projects_maximum: 1
     }
@@ -91,11 +89,9 @@ describe Decidim::Budgets::Order do
     context "with projects rule" do
       let(:vote_rule_settings) do
         {
-          vote_rule_threshold_percent_enabled: false,
+          voting_rule: "selected_projects",
           vote_threshold_percent: 70,
-          vote_rule_minimum_budget_projects_enabled: false,
           vote_minimum_budget_projects_number: 0,
-          vote_rule_selected_projects_enabled: true,
           vote_selected_projects_minimum: 0,
           vote_selected_projects_maximum: 1
         }
@@ -131,11 +127,9 @@ describe Decidim::Budgets::Order do
     context "with projects rule" do
       let(:vote_rule_settings) do
         {
-          vote_rule_threshold_percent_enabled: false,
+          voting_rule: "selected_projects",
           vote_threshold_percent: 70,
-          vote_rule_minimum_budget_projects_enabled: false,
           vote_minimum_budget_projects_number: 0,
-          vote_rule_selected_projects_enabled: true,
           vote_selected_projects_minimum: 0,
           vote_selected_projects_maximum: 1
         }
@@ -172,11 +166,9 @@ describe Decidim::Budgets::Order do
     context "with projects rule" do
       let(:vote_rule_settings) do
         {
-          vote_rule_threshold_percent_enabled: false,
+          voting_rule: "selected_projects",
           vote_threshold_percent: 70,
-          vote_rule_minimum_budget_projects_enabled: false,
           vote_minimum_budget_projects_number: 0,
-          vote_rule_selected_projects_enabled: true,
           vote_selected_projects_minimum: 0,
           vote_selected_projects_maximum: 1
         }
@@ -204,11 +196,9 @@ describe Decidim::Budgets::Order do
       let(:minimum_projects) { 0 }
       let(:vote_rule_settings) do
         {
-          vote_rule_threshold_percent_enabled: false,
+          voting_rule: "minimum_projects",
           vote_threshold_percent: 70,
-          vote_rule_minimum_budget_projects_enabled: true,
           vote_minimum_budget_projects_number: minimum_projects,
-          vote_rule_selected_projects_enabled: false,
           vote_selected_projects_minimum: 0,
           vote_selected_projects_maximum: 1
         }
@@ -229,11 +219,9 @@ describe Decidim::Budgets::Order do
       let(:minimum_projects) { 0 }
       let(:vote_rule_settings) do
         {
-          vote_rule_threshold_percent_enabled: false,
+          voting_rule: "selected_projects",
           vote_threshold_percent: 70,
-          vote_rule_minimum_budget_projects_enabled: false,
           vote_minimum_budget_projects_number: 0,
-          vote_rule_selected_projects_enabled: true,
           vote_selected_projects_minimum: minimum_projects,
           vote_selected_projects_maximum: 1
         }
@@ -261,11 +249,9 @@ describe Decidim::Budgets::Order do
       let(:threshold_percentage) { 50 }
       let(:vote_rule_settings) do
         {
-          vote_rule_threshold_percent_enabled: true,
+          voting_rule: "threshold_percent",
           vote_threshold_percent: threshold_percentage,
-          vote_rule_minimum_budget_projects_enabled: false,
           vote_minimum_budget_projects_number: 0,
-          vote_rule_selected_projects_enabled: false,
           vote_selected_projects_minimum: 0,
           vote_selected_projects_maximum: 1
         }

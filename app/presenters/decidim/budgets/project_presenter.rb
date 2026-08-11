@@ -14,14 +14,12 @@ module Decidim
 
       # Render the project title
       #
-      # links - should render hashtags as links?
-      # extras - should include extra hashtags?
       #
       # Returns a String.
-      def title(links: false, extras: true, html_escape: false, all_locales: false)
+      def title(html_escape: false, all_locales: false)
         return unless project
 
-        super(project.title, links, html_escape, all_locales, extras:)
+        super(project.title, html_escape, all_locales)
       end
     end
   end

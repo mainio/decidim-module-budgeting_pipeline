@@ -7,6 +7,13 @@ describe Decidim::Budgets::ResultsController do
 
   let(:user) { create(:user, :confirmed, organization: component.organization) }
   let(:component) { create(:budgeting_pipeline_component) }
+  let(:assembly_slug) { component.participatory_space.slug }
+  let(:base_params) do
+    {
+      component_id: component.id,
+      assembly_slug:
+    }
+  end
 
   before do
     request.env["decidim.current_organization"] = component.organization
@@ -22,7 +29,7 @@ describe Decidim::Budgets::ResultsController do
       end
 
       it "renders" do
-        get :show
+        get :show, params: base_params
 
         expect(response).to render_template("decidim/budgets/results/show")
       end
@@ -30,7 +37,7 @@ describe Decidim::Budgets::ResultsController do
 
     context "when show votes is disabled" do
       it "renders" do
-        get :show
+        get :show, params: base_params
 
         expect(response).to redirect_to("/processes/#{component.participatory_space.slug}/f/#{component.id}/projects")
       end

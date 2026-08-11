@@ -97,7 +97,7 @@ describe "ExploreProjects" do
           click_on "Search"
         end
         within "#project-#{project.id}-item" do
-          expect(page).to have_css(".card__text--status", text: "Selected")
+          expect(page).to have_css(".card__list-metadata", text: "Selected")
         end
       end
     end

@@ -7,11 +7,9 @@ FactoryBot.define do
     transient do
       vote_rule_settings do
         {
-          vote_rule_threshold_percent_enabled: false,
+          voting_rule: "selected_projects",
           vote_threshold_percent: 70,
-          vote_rule_minimum_budget_projects_enabled: false,
           vote_minimum_budget_projects_number: 0,
-          vote_rule_selected_projects_enabled: true,
           vote_selected_projects_minimum: 0,
           vote_selected_projects_maximum: 5
         }
@@ -90,7 +88,10 @@ FactoryBot.define do
         budget ||= create(:budget, component: vote.component)
 
         order = create(:order, budget:, user: vote.user)
-        order.update!(checked_out_at: Time.current) if evaluator.order_checked_out
+        if evaluator.order_checked_out
+          order.projects << create(:project, budget:, budget_amount: budget.total_budget)
+          order.update!(checked_out_at: Time.current)
+        end
         vote.orders << order
       end
       vote.save!

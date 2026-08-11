@@ -3,8 +3,6 @@
 require "spec_helper"
 
 describe Decidim::Budgets::VotesController do
-  routes { Decidim::Budgets::Engine.routes }
-
   let(:organization) { build(:organization, tos_version: Time.current, available_authorizations: ["dummy_authorization_handler"]) }
   let(:user) { create(:user, :confirmed, organization:) }
   let(:participatory_space) { create(:participatory_process, :with_steps, organization:) }
@@ -40,6 +38,11 @@ describe Decidim::Budgets::VotesController do
     let!(:budget_two) { create(:budgeting_pipeline_budget, component:) }
     let!(:order_one) { create(:order, budget: budget_one, user:) }
     let!(:order_two) { create(:order, budget: budget_two, user:) }
+
+    before do
+      order_one.projects << create(:project, budget: budget_one, budget_amount: budget_one.total_budget)
+      order_two.projects << create(:project, budget: budget_two, budget_amount: budget_two.total_budget)
+    end
   end
 
   shared_examples "ensured voting open" do

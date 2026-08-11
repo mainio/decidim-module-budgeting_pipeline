@@ -68,13 +68,13 @@ module Decidim
           context "when manifest is budgets" do
             let(:manifest) { Decidim.find_component_manifest("budgets") }
 
-            context "when vote_rule_minimum_budget_projects is disable" do
+            context "when voting_rule is not minimum_projects" do
               it { is_expected.to be_valid }
             end
 
-            context "when vote_rule_minimum_budget_projects is enabled" do
+            context "when voting_rule is minimum_projects" do
               before do
-                allow(settings).to receive(:vote_rule_minimum_budget_projects_enabled).and_return(true)
+                allow(settings).to receive(:voting_rule).and_return("minimum_projects")
               end
 
               context "when vote_minimum_budget_projects_number is blank" do

@@ -8,8 +8,15 @@ describe Decidim::Budgets::LineItemsController do
   let(:user) { create(:user, :confirmed, organization: component.organization) }
   let!(:budget) { create(:budgeting_pipeline_budget, component:) }
   let(:component) { create(:budgeting_pipeline_component) }
-
   let(:project) { create(:budgeting_pipeline_project, budget:) }
+  let(:budget_params) do
+    {
+      budget_id: budget.id,
+      project_id: project.id,
+      component_id: component.id,
+      assembly_slug: component.participatory_space.slug
+    }
+  end
 
   before do
     request.env["decidim.current_organization"] = component.organization
@@ -21,14 +28,14 @@ describe Decidim::Budgets::LineItemsController do
   describe "POST create" do
     shared_examples "creation error" do
       it "renders nothing with 422 status" do
-        post :create, params: { budget_id: budget.id, project_id: project.id }
+        post :create, params: budget_params
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to eq ""
       end
 
       it "renders the correct template for XHR request" do
-        post :create, format: :js, params: { budget_id: budget.id, project_id: project.id }
+        post :create, format: :js, params: budget_params
 
         expect(response).to render_template("decidim/budgets/line_items/update_budget_error")
       end
@@ -36,7 +43,7 @@ describe Decidim::Budgets::LineItemsController do
 
     shared_examples "vote not allowed" do
       it "redirects the user" do
-        post :create, params: { budget_id: budget.id, project_id: project.id }
+        post :create, params: budget_params
 
         expect(response).to redirect_to("/")
       end
@@ -44,14 +51,13 @@ describe Decidim::Budgets::LineItemsController do
 
     context "when everything is ok" do
       it "redirects the user back to the budgets path by default" do
-        post :create, params: { budget_id: budget.id, project_id: project.id }
+        post :create, params: budget_params
 
         expect(response).to redirect_to("/processes/#{component.participatory_space.slug}/f/#{component.id}/budgets/#{budget.id}")
       end
 
       it "renders the correct template for XHR request" do
-        post :create, format: :js, params: { budget_id: budget.id, project_id: project.id }
-
+        post :create, format: :js, params: budget_params
         expect(response).to render_template("decidim/budgets/line_items/update_budget")
       end
     end
