@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import attachGeocoding from "src/decidim/geocoding/attach_input";
 
 $(() => {
