@@ -9,11 +9,11 @@ describe Decidim::Budgets::OrdersController do
   let!(:budget_one) { create(:budgeting_pipeline_budget, component:) }
   let!(:budget_two) { create(:budgeting_pipeline_budget, component:) }
   let(:component) { create(:budgeting_pipeline_component) }
-  let(:assembly_slug) { component.participatory_space.slug }
+  let(:initiative_slug) { component.participatory_space.slug }
   let(:base_params) do
     {
       component_id: component.id,
-      assembly_slug:
+      initiative_slug:
     }
   end
 

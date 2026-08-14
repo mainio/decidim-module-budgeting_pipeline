@@ -14,7 +14,7 @@ describe Decidim::Budgets::LineItemsController do
       budget_id: budget.id,
       project_id: project.id,
       component_id: component.id,
-      assembly_slug: component.participatory_space.slug
+      initiative_slug: component.participatory_space.slug
     }
   end
 

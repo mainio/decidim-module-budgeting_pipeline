@@ -7,11 +7,11 @@ describe Decidim::Budgets::ResultsController do
 
   let(:user) { create(:user, :confirmed, organization: component.organization) }
   let(:component) { create(:budgeting_pipeline_component) }
-  let(:assembly_slug) { component.participatory_space.slug }
+  let(:initiative_slug) { component.participatory_space.slug }
   let(:base_params) do
     {
       component_id: component.id,
-      assembly_slug:
+      initiative_slug:
     }
   end
 
