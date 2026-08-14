@@ -220,7 +220,6 @@ module Decidim
       end
 
       initializer "decidim_budgeting_pipeline.register_icons" do
-        Decidim.icons.register(name: "printer-line", icon: "printer-line", category: "system", description: "Block user icon", engine: :admin)
         Decidim.icons.register(name: "checkbox-blank-circle-line", icon: "checkbox-blank-circle-line", category: "system", description: "Block user icon", engine: :admin)
       end
     end
