@@ -11,7 +11,9 @@
   "devDependencies": {
     "@decidim/dev": "^0.32.0",
     "@decidim/eslint-config": "^0.32.0",
+    "glob": ">=10.5.0",
     "eslint": "^8.7.0",
-    "eslint-config-prettier": "^8.2.0"
+    "eslint-config-prettier": "^8.2.0",
+    "linkify-it": ">=5.0.2"
   }
 }
