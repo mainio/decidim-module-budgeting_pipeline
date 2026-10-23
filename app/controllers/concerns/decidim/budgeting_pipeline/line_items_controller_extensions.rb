@@ -28,7 +28,7 @@ module Decidim
                 on(:ok) do |order|
                   self.current_order = order
                   reset_current_orders
-                  format.html { redirect_back_or_to(fallback_location: Decidim::ResourceLocatorPresenter.new(budget).path) }
+                  format.html { redirect_back_or_to(Decidim::ResourceLocatorPresenter.new(budget).path) }
                   format.js { render "update_budget" }
                 end
 
@@ -50,7 +50,7 @@ module Decidim
             current_user.with_lock do
               Decidim::Budgets::RemoveLineItem.call(current_order, project) do
                 on(:ok) do |_order|
-                  format.html { redirect_back_or_to(fallback_location: budget_path(budget)) }
+                  format.html { redirect_back_or_to(budget_path(budget)) }
                   format.js { render "update_budget" }
                 end
 
