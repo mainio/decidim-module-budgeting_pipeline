@@ -116,7 +116,7 @@ describe Decidim::BudgetingPipeline::BudgetMutationType do
   describe "updateProject" do
     let!(:project) { create(:budgeting_pipeline_project, budget: model) }
     let(:query) { "{ updateProject(id: #{project.id}, attributes: #{attributes_to_graphql(attributes)}) { id } }" }
-    let!(:taxonomization) { create(:taxonomization, taxonomy: taxonomy, taxonomizable: project) }
+    let!(:taxonomization) { create(:taxonomization, taxonomy:, taxonomizable: project) }
     let(:attributes) do
       {
         title: { en: "Updated project" },

@@ -39,7 +39,7 @@ describe Decidim::Budgets::ResultsController do
       it "renders" do
         get :show, params: base_params
 
-        expect(response).to redirect_to("/processes/#{component.participatory_space.slug}/f/#{component.id}/projects")
+        expect(response).to redirect_to("/en/processes/#{component.participatory_space.slug}/f/#{component.id}/projects")
       end
     end
   end

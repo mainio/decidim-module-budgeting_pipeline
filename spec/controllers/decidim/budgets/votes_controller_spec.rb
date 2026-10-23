@@ -54,7 +54,7 @@ describe Decidim::Budgets::VotesController do
           do_request
 
           expect(flash[:warning]).to eq("You cannot vote at this moment.")
-          expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/results")
+          expect(response).to redirect_to("/en/processes/#{participatory_space.slug}/f/#{component.id}/results")
         end
       end
 
@@ -65,7 +65,7 @@ describe Decidim::Budgets::VotesController do
           do_request
 
           expect(flash[:warning]).to eq("You cannot vote at this moment.")
-          expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/projects")
+          expect(response).to redirect_to("/en/processes/#{participatory_space.slug}/f/#{component.id}/projects")
         end
       end
     end
@@ -82,7 +82,7 @@ describe Decidim::Budgets::VotesController do
           do_request
 
           expect(flash[:warning]).to eq("You have to identify yourself in order to vote.")
-          expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/vote")
+          expect(response).to redirect_to("/en/processes/#{participatory_space.slug}/f/#{component.id}/vote")
         end
       end
 
@@ -96,7 +96,7 @@ describe Decidim::Budgets::VotesController do
             do_request
 
             expect(flash[:warning]).to eq("You have already voted.")
-            expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/projects")
+            expect(response).to redirect_to("/en/processes/#{participatory_space.slug}/f/#{component.id}/projects")
           end
         end
       end
@@ -114,7 +114,7 @@ describe Decidim::Budgets::VotesController do
         it "redirects to budgets selection" do
           do_request
 
-          expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/vote/budgets")
+          expect(response).to redirect_to("/en/processes/#{participatory_space.slug}/f/#{component.id}/vote/budgets")
         end
       end
     end
@@ -142,7 +142,7 @@ describe Decidim::Budgets::VotesController do
       it "redirects to projects selection" do
         do_request
 
-        expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/vote/projects")
+        expect(response).to redirect_to("/en/processes/#{participatory_space.slug}/f/#{component.id}/vote/projects")
       end
     end
   end
@@ -193,7 +193,7 @@ describe Decidim::Budgets::VotesController do
         it "redirects to projects selection" do
           post :start, params: { budget_ids: [budget_one.id, budget_two.id] }
 
-          expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/vote/projects")
+          expect(response).to redirect_to("/en/processes/#{participatory_space.slug}/f/#{component.id}/vote/projects")
         end
       end
     end
@@ -255,7 +255,7 @@ describe Decidim::Budgets::VotesController do
       it "redirects to projects" do
         post :create
 
-        expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/projects")
+        expect(response).to redirect_to("/en/processes/#{participatory_space.slug}/f/#{component.id}/projects")
       end
 
       it "checks out the orders" do
@@ -271,7 +271,7 @@ describe Decidim::Budgets::VotesController do
         it "redirects to results" do
           post :create
 
-          expect(response).to redirect_to("/processes/#{participatory_space.slug}/f/#{component.id}/results")
+          expect(response).to redirect_to("/en/processes/#{participatory_space.slug}/f/#{component.id}/results")
         end
       end
     end

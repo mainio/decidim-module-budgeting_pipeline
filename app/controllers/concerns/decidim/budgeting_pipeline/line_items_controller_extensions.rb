@@ -28,12 +28,12 @@ module Decidim
                 on(:ok) do |order|
                   self.current_order = order
                   reset_current_orders
-                  format.html { redirect_back(fallback_location: Decidim::ResourceLocatorPresenter.new(budget).path) }
+                  format.html { redirect_back_or_to(fallback_location: Decidim::ResourceLocatorPresenter.new(budget).path) }
                   format.js { render "update_budget" }
                 end
 
                 on(:invalid) do |reason|
-                  format.html { render plain: "", status: :unprocessable_entity }
+                  format.html { render plain: "", status: :unprocessable_content }
                   format.js { create_error(reason) }
                 end
               end
@@ -50,12 +50,12 @@ module Decidim
             current_user.with_lock do
               Decidim::Budgets::RemoveLineItem.call(current_order, project) do
                 on(:ok) do |_order|
-                  format.html { redirect_back(fallback_location: budget_path(budget)) }
+                  format.html { redirect_back_or_to(fallback_location: budget_path(budget)) }
                   format.js { render "update_budget" }
                 end
 
                 on(:invalid) do
-                  format.js { render "update_budget", status: :unprocessable_entity }
+                  format.js { render "update_budget", status: :unprocessable_content }
                 end
               end
             end

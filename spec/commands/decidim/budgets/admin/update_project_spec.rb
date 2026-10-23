@@ -48,7 +48,7 @@ module Decidim::BudgetingPipeline
         proposal_ids: proposals.map(&:id),
         selected:,
         photos:,
-        add_photos: uploaded_photos,
+        add_attachments: uploaded_photos,
         budget:,
         idea_ids:,
         plan_ids:,

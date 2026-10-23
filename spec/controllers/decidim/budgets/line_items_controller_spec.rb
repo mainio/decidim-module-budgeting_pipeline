@@ -30,7 +30,7 @@ describe Decidim::Budgets::LineItemsController do
       it "renders nothing with 422 status" do
         post :create, params: budget_params
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response.body).to eq ""
       end
 
@@ -45,7 +45,7 @@ describe Decidim::Budgets::LineItemsController do
       it "redirects the user" do
         post :create, params: budget_params
 
-        expect(response).to redirect_to("/")
+        expect(response).to redirect_to("/en")
       end
     end
 
@@ -53,7 +53,7 @@ describe Decidim::Budgets::LineItemsController do
       it "redirects the user back to the budgets path by default" do
         post :create, params: budget_params
 
-        expect(response).to redirect_to("/processes/#{component.participatory_space.slug}/f/#{component.id}/budgets/#{budget.id}")
+        expect(response).to redirect_to("/en/processes/#{component.participatory_space.slug}/f/#{component.id}/budgets/#{budget.id}")
       end
 
       it "renders the correct template for XHR request" do

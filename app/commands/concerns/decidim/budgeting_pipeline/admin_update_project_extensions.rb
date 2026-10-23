@@ -13,8 +13,8 @@ module Decidim
 
         def run_after_hooks
           link_proposals
-          create_gallery if process_gallery?
-          photo_cleanup!
+          create_attachments if process_attachments?
+          attachment_cleanup!(include_all_attachments: true)
 
           link_ideas
           link_plans
@@ -23,7 +23,7 @@ module Decidim
         # The attached image gets cleared out for some reason during the record
         # reload, so we update the attachment attributes after the photo
         # cleanup instead of updating them directly during the record update.
-        def photo_cleanup!
+        def attachment_cleanup!(include_all_attachments: false)
           super
 
           resource.update!(attachment_attributes(:main_image))

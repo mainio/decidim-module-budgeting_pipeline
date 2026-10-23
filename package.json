@@ -9,8 +9,8 @@
     "lint": "eslint -c .eslintrc.json --no-error-on-unmatched-pattern --ignore-pattern app/packs/vendor --ext .js app/packs"
   },
   "devDependencies": {
-    "@decidim/dev": "^0.31.7",
-    "@decidim/eslint-config": "^0.31.7",
+    "@decidim/dev": "^0.32.0",
+    "@decidim/eslint-config": "^0.32.0",
     "eslint": "^8.7.0",
     "eslint-config-prettier": "^8.2.0"
   }

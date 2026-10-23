@@ -7,6 +7,7 @@ module Decidim
     module Admin
       describe ComponentForm do
         include ::Decidim::BudgetingPipeline::AdminComponentFormExtensions
+
         subject { form }
 
         let(:organization) { create(:organization) }

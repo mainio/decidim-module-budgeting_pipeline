@@ -79,7 +79,7 @@ describe "AdminExportsProjectsToAccountability" do
       let(:project) { selected_projects.first }
 
       before do
-        create(:taxonomization, taxonomy: taxonomy, taxonomizable: project)
+        create(:taxonomization, taxonomy:, taxonomizable: project)
       end
 
       it "sets the correct taxonomies" do

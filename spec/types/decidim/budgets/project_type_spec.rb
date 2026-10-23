@@ -60,7 +60,7 @@ describe Decidim::Budgets::ProjectType do
         end
 
         it "returns nothing" do
-          expect(response).to be_nil
+          expect { response }.to raise_error(Decidim::Api::Errors::UnauthorizedObjectError)
         end
       end
     end
@@ -76,7 +76,7 @@ describe Decidim::Budgets::ProjectType do
         end
 
         it "returns nil" do
-          expect(response["mainImageBlob"]).to be_nil
+          expect { response["mainImageBlob"] }.to raise_error(Decidim::Api::Errors::UnauthorizedObjectError)
         end
       end
     end

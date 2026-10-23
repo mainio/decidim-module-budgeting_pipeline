@@ -216,6 +216,11 @@ module Decidim
           Decidim::Budgets::LineItem.include(
             Decidim::BudgetingPipeline::LineItemExtensions
           )
+
+          # Permissions
+          Decidim::Budgets::Permissions.include(
+            Decidim::BudgetingPipeline::BudgetsPermissionsExtensions
+          )
         end
       end
 

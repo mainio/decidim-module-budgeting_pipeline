@@ -69,8 +69,8 @@ shared_context "with budgeting setup" do
     page.visit decidim_budgets.projects_path
   end
 
-  def visit_project(project)
-    page.visit decidim_budgets.project_path(project)
+  def visit_project(budget, project)
+    page.visit decidim_budgets.budget_project_path(budget, project)
   end
 
   def visit_results

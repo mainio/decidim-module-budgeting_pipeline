@@ -54,7 +54,7 @@ describe "ExploreProjects" do
     let(:project) { budget_one_projects.first }
 
     before do
-      visit_project(project)
+      visit_project(budget_one, project)
     end
 
     it "shows the project details" do
@@ -70,8 +70,8 @@ describe "ExploreProjects" do
       let(:taxonomy) { create(:taxonomy, parent: root_taxonomy, organization:, name: { "en" => "Test taxonomy" }) }
 
       before do
-        create(:taxonomization, taxonomy: taxonomy, taxonomizable: project)
-        visit_project(project)
+        create(:taxonomization, taxonomy:, taxonomizable: project)
+        visit_project(budget_one, project)
       end
 
       it "displays the taxonomy and its root taxonomy" do

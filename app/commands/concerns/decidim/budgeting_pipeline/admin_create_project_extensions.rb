@@ -14,7 +14,7 @@ module Decidim
         def run_after_hooks
           @attached_to = resource
           link_proposals
-          create_gallery if process_gallery?
+          create_attachments if process_attachments?
 
           link_ideas
           link_plans
