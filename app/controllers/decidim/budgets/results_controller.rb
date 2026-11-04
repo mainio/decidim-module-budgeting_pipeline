@@ -12,7 +12,9 @@ module Decidim
       before_action :set_breadcrumbs, only: [:show]
 
       def show
-        redirect_to EngineRouter.main_proxy(current_component).projects_path unless results_visible?
+        enforce_permission_to(:read, :results)
+
+        return redirect_to EngineRouter.main_proxy(current_component).projects_path unless results_visible?
 
         @total_votes = Decidim::Budgets::Order.finished.where(budget: budgets).count(:decidim_budgets_vote_id)
       end

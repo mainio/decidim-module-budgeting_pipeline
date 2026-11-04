@@ -12,11 +12,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  main:
-    name: Lint
-    runs-on: ubuntu-latest
-    timeout-minutes: 60
-    steps:
-      - uses: mainio/gha-decidim-module/lint@main
-        with:
-          eslint: true
+  lint:
+    name: Lint code
+    uses: mainio/gha-decidim-module/.github/workflows/lint.yml@main
+    secrets: inherit
+    with:
+      eslint: true

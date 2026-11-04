@@ -17,6 +17,7 @@ module Decidim
         raise ActionController::RoutingError, "Not Found" unless resource_visible?
         raise ActionController::RoutingError, "Not Found" unless manifest
 
+        enforce_permission_to(:read, :project, project:)
         # render(partial: resource_manifest.template, locals: { resources: resources })
 
         # "decidim/plans/plans/linked_plans"

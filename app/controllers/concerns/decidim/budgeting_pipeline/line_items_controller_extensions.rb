@@ -42,6 +42,8 @@ module Decidim
         end
 
         def destroy
+          enforce_permission_to :vote, :project, project:, budget:, workflow: current_workflow
+
           respond_to do |format|
             # Note that the user-specific lock here is important in order to
             # prevent multiple simultaneous processes on different machines from

@@ -5,6 +5,8 @@ module Decidim
     module Authorizable
       extend ActiveSupport::Concern
 
+      private
+
       # This ensures that only people eligible to vote can enter the voting
       # pipeline after the authorization step. The authorization conditions
       # should be used to control user's ability to vote (e.g. where they live,

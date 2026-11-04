@@ -9,10 +9,6 @@ module Decidim
 
         before_action :ensure_container!
 
-        def permission_class_chain
-          [Decidim::BudgetingPipeline::Admin::Permissions] + super
-        end
-
         def new
           enforce_permission_to :create, :help_section
           @form = form(HelpSectionForm).instance
@@ -75,13 +71,20 @@ module Decidim
 
         private
 
+        def permission_class_chain
+          [Decidim::BudgetingPipeline::Admin::Permissions] + super
+        end
+
         def ensure_container!
           raise ActionController::RoutingError, "Not Found" unless container
         end
 
+        # Disable linter since this class cannot be scoped with current_organization
+        # rubocop:disable Decidim/OrganizationScopedFinder
         def container
           @container ||= Decidim::BudgetingPipeline::HelpContainer.find(params[:help_key])
         end
+        # rubocop:enable Decidim/OrganizationScopedFinder
 
         def sections
           @sections ||= Decidim::Budgets::HelpSection.where(

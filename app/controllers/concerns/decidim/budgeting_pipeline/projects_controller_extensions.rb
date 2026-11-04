@@ -24,9 +24,51 @@ module Decidim
 
         def show
           raise ActionController::RoutingError, "Not Found" unless project
+
+          enforce_permission_to :read, :project, project:
         end
 
-        def index; end
+        def index
+          enforce_permission_to :read, :project
+        end
+
+        private
+
+        def set_breadcrumbs
+          return unless respond_to?(:add_breadcrumb, true)
+
+          add_breadcrumb(t("decidim.budgets.projects.index.breadcrumb"), projects_path)
+          return unless action_name == "show"
+          return unless project
+
+          add_breadcrumb(translated_attribute(project.title), project_path(project))
+        end
+
+        def help_sections
+          @help_sections ||= Decidim::Budgets::HelpSection.where(
+            component: current_component,
+            key: "index"
+          ).order(:weight)
+        end
+
+        def geocoded_projects
+          @geocoded_projects ||= begin
+            base_query = search.result
+            base_query.geocoded_data_for(current_component)
+          end
+        end
+
+        def budgets
+          @budgets ||= Decidim::Budgets::Budget.where(component: current_component).order(weight: :asc)
+        end
+
+        def maximum_project_budget
+          @maximum_project_budget ||= Decidim::Budgets::Project.where(budget: budgets).maximum(:budget_amount)
+        end
+
+        def vote_success?
+          @vote_success ||= session.delete("decidim-budgets.voted") == true
+        end
 
         def default_filter_params
           {
@@ -50,46 +92,6 @@ module Decidim
         def project
           @project ||= Decidim::Budgets::Project.find_by(id: params[:id], budget: budgets)
         end
-
-        private :search_collection, :default_filter_params, :project
-      end
-
-      private
-
-      def set_breadcrumbs
-        return unless respond_to?(:add_breadcrumb, true)
-
-        add_breadcrumb(t("decidim.budgets.projects.index.breadcrumb"), projects_path)
-        return unless action_name == "show"
-        return unless project
-
-        add_breadcrumb(translated_attribute(project.title), project_path(project))
-      end
-
-      def help_sections
-        @help_sections ||= Decidim::Budgets::HelpSection.where(
-          component: current_component,
-          key: "index"
-        ).order(:weight)
-      end
-
-      def geocoded_projects
-        @geocoded_projects ||= begin
-          base_query = search.result
-          base_query.geocoded_data_for(current_component)
-        end
-      end
-
-      def budgets
-        @budgets ||= Decidim::Budgets::Budget.where(component: current_component).order(weight: :asc)
-      end
-
-      def maximum_project_budget
-        @maximum_project_budget ||= Decidim::Budgets::Project.where(budget: budgets).maximum(:budget_amount)
-      end
-
-      def vote_success?
-        @vote_success ||= session.delete("decidim-budgets.voted") == true
       end
     end
   end

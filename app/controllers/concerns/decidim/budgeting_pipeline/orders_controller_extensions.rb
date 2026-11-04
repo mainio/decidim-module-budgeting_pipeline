@@ -14,7 +14,9 @@ module Decidim
         before_action :set_breadcrumbs, only: [:index]
       end
 
-      def index; end
+      def index
+        enforce_permission_to(:read, :order, order: current_order)
+      end
 
       private
 
