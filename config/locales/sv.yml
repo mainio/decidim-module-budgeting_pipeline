@@ -149,6 +149,13 @@ sv:
       project_l:
         more_info: Bekanta dig med förslagen
         more_info_with_title: Bekanta dig med förslagen %{title}
+      project_l:
+        card_label: "Förslag: %{title}"
+      project_m:
+        card_label: "Förslag: %{title}"
+        votes_amount:
+          one: "%{count} röst"
+          other: "%{count} röster"
       projects:
         count:
           projects_count:
@@ -191,6 +198,14 @@ sv:
           term: Nyckelord
           title: Sök förslag
         index:
+          follow_voting: Följ omröstningssituationen
+          see_results: Visa slutresultat
+          see_your_vote: Se min röst
+          show_list: Visa resultat som lista
+          show_map: Visa resultat på kartan
+          start_voting: Gå till bläddra bland förslagen och rösta
+          title: Förslag
+          view_project: Visa förslag
           breadcrumb: Bekanta dig med förslag
           show_list: Visa resultat som lista
           show_map: Visa resultat på kartan

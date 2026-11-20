@@ -1,0 +1,452 @@
+cs:
+  activemodel:
+    attributes:
+      accountability_export:
+        export_all_selected_projects: Exportovat všechny hlasované návrhy označené jako vybrané
+        target_component_id: Cílová komponenta
+      budget:
+        center_latitude: Zeměpisná šířka středu
+        center_longitude: Zeměpisná délka středu
+      help_section:
+        description: Popis
+        image: Obrázek
+        link: Odkaz
+        link_text: Text odkazu
+        title: Název
+        weight: Pořadové číslo
+      project:
+        address: Adresa
+        main_image: Hlavní obrázek
+        summary: Souhrn karet
+  activerecord:
+    models:
+      decidim/budgets/project:
+        one: Návrh hlasování
+        few: Návrhy hlasování
+        many: Návrhů hlasování
+        other: Návrhů hlasování
+  decidim:
+    budgeting_pipeline:
+      admin:
+        area_scopes:
+          choose_parent: Nejprve vyberte motiv a povolte motivy pro komponentu.
+      help_containers:
+        index:
+          name: Přední strana
+        pipeline:
+          name: Hlasovací proces
+    budgets:
+      admin:
+        actions:
+          export_results: Exportuje návrhy k výsledkům
+        models:
+          help_section:
+            name: Sekce nápovědy
+        help_sections:
+          create:
+            invalid: Při vytváření nápovědy došlo k chybě
+            success: Sekce nápověda byla úspěšně vytvořena
+          destroy:
+            invalid: Při odstraňování sekce nápovědy došlo k potížím
+            success: Sekce nápověda byla úspěšně odstraněna
+          edit:
+            title: Upravit nápovědu
+            update: Aktualizovat sekci nápovědy
+          new:
+            create: Vytvořit nápovědu
+            title: Nová sekce nápovědy
+          update:
+            invalid: Při aktualizaci sekce nápovědy došlo k chybě
+            success: Sekce nápověda byla úspěšně aktualizována
+        helps:
+          index:
+            title: Nápomocný obsah
+        projects:
+          form:
+            selected_help: Tato volba je zvolena po hlasování, pokud byl projekt odhlasován pro realizaci.
+        results_exports:
+          create:
+            invalid: Při exportu návrhů do výsledků došlo k potížím
+            success: Návrhy úspěšně exportovány do výsledků
+          new:
+            create: Exportovat do výsledků
+            select_component: Vyberte cílovou komponentu
+            title: Exportuje návrhy do výsledků
+      last_activity:
+        show_vote_at: Zobrazit můj hlas v %{name}
+        voted_at_html: "<span>Hlasovali jste v %{link}</span>"
+      line_items:
+        error_details:
+          budget_title: Název oblasti
+          project_title: Název návrhu
+          project_budget: Navrhovaná cena
+          unused_budget: Zbývající rozpočet pro tuto oblast
+        error_message:
+          error:
+            order_checked_out:
+              description: Již jste hlasovali pro participativní rozpočet. Již nemůžete přidávat návrhy do košíku s hlasováním.
+              title: Již jste hlasoval
+            project_exceeds_amount:
+              description: Nemůžete přidat další návrhy pro tuto oblast do košíku s hlasováním. Nejprve ze svého hlasování vyškrtněte další návrhy v této oblasti a připojte tento návrh k vašemu hlasování.
+              title: Již jste přidali maximální množství návrhů
+            project_exceeds_budget:
+              description: Náklady na tento návrh přesahují zbývající rozpočet pro tuto oblast. Nejprve ze svého hlasování vyškrtněte další návrhy v této oblasti a připojte tento návrh k vašemu hlasování.
+              title: Zbývající rozpočet v této oblasti není pro tento návrh dostačující
+            voting_not_enabled:
+              description: Hlasování skončilo. Nemůžete přidat návrhy do košíku hlasování, když je hlasování neaktivní.
+              title: Hlasování není v tuto chvíli možné
+        error_modal:
+          title: Přidání návrhu do hlasovacího košíku se nezdařilo
+      models:
+        help_container:
+          fields:
+            name: Název
+        help_section:
+          fields:
+            title: Titulek
+            weight: Pořadové číslo
+        project:
+          fields:
+            address: Adresa
+          statuses:
+            not_selected: Nebude pokračovat k implementaci
+            selected: Podstoupit k provedení
+      order_summaries_mailer:
+        order_summaries:
+          no_selected_projects: Nevybrali jste žádné návrhy z této oblasti.
+          selected_projects: 'Vybrané návrhy:'
+          subject: Hlasovali jste v %{budget_names}
+          voted_on_budgets: Hlasovali jste v %{budget_names}.
+          votes_summary: Níže naleznete shrnutí vašeho hlasování.
+      orders:
+        continue_button:
+          label: Náhled a hlas
+        index:
+          back: Zobrazit návrhy
+          description_html: <p>Na této stránce vidíte, jak jste hlasovali.</p>
+          follow_voting: Sledujte hlasovací situaci
+          not_voted: Zatím jste nehlasovali.
+          see_results: Zobrazit konečné výsledky
+          title: Můj hlas
+        orders_info:
+          allocated_budget: Celkový rozpočet pro vybrané návrhy
+          allocated_projects: Počet vybraných návrhů
+          empty_order: Nevybrali jste žádné návrhy z oblasti %{name}.
+          title: Náhled a hlasování
+          total_budget: Rozpočet pro oblast
+          total_projects: Počet návrhů dostupných v oblasti
+          vote: Hlasovat
+        orders_modal:
+          close: Zpět na výběr návrhu
+      project_list_item:
+        more_info: Přečtěte si více o tomto návrhu
+        more_info_with_title: Přečtěte si více o %{title}
+      project_l:
+        card_label: "Návrh: %{title}"
+      project_m:
+        card_label: "Návrh: %{title}"
+        votes_amount:
+          one: "%{count} hlas"
+          few: "%{count} hlasy"
+          many: "%{count} hlasů"
+          other: "%{count} hlasů"
+      projects:
+        count:
+          projects_count:
+            one: Nalezen 1 návrh
+            few: Nalezeny %{count} návrhy
+            many: Nalezeno %{count} návrhů
+            other: Nalezeno %{count} návrhů
+        details_table:
+          budget_amount: Rozpočet
+          budget_name: Oblast
+          category_name: Téma
+          vote_count: Hlasy
+        filters:
+          activity: Moje aktivita
+          activity_values:
+            all: Vše
+            authored: Moje návrhy
+            favorites: Moje oblíbené
+          budget: Oblast
+          budget_amount_max: Maximální rozpočet
+          budget_amount_min: Minimální rozpočet
+          budget_enter_amount: Zadejte číslo
+          budgets_values:
+            all:
+              two: Obě oblasti
+              other: Všechny oblasti
+          categories_values:
+            all: Všecha témata
+          label: Hledání návrhů
+          more_criteria:
+            hide: Skrýt kritéria vyhledávání
+            show: Zobrazit více vyhledávacích kritérií
+          reset: Vymazat filtry
+          search: Hledat
+          status_values:
+            not_selected: Nebude pokračovat k implementaci
+            selected: Podstoupit k provedení
+          term: Klíčové slovo
+          title: Hledat návrhy
+        index:
+          follow_voting: Sledujte hlasovací situaci
+          see_results: Zobrazit konečné výsledky
+          see_your_vote: Zobrazit můj hlas
+          show_list: Zobrazit výsledky jako seznam
+          show_map: Zobrazit výsledky na mapě
+          start_voting: Přejděte na procházení návrhů a hlasujte
+          title: Návrhy
+          view_project: Zobrazit návrh
+          view_project_detailed: "Zobrazit návrh: %{name}"
+        orders:
+          alphabetical: Abecedně
+          label: Řazení návrhů
+        project:
+          view: Zobrazit návrh
+          view_detailed: "Zobrazit návrh: %{name}"
+        project_actions:
+          share: Sdílet návrh
+          show_comments: Zobrazit komentáře k návrhu
+          show_on_map: Zobrazit návrh na mapě
+          print: Tisk návrhu
+        project_budget_button:
+          add_descriptive: Přidat návrh %{resource_name} do košíku s hlasováním
+          added_descriptive: Návrh %{resource_name} byl přidán do košíku s hlasováním
+          add_to_vote: Přidat do hlasovacího košíku
+          remove_descriptive: Odebrat návrh %{resource_name} z košíku hlasování
+          remove_from_vote: Odebrat z hlasovacího košíku
+        projects:
+          empty: Žádné návrhy neodpovídají vašim kritériím vyhledávání. Změňte prosím svá kritéria a zkuste to znovu.
+          order_items_amount:
+            one: Ve vašem košíku je %{count} návrh
+            few: Ve vašem košíku jsou %{count} návrhy
+            many: Ve vašem košíku je %{count} návrhů
+            other: Ve vašem košíku je %{count} návrhů
+          show_orders: Zobrazit hlasovací košík
+        show:
+          close: Zavřít
+          start_voting: Zahájit hlasování
+          view_all_projects: Zobrazit všechny návrhy
+          votes_amount:
+            one: "%{count} hlas"
+            few: "%{count} hlasy"
+            many: "%{count} hlasů"
+            other: "%{count} hlasů"
+          voting_note_html: |-
+            <p>Chcete-li začít hlasovat, musíte se identifikovat a vstoupit do režimu hlasování.
+            V režimu hlasování musíte vybrat oblast, do které tento návrh patří, a vybrat ji pro váš hlas.
+            Přidejte tento návrh k vašim oblíbeným, abyste během hlasování našli jeho oblast snadněji.</p>
+      results:
+        budget_results:
+          budget: "Rozpočet: %{amount}"
+          extra_note_for_budgeting_rule: Rozpočet této oblasti není dostatečný pro níže uvedené návrhy, a proto v současné době nesměřují k jejich plnění.
+          extra_note_for_budgeting_rule_selected: Níže uvedené návrhy nebyly vybrány k provedení.
+          extra_note_for_projects_rule: Níže uvedené návrhy nebyly vybrány k provedení.
+          no_votes_yet: V této oblasti zatím nejsou žádné hlasy.
+          show_less: Zobrazit méně
+          show_less_detailed: Zobrazit méně z oblasti %{name}
+          show_more: Zobrazit více
+          show_more_detailed: Zobrazit více z oblasti %{name}
+          title_ordered: "%{budget}"
+          title_winning: "%{budget}"
+        icon_heart:
+          title: Srdíčko
+        projects_table:
+          amount:
+            one: "%{count} projekt"
+            few: "%{count} projekty"
+            many: "%{count} projektů"
+            other: "%{count} projektů"
+          order_number: Pořadové číslo
+          project_budget: Rozpočet
+          project_name: Návrh
+          project_votes: Hlasy
+        show:
+          show_projects: Zobrazit návrhy
+          see_your_vote: Zobrazit můj hlas
+          title: Aktuální výsledky hlasování
+        vote_finished_modal:
+          close: Zavřít okno
+          continue: Pokračovat v přihlášení
+          sign_out: Odhlásit se
+          title: Děkujeme za vaše hlasování!
+      votes:
+        budget_selector:
+          favorites_for_budget:
+            one: "jeden oblíbený v oblasti"
+            few: "%{count} oblíbené v oblasti"
+            many: "%{count} oblíbených v oblasti"
+            other: "%{count} oblíbených v oblasti"
+        budgets:
+          actions:
+            continue: Vybrat návrhy
+          authorization_note: "Vaše poštovní směrovací číslo patří do oblasti: %{budget_name}"
+          budget_select_note:
+            default: Vyberte oblast, ve které chcete hlasovat.
+            suggested: Hlasovací oblast můžete změnit výběrem jiné oblasti.
+          highlighted_budgets:
+            one: "Na základě vaší identifikace, vaše oblast je:"
+            few: "Na základě vaší identifikace, vaše oblasti jsou:"
+            many: "Na základě vaší identifikace, vaše oblasti jsou:"
+            other: "Na základě vaší identifikace, vaše oblasti jsou:"
+          highlighted_budgets_note:
+            one: Pokud je oblast správná, můžete přistoupit k hlasování.
+            few: Pokud jsou oblasti správné, můžete přistoupit k hlasování.
+            many: Pokud jsou oblasti správné, můžete přistoupit k hlasování.
+            other: Pokud jsou oblasti správné, můžete přistoupit k hlasování.
+          select_budgets: Vyberte hlasovací oblast
+          show_more_information_default: Zobrazit další informace
+          sticky_budgets:
+            one: Každý může hlasovat pro návrhy v této oblasti
+            few: Každý může hlasovat pro návrhy v těchto oblastech
+            many: Každý může hlasovat pro návrhy v těchto oblastech
+            other: Každý může hlasovat pro návrhy v těchto oblastech
+          title: Vyberte hlasovací oblast
+        create:
+          error: Zpracování vašeho hlasování se nezdařilo, zkuste to prosím znovu.
+          success: Váš hlas byl úspěšně uložen!
+        exit_modal:
+          cancel: Návrat k hlasování
+          close: Zavřít okno
+          exit: Ukončit hlasování
+          message: Váš hlas nebyl zaregistrován, protože jste ještě nedokončili proces hlasování. Opravdu chcete ukončit hlasování?
+          title: Ukončit oznámení
+        general:
+          already_voted: Již jste hlasoval.
+          exit_voting: Ukončit hlasování
+          move_to_next_step: "Pokračujte k dalšímu kroku: %{name}"
+          move_to_prev_step: "Zpět k předchozímu kroku: %{name}"
+          not_authorized: Abyste mohli hlasovat, musíte se identifikovat.
+          voting_blocked: Momentálně nemůžete hlasovat.
+          voting_over: Hlasování skončilo.
+        identify_options:
+          granted_authorizations_info: Vaše údaje o identitě neodpovídají hlasovacím požadavkům, a proto nemůžete hlasovat.
+          granted_authorizations_notice: "Již jste se identifikovali s následujícími poskytovateli totožnosti:"
+          granted_authorizations_other: Pokud máte možnost se identifikovat s jiným poskytovatelem, můžete to vyzkoušet ze seznamu níže.
+          pending_authorizations_notice: "Již jste se identifikovali s následujícími poskytovateli, kteří čekají na schválení:"
+          pending_authorizations_other: Pokud máte možnost se identifikovat s jiným poskytovatelem, můžete si vybrat tohoto poskytovatele ze seznamu níže.
+          title: Silná identifikace
+        order_items:
+          empty: Nevybrali jste žádné návrhy z této oblasti.
+        order_notifications:
+          errors:
+            allocation_exceeded:
+              description: Musíte odstranit jeden nebo více návrhů, které překračují celkový rozpočet pro vybranou oblast, abyste mohli zobrazit náhled a potvrdit svůj hlas.
+              title: Rozpočet pro tuto oblast byl překročen!
+            allocation_exceeded_projects:
+              description: Musíte odstranit jeden nebo více návrhů, které překračují celkový počet návrhů pro vybranou oblast k zobrazení náhledu a potvrzení vašeho hlasování.
+              title: Vybráno příliš mnoho návrhů!
+            maximum_budget:
+              description: Prosím, odstraňte jeden nebo více návrhů z vašeho hlasování, než přejdete k dalšímu kroku. Máte až %{amount} k dispozici.
+              title: Překročili jste rozpočet pro oblast %{budget}
+            minimum_budget:
+              description: Předtím, než budete moci přistoupit k dalšímu kroku, přidejte k hlasování návrhy. Musíte utratit alespoň %{amount} rozpočtu.
+              title: Musíte vybrat více návrhů z oblasti %{budget}
+            maximum_projects:
+              description: Před pokračováním do dalšího kroku prosím odeberte z vašeho hlasování jeden nebo více návrhů.
+              title:
+                one: Můžete vybrat jeden návrh z oblasti %{budget}
+                few: Vybrali jste příliš mnoho návrhů z oblasti %{budget}, můžete vybrat maximálně %{count} návrhy
+                many: Vybrali jste příliš mnoho návrhů z oblasti %{budget}, můžete vybrat maximálně %{count} návrhů
+                other: Vybrali jste příliš mnoho návrhů z oblasti %{budget}, můžete vybrat maximálně %{count} návrhů
+            minimum_projects:
+              description:
+                one: Abyste mohli postoupit k dalšímu kroku, musíte do hlasování přidat alespoň jeden návrh z této oblasti.
+                few: Abyste mohli přejít k dalšímu kroku, musíte do svého hlasování přidat alespoň %{count} návrhy z této oblasti.
+                many: Abyste mohli přejít k dalšímu kroku, musíte do svého hlasování přidat alespoň %{count} návrhů z této oblasti.
+                other: Abyste mohli přejít k dalšímu kroku, musíte do svého hlasování přidat alespoň %{count} návrhů z této oblasti.
+              title:
+                one: Nevybrali jste žádný návrh z oblasti %{budget}
+                few: Nevybrali jste dostatečný počet návrhů z oblasti %{budget}, musíte vybrat alespoň %{count} návrhy
+                many: Nevybrali jste dostatečný počet návrhů z oblasti %{budget}, musíte vybrat alespoň %{count} návrhů
+                other: Nevybrali jste dostatečný počet návrhů z oblasti %{budget}, musíte vybrat alespoň %{count} návrhů
+          warnings:
+            no_projects:
+              description: Vezměte prosím na vědomí, že můžete vybrat návrhy pro košík hlasování z více oblastí. Pokud chcete do této oblasti přidat návrhy, přejděte zpět k zobrazení návrhů a vyberte ty, které chcete přidat k vašemu hlasování.
+              title: Nevybrali jste žádné návrhy z oblasti %{budget}
+            no_projects_single:
+              description: Pokud chcete přidat návrhy také ke svému hlasování, přejděte zpět k procházení návrhů a vyberte návrhy, které chcete přidat do košíku s hlasováním.
+              title: Nevybrali jste žádné návrhy z oblasti %{budget}
+        order_progress:
+          allocated_budget: Vynaložený rozpočet
+          allocated_projects: Počet vybraných návrhů
+          available_budget: Rozpočet pro oblast
+          available_projects: Maximální počet návrhů, které mají být vybrány
+          selected_projects: Návrhy v košíku
+          selected_projects_count: "%{count} pcs"
+          unused_budget: Zbývající rozpočet
+          unused_projects: Zbývající návrhy k výběru
+        orders_summary:
+          order_items:
+            hide: Skrýt vybrané návrhy pro tuto oblast
+            hide_detailed: Skrýt vybrané návrhy v oblasti %{name}
+            show: Zobrazit vybrané návrhy pro tuto oblast
+            show_detailed: Zobrazit vybrané návrhy v oblasti %{name}
+        order_total:
+          order_budget_sum: Celkem pro vybrané návrhy
+          order_projects_sum: Počet vybraných návrhů
+        preview:
+          actions:
+            previous: Vybrat návrhy
+            vote: Hlasovat
+            vote_empty: Vhodit prázdný hlas
+          allocated_budget: Celkový rozpočet pro vybrané návrhy
+          allocated_projects: Počet vybraných návrhů
+          empty_order: Nevybrali jste žádné návrhy z oblasti %{name}.
+          empty_vote:
+            description: Pokud si však přejete, můžete nechat prázdné hlasování.
+            title: Nevybrali jste žádné návrhy k hlasování!
+          title: Náhled a hlas
+          total_budget: Rozpočet pro oblast
+          total_projects: Maximální počet návrhů, které mají být vybrány v oblasti
+        projects:
+          actions:
+            continue: Náhled a hlas
+            previous: Výběr hlasovací oblasti
+          back_to_projects: Zobrazit návrhy
+          budget_html: "Oblast: <strong>%{name}</strong>"
+          orders_summary_title: Stav hlasovacího košíku
+          title: Vybrat návrhy
+        start:
+          invalid: Nepodařilo se vybrat hlasovací oblast, zkuste to prosím znovu.
+        steps:
+          authorization: Silná identifikace a výběr hlasovací oblasti
+          budgets: Výběr hlasovací oblasti
+          login: Přihlaste se a vyberte hlasovací oblast
+          next: "Další: %{name}"
+          preview: Náhled a hlas
+          previous: "Předchozí: %{name}"
+          projects: Vybrat návrhy
+          step: Krok %{number}
+        top:
+          title: Hlasování
+    components:
+      budgets:
+        settings:
+          global:
+            geocoding_enabled: Geokódování povoleno
+            default_map_center_coordinates: Výchozí souřadnice středu pro mapu (zeměpisná šířka, zeměpisná délka)
+            more_information_modal_label: Další informace o modálním otevřeném odkazu
+            projects_per_page: Návrhů na stránku
+            results_page_content: Obsah stránky výsledků
+            vote_budgets_page_content: Obsah stránky výběru oblasti
+            vote_identify_invalid_authorization_content: Neplatný obsah informací o identitě
+            vote_identify_invalid_authorization_title: Neplatný název chyby informací o identitě
+            vote_identify_page_content: Obsah identifikační stránky
+            vote_identify_page_more_information: Detaily identifikační stránky
+            vote_preview_page_content: Náhled obsahu stránky
+            vote_projects_page_content: Procházet obsah stránky s návrhy
+            vote_projects_per_page: Návrhů na stránku při hlasování
+            vote_success_content: Obsah zobrazený po úspěšném hlasování
+      component_order_selector:
+        order:
+          vote: Hlasovat
+    statistics:
+      orders_count: Hlasy
+      projects_count: Návrhy
+  helsinki:
+    content_blocks:
+      records_carousel:
+        next: Další
+        previous: Předchozí
