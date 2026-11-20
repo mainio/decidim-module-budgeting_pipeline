@@ -7,6 +7,7 @@ module Decidim
       include Decidim::SanitizeHelper
 
       helper Decidim::TranslationsHelper
+      helper Decidim::SanitizeHelper
 
       # Send an email to an user with the summary of the order.
       #
@@ -32,7 +33,7 @@ module Decidim
             scope: "decidim.budgets.order_summaries_mailer",
             budget_names: @budget_names.join(", ")
           )
-          mail(to: user.email, subject: subject)
+          mail(to: user.email, subject:)
         end
       end
     end

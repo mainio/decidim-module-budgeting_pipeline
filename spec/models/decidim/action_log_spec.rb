@@ -5,14 +5,14 @@ require "spec_helper"
 describe Decidim::ActionLog do
   subject do
     described_class.create!(
-      user: user,
-      organization: organization,
-      action: action,
-      resource: resource,
+      user:,
+      organization:,
+      action:,
+      resource:,
       resource_id: resource.id,
       resource_type: resource.class.name,
-      participatory_space: participatory_space,
-      component: component,
+      participatory_space:,
+      component:,
       area: nil,
       scope: nil,
       version_id: 1,
@@ -22,11 +22,11 @@ describe Decidim::ActionLog do
   end
 
   let(:organization) { create(:organization, tos_version: Time.current) }
-  let(:user) { create(:user, organization: organization) }
+  let(:user) { create(:user, organization:) }
   let(:action) { :create }
-  let(:participatory_space) { create(:participatory_process, organization: organization) }
-  let(:component) { create(:budgeting_pipeline_component, participatory_space: participatory_space) }
-  let(:resource) { create(:budgeting_pipeline_vote, component: component) }
+  let(:participatory_space) { create(:participatory_process, organization:) }
+  let(:component) { create(:budgeting_pipeline_component, participatory_space:) }
+  let(:resource) { create(:budgeting_pipeline_vote, component:) }
   let(:extra_data) { {} }
 
   it "accepts a private-only type log entry" do

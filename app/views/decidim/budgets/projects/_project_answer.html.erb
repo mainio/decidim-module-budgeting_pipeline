@@ -1,0 +1,22 @@
+<%
+# Note that the order is important as the resource links are created in the
+# order that they are defined in the API query.
+linked_plans = Decidim::ResourceLink.where(
+  from_type: "Decidim::Budgets::Project",
+  from_id: project.id,
+  name: "included_plans",
+  to_type: "Decidim::Plans::Plan"
+).order(:id).map(&:to)
+
+answers = linked_plans.map { |plan| translated_attribute(plan.answer) }.select { |answer| strip_tags(answer).strip.present? }
+%>
+
+<% if answers.any? %>
+  <div class="banner bg-silver-medium-light">
+    <div class="banner__content">
+      <h2 class="h3"><%= t(".title") %></h2>
+
+      <%== answers.first %>
+    </div>
+  </div>
+<% end %>

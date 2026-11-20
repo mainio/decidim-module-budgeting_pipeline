@@ -24,13 +24,13 @@
   }
 
   $(() => {
-    const $exitNotification = $("#exit-notification");
+    const $exitNotificationModal = $("#exit-notification-modal");
     const $exitLink = $("#exit-notification-link");
     const defaultExitUrl = $exitLink.attr("href");
     const defaultExitLinkText = $exitLink.text();
     let exitLinkText = defaultExitLinkText;
 
-    if ($exitNotification.length < 1) {
+    if ($exitNotificationModal.length < 1) {
       // Do not apply when not inside the voting pipeline
       return;
     }
@@ -44,7 +44,7 @@
 
       $exitLink.attr("href", url);
       $exitLink.html(exitLinkText);
-      $exitNotification.foundation("open");
+      $exitNotificationModal.open();
     };
 
     // Handle "beforeunload"

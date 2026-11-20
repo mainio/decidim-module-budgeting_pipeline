@@ -4,10 +4,6 @@ module Decidim
   module Budgets
     module Admin
       class ResultsExportsController < Admin::ApplicationController
-        def permission_class_chain
-          [Decidim::BudgetingPipeline::Admin::Permissions] + super
-        end
-
         def new
           enforce_permission_to :export_results, :budgets
 
@@ -31,6 +27,12 @@ module Decidim
               render action: "new"
             end
           end
+        end
+
+        private
+
+        def permission_class_chain
+          [Decidim::BudgetingPipeline::Admin::Permissions] + super
         end
       end
     end

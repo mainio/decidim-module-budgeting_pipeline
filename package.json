@@ -6,18 +6,14 @@
   "author": "Antti Hukkanen <antti.hukkanen@mainiotech.fi>",
   "license": "AGPL-3.0",
   "scripts": {
-    "lint": "eslint -c .eslintrc.json --ext .js,.js.es6 ."
+    "lint": "eslint -c .eslintrc.json --no-error-on-unmatched-pattern --ignore-pattern app/packs/vendor --ext .js app/packs"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.24.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-loader": "^4.0.2",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^4.3.1",
-    "eslint-plugin-standard": "^5.0.0"
+    "@decidim/dev": "^0.32.0",
+    "@decidim/eslint-config": "^0.32.0",
+    "glob": ">=10.5.0",
+    "eslint": "^8.7.0",
+    "eslint-config-prettier": "^8.2.0",
+    "linkify-it": ">=5.0.2"
   }
 }

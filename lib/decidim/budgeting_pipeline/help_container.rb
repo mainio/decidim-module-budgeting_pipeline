@@ -19,7 +19,7 @@ module Decidim
 
       def self.all
         @all ||= [:index, :pipeline].map do |key|
-          new(key: key)
+          new(key:)
         end
       end
     end

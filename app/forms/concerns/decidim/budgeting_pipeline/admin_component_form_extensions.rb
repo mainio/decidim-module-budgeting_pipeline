@@ -11,7 +11,7 @@ module Decidim
 
         def budget_voting_rule_minimum_value_setting
           return unless manifest&.name == :budgets
-          return unless settings.vote_rule_minimum_budget_projects_enabled
+          return unless settings.voting_rule == "minimum_projects"
 
           invalid_minimum_number = settings.vote_minimum_budget_projects_number.blank? || settings.vote_minimum_budget_projects_number.negative?
           settings.errors.add(:vote_minimum_budget_projects_number) if invalid_minimum_number

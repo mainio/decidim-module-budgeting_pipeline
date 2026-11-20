@@ -17,7 +17,7 @@ next_step = nil
           <% if step.done %>
             <%= voting_step_link(step) do %>
               <div class="step-selector-number">
-                <%= icon "check", role: "img", "aria-hidden": true %>
+                <%= icon "check-double-line", role: "img", "aria-hidden": true %>
                 <span class="show-for-sr"><%= index + 1 %></span>
               </div>
               <div class="step-selector-text"><%= t(".#{step.key}") %></div>
@@ -48,7 +48,7 @@ next_step = nil
       <% if prev_step %>
         <%= link_to prev_step.link, class: "tabs-stepper-navigation-link prev" do %>
           <span class="tabs-stepper-navigation-text">
-            <%= icon "chevron-left", role: "img", "aria-hidden": true %>
+            <%= icon "arrow-left-s-line", role: "img", "aria-hidden": true %>
             <%= t(".previous", name: t(".#{prev_step.key}")) %>
           </span>
         <% end %>
@@ -57,7 +57,7 @@ next_step = nil
         <%= link_to next_step.link, class: "tabs-stepper-navigation-link next" do %>
           <span class="tabs-stepper-navigation-text">
             <%= t(".next", name: t(".#{next_step.key}")) %>
-            <%= icon "chevron-right", role: "img", "aria-hidden": true %>
+            <%= icon "arrow-right-s-line", role: "img", "aria-hidden": true %>
           </span>
         <% end %>
       <% end %>

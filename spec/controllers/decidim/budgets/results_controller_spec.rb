@@ -2,11 +2,18 @@
 
 require "spec_helper"
 
-describe Decidim::Budgets::ResultsController, type: :controller do
+describe Decidim::Budgets::ResultsController do
   routes { Decidim::Budgets::Engine.routes }
 
   let(:user) { create(:user, :confirmed, organization: component.organization) }
   let(:component) { create(:budgeting_pipeline_component) }
+  let(:initiative_slug) { component.participatory_space.slug }
+  let(:base_params) do
+    {
+      component_id: component.id,
+      initiative_slug:
+    }
+  end
 
   before do
     request.env["decidim.current_organization"] = component.organization
@@ -22,7 +29,7 @@ describe Decidim::Budgets::ResultsController, type: :controller do
       end
 
       it "renders" do
-        get :show
+        get :show, params: base_params
 
         expect(response).to render_template("decidim/budgets/results/show")
       end
@@ -30,9 +37,9 @@ describe Decidim::Budgets::ResultsController, type: :controller do
 
     context "when show votes is disabled" do
       it "renders" do
-        get :show
+        get :show, params: base_params
 
-        expect(response).to redirect_to("/processes/#{component.participatory_space.slug}/f/#{component.id}/projects")
+        expect(response).to redirect_to("/en/processes/#{component.participatory_space.slug}/f/#{component.id}/projects")
       end
     end
   end

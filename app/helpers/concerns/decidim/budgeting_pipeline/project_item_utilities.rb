@@ -15,7 +15,16 @@ module Decidim
         # This method is also used in other parts of the application, the above
         # override is just an example.
         def voted_for?(project)
-          order = Decidim::Budgets::Order.find_by(user: current_user, budget: project.budget)
+          return false unless current_user
+
+          order =
+            if respond_to?(:controller) && controller.respond_to?(:current_orders, true)
+              controller.send(:current_orders).find { |o| o.decidim_budgets_budget_id == project.decidim_budgets_budget_id }
+            else
+              # Fallback when the cell is displayed outside of the projects
+              # page, e.g. on the front page carousel.
+              Decidim::Budgets::Order.find_by(user: current_user, budget: project.budget)
+            end
           return false unless order
 
           order.projects.include?(project)

@@ -1,6 +1,7 @@
-$(() => {
-  const { attachGeocoding } = window.Decidim;
+/* eslint-disable import/no-unresolved */
+import attachGeocoding from "src/decidim/geocoding/attach_input";
 
+$(() => {
   const $form = $("form.new_project, form.edit_project");
   if ($form.length < 1) {
     return;

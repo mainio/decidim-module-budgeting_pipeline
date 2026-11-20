@@ -1,13 +1,15 @@
 <% add_decidim_page_title(translated_attribute(current_component.name)) if try(:current_component) %>
 <% add_decidim_page_title(translated_attribute(current_participatory_space.title)) %>
 <% add_decidim_meta_tags(
-  image_url: current_participatory_space.attached_uploader(:banner_image).path,
+  image_url: current_participatory_space.attached_uploader(:banner_image).url,
   description: translated_attribute(current_participatory_space.short_description),
 ) %>
 
 <%= render "layouts/decidim/application" do %>
-  <%= yield :top if content_for?(:top) %>
-  <%= yield %>
+  <div class="wrapper">
+    <%= yield :top if content_for?(:top) %>
+    <%= yield %>
+  </div>
 
   <% if content_for? :expanded %>
     <div class="expanded">
@@ -20,4 +22,4 @@
   <% end %>
 <% end %>
 
-<% provide :meta_image_url, current_participatory_space.attached_uploader(:banner_image).path %>
+<% provide :meta_image_url, current_participatory_space.attached_uploader(:banner_image).url %>

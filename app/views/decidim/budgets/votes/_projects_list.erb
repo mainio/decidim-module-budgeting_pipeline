@@ -1,0 +1,112 @@
+<%
+order_full = false
+order_full = true if current_orders.first.projects_rule? && current_orders.all? { |o| o.unused_allocation < 1 }
+
+show_categories = params[:order] == "category"
+%>
+
+<% if projects.any? %>
+  <div class="projects-table" role="table" aria-label="<%= t(".list_label") %>" aria-describedby="projects_table_desc">
+    <div role="rowgroup">
+      <div class="projects-table__header" role="row">
+        <div class="projects-table__header__data" role="presentation">
+          <div class="projects-table__cell projects-table__cell--id" role="columnheader"><%== t(".headers.id") %></div>
+          <div class="projects-table__cell projects-table__cell--title" role="columnheader"><%== t(".headers.title") %></div>
+          <div class="projects-table__cell projects-table__cell--budget" role="columnheader"><%== t(".headers.budget") %></div>
+        </div>
+
+        <div class="projects-table__header__vote" role="columnheader"><%== t(".headers.vote") %></div>
+      </div>
+    </div>
+
+    <div class="projects-table__body" role="rowgroup">
+      <% prev_category = nil %>
+      <% projects.each do |project| %>
+        <% if show_categories && project.category != prev_category %>
+          <% if prev_category %>
+            <% # Close the previous rowgroup %>
+            </div><div class="projects-table__body" role="rowgroup">
+          <% end %>
+          <% prev_category = project.category %>
+          <div class="projects-table__body__subheader" role="row">
+            <div role="columnheader" scope="rowgroup">
+              <% if prev_category %>
+                <%= t(".subtitle_category", category: translated_attribute(prev_category.name)) %>
+              <% else %>
+                <%= t(".subtitle_category_missing") %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+
+        <% row_id = "project_table_row_#{project.id}" %>
+        <div class="projects-table__row" role="row" data-project-id="<%= project.id %>"<%= %( data-selected="true") if project_selected?(project) %>>
+          <div class="projects-table__row__header" role="presentation">
+            <div class="projects-table__row__data" role="presentation">
+              <div class="projects-table__cell projects-table__cell--id" role="cell"><%= project.id %></div>
+              <div class="projects-table__cell projects-table__cell--title" role="cell"><%= translated_attribute(project.title) %></div>
+
+              <div class="projects-table__cell projects-table__cell--budget" role="cell">
+                <span><%= budget_to_currency(project.budget_amount) %></span>
+
+                <div class="projects-table__row__icon">
+                  <button type="button" class="projects-table__row__button" aria-expanded="false" aria-controls="<%= row_id %>_details">
+                    <span class="show-for-sr"><%= t(".show_details", title: translated_attribute(project.title)) %></span>
+                    <%= icon("arrow-down-s-line", role: "img", "aria-hidden": true) %>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="projects-table__row__vote" role="cell" data-project-selector>
+              <div class="input-checkbox">
+                <input id="project_selector_<%= project.id %>"
+                  type="checkbox"
+                  name="projects[]"
+                  value="<%= project.id %>"
+                  data-select-url="<%= budget_order_line_item_path(project.decidim_budgets_budget_id, project_id: project.id, format: :js) %>"
+                  <%= "checked" if project_selected?(project) %>
+                  <%= "disabled" if order_full && !project_selected?(project) %>
+                >
+                <label for="project_selector_<%= project.id %>">
+                  <span class="show-for-sr"><%= t(".choose", title: translated_attribute(project.title)) %></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div id="<%= row_id %>_details" class="projects-table__row__details">
+            <div class="projects-table__row__main">
+              <% if (summary = translated_attribute(project.summary))&.strip.present? %>
+                <p class="h5"><%= t(".summary") %></p>
+                <p><%= translated_attribute(summary) %></p>
+              <% end %>
+              <p class="h5"><%= t(".description") %></p>
+              <%== decidim_sanitize(translated_attribute(project.description)) %>
+
+              <%= render partial: "project_linked_resources", locals: { resource: project, type: :plans, link_name: "included_plans" } %>
+            </div>
+            <div class="projects-table__row__side">
+              <div class="attributes">
+                <% if project.category.present? %>
+                  <div class="attributes__item">
+                    <div class="attributes__item__name"><%== t(".category") %></div>
+                    <div class="attributes__item__value"><%= translated_attribute(project.category.name) %></div>
+                  </div>
+                <% end %>
+                <div class="attributes__item">
+                  <div class="attributes__item__name"><%= t(".budget") %></div>
+                  <div class="attributes__item__value">
+                    <%= budget_to_currency(project.budget_amount) %>
+                  </div>
+                </div>
+              </div>
+              <div class="resource__note margin-top-2">
+                <%= t("decidim.budgets.projects.shared.project_note") %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

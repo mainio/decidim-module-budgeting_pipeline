@@ -1,0 +1,43 @@
+<%= decidim_modal id:"order-preview-modal" do %>
+  <div data-dialog-container>
+    <div><%= t(".title", service_name: current_organization.name) %></div>
+    <button class="close-button" data-close aria-label="<%= t("decidim.budgets.budget_information_modal.close_modal") %>" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+
+    <p><%= t(".lead") %></p>
+    <p><%= t(".selected_proposals") %></p>
+    <ul class="no-bullet with-icons">
+      <% current_orders.each do |order| %>
+        <% order.line_items.order_by_projects.each do |item| %>
+          <li>
+            <%= icon("checkbox-circle-line", role: "img", "aria-hidden": true) %>
+            <span><%= item.project.id %> <%= translated_attribute(item.project.title) %> (<%= budget_to_currency(item.project.budget_amount) %>)</span>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+    <div class="callout callout--plain warning margin-bottom-1">
+      <p><strong><%= t(".notice") %></strong></p>
+      <% if current_orders.any? { |o| o.unused_allocation > 0 } %>
+        <% if current_orders.first.projects_rule? %>
+          <p><%= t(".remaining.votes") %></p>
+        <% else %>
+          <p><%= t(".remaining.budget") %></p>
+        <% end %>
+      <% end %>
+    </div>
+    <p><%= t(".total_budget_html", amount: budget_to_currency(current_orders.sum(&:total_budget))) %></p>
+    <%= t(".notes_html") %>
+  </div>
+
+  <div data-dialog-actions>
+    <%= button_to vote_path, class: "button" do %>
+      <%= t(".buttons.vote") %>
+    <% end %>
+
+    <button type="button" class="button hollow" data-close>
+      <%= t(".buttons.cancel") %>
+    </button>
+  </div>
+<% end %>

@@ -8,6 +8,8 @@ module Decidim
         extend ActiveSupport::Concern
 
         included do
+          private
+
           def permission_class_chain
             [Decidim::BudgetingPipeline::Admin::Permissions] + super
           end

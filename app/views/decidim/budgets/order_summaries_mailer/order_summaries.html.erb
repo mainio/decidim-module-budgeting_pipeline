@@ -6,7 +6,7 @@
 <p><%= t(".votes_summary") %></p>
 
 <% @orders.each do |order| %>
-  <p><strong><%= translated_attribute(order.budget.title) %></strong></p>
+  <p><strong><%= decidim_sanitize(translated_attribute(order.budget.title)) %></strong></p>
   <% if order.projects.any? %>
     <p><%= t(".selected_projects") %></p>
     <ul>

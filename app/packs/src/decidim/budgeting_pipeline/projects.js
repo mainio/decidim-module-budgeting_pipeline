@@ -1,28 +1,133 @@
-import { unregisterCallback } from "src/decidim/history";
-import "src/decidim/budgeting_pipeline/exit_handler";
-
 ((exports) => {
-  const $ = exports.$; // eslint-disable-line id-length
   const Rails = exports.Rails;
 
-  $(() => {
-    const $form = $("form.new_filter");
+  const stickySummary = () => {
+    const ordersSummary = document.getElementById("orders-summary");
+    if (!ordersSummary) {
+      return;
+    }
 
-    $form.on("reset.budgets", () => {
-      // Give the browser a bit of time to clear the fields
-      setTimeout(() => {
-        Rails.fire($form[0], "submit");
-      }, 100);
+    const stickPosition = document.createElement("div");
+    const placeHolder = document.createElement("div");
+    stickPosition.style.position = "relative";
+    placeHolder.style.visibility = "hidden";
+    ordersSummary.parentElement.insertBefore(stickPosition, ordersSummary);
+    stickPosition.appendChild(placeHolder);
+
+    // placeHolder.style.height = `${ordersSummary.offsetHeight}px`;
+    // console.log(ordersSummary.offsetHeight);
+
+    document.addEventListener("scroll", () => {
+      if (window.scrollY > stickPosition.offsetTop) {
+        if (!ordersSummary.classList.contains("is-stuck")) {
+          placeHolder.style.height = `${ordersSummary.offsetHeight}px`;
+          ordersSummary.classList.add("is-stuck");
+        }
+      } else {
+        // eslint-disable-next-line no-lonely-if
+        if (ordersSummary.classList.contains("is-stuck")) {
+          ordersSummary.classList.remove("is-stuck");
+          placeHolder.style.height = 0;
+        }
+      }
+    });
+  };
+
+  const voteActionHandler = () => {
+    document.body.classList.add("loading");
+  };
+
+  window.updateBudget = () => {
+    const continueButton = document.getElementById("projects_continue_button")?.querySelector(".button");
+    if (continueButton) {
+      continueButton.addEventListener("click", voteActionHandler);
+    }
+
+    const continueButtonMobile = document.getElementById("projects_continue_button_mobile")?.querySelector(".button");
+    if (continueButtonMobile) {
+      continueButtonMobile.addEventListener("click", voteActionHandler);
+    }
+  };
+
+  const initializeFilters = () => {
+    document.querySelectorAll("[id^='additional_search_toggle']").forEach((toggleButton) => {
+      toggleButton.addEventListener("click", () => {
+        const typeSuffix = toggleButton.id.replace("additional_search_toggle", "");
+        const additionalSearch = document.getElementById(`additional_search${typeSuffix}`);
+        const closedLabel = document.getElementById(`additional_search_closed${typeSuffix}`);
+        const openLabel = document.getElementById(`additional_search_open${typeSuffix}`);
+
+        additionalSearch.classList.toggle("hidden");
+
+        closedLabel.classList.toggle("hidden");
+        openLabel.classList.toggle("hidden");
+
+        const isExpanded = toggleButton.getAttribute("aria-expanded") === "true";
+        toggleButton.setAttribute("aria-expanded", !isExpanded);
+      });
+    });
+  }
+
+  window.initializeProjects = () => {
+    const loadingProjects = [];
+    document.querySelectorAll("[data-project-selector] input[type='checkbox']").forEach((el) => {
+
+      el.addEventListener("change", () => {
+        let requestType = "DELETE";
+
+        if (el.checked) {
+          requestType = "POST";
+        }
+
+        loadingProjects.push(el.value);
+        document.body.classList.add("loading");
+        Rails.ajax({
+          url: el.dataset.selectUrl,
+          type: requestType,
+          success: () => {
+            loadingProjects.shift();
+            if (loadingProjects.length < 1) {
+              document.body.classList.remove("loading");
+            }
+          },
+          error: () => {
+            loadingProjects.shift();
+            if (loadingProjects.length < 1) {
+              document.body.classList.remove("loading");
+            }
+          }
+        });
+      });
     });
 
-    // Unregister the history callbacks for the filter forms because they cause
-    // the form to be sent when anchor links are clicked. This would cause the
-    // results to flash and also causes the screen reader to announce the number
-    // of results. They would also never trigger because the change events are
-    // disabled for all filter inputs.
-    $form.each((_i, el) => {
-      const $currentForm = $(el);
-      unregisterCallback(`filters-${$currentForm.attr("id")}`);
+    document.querySelectorAll(".projects-table__row").forEach((el) => {
+      const clickableArea = el.querySelector(".projects-table__row__data");
+      const button = clickableArea.querySelector(".projects-table__row__button")
+      const clickHandler = (ev) => {
+        ev.preventDefault();
+
+        if (el.dataset.showDetails) {
+          el.removeAttribute("data-show-details");
+          button.setAttribute("aria-expanded", false);
+        } else {
+          el.setAttribute("data-show-details", true);
+          button.setAttribute("aria-expanded", true);
+        }
+      }
+
+      clickableArea.addEventListener("click", clickHandler);
+
+      button.addEventListener("keydown", (ev) => {
+        if (ev.code === "Enter" || ev.code === "Space") {
+          // eslint-disable-next-line no-undef
+          buttonClickHandler(ev);
+        }
+      });
     });
-  });
+  };
+
+  initializeFilters();
+  stickySummary();
+  window.initializeProjects();
+  window.updateBudget();
 })(window);

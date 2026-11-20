@@ -1,16 +1,15 @@
-<div class="card with-overflow">
-  <div class="card-divider">
-    <h2 class="card-title flex--sbc">
+<% add_decidim_page_title(t("decidim.budgets.admin.helps.index.title")) %>
+<div class="card">
+  <div class="item_show__header">
+    <h1 class="item_show__header-title">
       <div>
         <%= link_to t("decidim.budgets.admin.helps.index.title"), helps_path %> &gt;
         <%= container.name%>
       </div>
-      <div class="flex--cc flex-gap--1">
-        <% if allowed_to? :export, :budget %>
-          <%= export_dropdown %>
-        <% end %>
+      <div class="flex items-center gap-x-4">
+        <%= export_dropdown if allowed_to? :export, :budget %>
         <div id="js-other-actions-wrapper">
-          <%= link_to t("actions.new", scope: "decidim.budgets", name: t("models.help_section.name", scope: "decidim.budgets.admin")), new_help_section_path, class: "button tiny button--title" if allowed_to? :create, :help_section %>
+          <%= link_to t("help_sections.new.title", scope: "decidim.budgets.admin", name: t("models.help_section.name", scope: "decidim.budgets.admin")), new_help_section_path, class: "button button__sm button__secondary" if allowed_to? :create, :help_section %>
         </div>
       </div>
     </h2>
@@ -37,15 +36,15 @@
               </td>
               <td class="table-list__actions">
                 <% if allowed_to? :update, :help_section, help_section: section %>
-                  <%= icon_link_to "pencil", edit_help_section_path(container.key, section), t("actions.edit", scope: "decidim.budgets"), class: "action-icon--edit" %>
+                  <%= icon_link_to "pencil-line", edit_help_section_path(container.key, section), t("actions.edit", scope: "decidim.budgets"), class: "action-icon--edit" %>
                 <% else %>
-                  <%= icon "pencil", class: "action-icon action-icon--disabled", role: "img", aria_label: t("actions.edit", scope: "decidim.budgets") %>
+                  <%= icon "pencil-line", class: "action-icon action-icon--disabled", role: "img", aria_label: t("actions.edit", scope: "decidim.budgets") %>
                 <% end %>
 
                 <% if allowed_to? :delete, :help_section, help_section: section %>
-                  <%= icon_link_to "circle-x", help_section_path(container.key, section), t("actions.destroy", scope: "decidim.budgets"), method: :delete, class: "action-icon--remove", data: { confirm: t("actions.confirm_destroy", scope: "decidim.budgets") } %>
+                  <%= icon_link_to "delete-bin-line", help_section_path(container.key, section), t("actions.destroy", scope: "decidim.budgets"), method: :delete, class: "action-icon--remove", data: { confirm: t("actions.confirm_destroy", scope: "decidim.budgets") } %>
                 <% else %>
-                  <%= icon "circle-x", class: "action-icon action-icon--disabled", role: "img", aria_label: t("actions.destroy", scope: "decidim.budgets") %>
+                  <%= icon "delete-bin-line", class: "action-icon action-icon--disabled", role: "img", aria_label: t("actions.destroy", scope: "decidim.budgets") %>
                 <% end %>
               </td>
             </tr>

@@ -78,13 +78,12 @@ module Decidim
         def result_attributes_from(original_project, weight: 0)
           {
             component: target_component,
-            scope: original_project.scope || original_project.budget.scope,
-            category: original_project.category,
+            taxonomizations: original_project.taxonomizations,
             title: sanitize_localized(original_project.title),
             description: original_project.description,
             progress: statuses.first&.progress || 0,
             status: statuses.first,
-            weight: weight
+            weight:
           }.merge(extra_result_attributes_from(original_project))
         end
 
@@ -108,8 +107,8 @@ module Decidim
             image = original_project&.main_image
             image ||= original_project.photos.first&.file
             if image
-              extra[:main_image] = image
-              extra[:list_image] = image
+              extra[:main_image] = image.blob
+              extra[:list_image] = image.blob
             end
           end
 

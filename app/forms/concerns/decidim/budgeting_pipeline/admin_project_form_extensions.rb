@@ -20,25 +20,35 @@ module Decidim
         alias_method :map_model_orig_budgeting_pipeline, :map_model unless method_defined?(:map_model_orig_budgeting_pipeline)
 
         translatable_attribute :summary, String
+        attribute :budget_amount_min, Integer
         attribute :address, String
         attribute :latitude, Float
         attribute :longitude, Float
         attribute :main_image, Decidim::Attributes::Blob
         attribute :remove_main_image, Decidim::AttributeObject::Model::Boolean, default: false
-        attribute :idea_ids, Array[Integer]
-        attribute :plan_ids, Array[Integer]
+        attribute :idea_ids, [Integer]
+        attribute :plan_ids, [Integer]
 
         alias_method :component, :current_component
 
         remove_budget_amount_validation!
 
         validates :budget_amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
+        validates :budget_amount_min, numericality: { greater_than_or_equal_to: 0 }, if: ->(form) { form.budget_amount_min.present? }
         validates :address, geocoding: true, if: ->(form) { form.has_address? && !form.geocoded? }
         validates :main_image, passthru: {
           to: Decidim::Budgets::Project,
           with: {
-            budget: ->(form) { form.budget },
-            component: ->(form) { form.current_component }
+            # When the image validations are done through the validation
+            # endpoint, the component is unknown and would cause the
+            # validations to fail because the component would not exist.
+            component: lambda do |form|
+              Decidim::Component.new(
+                participatory_space: Decidim::ParticipatoryProcess.new(
+                  organization: form.current_organization
+                )
+              )
+            end
           }
         }
 
@@ -68,16 +78,16 @@ module Decidim
         return [] unless defined?(Decidim::Ideas::Idea)
 
         @ideas ||= Decidim.find_resource_manifest(:ideas).try(:resource_scope, current_component)
-                       &.where(id: idea_ids)
-                       &.order(title: :asc)
+                          &.where(id: idea_ids)
+                          &.order(title: :asc)
       end
 
       def plans
         return [] unless defined?(Decidim::Plans::Plan)
 
         @plans ||= Decidim.find_resource_manifest(:plans).try(:resource_scope, current_component)
-                       &.where(id: plan_ids)
-                       &.order(title: :asc)
+                          &.where(id: plan_ids)
+                          &.order(title: :asc)
       end
     end
   end

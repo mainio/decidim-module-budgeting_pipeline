@@ -6,6 +6,7 @@ module Decidim
     module ProjectsHelperExtensions
       extend ActiveSupport::Concern
 
+      include ActiveSupport::NumberHelper
       include Decidim::BudgetingPipeline::TextUtilities
       include Decidim::MapHelper
 
@@ -23,7 +24,7 @@ module Decidim
             {
               id: data[0],
               title: data[1],
-              body: body,
+              body:,
               address: data[4],
               latitude: data[5],
               longitude: data[6],
@@ -33,18 +34,29 @@ module Decidim
         end
       end
 
+      def identity_providers
+        providers = Decidim::BudgetingPipeline.identity_providers
+        return providers unless providers.respond_to?(:call)
+
+        providers.call(current_organization)
+      end
+
+      def identity_provider_name(provider)
+        Decidim::BudgetingPipeline.identity_provider_name.call(provider)
+      end
+
       def landing_page_content
         translated_attribute(current_settings.landing_page_content).presence ||
           translated_attribute(component_settings.landing_page_content)
       end
 
-      def projects_map(geocoded_projects)
+      def projects_map(geocoded_projects, **options)
         map_options = { type: "projects", markers: geocoded_projects }
         map_center = component_settings.default_map_center_coordinates
         center_values = map_center.split(",").map(&:to_f) if map_center
         map_options[:center_coordinates] = center_values if center_values && center_values.length > 1
 
-        dynamic_map_for(map_options) do
+        dynamic_map_for(map_options.merge(options)) do
           yield
         end
       end
@@ -61,18 +73,6 @@ module Decidim
         end
       end
 
-      def filter_categories_values
-        organization = current_component.participatory_space.organization
-
-        sorted_main_categories = current_component.participatory_space.categories.first_class.includes(:subcategories).sort_by do |category|
-          [category.weight, translated_attribute(category.name, organization)]
-        end
-
-        sorted_main_categories.map do |category|
-          [translated_attribute(category.name, organization), category.id]
-        end
-      end
-
       def filter_activity_values
         [
           [t("decidim.budgets.projects.filters.activity_values.all"), "all"],
@@ -85,11 +85,11 @@ module Decidim
       end
 
       def display_status_filter?
-        voting_finished? && statuses_available?
+        voting_finished? && current_settings.show_selected_status?
       end
 
-      def display_category_filter?
-        current_component.categories.any?
+      def display_taxonomy_filter?(taxonomy_filter)
+        taxonomy_filter.filter_items.any?
       end
 
       def display_budget_amount_filters?
@@ -97,15 +97,14 @@ module Decidim
         max && max.positive?
       end
 
-      def category_image_path(category)
-        return unless category
-        return unless category.respond_to?(:category_image)
+      def taxonomy_image_path(project)
+        taxonomies = project.taxonomies
+        return unless taxonomies.any?
 
-        if cat.category_image && cat.category_image.attached?
-          category.attached_uploader(:category_image).path
-        elsif category.parent
-          category_image_path(category.parent)
-        end
+        taxonomy = taxonomies.find { |t| t.respond_to?(:taxonomy_image) && t.taxonomy_image&.attached? }
+        return unless taxonomy
+
+        taxonomy.attached_uploader(:taxonomy_image).variant_url(taxonomy_image_variant)
       end
 
       def project_map_link(resource, options = {})
@@ -117,12 +116,12 @@ module Decidim
         map_utility_static.link(
           latitude: resource.latitude,
           longitude: resource.longitude,
-          options: options
+          options:
         )
       end
 
       def share_image_url
-        return project.attached_uploader(:main_image).path if has_project_image?
+        return project.attached_uploader(:main_image).url if has_project_image?
 
         organization_share_image_url
       end
@@ -138,12 +137,20 @@ module Decidim
             scope_name: :homepage,
             manifest_name: :hero
           ).try(:images_container)
-          container.attached_uploader(:background_image).path if container && container.background_image && container.background_image.attached?
+          container.attached_uploader(:background_image).url if container && container.background_image && container.background_image.attached?
         end
       end
 
       def display_cart_button?
         controller.is_a?(Decidim::Budgets::VotesController)
+      end
+
+      def taxonomy_image_variant
+        :card
+      end
+
+      def project_taxonomy_names(project)
+        project.taxonomies.map { |taxonomy| decidim_escape_translated(taxonomy.name) }.join(", ")
       end
     end
   end

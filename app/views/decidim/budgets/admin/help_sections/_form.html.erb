@@ -1,27 +1,29 @@
-<div class="card">
-  <div class="card-divider">
-    <h2 class="card-title">
-      <div>
-        <%= link_to t("decidim.budgets.admin.helps.index.title"), helps_path %> &gt;
-        <%= link_to container.name, help_sections_path(container.key) %> &gt;
-        <%= title %>
+<div class="form__wrapper">
+  <div class="card pt-4">
+    <div class="card-section">
+      <div class="row column">
+        <%= form.translated :text_field, :title, autofocus: true %>
       </div>
-    </h2>
-  </div>
 
-  <div class="card-section">
-    <div class="row column">
-      <%= form.translated :text_field, :title, autofocus: true %>
+      <div class="row column">
+        <%= form.number_field :weight %>
+      </div>
 
-      <%= form.number_field :weight %>
+      <div class="row column">
+        <%= form.translated :editor, :description %>
+      </div>
 
-      <%= form.translated :editor, :description %>
+      <div class="row column">
+        <%= form.translated :text_field, :link_text %>
+      </div>
 
-      <%= form.translated :text_field, :link_text %>
+      <div class="row column">
+        <%= form.text_field :link %>
+      </div>
 
-      <%= form.text_field :link %>
-
-      <%= form.upload :image %>
+      <div class="row column">
+        <%= form.upload :image, button_class: "button button__sm button__transparent-secondary" %>
+      </div>
     </div>
   </div>
 </div>

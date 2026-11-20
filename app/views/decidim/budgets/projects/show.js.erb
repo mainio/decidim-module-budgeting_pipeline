@@ -1,10 +1,13 @@
-var modalId = "project-modal-<%= project.id %>";
-var $modal = $("#" + modalId);
+let $modal = $("#project-modal-<%= project.id %>");
+
 if ($modal.length < 1) {
   $modal = $('<%= j(render partial: "project_modal").strip.html_safe %>');
   $("body").append($modal);
 
-  $modal.foundation();
+  let dialog = new window.Decidim.Dialogs("#project-modal-<%= project.id %>");
+  $modal.data("projectDialog", dialog);
+
+  var dialogInstance = dialog;
 }
 
-$modal.foundation("open");
+dialogInstance.open();

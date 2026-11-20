@@ -12,6 +12,8 @@ module Decidim
       private
 
       def user_voted?
+        return false unless user_signed_in?
+
         current_workflow.voted.any?
       end
     end

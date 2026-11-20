@@ -2,14 +2,21 @@
 
 require "spec_helper"
 
-describe Decidim::Budgets::LineItemsController, type: :controller do
+describe Decidim::Budgets::LineItemsController do
   routes { Decidim::Budgets::Engine.routes }
 
   let(:user) { create(:user, :confirmed, organization: component.organization) }
-  let!(:budget) { create(:budgeting_pipeline_budget, component: component) }
+  let!(:budget) { create(:budgeting_pipeline_budget, component:) }
   let(:component) { create(:budgeting_pipeline_component) }
-
-  let(:project) { create(:budgeting_pipeline_project, budget: budget) }
+  let(:project) { create(:budgeting_pipeline_project, budget:) }
+  let(:budget_params) do
+    {
+      budget_id: budget.id,
+      project_id: project.id,
+      component_id: component.id,
+      initiative_slug: component.participatory_space.slug
+    }
+  end
 
   before do
     request.env["decidim.current_organization"] = component.organization
@@ -21,14 +28,14 @@ describe Decidim::Budgets::LineItemsController, type: :controller do
   describe "POST create" do
     shared_examples "creation error" do
       it "renders nothing with 422 status" do
-        post :create, params: { budget_id: budget.id, project_id: project.id }
+        post :create, params: budget_params
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response.body).to eq ""
       end
 
       it "renders the correct template for XHR request" do
-        post :create, format: :js, params: { budget_id: budget.id, project_id: project.id }
+        post :create, format: :js, params: budget_params
 
         expect(response).to render_template("decidim/budgets/line_items/update_budget_error")
       end
@@ -36,22 +43,21 @@ describe Decidim::Budgets::LineItemsController, type: :controller do
 
     shared_examples "vote not allowed" do
       it "redirects the user" do
-        post :create, params: { budget_id: budget.id, project_id: project.id }
+        post :create, params: budget_params
 
-        expect(response).to redirect_to("/")
+        expect(response).to redirect_to("/en")
       end
     end
 
     context "when everything is ok" do
       it "redirects the user back to the budgets path by default" do
-        post :create, params: { budget_id: budget.id, project_id: project.id }
+        post :create, params: budget_params
 
-        expect(response).to redirect_to("/processes/#{component.participatory_space.slug}/f/#{component.id}/budgets/#{budget.id}")
+        expect(response).to redirect_to("/en/processes/#{component.participatory_space.slug}/f/#{component.id}/budgets/#{budget.id}")
       end
 
       it "renders the correct template for XHR request" do
-        post :create, format: :js, params: { budget_id: budget.id, project_id: project.id }
-
+        post :create, format: :js, params: budget_params
         expect(response).to render_template("decidim/budgets/line_items/update_budget")
       end
     end
@@ -65,15 +71,15 @@ describe Decidim::Budgets::LineItemsController, type: :controller do
     end
 
     context "when no more allocation is available" do
-      let(:order) { create(:budgeting_pipeline_order, budget: budget, user: user) }
+      let(:order) { create(:budgeting_pipeline_order, budget:, user:) }
 
       before do
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
-        order.projects << create(:budgeting_pipeline_project, budget: budget, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
+        order.projects << create(:budgeting_pipeline_project, budget:, budget_amount: budget.total_budget)
         order.save!(validate: false)
       end
 
@@ -81,7 +87,7 @@ describe Decidim::Budgets::LineItemsController, type: :controller do
     end
 
     context "when the order is checked out" do
-      let(:order) { create(:budgeting_pipeline_order, budget: budget, user: user) }
+      let(:order) { create(:budgeting_pipeline_order, budget:, user:) }
 
       before do
         order.update!(checked_out_at: Time.current)

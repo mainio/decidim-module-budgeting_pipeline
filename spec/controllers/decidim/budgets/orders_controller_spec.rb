@@ -2,13 +2,20 @@
 
 require "spec_helper"
 
-describe Decidim::Budgets::OrdersController, type: :controller do
+describe Decidim::Budgets::OrdersController do
   routes { Decidim::Budgets::Engine.routes }
 
   let(:user) { create(:user, :confirmed, organization: component.organization) }
-  let!(:budget1) { create(:budgeting_pipeline_budget, component: component) }
-  let!(:budget2) { create(:budgeting_pipeline_budget, component: component) }
+  let!(:budget_one) { create(:budgeting_pipeline_budget, component:) }
+  let!(:budget_two) { create(:budgeting_pipeline_budget, component:) }
   let(:component) { create(:budgeting_pipeline_component) }
+  let(:initiative_slug) { component.participatory_space.slug }
+  let(:base_params) do
+    {
+      component_id: component.id,
+      initiative_slug:
+    }
+  end
 
   before do
     request.env["decidim.current_organization"] = component.organization
@@ -19,30 +26,30 @@ describe Decidim::Budgets::OrdersController, type: :controller do
 
   describe "GET index" do
     context "with checked out orders" do
-      let!(:vote) { create(:budgeting_pipeline_vote, order_count: 2, order_checked_out: true, user: user, component: component) }
+      let!(:vote) { create(:budgeting_pipeline_vote, order_count: 2, order_checked_out: true, user:, component:) }
 
       it "renders" do
-        get :index
+        get :index, params: base_params
 
         expect(response).to render_template("decidim/budgets/orders/index")
       end
     end
 
     context "with no checked out orders" do
-      let!(:vote) { create(:budgeting_pipeline_vote, order_count: 2, order_checked_out: false, user: user, component: component) }
+      let!(:vote) { create(:budgeting_pipeline_vote, order_count: 2, order_checked_out: false, user:, component:) }
 
       it "redirects" do
-        get :index
+        get :index, params: base_params
 
-        expect(response).to redirect_to("/processes/#{component.participatory_space.slug}/f/#{component.id}/projects")
+        expect(response).to redirect_to("/en/processes/#{component.participatory_space.slug}/f/#{component.id}/projects")
       end
     end
 
     context "with no orders" do
       it "redirects" do
-        get :index
+        get :index, params: base_params
 
-        expect(response).to redirect_to("/processes/#{component.participatory_space.slug}/f/#{component.id}/projects")
+        expect(response).to redirect_to("/en/processes/#{component.participatory_space.slug}/f/#{component.id}/projects")
       end
     end
   end

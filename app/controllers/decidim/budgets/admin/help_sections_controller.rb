@@ -9,18 +9,19 @@ module Decidim
 
         before_action :ensure_container!
 
-        def permission_class_chain
-          [Decidim::BudgetingPipeline::Admin::Permissions] + super
-        end
-
         def new
           enforce_permission_to :create, :help_section
           @form = form(HelpSectionForm).instance
         end
 
+        def edit
+          enforce_permission_to :update, :help_section, help_section: section
+          @form = form(HelpSectionForm).from_model(section)
+        end
+
         def create
           enforce_permission_to :create, :help_section
-          @form = form(HelpSectionForm).from_params(params, current_component: current_component)
+          @form = form(HelpSectionForm).from_params(params, current_component:)
 
           CreateHelpSection.call(@form, container) do
             on(:ok) do
@@ -35,14 +36,9 @@ module Decidim
           end
         end
 
-        def edit
-          enforce_permission_to :update, :help_section, help_section: section
-          @form = form(HelpSectionForm).from_model(section)
-        end
-
         def update
           enforce_permission_to :update, :help_section, help_section: section
-          @form = form(HelpSectionForm).from_params(params, current_component: current_component)
+          @form = form(HelpSectionForm).from_params(params, current_component:)
 
           UpdateHelpSection.call(@form, section) do
             on(:ok) do
@@ -75,13 +71,20 @@ module Decidim
 
         private
 
+        def permission_class_chain
+          [Decidim::BudgetingPipeline::Admin::Permissions] + super
+        end
+
         def ensure_container!
           raise ActionController::RoutingError, "Not Found" unless container
         end
 
+        # Disable linter since this class cannot be scoped with current_organization
+        # rubocop:disable Decidim/OrganizationScopedFinder
         def container
           @container ||= Decidim::BudgetingPipeline::HelpContainer.find(params[:help_key])
         end
+        # rubocop:enable Decidim/OrganizationScopedFinder
 
         def sections
           @sections ||= Decidim::Budgets::HelpSection.where(

@@ -1,38 +1,13 @@
-<div class="collection-sort-controls row small-up-1 medium-up-2 mediumlarge-up-3 card-grid">
-  <div class="column">
-    <%= order_selector available_orders, i18n_scope: "decidim.budgets.projects.orders" %>
-  </div>
-
-  <div class="column">
-    <%= render partial: "decidim/shared/results_per_page" %>
-  </div>
-
-  <% if display_cart_button? %>
-    <% cart_amount = current_orders.map { |o| o.line_items.count }.inject(0, :+) %>
-    <div class="column">
-      <div class="cart-button-wrapper">
-        <%= link_to "#orders", id: "cart-button", class: "button primary button--cart" do %>
-          <%= t(".show_orders") %>
-          <span class="amount" aria-label="<%= t(".order_items_amount", count: cart_amount) %>">(<%= cart_amount %>)</span>
-          <%= icon "arrow-bottom", role: "img", "aria-hidden": true %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-</div>
-
 <% if projects.any? %>
-  <div class="row small-up-1 medium-up-2 mediumlarge-up-3 card-grid">
+  <div class="cards-list">
     <%= render projects %>
   </div>
 
   <%= decidim_paginate projects, anchor: "projects-count" %>
 <% else %>
-  <div class="row">
-    <div class="columns mediumlarge-8 large-9">
-      <div class="static__content">
-        <p><%= t(".empty") %></p>
-      </div>
+  <div class="row columns">
+    <div class="static__content">
+      <p><%= t(".empty") %></p>
     </div>
   </div>
 <% end %>

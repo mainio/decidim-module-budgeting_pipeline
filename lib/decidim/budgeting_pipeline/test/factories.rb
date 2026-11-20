@@ -7,18 +7,14 @@ FactoryBot.define do
     transient do
       vote_rule_settings do
         {
-          vote_rule_threshold_percent_enabled: false,
+          voting_rule: "selected_projects",
           vote_threshold_percent: 70,
-          vote_rule_minimum_budget_projects_enabled: false,
           vote_minimum_budget_projects_number: 0,
-          vote_rule_selected_projects_enabled: true,
           vote_selected_projects_minimum: 0,
           vote_selected_projects_maximum: 5
         }
       end
 
-      vote_projects_per_page { 6 }
-      more_information_modal_label { generate_localized_title }
       geocoding_enabled { true }
       default_map_center_coordinates { "60.1674881,24.9427473" }
       vote_identify_page_content { Decidim::Faker::Localized.wrapped("<p>", "</p>") { generate_localized_title } }
@@ -35,19 +31,17 @@ FactoryBot.define do
     settings do
       vote_rule_settings.merge(
         # Pipeline settings
-        vote_projects_per_page: vote_projects_per_page,
-        more_information_modal_label: more_information_modal_label,
-        geocoding_enabled: geocoding_enabled,
-        default_map_center_coordinates: default_map_center_coordinates,
-        vote_identify_page_content: vote_identify_page_content,
-        vote_identify_page_more_information: vote_identify_page_more_information,
-        vote_identify_invalid_authorization_title: vote_identify_invalid_authorization_title,
-        vote_identify_invalid_authorization_content: vote_identify_invalid_authorization_content,
-        vote_budgets_page_content: vote_budgets_page_content,
-        vote_projects_page_content: vote_projects_page_content,
-        vote_preview_page_content: vote_preview_page_content,
-        vote_success_content: vote_success_content,
-        results_page_content: results_page_content
+        geocoding_enabled:,
+        default_map_center_coordinates:,
+        vote_identify_page_content:,
+        vote_identify_page_more_information:,
+        vote_identify_invalid_authorization_title:,
+        vote_identify_invalid_authorization_content:,
+        vote_budgets_page_content:,
+        vote_projects_page_content:,
+        vote_preview_page_content:,
+        vote_success_content:,
+        results_page_content:
       )
     end
   end
@@ -63,6 +57,7 @@ FactoryBot.define do
     address { "#{Faker::Address.street_address} #{Faker::Address.zip} #{Faker::Address.city}" }
     latitude { Faker::Address.latitude }
     longitude { Faker::Address.longitude }
+    budget_amount_min { Faker::Boolean.boolean ? Faker::Number.number(digits: 5) : nil }
     paper_orders_count { rand(0..10) }
   end
 
@@ -92,8 +87,11 @@ FactoryBot.define do
         budget = budgets[idx]
         budget ||= create(:budget, component: vote.component)
 
-        order = create(:order, budget: budget, user: vote.user)
-        order.update!(checked_out_at: Time.current) if evaluator.order_checked_out
+        order = create(:order, budget:, user: vote.user)
+        if evaluator.order_checked_out
+          order.projects << create(:project, budget:, budget_amount: budget.total_budget)
+          order.update!(checked_out_at: Time.current)
+        end
         vote.orders << order
       end
       vote.save!
@@ -101,6 +99,6 @@ FactoryBot.define do
   end
 
   factory :budgeting_pipeline_order, parent: :order do
-    vote { create(:budgeting_pipeline_vote, user: user, component: budget.component, order_checked_out: false) }
+    vote { create(:budgeting_pipeline_vote, user:, component: budget.component, order_checked_out: false) }
   end
 end
