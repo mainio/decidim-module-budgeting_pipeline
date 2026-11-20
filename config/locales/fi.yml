@@ -149,13 +149,7 @@ fi:
       project_l:
         more_info: Tutustu tähän ehdotukseen
         more_info_with_title: Tutustu ehdotukseen %{title}
-      project_l:
         card_label: "Ehdotus: %{title}"
-      project_m:
-        card_label: "Ehdotus: %{title}"
-        votes_amount:
-          one: "%{count} ääni"
-          other: "%{count} ääntä"
       projects:
         count:
           projects_count:
@@ -199,11 +193,8 @@ fi:
           show_list: Näytä tulokset listana
           show_map: Näytä tulokset kartalla
           start_voting: Siirry selaamaan ja äänestämään ehdotuksia
-          title: Ehdotukset
           view_project: Näytä ehdotus
           breadcrumb: Tutustu ehdotuksiin
-          show_list: Näytä tulokset listana
-          show_map: Näytä tulokset kartalla
           title: Tutustu ehdotuksiin
           view_project_detailed: "Näytä ehdotus: %{name}"
         map_template:
